@@ -267,37 +267,42 @@ function pp_package_purchase() {
 
 	// Set the curl parameters.
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $API_Endpoint);
-	curl_setopt($ch, CURLOPT_VERBOSE, 1);
+	//curl_setopt($ch, CURLOPT_URL, $API_Endpoint);
+	//curl_setopt($ch, CURLOPT_VERBOSE, 1);
 
 	// Turn off the server and peer verification (TrustManager Concept).
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+	//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+	//curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_POST, 1);
+	//curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	//curl_setopt($ch, CURLOPT_POST, 1);
 
 	// Set the API operation, version, and API signature in the request.
 	$nvpreq = "METHOD=DoDirectPayment&VERSION=$version&PWD=$API_Password&USER=$API_UserName&SIGNATURE=$API_Signature$nvpStr";
 
 	// Set the request as a POST FIELD for curl.
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $nvpreq);
+	//curl_setopt($ch, CURLOPT_POSTFIELDS, $nvpreq);
 	
+	/*
 	if(curl_errno($ch)) {
 	  $err = print_r(curl_getinfo($ch),1);
 	  $err .= "\nError No.:".curl_errno($ch);
 	  $err .= "\nError Description:".curl_error($ch);
 		error_log($err);
 	}
+	*/
 
 	// Get response from the server.
-	$httpResponse = curl_exec($ch);
+	//$httpResponse = curl_exec($ch);
 
+	/*
 	if(!$httpResponse) {
 		exit("$methodName_ failed: ".curl_error($ch).'('.curl_errno($ch).')');
 	}
+	*/
 
 	// Extract the response details.
+	/*
 	$httpResponseAr = explode("&", $httpResponse);
 
 	$httpParsedResponseAr = array();
@@ -311,10 +316,12 @@ function pp_package_purchase() {
 	if((0 == sizeof($httpParsedResponseAr)) || !array_key_exists('ACK', $httpParsedResponseAr)) {
 		exit("Invalid HTTP Response for POST request($nvpreq) to $API_Endpoint.");
 	}	
+	*/
 
-	if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"])) {
-		$transID = $httpParsedResponseAr['TRANSACTIONID'];
+	//if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"])) {
+		//$transID = $httpParsedResponseAr['TRANSACTIONID'];
 		
+		$transID = 0;
 		$uid = wp_get_current_user();
 		$userID = $uid->ID;
 		$name = $uid->user_login;
@@ -353,13 +360,14 @@ function pp_package_purchase() {
 		
 		//echo "Success";
 		error_log ('Direct Payment Completed Successfully: '.print_r($httpParsedResponseAr, true));
-	} else {
+	
+	/*} else {
 		
 		echo "Your payment did not go through. Please review all required fields to ensure accuracy. If you need help purchasing, call ForTwoPlease at 604.600.8441." ;
 		
 		error_log ($httpParsedResponseAr['TIMESTAMP']);
 		error_log ('DoDirectPayment failed: ' . print_r($httpParsedResponseAr, true));
-	}
+	}*/
 	
 	
 }
