@@ -45,7 +45,6 @@ function stripeResponseHandler(status, response)
    {  
       // Stripe.js generated a token successfully. We're ready to charge the card!
       var token = response.id;
-      var theID = postID;
       var firstName = $("#billing_fname").val();
       var lastName = $("#billing_lname").val();
       var email = $("#billing_email").val();
@@ -62,18 +61,18 @@ function stripeResponseHandler(status, response)
             "firstName" : firstName,
             "lastName" : lastName,
             "email" : email,
-            "price" : price,
-            "postID" : postID
+            "price" : price
             }
       });
  
-      request.done(function(msg)
+      request.success(function(msg)
       {
-      	 if (strpos(msg,'SUCCESS') !== false)
+      	 if (msg.result === 0)
          {
             // Customize this section to present a success message and display whatever
             // should be displayed to the user.
-            alert("The credit card was charged successfully!");
+            jQuery('#buy-process').html(msg.message).attr("style", "display:none; z-index: 100; position: absolute; background-color: #1a1a1a; overflow:hidden; margin-bottom:20px;");
+            jQuery("#buy-process").show();
          }
          else
          {
@@ -82,9 +81,9 @@ function stripeResponseHandler(status, response)
             // Customize this section to present an error explanation
             alert("The user's credit card failed.");
          }
-      });
+     });
  
-      request.fail(function(jqXHR, textStatus)
+      request.error(function(jqXHR, textStatus)
       {
          // We failed to make the AJAX call to pay.php. Something's wrong on our end.
          // This should not normally happen, but we need to handle it if it does.
@@ -288,7 +287,6 @@ if(typeof price !== 'undefined') {
 		//return false;
 
 		// Boom! We passed the basic validation, so request a token from Stripe:
-		var theID = postID;
 		var user_firstname = $("#first_name").val();
 		var user_lastname = $("#last_name").val();
 		var fName = $('#billing_fname').val();
