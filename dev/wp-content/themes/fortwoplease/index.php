@@ -26,6 +26,10 @@ if (document.referrer == "" || document.referrer.indexOf("fortwoplease") < 0) {
 		<div style="clear: both;"></div>
 	</div>
 </div>
-
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="/dev/js/f2p-main.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    Stripe.setPublishableKey('pk_test_h98nYuHxvZmSc56VzOTfsKzB');  // Test key!
+</script>
+
 <?php get_footer(); ?>

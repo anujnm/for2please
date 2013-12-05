@@ -32,6 +32,67 @@ function equalHeight () {
 	}
 }
 
+function stripeResponseHandler(status, response)
+{
+   if (response.error) 
+   {
+      // Stripe.js failed to generate a token. The error message will explain why.
+      // Usually, it's because the customer mistyped their card info.
+      // You should customize this to present the message in a pretty manner:
+      alert(response.error.message);
+   } 
+   else
+   {  
+      // Stripe.js generated a token successfully. We're ready to charge the card!
+      var token = response.id;
+      var theID = postID;
+      var firstName = $("#billing_fname").val();
+      var lastName = $("#billing_lname").val();
+      var email = $("#billing_email").val();
+      var price = $("#total_amount").html();
+ 
+      // Make the call to the server-script to process the order.
+      // Pass the token and non-sensitive form information.
+      var request = $.ajax ({
+         type: "POST",
+         url: "/dev/pay.php",
+         dataType: "json",
+         data: {
+            "stripeToken" : token,
+            "firstName" : firstName,
+            "lastName" : lastName,
+            "email" : email,
+            "price" : price,
+            "postID" : postID
+            }
+      });
+ 
+      request.done(function(msg)
+      {
+      	 if (strpos(msg,'SUCCESS') !== false)
+         {
+            // Customize this section to present a success message and display whatever
+            // should be displayed to the user.
+            alert("The credit card was charged successfully!");
+         }
+         else
+         {
+            // The card was NOT charged successfully, but we interfaced with Stripe
+            // just fine. There's likely an issue with the user's credit card.
+            // Customize this section to present an error explanation
+            alert("The user's credit card failed.");
+         }
+      });
+ 
+      request.fail(function(jqXHR, textStatus)
+      {
+         // We failed to make the AJAX call to pay.php. Something's wrong on our end.
+         // This should not normally happen, but we need to handle it if it does.
+         alert("Error: failed to call pay.php to process the transaction.");
+      });
+   }
+}
+
 jQuery(document).ready(function($) {
 	equalHeight();
 	
@@ -74,7 +135,7 @@ jQuery(document).ready(function($) {
 		jQuery('#price').html("Price: $" + price_t.toFixed(2));
 		jQuery('#taxes').html("Taxes: $" + taxe_t.toFixed(2));
 		jQuery('#fees').html("Fees: $" + fees_t.toFixed(2));
-		jQuery('#total_price').html("Total: $" + total_t.toFixed(2));
+		jQuery('#total_price').html("Total: $<span id='total_amount'>" + total_t.toFixed(2) + "</span>");
 		jQuery('#amount').val(total_t.toFixed(2));
 	}
 
@@ -205,25 +266,47 @@ if(typeof price !== 'undefined') {
 		jQuery('#price').html("Price: $" + price_t.toFixed(2));
 		jQuery('#taxes').html("Taxes: $" + taxe_t.toFixed(2));
 		jQuery('#fees').html("Fees: $" + fees_t.toFixed(2));
-		jQuery('#total_price').html("Total: $" + total_t.toFixed(2));
+		jQuery('#total_price').html("Total: $<span id='total_amount'>" + total_t.toFixed(2) + "</span>");
 		jQuery('#amount').val(total_t.toFixed(2));
 	});
 
 	jQuery('#buy-now').live("click",function(){
-		var input_data = jQuery('#buy_package_form').serialize();
-		var theID = theID;
-		jQuery.ajax({
-			type: "POST",
-			url: "/dev/wp-admin/admin-ajax.php",
-			data: "action=pp_action&" + input_data + "&theID=" + postID + "&postid=" + postID,
-			success: function(msg) {
-				if (msg.indexOf("payment did not go through") > 0)
-					alert(msg.substring(0,msg.length-1));
-				else
-					jQuery('#buy-process').html(msg).show();
-			}
-		});
+		
+		//var input_data = jQuery('#buy_package_form').serialize();
+		//var theID = theID;
+		//jQuery.ajax({
+		//	type: "POST",
+		//	url: "/dev/wp-admin/admin-ajax.php",
+		//	data: "action=pp_action&" + input_data + "&theID=" + postID + "&postid=" + postID,
+		//	success: function(msg) {
+		//		if (msg.indexOf("payment did not go through") > 0)
+		//			alert(msg.substring(0,msg.length-1));
+		//		else
+		//			jQuery('#buy-process').html(msg).show();
+		//	}
+		//});
+		//return false;
+
+		// Boom! We passed the basic validation, so request a token from Stripe:
+		var theID = postID;
+		var user_firstname = $("#first_name").val();
+		var user_lastname = $("#last_name").val();
+		var fName = $('#billing_fname').val();
+      	var lName = $('#billing_lname').val();
+      	var email = $('#billing_email').val();
+      	var cardNumber = $('#cnumber').val();
+      	var cardCVC = $('#csv').val();
+
+		Stripe.createToken({
+		   number: cardNumber,
+		   cvc: cardCVC,
+		   exp_month: $('#emonth').val(),
+		   exp_year: $('#eyear').val()
+		}, stripeResponseHandler);
+		 
+		// Prevent the default submit action on the form
 		return false;
+
 	});
 
 /*

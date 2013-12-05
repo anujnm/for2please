@@ -189,7 +189,6 @@ add_action('wp_ajax_searchbykeyword', 'search_by_keyword');//for users that are 
 
 
 
-
 /**
  * Send HTTP POST Request
  *
@@ -362,7 +361,6 @@ function pp_package_purchase() {
 		error_log ('Direct Payment Completed Successfully: '.print_r($httpParsedResponseAr, true));
 	
 	/*} else {
-		
 		echo "Your payment did not go through. Please review all required fields to ensure accuracy. If you need help purchasing, call ForTwoPlease at 604.600.8441." ;
 		
 		error_log ($httpParsedResponseAr['TIMESTAMP']);
@@ -373,14 +371,6 @@ function pp_package_purchase() {
 }
 add_action('wp_ajax_nopriv_pp_action', 'pp_package_purchase');
 add_action('wp_ajax_pp_action', 'pp_package_purchase');//for users that are not logged in.
-
-
-
-
-
-
-
-
 
 function implement_ajax() {		
 			//set POST variables

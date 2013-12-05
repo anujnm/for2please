@@ -153,7 +153,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 							<div id='price-detail' style='float:right;clear:both;height:60px; text-align:right;'>
 								<div id='taxes'>Taxes: $</div>
 								<div id='fees'>Fees: $</div>
-								<div id='total_price'>Total: $</div>
+								<div id='total_price'>Total: $<span id="billing_total"></span></div>
 								<input type="hidden" id="amount" name="amount" />
 							</div>
 							<div style='float:left;margin-left:110px;margin-bottom:10px;'>
@@ -162,19 +162,19 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 							<div style='clear:both;'>
 								<div style='padding-left:10px;height:30px;'>
 									First Name: 
-									<input type='text' id='fullname' style='float:right;height: 20px;' name="cardholder_fname" value="<?php echo $user_data['first_name'][0]; ?>"/>
+									<input type='text' id='billing_fname' style='float:right;height: 20px;' value="<?php echo $user_data['first_name'][0]; ?>"/>
 								</div>
 								<div style='padding-left:10px;height:30px;'>
 									Last Name: 
-									<input type='text' id='fullname' style='float:right;height: 20px;' name="cardholder_lname" value="<?php echo $user_data['last_name'][0]; ?>"/>
+									<input type='text' id='billing_lname' style='float:right;height: 20px;' value="<?php echo $user_data['last_name'][0]; ?>"/>
 								</div>
 								<div style='padding-left:10px;height:30px;'>
 									Card Number: 
-									<input type='text' id='cnumber' style='float:right;height: 20px;' name="card_number"/>
+									<input type='text' id='cnumber' style='float:right;height: 20px;'/>
 								</div>
 								<div style='padding-left:10px;height:30px;'>
 									Exp. Year:
-									<select style='float:right;background-color:#f2f2f2;'id='eyear' name="exp_year">
+									<select style='float:right;background-color:#f2f2f2;'id='eyear'>
 										<option value='2012'>2012</option>
 										<option value='2013'>2013</option>
 										<option value='2014'>2014</option>
@@ -187,7 +187,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								</div>
 								<div style='padding-left:10px;height:30px;'>
 									Exp. Month:
-									<select style='float:right;background-color:#f2f2f2;' id='emonth' name="exp_month">
+									<select style='float:right;background-color:#f2f2f2;' id='emonth'>
 										<option value='01'>01</option>
 										<option value='02'>02</option>
 										<option value='03'>03</option>
@@ -204,12 +204,13 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								</div>
 								<div style='padding-left:10px;height:30px;'>
 									Security Code: 
-									<input type='text' id='csv' style='float: right; height: 20px;' name="csv"/>
+									<input type='text' id='csv' style='float: right; height: 20px;'/>
 								</div>
 								<br/>
 								<div style="padding-left:10px; float:left;">
 									<img src="/dev/wp-content/themes/images/lock_icon.png" width="35" height="35" />
 								</div>
+								<input type="hidden" id="billing_email" value="wp_get_current_user()->user_email" />
 								<div style='height:30px; float:right;'>
 									<input style='float:right;clear:both;margin-bottom:10px;' type='submit' id='buy-now' name='submit' value='Checkout' class='f2p-button' />
 								</div>
