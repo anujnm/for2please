@@ -52,44 +52,75 @@ function stripeResponseHandler(status, response)
  
       // Make the call to the server-script to process the order.
       // Pass the token and non-sensitive form information.
-      var request = $.ajax ({
-         type: "POST",
-         url: "/dev/pay.php",
-         dataType: "json",
-         data: {
-            "stripeToken" : token,
-            "firstName" : firstName,
-            "lastName" : lastName,
-            "email" : email,
-            "price" : price
-            }
-      });
+      // var request = $.ajax ({
+      //    type: "POST",
+      //    url: "/dev/pay.php",
+      //    dataType: "json",
+      //    data: {
+      //       "stripeToken" : token,
+      //       "firstName" : firstName,
+      //       "lastName" : lastName,
+      //       "email" : email,
+      //       "price" : price
+      //       }
+      // });
+
+      	// var input_data = jQuery('#buy_package_form').serialize();
+    	var request = $.ajax({
+			type: "POST",
+			url: "/dev/wp-admin/admin-ajax.php",
+			dataType: "json",
+			data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&price="+price,
+			complete: stripeChargeComplete
+		//	success: function(msg) {
+		//		if (msg.indexOf("payment did not go through") > 0)
+		//			alert(msg.substring(0,msg.length-1));
+		//		else
+		//			jQuery('#buy-process').html(msg).show();
+		//	}
+		});
+
  
-      request.success(function(msg)
-      {
-      	 if (msg.result === 0)
-         {
-            // Customize this section to present a success message and display whatever
-            // should be displayed to the user.
-            jQuery('#buy-process').html(msg.message).attr("style", "display:none; z-index: 100; position: absolute; background-color: #1a1a1a; overflow:hidden; margin-bottom:20px;");
-            jQuery("#buy-process").show();
-         }
-         else
-         {
-            // The card was NOT charged successfully, but we interfaced with Stripe
-            // just fine. There's likely an issue with the user's credit card.
-            // Customize this section to present an error explanation
-            alert("The user's credit card failed.");
-         }
-     });
+     //  request.success(function(msg)
+     //  {
+     //  	 if (msg.result === 0)
+     //     {
+     //        // Customize this section to present a success message and display whatever
+     //        // should be displayed to the user.
+     //        jQuery('#buy-process').html(msg.message).attr("style", "display:none; z-index: 100; position: absolute; background-color: #1a1a1a; overflow:hidden; margin-bottom:20px;");
+     //        jQuery("#buy-process").show();
+     //     }
+     //     else
+     //     {
+     //        // The card was NOT charged successfully, but we interfaced with Stripe
+     //        // just fine. There's likely an issue with the user's credit card.
+     //        // Customize this section to present an error explanation
+     //        alert("The user's credit card failed.");
+     //     }
+     // });
  
-      request.error(function(jqXHR, textStatus)
-      {
-         // We failed to make the AJAX call to pay.php. Something's wrong on our end.
-         // This should not normally happen, but we need to handle it if it does.
-         alert("Error: failed to call pay.php to process the transaction.");
-      });
+     //  request.error(function(jqXHR, textStatus)
+     //  {
+     //     // We failed to make the AJAX call to pay.php. Something's wrong on our end.
+     //     // This should not normally happen, but we need to handle it if it does.
+     //     alert("Error: failed to call pay.php to process the transaction.");
+     //  });
    }
+}
+
+function stripeChargeComplete(xhr, status) {
+	
+	if (status === 'error' || !xhr.responseText) {
+		alert("The user's credit card failed.");
+	} else {
+		msg = JSON.parse(xhr.responseText);
+	    jQuery('#buy-process').html(msg.message).attr("style", "display:none; z-index: 100; position: absolute; background-color: #1a1a1a; overflow:hidden; margin-bottom:20px;");
+        jQuery("#buy-process").show();
+    }
+}
+
+function stripeChargeError(data) {
+    alert("Error: failed to call pay.php to process the transaction.");
 }
 
 jQuery(document).ready(function($) {

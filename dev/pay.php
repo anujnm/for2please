@@ -1,4 +1,5 @@
 <?php
+/*
 require_once('stripe-php-1.10.1/lib/Stripe.php');
 $trialAPIKey = "sk_test_2Dx34r6YqUHebwPHUEoqf1JC"; // These are the SECRET keys!
 $token = $_POST['stripeToken'];
@@ -34,4 +35,5 @@ catch (Exception $e)
 {
 	echo "payments aren't working yet.";
 }
+*/
 ?>
