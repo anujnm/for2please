@@ -371,11 +371,13 @@ function pp_action() {
 	//require_once('stripe-php-1.10.1/lib/Stripe.php');
 	$trialAPIKey = "sk_test_2Dx34r6YqUHebwPHUEoqf1JC"; // These are the SECRET keys!
 	$token = $_POST['stripeToken'];
+	$theID = $_POST['theID'];
 	$email = $_POST['email'];
 	$firstName = $_POST['firstName'];
 	$lastName = $_POST['lastName'];
 	$price = $_POST['price'];
 	$priceInCents = $price * 100; // Stripe requires the amount to be expressed in cents
+	$numberp = $_POST['quantity'];
 	Stripe::setApiKey($trialAPIKey);
 	try
 	{
@@ -387,14 +389,39 @@ function pp_action() {
 	    );
 
 		$transID = "0";
-		$pname = "this date package";
-		$bname = "For Two Please";
-		$phone = "604 600 8441";
+		$phone = get_field('phone_number',$theID);
+		$bname = get_field('business_name',$theID);
+		$pname = get_field('package_name',$theID);
 		$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-		//add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-		//wp_mail($email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$price.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
-		//<br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> or call us at <b>604.600.8441</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
-	    $message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$price.".</b></p><br/><p>Make your reservation now by calling <b>Anuj's Cool Business</b> at <b>604 441 2685</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/dev/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, 0000<b></b>.</p><br/><p>Have a great date!</p><br/><a href='/dev/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
+		add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
+		wp_mail($email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$price.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
+		<br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> or call us at <b>604.600.8441</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
+
+		// Add transaction meta data to usermeta table.
+	    $uid = wp_get_current_user();
+		$merchantuname = get_field('merchant_username',$theID);
+		$datename = get_field('sub_title',$theID);
+		date_default_timezone_set('Canada/Pacific');
+		$timestamp =  date("Y-m-d H:i:s");
+		$merchantname = intval($merchantuname);
+		for ($i = $numberp; $i > 0; $i--) {
+			$unique = uniqid();
+			add_user_meta($uid->ID,'purchased',$unique); 
+			add_user_meta($uid->ID,$unique.'_item',$datename);
+			add_user_meta($uid->ID,$unique.'_id',$theID); 
+			add_user_meta($uid->ID,$unique.'_np',$numberp);
+			add_user_meta($uid->ID,$unique.'_time',$timestamp);
+			add_user_meta($uid->ID,$unique.'_stat','notdone');
+			add_user_meta($uid->ID,$unique.'_for_fname', $firstName);
+			add_user_meta($uid->ID,$unique.'_for_lname', $lastName);
+			add_user_meta($merchantuname,$theID,$unique);
+			add_user_meta($merchantuname,$unique,$uid->ID); 
+			add_user_meta($merchantuname,$unique.'_d','notdone'); 
+			$summary = $timestamp. ' '. $price . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
+			add_user_meta(1,'sold',$summary);
+		}
+		
+		$message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$price.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/dev/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/dev/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
 	    $array = array('result' => 0, 'email' => "anuj.nm@gmail.com", 'price' => $price, 'message' => $message);
 	    echo json_encode($array);
 	}
