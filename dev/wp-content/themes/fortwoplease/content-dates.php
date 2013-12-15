@@ -156,8 +156,8 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								<div id='total_price'>Total: $<span id="billing_total"></span></div>
 								<input type="hidden" id="amount" name="amount" />
 							</div>
-							<div style='float:left;margin-left:110px;margin-bottom:10px;'>
-								<img src='/dev/wp-content/themes/images/payments1.png'></img>
+							<div style='float:left;margin-left:64px;margin-bottom:10px;'>
+								<img src='/dev/wp-content/themes/images/payments2.png'></img>
 							</div>
 							<div style='clear:both;'>
 								<div style='padding-left:10px;height:30px;'>
@@ -175,14 +175,14 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								<div style='padding-left:10px;height:30px;'>
 									Exp. Year:
 									<select style='float:right;background-color:#f2f2f2;'id='eyear'>
-										<option value='2012'>2012</option>
-										<option value='2013'>2013</option>
 										<option value='2014'>2014</option>
 										<option value='2015'>2015</option>
 										<option value='2016'>2016</option>
 										<option value='2017'>2017</option>
 										<option value='2018'>2018</option>
 										<option value='2019'>2019</option>
+										<option value='2019'>2020</option>
+										<option value='2019'>2021</option>
 									</select>
 								</div>
 								<div style='padding-left:10px;height:30px;'>
