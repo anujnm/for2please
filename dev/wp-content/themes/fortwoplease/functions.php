@@ -381,26 +381,34 @@ function pp_action() {
 	Stripe::setApiKey($trialAPIKey);
 	try
 	{
-		$charge = Stripe_Charge::create(array(
-	     "amount" => $priceInCents,
-	     "currency" => "usd",
-	     "card" => $token,
-	     "description" => $email)
-	    );
-
-		$transID = "0";
 		$phone = get_field('phone_number',$theID);
 		$bname = get_field('business_name',$theID);
 		$pname = get_field('package_name',$theID);
+		// Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server. 
+		$charge = Stripe_Charge::create(array(
+	     "amount" => $priceInCents,
+	     "currency" => "cad",
+	     "card" => $token,
+	     "description" => "Purchase of ".$pname." from ".$bname." by ".$email,
+		 //"metadata" => {"email":$email,
+			//			"purchase name": $pname,
+			//			"merchant name": $bname,
+			//			"merchant id": $theID,
+			//			"user id": $uid->ID
+			//			}
+
+	    ));
+
+		$transID = "0";
+		$uid = wp_get_current_user();
+		$merchantuname = get_field('merchant_username',$theID);
+		$datename = get_field('sub_title',$theID);
 		$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
 		add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 		wp_mail($email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$price.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
 		<br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> or call us at <b>604.600.8441</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
 
 		// Add transaction meta data to usermeta table.
-	    $uid = wp_get_current_user();
-		$merchantuname = get_field('merchant_username',$theID);
-		$datename = get_field('sub_title',$theID);
 		date_default_timezone_set('Canada/Pacific');
 		$timestamp =  date("Y-m-d H:i:s");
 		$merchantname = intval($merchantuname);
