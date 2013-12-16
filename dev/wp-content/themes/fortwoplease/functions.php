@@ -375,6 +375,8 @@ function pp_action() {
 	$email = $_POST['email'];
 	$firstName = $_POST['firstName'];
 	$lastName = $_POST['lastName'];
+	$redemptionFirstName = $_POST['redemptionFirstName'];
+	$redemptionLastName = $_POST['redemptionLastName'];
 	$price = $_POST['price'];
 	$priceInCents = $price * 100; // Stripe requires the amount to be expressed in cents
 	$numberp = $_POST['quantity'];
@@ -420,8 +422,8 @@ function pp_action() {
 			add_user_meta($uid->ID,$unique.'_np',$numberp);
 			add_user_meta($uid->ID,$unique.'_time',$timestamp);
 			add_user_meta($uid->ID,$unique.'_stat','notdone');
-			add_user_meta($uid->ID,$unique.'_for_fname', $firstName);
-			add_user_meta($uid->ID,$unique.'_for_lname', $lastName);
+			add_user_meta($uid->ID,$unique.'_for_fname', $redemptionFirstName);
+			add_user_meta($uid->ID,$unique.'_for_lname', $redemptionLastName);
 			add_user_meta($merchantuname,$theID,$unique);
 			add_user_meta($merchantuname,$unique,$uid->ID); 
 			add_user_meta($merchantuname,$unique.'_d','notdone'); 
