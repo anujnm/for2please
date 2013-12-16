@@ -381,66 +381,90 @@ function pp_action() {
 	$priceInCents = $price * 100; // Stripe requires the amount to be expressed in cents
 	$numberp = $_POST['quantity'];
 	Stripe::setApiKey($trialAPIKey);
-	try
-	{
-		$phone = get_field('phone_number',$theID);
-		$bname = get_field('business_name',$theID);
-		$pname = get_field('package_name',$theID);
-		$uid = wp_get_current_user();
-		// Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server. 
-		$charge = Stripe_Charge::create(array(
-	     "amount" => $priceInCents,
-	     "currency" => "cad",
-	     "card" => $token,
-	     "description" => "Purchase of ".$pname." from ".$bname." by ".$email,
-		 "metadata" => array("user id"=> $uid->ID,
-		 				"email"=>$email,
-						"purchase name"=> $pname,
-						"merchant name"=> $bname,
-						"merchant id"=> $theID
-						)
-
-	    ));
-
-		$transID = "0";
-		$merchantuname = get_field('merchant_username',$theID);
-		$datename = get_field('sub_title',$theID);
-		$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-		add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-		wp_mail($email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$price.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
-		<br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> or call us at <b>604.600.8441</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
-
-		// Add transaction meta data to usermeta table.
-		date_default_timezone_set('Canada/Pacific');
-		$timestamp =  date("Y-m-d H:i:s");
-		$merchantname = intval($merchantuname);
-		for ($i = $numberp; $i > 0; $i--) {
-			$unique = uniqid();
-			add_user_meta($uid->ID,'purchased',$unique); 
-			add_user_meta($uid->ID,$unique.'_item',$datename);
-			add_user_meta($uid->ID,$unique.'_id',$theID); 
-			add_user_meta($uid->ID,$unique.'_np',$numberp);
-			add_user_meta($uid->ID,$unique.'_time',$timestamp);
-			add_user_meta($uid->ID,$unique.'_stat','notdone');
-			add_user_meta($uid->ID,$unique.'_for_fname', $redemptionFirstName);
-			add_user_meta($uid->ID,$unique.'_for_lname', $redemptionLastName);
-			add_user_meta($merchantuname,$theID,$unique);
-			add_user_meta($merchantuname,$unique,$uid->ID); 
-			add_user_meta($merchantuname,$unique.'_d','notdone'); 
-			$summary = $timestamp. ' '. $price . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
-			add_user_meta(1,'sold',$summary);
+    try
+    {
+        $phone = get_field('phone_number',$theID);
+        $bname = get_field('business_name',$theID);
+        $pname = get_field('package_name',$theID);
+        $uid = wp_get_current_user();
+        if (!isset($token)) {
+			throw new Exception("Website Error: The Stripe token was not generated correctly or passed to the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
+		} 
+		if (!isset($email)) { 
+			throw new Exception("Website Error: The email address was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
 		}
-		
-		$message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$price.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/dev/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/dev/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
-	    $array = array('result' => 0, 'email' => "anuj.nm@gmail.com", 'price' => $price, 'message' => $message);
-	    echo json_encode($array);
-	}
-	catch (Exception $e) 
-	{
-		echo "payments aren't working yet.";
-	}
-	die();
-	
+		if (!isset($firstName)) { 
+			throw new Exception("Website Error: FirstName was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
+		}
+		if (!isset($lastName)) { 
+			throw new Exception("Website Error: LastName was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
+		}
+		if (!isset($priceInCents)) { 
+			throw new Exception("Website Error: Price was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
+		}
+		try {
+			// Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server. 
+			$charge = Stripe_Charge::create(array(
+             "amount" => $priceInCents,
+             "currency" => "cad",
+             "card" => $token,
+             "description" => "Purchase of ".$pname." from ".$bname." by ".$email,
+             "metadata" => array("user id"=> $uid->ID,
+                                 "email"=>$email,
+                                 "purchase name"=> $pname,
+                                 "merchant name"=> $bname,
+                                 "merchant id"=> $theID
+                                )
+
+            ));
+
+            $transID = "0";
+            $merchantuname = get_field('merchant_username',$theID);
+            $datename = get_field('sub_title',$theID);
+            $headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
+            add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
+            wp_mail($email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$price.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
+            <br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> or call us at <b>604.600.8441</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
+
+            // Add transaction meta data to usermeta table.
+            date_default_timezone_set('Canada/Pacific');
+            $timestamp =  date("Y-m-d H:i:s");
+            $merchantname = intval($merchantuname);
+            for ($i = $numberp; $i > 0; $i--) {
+                    $unique = uniqid();
+                    add_user_meta($uid->ID,'purchased',$unique); 
+                    add_user_meta($uid->ID,$unique.'_item',$datename);
+                    add_user_meta($uid->ID,$unique.'_id',$theID); 
+                    add_user_meta($uid->ID,$unique.'_np',$numberp);
+                    add_user_meta($uid->ID,$unique.'_time',$timestamp);
+                    add_user_meta($uid->ID,$unique.'_stat','notdone');
+                    add_user_meta($uid->ID,$unique.'_for_fname', $redemptionFirstName);
+                    add_user_meta($uid->ID,$unique.'_for_lname', $redemptionLastName);
+                    add_user_meta($merchantuname,$theID,$unique);
+                    add_user_meta($merchantuname,$unique,$uid->ID); 
+                    add_user_meta($merchantuname,$unique.'_d','notdone'); 
+                    $summary = $timestamp. ' '. $price . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
+                    add_user_meta(1,'sold',$summary);
+            }
+            
+            $message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$price.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/dev/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/dev/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
+            $array = array('result' => 0, 'email' => "anuj.nm@gmail.com", 'price' => $price, 'message' => $message);
+            echo json_encode($array);
+		}
+		catch (Stripe_Error $e) {
+			$message = $e->getMessage();
+			$array = array('result' => 1, 'message' => $message);
+			echo json_encode($array);
+		}
+    }
+    catch (Exception $e) 
+    {
+    	$message = $e->getMessage();
+    	$array = array('result' => 1, 'message' => $message);
+    	echo json_encode($array);
+    }
+
+	die();	
 }
 add_action('wp_ajax_nopriv_pp_action', 'pp_action');
 add_action('wp_ajax_pp_action', 'pp_action');//for users that are not logged in.
