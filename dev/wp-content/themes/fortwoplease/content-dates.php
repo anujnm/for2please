@@ -210,7 +210,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								<div style="padding-left:10px; float:left;">
 									<img src="/dev/wp-content/themes/images/lock_icon.png" width="35" height="35" />
 								</div>
-								<input type="hidden" id="billing_email" value="wp_get_current_user()->user_email" />
+								<input type="hidden" id="billing_email" value="<?php echo wp_get_current_user()->user_email?>" />
 								<div style='height:30px; float:right;'>
 									<input style='float:right;clear:both;margin-bottom:10px;' type='submit' id='buy-now' name='submit' value='Checkout' class='f2p-button' />
 								</div>
