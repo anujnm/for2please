@@ -384,23 +384,23 @@ function pp_action() {
 		$phone = get_field('phone_number',$theID);
 		$bname = get_field('business_name',$theID);
 		$pname = get_field('package_name',$theID);
+		$uid = wp_get_current_user();
 		// Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server. 
 		$charge = Stripe_Charge::create(array(
 	     "amount" => $priceInCents,
 	     "currency" => "cad",
 	     "card" => $token,
 	     "description" => "Purchase of ".$pname." from ".$bname." by ".$email,
-		 //"metadata" => {"email":$email,
-			//			"purchase name": $pname,
-			//			"merchant name": $bname,
-			//			"merchant id": $theID,
-			//			"user id": $uid->ID
-			//			}
+		 "metadata" => array("user id"=> $uid->ID,
+		 				"email"=>$email,
+						"purchase name"=> $pname,
+						"merchant name"=> $bname,
+						"merchant id"=> $theID
+						)
 
 	    ));
 
 		$transID = "0";
-		$uid = wp_get_current_user();
 		$merchantuname = get_field('merchant_username',$theID);
 		$datename = get_field('sub_title',$theID);
 		$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
