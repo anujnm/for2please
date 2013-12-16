@@ -45,6 +45,8 @@ function stripeResponseHandler(status, response)
    {  
       // Stripe.js generated a token successfully. We're ready to charge the card!
       var token = response.id;
+      var redemptionFirstName = $("first_name");
+      var redemptionLastName = $("last_name");
       var firstName = $("#billing_fname").val();
       var lastName = $("#billing_lname").val();
       var email = $("#billing_email").val();
@@ -71,7 +73,7 @@ function stripeResponseHandler(status, response)
 			type: "POST",
 			url: "/dev/wp-admin/admin-ajax.php",
 			dataType: "json",
-			data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&price="+price+"&quantity="+quantity+"&theID="+postID,
+			data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&price="+price+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName,
 			complete: stripeChargeComplete
 		//	success: function(msg) {
 		//		if (msg.indexOf("payment did not go through") > 0)
@@ -326,12 +328,14 @@ if(typeof price !== 'undefined') {
       	var email = $('#billing_email').val();
       	var cardNumber = $('#cnumber').val();
       	var cardCVC = $('#csv').val();
+      	
 
 		Stripe.createToken({
 		   number: cardNumber,
 		   cvc: cardCVC,
 		   exp_month: $('#emonth').val(),
-		   exp_year: $('#eyear').val()
+		   exp_year: $('#eyear').val(),
+		   name: (fName+ " " + lName).trim()
 		}, stripeResponseHandler);
 		 
 		// Prevent the default submit action on the form
