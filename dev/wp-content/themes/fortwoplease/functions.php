@@ -372,14 +372,14 @@ function pp_action() {
 	$trialAPIKey = "sk_test_2Dx34r6YqUHebwPHUEoqf1JC"; // These are the SECRET keys!
 	$token = $_POST['stripeToken'];
 	$theID = $_POST['theID'];
-	$email = $_POST['email'];
-	$firstName = $_POST['firstName'];
-	$lastName = $_POST['lastName'];
-	$redemptionFirstName = $_POST['redemptionFirstName'];
-	$redemptionLastName = $_POST['redemptionLastName'];
-	$price = $_POST['price'];
+	$email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+	$firstName = filter_var($_POST['firstName'], FILTER_SANITIZE_STRING);
+	$lastName = filter_var($_POST['lastName'], FILTER_SANITIZE_STRING);
+	$redemptionFirstName = filter_var($_POST['redemptionFirstName'], FILTER_SANITIZE_STRING);
+	$redemptionLastName = filter_var($_POST['redemptionLastName'], FILTER_SANITIZE_STRING);
+	$price = filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT);
 	$priceInCents = $price * 100; // Stripe requires the amount to be expressed in cents
-	$numberp = $_POST['quantity'];
+	$numberp = filter_var($_POST['quantity'], FILTER_SANITIZE_NUMBER_INT);
 	Stripe::setApiKey($trialAPIKey);
     try
     {
@@ -390,8 +390,8 @@ function pp_action() {
         if (!isset($token)) {
 			throw new Exception("Website Error: The Stripe token was not generated correctly or passed to the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
 		} 
-		if (!isset($email)) { 
-			throw new Exception("Website Error: The email address was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
+		if (!isset($email) && !filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+			throw new Exception("Please ensure you have a valid email address to process this transaction. Your card was not charged. ");
 		}
 		if (!isset($firstName)) { 
 			throw new Exception("Website Error: FirstName was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
@@ -401,6 +401,12 @@ function pp_action() {
 		}
 		if (!isset($priceInCents)) { 
 			throw new Exception("Website Error: Price was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
+		}
+		if (!isset($redemptionFirstName) && !isset($redemptionLastName)) {
+			throw new Exception("Please enter a valid name for the person who will be using the date package. ");
+		}
+		if (!isset($numberp) || $numberp<0 || $numberp > 4) {
+			throw new Exception("Please select a valid quantity. Transaction failed, your card was not charged. ");
 		}
 		try {
 			// Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server. 
