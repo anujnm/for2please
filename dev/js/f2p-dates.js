@@ -36,14 +36,12 @@ function stripeResponseHandler(status, response)
 {
    if (response.error) 
    {
-      // Stripe.js failed to generate a token. The error message will explain why.
-      // Usually, it's because the customer mistyped their card info.
-      // You should customize this to present the message in a pretty manner:
-      alert(response.error.message);
+      $("#payment-error").html(response.error.message).show();;
+      $("#buy-now").removeAttr("disabled");
    } 
    else
    {  
-      // Stripe.js generated a token successfully. We're ready to charge the card!
+      // Stripe.js generated a token successfully. The card can now be charged.
       var token = response.id;
       var redemptionFirstName = $("#first_name").val();
       var redemptionLastName = $("#last_name").val();
@@ -53,73 +51,36 @@ function stripeResponseHandler(status, response)
       var price = $("#total_amount").html();
       var quantity = $("#buy-quantity").val();
  
-      // Make the call to the server-script to process the order.
-      // Pass the token and non-sensitive form information.
-      // var request = $.ajax ({
-      //    type: "POST",
-      //    url: "/dev/pay.php",
-      //    dataType: "json",
-      //    data: {
-      //       "stripeToken" : token,
-      //       "firstName" : firstName,
-      //       "lastName" : lastName,
-      //       "email" : email,
-      //       "price" : price
-      //       }
-      // });
-
-      // var input_data = jQuery('#buy_package_form').serialize();
       var request = $.ajax({
 		type: "POST",
 		url: "/dev/wp-admin/admin-ajax.php",
 		dataType: "json",
 		data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&price="+price+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName
-		//complete: stripeChargeComplete
-		//	success: function(msg) {
-		//		if (msg.indexOf("payment did not go through") > 0)
-		//			alert(msg.substring(0,msg.length-1));
-		//		else
-		//			jQuery('#buy-process').html(msg).show();
-		//	}
 	});
 
  	request.success(function(msg)
 	{
       if (msg.result === 0)
       {
-        // Customize this section to present a success message and display whatever
-        // should be displayed to the user.
         jQuery('#buy-process').html(msg.message).attr("style", "display:none; z-index: 100; position: absolute; background-color: #1a1a1a; overflow:hidden; margin-bottom:20px;");
         jQuery("#buy-process").show();
       }
       else
       {
-        // The card was NOT charged successfully, but we interfaced with Stripe
-        // just fine. There's likely an issue with the user's credit card.
-        // Customize this section to present an error explanation
-        alert("The user's credit card failed." + msg.message);
+        if (msg.message !== null && msg.message !== undefined) {
+        	$("#payment-error").html(msg.message).show();;
+        }
       }
     });
 
     request.error(function(jqXHR, textStatus)
     {
-      // We failed to make the AJAX call to pay.php. Something's wrong on our end.
-      // This should not normally happen, but we need to handle it if it does.
-      alert("Error: failed to call pay.php to process the transaction.");
+    	$("#payment-error").html("Failed to complete request, your card was not charged").show();;
     });
+    $("#buy-now").removeAttr("disabled");
    }
 }
 
-// function stripeChargeComplete(xhr, status) {
-	
-// 	if (status === 'error' || !xhr.responseText) {
-// 		alert("The user's credit card failed.");
-// 	} else {
-// 		msg = JSON.parse(xhr.responseText);
-// 	    jQuery('#buy-process').html(msg.message).attr("style", "display:none; z-index: 100; position: absolute; background-color: #1a1a1a; overflow:hidden; margin-bottom:20px;");
-//         jQuery("#buy-process").show();
-//     }
-// }
 
 function stripeChargeError(data) {
     alert("Error: failed to call pay.php to process the transaction.");
@@ -319,6 +280,9 @@ if(typeof price !== 'undefined') {
 		//});
 		//return false;
 
+		// Disable button and remove errors.
+		$("#buy-now").attr("disabled", "disabled");
+		$("#payment-error").html("").hide();
 		// Boom! We passed the basic validation, so request a token from Stripe:
 		var user_firstname = $("#first_name").val();
 		var user_lastname = $("#last_name").val();
