@@ -38,6 +38,7 @@ function stripeResponseHandler(status, response)
    {
       $("#payment-error").html(response.error.message).show();;
       $("#buy-now").removeAttr("disabled");
+      $("#loading").hide();
    } 
    else
    {  
@@ -71,13 +72,16 @@ function stripeResponseHandler(status, response)
         	$("#payment-error").html(msg.message).show();;
         }
       }
+      $("#buy-now").removeAttr("disabled");
+      $("#loading").hide();
     });
 
     request.error(function(jqXHR, textStatus)
     {
     	$("#payment-error").html("Failed to complete request, your card was not charged").show();;
+    	$("#buy-now").removeAttr("disabled");
+    	$("#loading").hide();
     });
-    $("#buy-now").removeAttr("disabled");
    }
 }
 
@@ -282,6 +286,7 @@ if(typeof price !== 'undefined') {
 
 		// Disable button and remove errors.
 		$("#buy-now").attr("disabled", "disabled");
+		$("#loading").show();
 		$("#payment-error").html("").hide();
 		// Boom! We passed the basic validation, so request a token from Stripe:
 		var user_firstname = $("#first_name").val();
