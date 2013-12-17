@@ -160,10 +160,10 @@ $pdf->Ln(5);
 $pdf->WriteHTML("<b>Expires On: </b> $expiry_date[0]");
 $pdf->Ln(5);
 // $pdf->Cell(0, 5,'Expires On: ' . $expiry_date[0], 0, 1);
-if ($transID[0])
-	$pdf->WriteHTML("<b>Voucher Code: $transID[0]</b>");
-else
-	$pdf->WriteHTML("<b>Voucher Code: $guid</b>");
+//if ($transID[0])
+//	$pdf->WriteHTML("<b>Voucher Code: $transID[0]</b>");
+//else
+$pdf->WriteHTML("<b>Voucher Code: $guid</b>");
 $pdf->Ln(5);
 // $pdf->Cell(0, 5,'Voucher Code: '.$guid, 0, 1);
 $pdf->WriteHTML("<b>Price Paid: </b> $$price");
