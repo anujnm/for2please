@@ -418,7 +418,11 @@ function pp_action() {
 
             ));
 
-            $transID = "0";
+            if ($charge->paid != true) {
+            	throw new Exception("Error while processing charge. Please try again later. ");
+            }
+
+            $transID = $charge->id;
             $merchantuname = get_field('merchant_username',$theID);
             $datename = get_field('sub_title',$theID);
             $headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
@@ -440,6 +444,7 @@ function pp_action() {
                     add_user_meta($uid->ID,$unique.'_stat','notdone');
                     add_user_meta($uid->ID,$unique.'_for_fname', $redemptionFirstName);
                     add_user_meta($uid->ID,$unique.'_for_lname', $redemptionLastName);
+                    add_user_meta($uid->ID, $unique.'_transID', $transID);
                     add_user_meta($merchantuname,$theID,$unique);
                     add_user_meta($merchantuname,$unique,$uid->ID); 
                     add_user_meta($merchantuname,$unique.'_d','notdone'); 
