@@ -377,7 +377,7 @@ function pp_action() {
 	$lastName = filter_var($_POST['lastName'], FILTER_SANITIZE_STRING);
 	$redemptionFirstName = filter_var($_POST['redemptionFirstName'], FILTER_SANITIZE_STRING);
 	$redemptionLastName = filter_var($_POST['redemptionLastName'], FILTER_SANITIZE_STRING);
-	$price = filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_INT);
+	$price = filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$priceInCents = $price * 100; // Stripe requires the amount to be expressed in cents
 	$numberp = filter_var($_POST['quantity'], FILTER_SANITIZE_NUMBER_INT);
 	Stripe::setApiKey($trialAPIKey);
