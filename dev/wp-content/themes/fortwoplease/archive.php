@@ -22,7 +22,6 @@ get_header(); ?>
 		<h1 style="margin: -17px auto 20px auto; text-align:center; text-transform:uppercase; color: #f07422; background-color:white; width: 730px;"><?php echo single_cat_title(); ?> Date Ideas Around Vancouver</h1>
 	<?php }?>
 	<?php
-	<?php
 	if ( have_posts() ) : 
 		while ( have_posts() ) : the_post(); 
 			$itemPermalink = get_permalink($id);
