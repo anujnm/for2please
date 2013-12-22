@@ -427,13 +427,26 @@ function pp_action() {
             if ($charge->paid != true) {
             	throw new Exception("Error while processing charge. Please try again later. ");
             }
-
+            $voucherIDs = array();
+            $voucherString = "";
+            for ($i = $numberp; $i>0; $i--) {
+            	$unique = uniqid();
+            	$index = $numberp-$i;
+            	$voucherIDs[$index] = $unique;
+            	$voucherString = $voucherString.'<p style="margin:0;">'.($index+1).'. '.$unique.'</p>';
+            }
             $transID = $charge->id;
             $merchantuname = get_field('merchant_username',$theID);
             $datename = get_field('sub_title',$theID);
             $headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
             add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-            wp_mail($email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$price.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
+            $numberVouchers = "";
+            if ($numberp == 1) {
+            	$numberVouchers = $numberp." voucher";
+            } else {
+            	$numberVouchers = $numberp." vouchers";
+            }
+            wp_mail($email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$numberVouchers.' of '.$pname.' from '.$bname.' was successful!</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$price.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>Voucher IDs:</b></p><p style="margin:0;">'.$voucherString.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
             <br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> or call us at <b>604.600.8441</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
 
             // Add transaction meta data to usermeta table.
@@ -441,7 +454,7 @@ function pp_action() {
             $timestamp =  date("Y-m-d H:i:s");
             $merchantname = intval($merchantuname);
             for ($i = $numberp; $i > 0; $i--) {
-                    $unique = uniqid();
+                    $unique = $voucherIDs[$numberp-$i];
                     add_user_meta($uid->ID,'purchased',$unique); 
                     add_user_meta($uid->ID,$unique.'_item',$datename);
                     add_user_meta($uid->ID,$unique.'_id',$theID); 
