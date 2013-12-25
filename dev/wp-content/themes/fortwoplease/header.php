@@ -217,37 +217,20 @@
 	<div class="search_area">
 		<div class="category_box">
 			<ul class="categories">
-				<?php if ("packages" == $category) { ?>
-					<li><a href="/dev/date-type/packages/" class="package_selected">Date Packages</a></li>
-				<?php } else {?>
-					<li><a href="/dev/date-type/packages/" class="package">Date Packages</a></li>
-				<? } ?>
-				
-				<?php if ("restaurants" == $category) { ?>
-					<li><a href="/dev/date-type/restaurants/" class="selected">Dining</a></li>
-				<?php } else {?>
-					<li><a href="/dev/date-type/restaurants/">Dining</a></li>
-				<? } ?>
-				<?php if ("active" == $category) { ?>
-					<li><a href="/dev/date-type/active/" class="selected">Active</a></li>
-				<?php } else {?>
-					<li><a href="/dev/date-type/active/">Active</a></li>
-				<? } ?>
-				<?php if ("adventurous" == $category) { ?>
-					<li><a href="/dev/date-type/adventurous/" class="selected">Adventurous</a></li>
-				<?php } else {?>
-					<li><a href="/dev/date-type/adventurous/">Adventurous</a></li>
-				<? } ?>
-				<?php if ("getaways" == $category) { ?>
-					<li><a href="/dev/date-type/getaways/" class="selected">Getaways</a></li>
-				<?php } else {?>
-					<li><a href="/dev/date-type/getaways/">Getaways</a></li>
-				<? } ?>
-				<?php if ("entertainment" == $category) { ?>
-					<li><a href="/dev/date-type/entertainment/" class="selected">Entertainment</a></li>
-				<?php } else {?>
-					<li><a href="/dev/date-type/entertainment/">Entertainment</a></li>
-				<? } ?>
+				<div>
+					<ul id="nav-two" class="header-dropdown" style="float:left;">
+						<li>
+							<a id="downarrow2" style="float:left;" href="/dev/date-type/packages/">Date Package&nbsp;&nbsp;<img src="/dev/wp-content/themes/images/down-arrow.png" /></a>
+							<ul style="display: block;">
+								<li><a class="about" id="how_it_works" href="/dev/date-type/restaurants/">Dining</a></li>
+								<li><a class="about" id="perfectdate" href="/dev/date-type/active/">Active</a></li>
+								<li><a class="about" id="suggestadate"href="/dev/date-type/adventurous/">Adventurous</a></li>
+								<li><a class="about" id="contactus" href="/dev/date-type/getaways/">Getaways</a></li>
+								<li><a class="about" id="press" href="/dev/date-type/entertainment/">Entertainment</a></li>
+							</ul>
+						</li>			
+					</ul>
+				</div>
 				<div style="clear: both;"></div>
 			</ul>
 		</div>

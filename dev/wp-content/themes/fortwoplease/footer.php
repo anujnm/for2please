@@ -170,25 +170,38 @@ jQuery("#text-form").submit( function (e) {
 
 jQuery(document).ready(function(){
 	
-			jQuery("#nav-one li").hover(
-				function(){ jQuery("ul", this).fadeIn("fast"); }, 
-				function() { } 
-			);
-	  	if (document.all) {
-				jQuery("#nav-one li").hoverClass ("sfHover");
-			}
-	  });
+	jQuery("#nav-one li").hover(
+		function(){ 
+            jQuery("ul", this).fadeIn("fast"); 
+        }, 
+		function() { } 
+	);
+  	if (document.all) {
+		jQuery("#nav-one li").hoverClass ("sfHover");
+	}
+
+    jQuery("#nav-two li").hover(
+        function() { 
+            jQuery("ul", this).fadeIn("fast");
+        },
+        function() {}
+    );
+
+    if (document.all) {
+        jQuery("nav-two li").hoverClass("sfHover");
+    }
+});
 	  
-		jQuery.fn.hoverClass = function(c) {
-			return this.each(function(){
-				jQuery(this).hover( 
-					function() { jQuery(this).addClass(c);  },
-					function() { jQuery(this).removeClass(c); }
-				);
-			});
-		};	  
+jQuery.fn.hoverClass = function(c) {
+	return this.each(function(){
+		jQuery(this).hover( 
+			function() { jQuery(this).addClass(c);  },
+			function() { jQuery(this).removeClass(c); }
+		);
+	});
+};	  
 		
-		jQuery("#submit-login").click(function() {
+jQuery("#submit-login").click(function() {
 	
 	var input_data = jQuery('#wp_login_form_head').serialize();
 	jQuery.ajax({

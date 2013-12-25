@@ -227,6 +227,88 @@ div#word-on-street p{
   color: #E7722B;
 }
 
+/* HEADER DROP DOWN */
+.header-dropdown {
+    list-style: none;
+    margin: 0;
+    padding: 0;  
+    font-family: Ubuntu;
+    z-index: 120;
+    position: relative;
+}
+
+.header-dropdown ul {
+  list-style: none;
+  margin: 0;
+  width: 190px;
+  position: absolute;
+  top: -999em;
+  right: 30px;
+}
+
+.header-dropdown li {
+  border-left: 1px solid #000;
+  float: left;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.header-dropdown li a.about {
+  border-top: 2px solid #EC955D;
+}
+
+.header-dropdown li a, .header-dropdown li a:link, .header-dropdown li a:active, .header-dropdown li a:visited {
+  font: bold 1.22em/25px Ubuntu;
+  font-size: 14px;
+  color: #FFF;
+  display: block;
+  padding: 0 9px;
+  text-decoration: none;
+}
+
+.header-dropdown li a:hover{
+  background: #ccc;
+  color: #000;  
+
+}
+#nav-two li:hover a, 
+#nav-two li.sfHover a {
+  background: #ccc;
+  color: #000;
+}
+#nav-two li:hover ul a, 
+#nav-two li.sfHover ul a{
+  background: #E7722B;
+  color: white;
+}
+#nav-two li:hover ul a:hover, 
+#nav-two li.sfHover ul a:hover {
+  background: white;
+  color: #E7722B;
+}
+
+.header-dropdown li:hover ul,
+.header-dropdown li.sfHover ul {
+  top: 25px;
+}
+.header-dropdown ul li {
+  border: 0;
+  float: none;
+}
+.header-dropdown ul a {
+  /* border: 1px solid #000; */
+  border-bottom: 0;
+  padding-right: 20px;
+  width: 190px;
+  white-space: nowrap;
+}
+.header-dropdown ul a:hover {
+  background: white;
+  color: #E7722B;
+}
+
+
 #downarrow{
 background:#565656;
 }
@@ -234,6 +316,16 @@ background:#565656;
 background:#CCC;
 }
 #downarrow img {
+  vertical-align: middle;
+}
+
+#downarrow2 {
+
+}
+#downarrow2:hover{
+background:#CCC;
+}
+#downarrow2 img {
   vertical-align: middle;
 }
 

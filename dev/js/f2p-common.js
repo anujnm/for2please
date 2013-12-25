@@ -41,7 +41,14 @@ jQuery(document).ready(function(){
 				jQuery("#nav-one li").hoverClass ("sfHover");
 			}
 	  
-	  
+        jQuery("#nav-two li").hover(
+            function(){ jQuery("ul", this).fadeIn("fast"); }, 
+            function() { } 
+        );
+        if (document.all) {
+                jQuery("#nav-two li").hoverClass ("sfHover");
+        }
+
 		jQuery.fn.hoverClass = function(c) {
 			return this.each(function(){
 				jQuery(this).hover( 
