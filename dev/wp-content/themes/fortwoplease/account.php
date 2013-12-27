@@ -52,6 +52,8 @@ if(is_user_logged_in())
 					}
 					$total_packages_available ++;
 					echo $count;
+					$package_price = get_field('price',$values);
+					echo "</b><br/>Current Price:<b> ".money_format('$%i', $package_price);
 					$total_packages_sold += $count;
 					echo "</b><br/>";
 				?>
