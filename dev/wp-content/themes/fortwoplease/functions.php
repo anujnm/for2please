@@ -464,6 +464,7 @@ function pp_action() {
                     add_user_meta($uid->ID,$unique.'_for_fname', $redemptionFirstName);
                     add_user_meta($uid->ID,$unique.'_for_lname', $redemptionLastName);
                     add_user_meta($uid->ID, $unique.'_transID', $transID);
+                    add_user_meta($uid->ID, $unique.'_amount', $price);
                     add_user_meta($merchantuname,$theID,$unique);
                     add_user_meta($merchantuname,$unique,$uid->ID); 
                     add_user_meta($merchantuname,$unique.'_d','notdone'); 
