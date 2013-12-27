@@ -379,6 +379,7 @@ function pp_action() {
 	$redemptionLastName = filter_var($_POST['redemptionLastName'], FILTER_SANITIZE_STRING);
 	$price = filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$priceInCents = $price * 100; // Stripe requires the amount to be expressed in cents
+	$price_per_item = filter_var($_POST['pricePerItem'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$numberp = filter_var($_POST['quantity'], FILTER_SANITIZE_NUMBER_INT);
 	Stripe::setApiKey($trialAPIKey);
     try
@@ -464,7 +465,7 @@ function pp_action() {
                     add_user_meta($uid->ID,$unique.'_for_fname', $redemptionFirstName);
                     add_user_meta($uid->ID,$unique.'_for_lname', $redemptionLastName);
                     add_user_meta($uid->ID, $unique.'_transID', $transID);
-                    add_user_meta($uid->ID, $unique.'_amount', $price);
+                    add_user_meta($uid->ID, $unique.'_amount', $price_per_item);
                     add_user_meta($merchantuname,$theID,$unique);
                     add_user_meta($merchantuname,$unique,$uid->ID); 
                     add_user_meta($merchantuname,$unique.'_d','notdone'); 

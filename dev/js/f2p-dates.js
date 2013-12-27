@@ -49,6 +49,7 @@ function stripeResponseHandler(status, response)
       var firstName = $("#billing_fname").val();
       var lastName = $("#billing_lname").val();
       var email = $("#billing_email").val();
+      var pricePerItem = $("#price").text().substring(8);
       var price = $("#total_amount").html();
       var quantity = $("#buy-quantity").val();
  
@@ -56,7 +57,7 @@ function stripeResponseHandler(status, response)
 		type: "POST",
 		url: "/dev/wp-admin/admin-ajax.php",
 		dataType: "json",
-		data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&price="+price+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName
+		data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&price="+price+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName+"&pricePerItem="+pricePerItem
 	});
 
  	request.success(function(msg)
