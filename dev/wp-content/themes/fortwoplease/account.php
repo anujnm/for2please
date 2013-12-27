@@ -117,7 +117,7 @@ if(is_user_logged_in())
 											$table_content .= '<td>' . $user_info->first_name . "</td>";
 											$table_content .= '<td>' . $user_info->last_name . "</td>";
 										}
-										$table_content .= '<td class="f2p_id">' . $nums . "</td>";
+										$table_content .= '<td class="f2p_id">' . $numbers . "</td>";
 										$table_content .= '</tr>';
 										$has_data = true;
 									}
