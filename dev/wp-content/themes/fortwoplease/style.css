@@ -19,7 +19,7 @@ a:visited:hover {color:#26c3df;}
 }
 
 
-#preload{
+$preload{
 	display:none;
 }
 body {
@@ -330,7 +330,7 @@ background:#CCC;
 }
 
 #env-img{
-	background-color:#000;;
+	background-color:#000;
 	height:40px;
 	width: 65px;
 	margin-bottom: 10px; 
