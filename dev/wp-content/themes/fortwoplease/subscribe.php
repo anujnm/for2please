@@ -10,10 +10,27 @@ Template Name: subscribe
 <head>
 	<link rel="icon" type="image/png" href="/dev/wp-content/themes/images/favicon2c.png">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu" />
+	<script type="text/javascript">
+		// Add a script element as a child of the body
+		function downloadJSAtOnload() {
+			var element = document.createElement("script");
+			element.src = "/dev/js/googleanalyticscall.js";
+			document.body.appendChild(element);
+
+			var element2 = document.createElement("script");
+			element2.src = "/dev/js/jquery_cookie.js";
+			document.body.appendChild(element2);
+		}
+
+		// Check for browser support of event handling capability
+		if (window.addEventListener)
+			window.addEventListener("load", downloadJSAtOnload, false);
+		else if (window.attachEvent)
+			window.attachEvent("onload", downloadJSAtOnload);
+		else window.onload = downloadJSAtOnload;
+	</script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
-	<script src="/dev/js/googleanalyticscall.js" type="text/javascript"></script>
-	<script src="/dev/js/jquery_cookie.js"></script>
 	<style type="text/css">
 	body { margin: 0; background: #fff url('/dev/wp-content/themes/images/squeeze_page_bg_2.jpg') no-repeat !important; background-size: 100% !important; font-family: 'Ubuntu'; }
 	p { margin: 0; }
