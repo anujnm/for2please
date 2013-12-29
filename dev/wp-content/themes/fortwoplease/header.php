@@ -76,11 +76,34 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery.lightbox_me.js" type="text/javascript"></script>
-	<script src="/dev/js/jquery-ui.multidatespicker.js" type="text/javascript"></script>
-	<script src="/dev/js/sessionstorage.1.4.js" type="text/javascript"></script>
-	<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 	<script src="/dev/js/jquery_cookie.js"></script>
 	<script>
+		function downloadJSAtOnload() {
+			var element = document.createElement("script");
+			element.src = "/dev/js/jquery-ui.multidatespicker.js";
+			document.body.appendChild(element);
+
+			var element2 = document.createElement("script");
+			element2.src = "/dev/js/sessionstorage.1.4.js";
+			document.body.appendChild(element2);
+
+			var element3 = document.createElement("script");
+			element3.src = "//assets.pinterest.com/js/pinit.js";
+			document.body.appendChild(element3);
+
+			var element4 = document.createElement("script");
+			element4.src = "/dev/js/jquery_cookie.js";
+			document.body.appendChild(element4);
+
+		}
+
+		// Check for browser support of event handling capability
+		if (window.addEventListener)
+			window.addEventListener("load", downloadJSAtOnload, false);
+		else if (window.attachEvent)
+			window.attachEvent("onload", downloadJSAtOnload);
+		else window.onload = downloadJSAtOnload;
+
 		function getInternetExplorerVersion() {
 			var rv = -1; // Return value assumes failure.
 			if (navigator.appName == 'Microsoft Internet Explorer') {
