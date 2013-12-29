@@ -9,6 +9,8 @@ Template Name: subscribe
 
 <head>
 	<link rel="icon" type="image/png" href="/dev/wp-content/themes/images/favicon2c.png">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		// Add a script element as a child of the body
 		function downloadJSAtOnload() {
@@ -43,8 +45,6 @@ Template Name: subscribe
 			location.assign('<?php echo home_url(); ?>');
 		});
 	</script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 	<style type="text/css">
 	body { margin: 0; background: #fff url('/dev/wp-content/themes/images/squeeze_page_bg_2.jpg') no-repeat !important; background-size: 100% !important; font-family: 'Ubuntu'; }
 	p { margin: 0; }
