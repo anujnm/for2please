@@ -9,8 +9,6 @@ Template Name: subscribe
 
 <head>
 	<link rel="icon" type="image/png" href="/dev/wp-content/themes/images/favicon2c.png">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		// Add a script element as a child of the body
 		function downloadJSAtOnload() {
@@ -31,19 +29,6 @@ Template Name: subscribe
 			window.attachEvent("onload", downloadJSAtOnload);
 		else window.onload = downloadJSAtOnload;
 
-		/* Don't need Google Analytics on Dev */
-		jQuery(document).ready(function() {
-			jQuery("#login_box").load("/dev/join", function() {
-				jQuery(".skip").show();
-			});
-		});
-		
-		jQuery("#skip_link").click(function() {
-			var date = new Date();
-			date.setTime(date.getTime() + (60 * 60 * 1000));
-			$.cookie("squeeze_popup", "show", { expires: date, path: '/' });
-			location.assign('<?php echo home_url(); ?>');
-		});
 	</script>
 	<style type="text/css">
 	body { margin: 0; background: #fff url('/dev/wp-content/themes/images/squeeze_page_bg_2.jpg') no-repeat !important; background-size: 100% !important; font-family: 'Ubuntu'; }
@@ -76,7 +61,24 @@ Template Name: subscribe
 		<p style=" margin-top: 4px;"><a href="#" id="skip_link" style="font-size: 20px; font-weight: bold;">Just let me in!</a></p>
 	</div>
 </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+/* Don't need Google Analytics on Dev */
+		jQuery(document).ready(function() {
+			jQuery("#login_box").load("/dev/join", function() {
+				jQuery(".skip").show();
+			});
+		});
+		
+		jQuery("#skip_link").click(function() {
+			var date = new Date();
+			date.setTime(date.getTime() + (60 * 60 * 1000));
+			$.cookie("squeeze_popup", "show", { expires: date, path: '/' });
+			location.assign('<?php echo home_url(); ?>');
+		});
+</script>
 <?php
 
 //get_footer();
