@@ -297,6 +297,7 @@ jQuery(document).ready(function($) {
 	      	var email = $('#billing_email').val();
 	      	var cardNumber = $('#cnumber').val();
 	      	var cardCVC = $('#csv').val();
+	      	Stripe.setPublishableKey('pk_test_h98nYuHxvZmSc56VzOTfsKzB');
 	      	
 
 			Stripe.createToken({

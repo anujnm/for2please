@@ -1,6 +1,21 @@
 <link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_directory'); ?>/content-dates.css" />
-<script src="<?php echo home_url(); ?>/slider/galleria-1.2.6.js"></script>
+<script src="<?php echo home_url(); ?>/slider/galleria-1.2.6.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+	function downloadJSAtOnload() {
+		var element = document.createElement("script");
+		element.src = "/dev/js/f2p-dates.js";
+		document.body.appendChild(element);
+
+		var element2 = document.createElement("script");
+		element2.src = "https://js.stripe.com/v1/?ver=3.4.1";
+		document.body.appendChild(element2);
+	}
+
+	if (window.addEventListener)
+		window.addEventListener("load", downloadJSAtOnload, false);
+	else if (window.attachEvent)
+		window.attachEvent("onload", downloadJSAtOnload);
+	else window.onload = downloadJSAtOnload;
 <?php if(is_user_logged_in()) { ?>
 	var isUserLoggedIn = 0;
 <?php } else { ?>
@@ -19,7 +34,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 	var orderID = <?php echo get_current_user_id(); }?>;
 </script>
 
-<script src="/dev/js/f2p-dates.js" type="text/javascript" charset="utf-8"></script>
 <!-- <script src="https://maps.google.com/maps?file=api&v=2&key=AIzaSyDLEOimOjJBjY5kPHxkRcSAfihslNNOUAI&sensor=false" type="text/javascript"></script> -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 

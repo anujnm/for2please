@@ -71,12 +71,9 @@
 	<?php wp_head(); ?>
 	
 	<link rel="stylesheet" type="text/css" href="/dev/js/css/ui-darkness/jquery-ui-1.8.20.custom.css" />
-	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu" />
 	<link rel="stylesheet" href="/dev/js/dropkick.css" type="text/css" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
-	<script src="/dev/js/jquery.lightbox_me.js" type="text/javascript"></script>
-	<script src="/dev/js/jquery_cookie.js"></script>
 	<script>
 		function downloadJSAtOnload() {
 			var element = document.createElement("script");
@@ -94,6 +91,10 @@
 			var element4 = document.createElement("script");
 			element4.src = "/dev/js/jquery_cookie.js";
 			document.body.appendChild(element4);
+
+			var element5 = document.createElement("script");
+			element5.src = "/dev/js/jquery.lightbox_me.js";
+			document.body.appendChild(element5);
 
 		}
 
@@ -177,6 +178,14 @@
 			?>
 		 });
 	</script>
+	<style type="text/css">
+	@font-face {
+		font-family: 'Ubuntu';
+		font-style: normal;
+		font-weight: 400;
+		src: local('Ubuntu'), url(https://themes.googleusercontent.com/static/fonts/ubuntu/v4/vRvZYZlUaogOuHbBTT1SNevvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+	}
+	</style>
 </head>
 
 <body>
