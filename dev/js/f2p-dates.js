@@ -38,7 +38,8 @@ function stripeResponseHandler(status, response)
    {
       $("#payment-error").html(response.error.message).show();;
       $("#buy-now").removeAttr("disabled");
-      $("#loading").hide();
+      $("#overlay").css("visibility", "hidden");
+      $("#overlay-background").css("visibility", "hidden");
    } 
    else
    {  
@@ -74,14 +75,16 @@ function stripeResponseHandler(status, response)
         }
       }
       $("#buy-now").removeAttr("disabled");
-      $("#loading").hide();
+      $("#overlay").css("visibility", "hidden");
+      $("#overlay-background").css("visibility", "hidden");
     });
 
     request.error(function(jqXHR, textStatus)
     {
     	$("#payment-error").html("Failed to complete request, your card was not charged").show();;
     	$("#buy-now").removeAttr("disabled");
-    	$("#loading").hide();
+    	$("#overlay").css("visibility", "hidden");
+    	$("#overlay-background").css("visibility", "hidden");
     });
    }
 }
@@ -229,13 +232,17 @@ jQuery(document).ready(function($) {
 
 		jQuery("#buy-button").click(function() {
 			jQuery("#buy").hide();
-			jQuery("#loading").show();
+			$("#overlay").css("visibility", "visible");
+			$("#overlay-background").css("visibility", "visible");
+
 			if(isLoggedIn()==0) {
-				jQuery("#loading").hide();
+				$("#overlay").css("visibility", "hidden");
+				$("#overlay-background").css("visibility", "hidden");
 				jQuery("#buy-process").show();
 				return false;
 			} else {
-				jQuery("#loading").hide();
+				$("#overlay").css("visibility", "hidden");
+				$("#overlay-background").css("visibility", "hidden");
 				jQuery("#user-ajax-login").show();
 				return false;	
 			}
@@ -243,13 +250,17 @@ jQuery(document).ready(function($) {
 
 		jQuery("#price-descriptor").click(function(){	
 			jQuery("#buy-button").hide();
-			jQuery("#loading").show();
+			$("#overlay").css("visibility", "visible");
+			$("#overlay-background").css("visibility", "visible");
+
 			if(isLoggedIn()==0) {
-				jQuery("#loading").hide();
+				$("#overlay").css("visibility", "hidden");
+				$("#overlay-background").css("visibility", "hidden");
 				jQuery("#buy-process").show();
 				return false;
 			} else {
-				jQuery("#loading").hide();
+				$("#overlay").css("visibility", "hidden");
+				$("#overlay-background").css("visibility", "hidden");
 				jQuery("#user-ajax-login").show();
 				return false;
 			}
@@ -287,7 +298,8 @@ jQuery(document).ready(function($) {
 
 			// Disable button and remove errors.
 			$("#buy-now").attr("disabled", "disabled");
-			$("#loading").show();
+			$("#overlay").css("visibility", "visible");
+			$("#overlay-background").css("visibility", "visible");
 			$("#payment-error").html("").hide();
 			// Boom! We passed the basic validation, so request a token from Stripe:
 			var user_firstname = $("#first_name").val();

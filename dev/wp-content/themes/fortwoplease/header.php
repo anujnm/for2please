@@ -189,7 +189,13 @@
 </head>
 
 <body>
-
+<div id="overlay-background">
+</div>
+<div id="overlay">
+     <div>
+          <img src="/dev/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
+     </div>
+</div>
 <div id="brandingfortwo">
 	<img class="source-image" src="/dev/wp-content/themes/images/main-bckg2.jpg" alt="" />
 	<div id="header-content">
