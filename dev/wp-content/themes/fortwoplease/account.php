@@ -63,7 +63,7 @@ if(is_user_logged_in())
 					<p>Tick the box of each Date Package below when it gets redeemed.</p>
 					<p>You will be paid for each Date Package that is redeemed at your business on a monthly basis.</p>
 					<table class="merchant" border="0">
-						<tr class="header"><td style="width:20px;"></td><th>First Name</th><th>Last Name</th><th>Purchase Date</th><th class="f2p_id">Voucher ID</th></tr>
+						<tr class="header"><th>First Name</th><th>Last Name</th><th>Purchase Date</th><th class="f2p_id">Voucher ID</th><th>Mark As Redeemed</th></tr>
 						<?php
 						if(get_user_meta($current_user->ID, $values ,false)) {
 							foreach (get_user_meta($current_user->ID, $values ,false) as $index=>$numbers) {
@@ -72,9 +72,9 @@ if(is_user_logged_in())
 									if($done[0]=='notdone'){
 										$user_info = get_userdata($nums);
 										echo '<tr>';
-										echo '<td><input type="checkbox" class="checkbox" name="redeemed" value="';
-										echo $numbers.'_d';
-										echo '" /></td>';
+										//echo '<td><input type="checkbox" class="checkbox" name="redeemed" value="';
+										//echo $numbers.'_d';
+										//echo '" /></td>';
 										// echo '<td>Username: ' . $user_info->user_login . "</td>";$first_name = get_user_meta($user_info->ID, $numbers.'_for_fname');
 										$first_name = get_user_meta($user_info->ID, $numbers.'_for_fname');
 										$last_name = get_user_meta($user_info->ID, $numbers.'_for_lname');
@@ -88,6 +88,7 @@ if(is_user_logged_in())
 										$purchased_date = get_user_meta($user_info->ID, $numbers.'_time');
 										echo '<td>'.$purchased_date[0].'</td>';
 										echo '<td class="f2p_id">' . $numbers . "</td>";
+										echo '<td><input id="'.$numbers.'_d" type="button" value="Redeemed" class="f2p-button-redeemed"/></td>';
 										echo '</tr>';
 										
 										$item_price = get_user_meta($user_info->ID, $numbers.'_amount');
@@ -309,25 +310,19 @@ if(is_user_logged_in())
 
 <script type="text/javascript">
 jQuery(document).ready(function(jQuery) {
-	jQuery("input:checkbox").change(function() {
+
+	$(".f2p-button-redeemed").click(function() {
 		var confirmation = confirm("Are you sure?");
-		if (confirmation) {	
-			var uval = jQuery(this).val();
-			if(jQuery(this).attr('checked') == 'checked') {
-				var checked = 'checked';
-			} else {
-				var checked = 'notchecked';
-			}
+		var uval = $(this).attr('id');
+		if (confirmation) {
 			jQuery.ajax({
 				type: "POST",
 				url:  "/dev/wp-admin/admin-ajax.php",
-				data: "action=donedate&uniqueval="+uval+"&checked="+checked,
+				data: "action=donedate&uniqueval="+uval+"&checked=checked",
 				success: function(msg) {
 					setTimeout("location.reload(true);");
 				}
 			});
-		} else {
-			jQuery(this).attr("checked", false);
 		}
 	});
 	
