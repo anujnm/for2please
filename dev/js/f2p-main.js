@@ -2,7 +2,7 @@ var searchResults = new Array();
 var searchIndex = 15;
 
 jQuery(function() {
-	jQuery("#datepicker").multiDatesPicker();
+	//jQuery("#datepicker").multiDatesPicker();
 });
 
 jQuery("#testclick").click( function() {
