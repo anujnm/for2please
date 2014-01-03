@@ -50,9 +50,9 @@ function stripeResponseHandler(status, response)
       var firstName = $("#billing_fname").val();
       var lastName = $("#billing_lname").val();
       var email = $("#billing_email").val();
-      var pricePerItem = $("#price").text().substring(8);
-      var price = $("#total_amount").html();
       var quantity = $("#buy-quantity").val();
+      var pricePerItem = $("#price").text().substring(8)/quantity;
+      var price = $("#total_amount").html();
  
       var request = $.ajax({
 		type: "POST",
