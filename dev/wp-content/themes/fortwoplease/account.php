@@ -107,7 +107,7 @@ if(is_user_logged_in())
 					<p>Below are the Date Packages that have been redeemed by a ForTwoPlease member at your business.</p><br/>
 						<?php
 						//$table_content = '<table class="merchant" border="0"><tr class="header"><td style="width:20px;"></td><th>First Name</th><th>Last Name</th><th class="f2p_id">Voucher ID</th></tr>';
-						$table_content = '<table class="merchant" border="0"><tr class="header"><th>First Name</th><th>Last Name</th><th class="f2p_id">Voucher ID</th></tr>';
+						$table_content = '<table class="merchant" border="0"><tr class="header"><th>First Name</th><th>Last Name</th><th>Purchase Date</th><th class="f2p_id">Voucher ID</th></tr>';
 						if($what = get_user_meta($current_user->ID, $values ,false)) {
 							$has_data = false;
 							// $flag=0;
@@ -129,6 +129,8 @@ if(is_user_logged_in())
 											$table_content .= '<td>' . $user_info->first_name . "</td>";
 											$table_content .= '<td>' . $user_info->last_name . "</td>";
 										}
+										$purchased_date = get_user_meta($user_info->ID, $numbers.'_time');
+										$table_content .= '<td>'.$purchased_date[0].'</td>';
 										$table_content .= '<td class="f2p_id">' . $numbers . "</td>";
 										$table_content .= '</tr>';
 										$has_data = true;
