@@ -88,7 +88,7 @@ if(is_user_logged_in())
 										$purchased_date = get_user_meta($user_info->ID, $numbers.'_time');
 										echo '<td>'.$purchased_date[0].'</td>';
 										echo '<td class="f2p_id">' . $numbers . "</td>";
-										echo '<td><input id="'.$numbers.'_d" type="button" value="Redeemed" class="f2p-button-redeemed"/></td>';
+										echo '<td><input id="'.$numbers.'_d" type="button" value="Redeem" class="f2p-button-redeemed"/></td>';
 										echo '</tr>';
 										
 										$item_price = get_user_meta($user_info->ID, $numbers.'_amount');
