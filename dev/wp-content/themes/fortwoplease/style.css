@@ -461,7 +461,25 @@ background:#CCC;
   padding: 4px 16px;
   margin-left:20px;
 }
+
 .f2p-button-redeemed:hover {
+  background: #19bffc;
+  cursor:pointer;
+}
+
+.f2p-button-unredeem {
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  -webkit-border-radius: 8px;
+  border-radius: 12px;
+  border: solid #66CCFF 2px;
+  background: #29a8e0;
+  padding: 4px 16px;
+  margin-left:20px;
+}
+
+.f2p-button-unredeem:hover {
   background: #19bffc;
   cursor:pointer;
 }
