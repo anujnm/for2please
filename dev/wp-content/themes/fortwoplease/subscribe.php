@@ -8,6 +8,7 @@ Template Name: subscribe
 ?>
 
 <head>
+	<?php include_once("analyticstracking.php") ?>
 	<link rel="icon" type="image/png" href="/dev/wp-content/themes/images/favicon2c.png">
 	<script type="text/javascript">
 		// Add a script element as a child of the body

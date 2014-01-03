@@ -474,7 +474,10 @@ function pp_action() {
             }
             
             $message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$price.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/dev/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/dev/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
-            $array = array('result' => 0, 'email' => "anuj.nm@gmail.com", 'price' => $price, 'message' => $message);
+            $tax = $price - ($price_per_item * $numberp);
+            $ga_data = array('transID' => $transID, 'merchantName' => $bname, 'total' => $price, 'tax' => $tax, 'price_per_item' => $price_per_item, 'category' => '', 'productName' => $pname, 'quantity' => $numberp);
+
+            $array = array('result' => 0, 'email' => "anuj.nm@gmail.com", 'price' => $price, 'message' => $message, 'ga_data' => $ga_data);
             echo json_encode($array);
 		}
 		catch (Stripe_Error $e) {

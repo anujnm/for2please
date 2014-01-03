@@ -22,6 +22,7 @@
 <html <?php language_attributes(); ?> xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:fb="http://ogp.me/ns/fb#">
 <!--<![endif]-->
 <head>
+	<?php include_once("analyticstracking.php") ?>
 	<link rel="icon" type="image/png" href="/dev/wp-content/themes/images/favicon2c.png">
 	
 	<?php
@@ -73,6 +74,7 @@
 	<link rel="stylesheet" type="text/css" href="/dev/js/css/ui-darkness/jquery-ui-1.8.20.custom.css" />
 	<link rel="stylesheet" href="/dev/js/dropkick.css" type="text/css" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	<script src="/dev/js/jquery_cookie.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 	<script>
 		function downloadJSAtOnload() {
@@ -88,9 +90,9 @@
 			element3.src = "//assets.pinterest.com/js/pinit.js";
 			document.body.appendChild(element3);
 
-			var element4 = document.createElement("script");
-			element4.src = "/dev/js/jquery_cookie.js";
-			document.body.appendChild(element4);
+			//var element4 = document.createElement("script");
+			//element4.src = "/dev/js/jquery_cookie.js";
+			//document.body.appendChild(element4);
 
 			var element5 = document.createElement("script");
 			element5.src = "/dev/js/jquery.lightbox_me.js";

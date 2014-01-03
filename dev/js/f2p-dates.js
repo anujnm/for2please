@@ -67,6 +67,10 @@ function stripeResponseHandler(status, response)
       {
         jQuery('#buy-process').html(msg.message).attr("style", "display:none; z-index: 100; position: absolute; background-color: #1a1a1a; overflow:hidden; margin-bottom:20px;");
         jQuery("#buy-process").show();
+        var ga_data = msg.ga_data;
+        GAAddTransaction(ga_data.transID, ga_data.merchantName, ga_data.total, ga_data.tax);
+        GAAddItem(ga_data.transID, ga_data.productName, ga_data.category, ga_data.price_per_item, ga_data.quantity);
+        ga('ecommerce:send');
       }
       else
       {
@@ -89,10 +93,27 @@ function stripeResponseHandler(status, response)
    }
 }
 
-
-function stripeChargeError(data) {
-    alert("Error: failed to call pay.php to process the transaction.");
+function GAAddTransaction(transID, merchantName, revenue, tax) {
+	ga('ecommerce:addTransaction', {
+		'id': transID,                     // Transaction ID. Required.
+		'affiliation': merchantName,   // Affiliation or store name.
+		'revenue': '' + revenue,               // Grand Total.
+		'shipping': '0',                  // Shipping.
+		'tax': '' + tax                     // Tax.
+	});
 }
+
+function GAAddItem(transID, productName, category, price, quantity) {
+	ga('ecommerce:addItem', {
+		'id': transID,                     // Transaction ID. Required.
+		'name': productName,    // Product name. Required.
+		'sku': '',                 // SKU/code.
+		'category': category,         // Category or variation.
+		'price': '' + price,                 // Unit price.
+		'quantity': '' + quantity                   // Quantity.
+	});
+}
+
 
 jQuery(document).ready(function($) {
 	equalHeight();
