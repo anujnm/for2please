@@ -115,7 +115,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								<div class="questions">
 									<div class="title">Questions?</div>
 									<div class="sub_title">We're here to help.</div>
-									<div class="phone">Call us: 604.600.8441</div>
 									<div class="email">
 										<p><b>Email us:</b> <a href="mailto:support@fortwoplease.com?Subject=ForTwoPlease Support">Support@ForTwoPlease.com</a></p>
 										<p><a href="/dev/policies/">Refund Policy</a></p>
@@ -246,7 +245,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								<div class="questions">
 									<div class="title">Questions?</div>
 									<div class="sub_title">We're here to help.</div>
-									<div class="phone">Call us: 604.600.8441</div>
 									<div class="email">
 										<p><b>Email us:</b> <a href="mailto:support@fortwoplease.com?Subject=ForTwoPlease Support">Support@ForTwoPlease.com</a></p>
 										<p><a href="/dev/policies/">Refund Policy</a></p>

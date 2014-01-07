@@ -214,10 +214,10 @@ $pdf->Ln(2);
 $pdf->SetFont('Helvetica','BI',12);
 $pdf->WriteHTML("Need some help?");
 $pdf->SetFont('Helvetica','',10);
-$pdf->WriteHTML("  Email us at support@fortwoplease.com or call us anytime 604.600.8441.");
+$pdf->WriteHTML("  Email us at support@fortwoplease.com.");
 // $pdf->Cell(0,6,'Need some help?',0,1);
 // $pdf->SetFont('Helvetica','',10);
-// $pdf->Cell(0,6,'Email us at support@fortwoplease.com or call us anytime 604.600.8441.',0,1);
+// $pdf->Cell(0,6,'Email us at support@fortwoplease.com.',0,1);
 
 
 $pdf->Ln(8);

@@ -163,7 +163,7 @@ if(is_user_logged_in())
 			?>
 			<div style="float:left; wdith:640px; padding: 20px 0 20px 20px;" id="date-holder">
 				<b style='font-size:155%;'>Need help with a Date Package you purchased?</b>
-				<p>Email or call us anytime at <a href="mailto:support@fortwoplease.com">support@fortwoplease.com</a> or 604.600.8441.</p>
+				<p>Email us anytime at <a href="mailto:support@fortwoplease.com">support@fortwoplease.com</a>.</p>
 				<br/>
 				<h1 style='color:#1596d0; font-weight: normal;'>MY PURCHASED DATE PACKAGES</h1><br/>
 				<?php  
@@ -293,12 +293,6 @@ if(is_user_logged_in())
 			</div>
 			<?php
 			}?>
-			
-			
-
-			<div style="margin: 50px 40px; ">
-				<h3 style="color:#1596d0;">Questions? 604.600.8441</h3>
-			</div>
 		</div>
 	</div>
 	
