@@ -257,20 +257,20 @@
 	<div class="search_area">
 		<div class="category_box">
 			<ul class="categories">
-				<div>
-					<ul id="nav-two" class="header-dropdown" style="float:left;">
-						<li>
-							<a id="downarrow2" style="float:left;" href="/dev/date-type/packages/">Date Package&nbsp;&nbsp;<img src="/dev/wp-content/themes/images/down-arrow.png" /></a>
-							<ul style="display: block;">
-								<li><a class="about" id="how_it_works" href="/dev/date-type/restaurants/">Dining</a></li>
-								<li><a class="about" id="perfectdate" href="/dev/date-type/active/">Active</a></li>
-								<li><a class="about" id="suggestadate"href="/dev/date-type/adventurous/">Adventurous</a></li>
-								<li><a class="about" id="contactus" href="/dev/date-type/getaways/">Getaways</a></li>
-								<li><a class="about" id="press" href="/dev/date-type/entertainment/">Entertainment</a></li>
-							</ul>
-						</li>			
-					</ul>
-				</div>
+				<li style="margin: 3px 13px 0 13px;"><a href="/dev/date-type/packages/">Date Packages</a></li>
+				<ul id="nav-two" class="header-dropdown" style="float:left;">
+					<li>
+						<a id="downarrow2" style="float:left;" href="#">Date Ideas&nbsp;&nbsp;<img src="/dev/wp-content/themes/images/down-arrow.png" /></a>
+						<ul style="display: block;">
+							<li><a class="about" id="how_it_works" href="/dev/date-type/restaurants/">Dining</a></li>
+							<li><a class="about" id="perfectdate" href="/dev/date-type/active/">Active</a></li>
+							<li><a class="about" id="suggestadate"href="/dev/date-type/adventurous/">Adventurous</a></li>
+							<li><a class="about" id="contactus" href="/dev/date-type/getaways/">Getaways</a></li>
+							<li><a class="about" id="press" href="/dev/date-type/entertainment/">Entertainment</a></li>
+						</ul>
+					</li>			
+				</ul>
+				
 				<div style="clear: both;"></div>
 			</ul>
 		</div>
