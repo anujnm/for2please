@@ -24,56 +24,112 @@ function reporting_system() {
 }
 
 function package_report_page() {
-	echo "<h1>Reporting System</h1>";
-	echo "<table border='1'>";
-	echo "<tr><th>Business</th><th>Date Package</th><th>Date Redeemed</th></tr>";
 	
+	echo "<h1>Package Redemption Report</h1>";
 	
-	$args['role'] = 'merchant';
-	$users = get_users( $args );
-	
-	
-	foreach ($users as $user) {
-		// echo $user -> user_login . ", id: " . $user->ID;
-		// echo "<br/>";
-		$packages = get_user_meta($user->ID, 'pckg', false);
-		foreach ($packages as $package) {
-			// echo $package . '<br/>';
-			$p_ids = get_user_meta($user->ID, $package, false);
-			foreach ($p_ids as $p_id) {
-				// echo $p_id . '<br/>';
-				foreach(get_user_meta($user->ID, $p_id.'_redeemded_date', false) as $redeemded_date) {
-					if ($redeemded_date != '') {
-						$post_info = get_post_meta($package);
-						// error_log (print_r($post_info));
-						// echo $post_info['sub_title'][0] ."<br/>";
-						echo "<tr>";
-						echo "<td>" . $post_info['business_name'][0] ."</td>";
-						echo "<td>" . $post_info['package_name'][0] ."</td>";
-						echo "<td>" . $redeemded_date . "</td>";
-						// echo "<td>" . $post_info['price'][0] ."</td>";
-						echo "</tr>";
-					}
-				}
-			}
-				
-			// echo "<br/>";
+	$data = get_data_for_redemption_report();
+
+	foreach ($data as $month_name => $month_data) {
+		echo "<h2>" . $month_name . "</h2>";
+		echo "<table border='1'>";
+		echo "<tr><th>Package ID</th><th>Business</th><th>Date Package</th><th>Number Redeemed</th><th>Price per Package</th><th>Merchant Payout %</th><th>Total Payout</th></tr>";
+		
+		foreach ($month_data as $package_id => $package_data) {
+			echo '<tr>';
+			echo '<td>' . $package_id . '</td>';
+			echo "<td>" . $package_data['business_name'] ."</td>";
+			echo "<td>" . $package_data['package_name'] . "</td>";
+			echo "<td>" . $package_data['number_vouchers_sold'] . "</td>";
+			echo "<td>" . $package_data['price_per_package'] . "</td>";
+			echo "<td>" . $package_data['merchant_payout_percent'] . "</td>";
+			$total_payout = $package_data['merchant_payout_percent'] * $package_data['number_vouchers_sold'] * $package_data['price_per_package'] / 100;
+			echo "<td>" . $total_payout . "</td>";
+			echo '</tr>';
 		}
-		// echo "<hr/>";
+
+		echo "</table>";
 	}
 	
-	echo "</table>";
-	
-	/*
-	$packages = get_user_meta(1, 'sold', false);
-	foreach ($packages as $package){
-		echo $values;
-		echo '<br/>';
-	}
-	*/
 }
 
 
+function get_data_for_redemption_report() {
+	$args['role'] = 'merchant';
+	$users = get_users( $args );
+	
+	$data = array();
+	$month_arr = array (
+	    1 => 'Jan',
+	    2 => 'Feb',
+	    3 => 'Mar',
+	    4 => 'Apr',
+	    5 => 'May',
+	    6 => 'Jun',
+	    7 => 'Jul',
+	    8 => 'Aug',
+	    9 => 'Sep',
+	    10 => 'Oct',
+	    11 => 'Nov',
+	    12 => 'Dec'
+	);
+	// Retrieve all merchant IDs
+	foreach ($users as $user) {
+
+		// Retrieve all package IDs for this merchant
+		$packages = get_user_meta($user->ID, 'pckg', false);
+		foreach ($packages as $package) {
+			$number_vouchers_sold = 0;
+			$post_info = get_post_meta($package);
+			$business_name = $post_info['business_name'][0];
+			$package_name = $post_info['package_name'][0];
+			$price_per_package = $post_info['price'][0];
+			$commission = $post_info['commission'][0];
+			$merchant_payout_percent = 0;
+			if ($commission != '') { 
+				$merchant_payout_percent = 100 - intval($post_info['commission'][0]);
+			}
+			
+
+			// Here pid is the voucher ID. Not sure how voucher ID is retrieved from this query, but it is. 
+			$p_ids = get_user_meta($user->ID, $package, false);
+			foreach ($p_ids as $p_id) {
+				foreach(get_user_meta($user->ID, $p_id.'_redeemded_date', false) as $redeemded_date) {
+					if ($redeemded_date != '') {
+						$date = date_parse_from_format(DATE_RFC822, $redeemded_date);
+						$current_month = $month_arr[$date["month"]] . " " . $date["year"];
+						// Check if there is any data for that month. Then check if there is data about this package during this month.
+						if ($data[$current_month]) {
+							$month_data = $data[$current_month];
+							if (array_key_exists($package, $month_data)) {
+								// There is data about this date in this month already. Modify it. 
+								$package_data = $month_data[$package];
+								$package_data['number_vouchers_sold'] += 1;
+								$month_data[$package] = $package_data;
+								$data[$current_month] = $month_data;
+							} else {
+								// There is data about this month, but no data about this package in this month.
+								$number_vouchers_sold = 1;
+								$package_data = array('package_id' => $package, 'business_name' => $business_name, 'package_name' => $package_name, 'number_vouchers_sold' => $number_vouchers_sold, 'price_per_package' => $price_per_package, 'merchant_payout_percent' => $merchant_payout_percent);
+								$month_data[$package] = $package_data;
+								$data[$current_month] = $month_data;
+							}
+							
+						} else {
+							// Each month has data about a set of packages
+							$month_data = array();
+							// Each package is an array of data such as business name, package name and number of vouchers sold for that package.
+							$number_vouchers_sold = 1;
+							$package_data = array('package_id' => $package, 'business_name' => $business_name, 'package_name' => $package_name, 'number_vouchers_sold' => $number_vouchers_sold, 'price_per_package' => $price_per_package, 'merchant_payout_percent' => $merchant_payout_percent);
+							$month_data[$package] = $package_data;
+							$data[$current_month] = $month_data;
+						}
+					}
+				}
+			}
+		}
+	}
+	return $data;
+}
 
 
 // Add new post type for Dates
