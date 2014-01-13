@@ -259,11 +259,13 @@ jQuery(document).ready(function($) {
 			if(isLoggedIn()==0) {
 				$("#overlay").css("visibility", "hidden");
 				$("#overlay-background").css("visibility", "hidden");
+				ga('send', 'event', 'button', 'click', 'buy-button-logged-in', 1);
 				jQuery("#buy-process").show();
 				return false;
 			} else {
 				$("#overlay").css("visibility", "hidden");
 				$("#overlay-background").css("visibility", "hidden");
+				ga('send', 'event', 'button', 'click', 'buy-button-not-logged-in', 1);
 				jQuery("#user-ajax-login").show();
 				return false;	
 			}
@@ -341,6 +343,7 @@ jQuery(document).ready(function($) {
 			   name: (fName+ " " + lName).trim()
 			}, stripeResponseHandler);
 			 
+			ga('send', 'event', 'button', 'click', 'buy-now', 1);
 			// Prevent the default submit action on the form
 			return false;
 

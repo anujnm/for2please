@@ -178,6 +178,46 @@
 					$category = "";
 				}
 			?>
+
+			$(".date-package-link").click(function() {
+				ga('send', 'event', 'link', 'click', 'date-package-link', 1);
+			});
+
+			$(".header-logo-link").click(function() {
+				ga('send', 'event', 'link', 'click', 'header-logo-link', 1);
+			});
+			
+			$(".header-account-link").click(function() {
+				ga('send', 'event', 'link', 'click', 'header-account-link', 1);
+			});
+
+			$(".header-signin-link").click(function() {
+				ga('send', 'event', 'link', 'click', 'header-signin-link', 1);
+			});
+
+			$(".header-signout-link").click(function() {
+				ga('send', 'event', 'link', 'click', 'header-signout-link', 1);
+			});
+			
+			$(".header-join-link").click(function() {
+				ga('send', 'event', 'link', 'click', 'header-join-link', 1);
+			});
+
+			$("#downarrow").hover(
+				function() {
+					ga('send', 'event', 'link', 'hover', 'about-hover-in', 1);
+				}, function() {
+					ga('send', 'event', 'link', 'hover', 'about-hover-out', 1);
+				}
+			);
+
+			$("#downarrow2").hover(
+				function() {
+					ga('send', 'event', 'link', 'hover', 'date-idea-hover-in', 1);
+				}, function() {
+					ga('send', 'event', 'link', 'hover', 'date-idea-hover-out', 1);
+				}
+			);
 		 });
 	</script>
 	<style type="text/css">
@@ -203,7 +243,7 @@
 	<div id="header-content">
 		<div id="header-left" style="float:left;">
 			<div style='margin-top:20px;'>
-				<a href="/dev/">
+				<a class="header-logo-link" href="/dev/">
 					<img src="/dev/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
 				</a>
 				<img src="/dev/wp-content/themes/images/ftp_best_date_ideas_tagline.png" style="border:none;"/>
@@ -238,9 +278,9 @@
 			<div class="account_links">
 			<?php if ( !is_user_logged_in() ) { ?>
 				<!--<a class="logmein" href="#">Login</a> | <a class="registerme" href="#">Register</a>-->
-				<a id="sign_in" href="#">Login</a> | <a id="join_now" href="#">Join</a>
+				<a id="sign_in" class="header-signin-link" href="#">Login</a> | <a class="header-join-link" id="join_now" href="#">Join</a>
 			<?php } else{ ?>
-				<a href="/dev/myaccount/">My Account</a> | <a href="<?php echo wp_logout_url(current_page_url()); ?>" title="Logout">Logout</a>
+				<a class="header-account-link" href="/dev/myaccount/">My Account</a> | <a class="header-signout-link" href="<?php echo wp_logout_url(current_page_url()); ?>" title="Logout">Logout</a>
 			<?php } ?>
 			</div>
 		</div>
@@ -257,7 +297,7 @@
 	<div class="search_area">
 		<div class="category_box">
 			<ul class="categories">
-				<li style="margin: 3px 13px 0 13px;"><a href="/dev/date-type/packages/">Date Packages</a></li>
+				<li style="margin: 3px 13px 0 13px;"><a class="date-package-link" href="/dev/date-type/packages/">Date Packages</a></li>
 				<ul id="nav-two" class="header-dropdown" style="float:left;">
 					<li>
 						<a id="downarrow2" style="float:left;" href="#">Date Ideas&nbsp;&nbsp;<img src="/dev/wp-content/themes/images/down-arrow.png" /></a>
