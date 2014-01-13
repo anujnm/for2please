@@ -13,9 +13,6 @@ if (document.referrer == "" || document.referrer.indexOf("fortwoplease") < 0) {
 
 <div class="center_content">
 
-	<div class="banner">
-	</div>
-
 	<div class="dates_content">
 		<div id="ur-date-ideas" class="dates_searched">
 			<div class="dash_line"></div>
