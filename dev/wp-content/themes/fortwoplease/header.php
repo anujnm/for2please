@@ -213,9 +213,9 @@
 
 			$("#downarrow2").hover(
 				function() {
-					ga('send', 'event', 'link', 'hover', 'date-idea-hover-in', 1);
+					ga('send', 'event', 'link', 'hover-in', 'date-idea-link', 1);
 				}, function() {
-					ga('send', 'event', 'link', 'hover', 'date-idea-hover-out', 1);
+					ga('send', 'event', 'link', 'hover-out', 'date-idea-link', 1);
 				}
 			);
 		 });

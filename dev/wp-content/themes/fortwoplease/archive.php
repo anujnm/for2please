@@ -28,7 +28,7 @@ get_header(); ?>
 			$datetypes = get_the_term_list( $id, 'date-type', '', ', ', '' );
 			echo "<div id='";
 			echo $id;
-			echo "' onclick='location.href=\"$itemPermalink\"; 'class='testsearch' style='background:url(";
+			echo "' onclick='location.href=\"$itemPermalink\"; 'class='testsearch date-container' style='background:url(";
 			echo get_field('thumbnail',$id);
 			echo");height:235px;width:330px; float:left;margin: 0 8px 30px 8px;box-shadow:2px 2px 5px #888;position:relative;'>";
 			if(stristr(strip_tags($datetypes),'Packages') !== FALSE) {
@@ -66,6 +66,20 @@ get_header(); ?>
 <script type="text/javascript">
 jQuery(".testsearch").live("mouseenter",function(){jQuery("div.testsearch2",this).fadeIn('fast');});
 jQuery(".testsearch").live("mouseleave",function(){jQuery("div.testsearch2",this).fadeOut('fast');});
+
+$('.date-container').hover(
+	function(e) {
+		var label = 'date-' + this.id + '-container-link';
+		ga('send', 'event', 'link', 'hover-in', label, 1);
+	}, function(e) {
+		var label = 'date-' + this.id + '-container-link';
+		ga('send', 'event', 'link', 'hover-out', label, 1);
+	});
+
+$('.date-container').click(function(e) {
+	var label = 'date-' + this.id + '-container-link';
+	ga('send', 'event', 'link', 'click', label, 1);
+});
 
 jQuery("#go-back").click(function(e){
 e.preventDefault();
