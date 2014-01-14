@@ -35,7 +35,10 @@
 			echo '<meta property="og:image" content="'.the_post_thumbnail('full').'" />';
 		echo '<meta property="og:site_name" content="For Two Please" />';
 		echo '<meta property="og:description" content="'.get_field('short_description').'" />';
-		echo '<meta property="og:type" content="Web Site" />';
+		$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+		echo '<meta property="og:url" content="'.$protocol.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" />';
+		echo '<meta property="og:type" content="article">';
+		//echo '<meta property="og:type" content="Web Site" />';
 	?>
 
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
@@ -76,6 +79,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery_cookie.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
+	<script src="/vancouver/js/jquery.lightbox_me.js" type="text/javascript"></script>
 	<script>
 		function downloadJSAtOnload() {
 			var element = document.createElement("script");
@@ -89,14 +93,6 @@
 			var element3 = document.createElement("script");
 			element3.src = "//assets.pinterest.com/js/pinit.js";
 			document.body.appendChild(element3);
-
-			//var element4 = document.createElement("script");
-			//element4.src = "/dev/js/jquery_cookie.js";
-			//document.body.appendChild(element4);
-
-			var element5 = document.createElement("script");
-			element5.src = "/dev/js/jquery.lightbox_me.js";
-			document.body.appendChild(element5);
 
 		}
 
