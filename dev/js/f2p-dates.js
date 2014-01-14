@@ -303,21 +303,6 @@ jQuery(document).ready(function($) {
 		});
 
 		jQuery('#buy-now').live("click",function(){
-			
-			//var input_data = jQuery('#buy_package_form').serialize();
-			//var theID = theID;
-			//jQuery.ajax({
-			//	type: "POST",
-			//	url: "/dev/wp-admin/admin-ajax.php",
-			//	data: "action=pp_action&" + input_data + "&theID=" + postID + "&postid=" + postID,
-			//	success: function(msg) {
-			//		if (msg.indexOf("payment did not go through") > 0)
-			//			alert(msg.substring(0,msg.length-1));
-			//		else
-			//			jQuery('#buy-process').html(msg).show();
-			//	}
-			//});
-			//return false;
 
 			// Disable button and remove errors.
 			$("#buy-now").attr("disabled", "disabled");
