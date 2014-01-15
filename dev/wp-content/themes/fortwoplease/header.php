@@ -257,7 +257,6 @@
 						<li><a class="about" id="suggestadate"href="#">Suggest a Date Idea</a></li>
 						<li><a class="about" id="faq" href="/dev/faq/">FAQ</a></li>
 						<li><a class="about" id="contactus" href="/dev/contact-us/">Contact</a></li>
-						<li><a class="about" id="press" href="/dev/press/">Press</a></li>
 						<li><a class="about" id="aboutus" href="/dev/about-us/">About Us</a></li>
 						<li><a class="about" id="careers" href="/dev/careers/">Careers</a></li>
 						<li><a class="about" id="policies" href="/dev/policies/">Policies</a></li>
@@ -302,7 +301,7 @@
 							<li><a class="about" id="perfectdate" href="/dev/date-type/active/">Active</a></li>
 							<li><a class="about" id="suggestadate"href="/dev/date-type/adventurous/">Adventurous</a></li>
 							<li><a class="about" id="contactus" href="/dev/date-type/getaways/">Getaways</a></li>
-							<li><a class="about" id="press" href="/dev/date-type/entertainment/">Entertainment</a></li>
+							<li><a class="about" id="entertainment" href="/dev/date-type/entertainment/">Entertainment</a></li>
 						</ul>
 					</li>			
 				</ul>
