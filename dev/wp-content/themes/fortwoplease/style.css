@@ -28,7 +28,7 @@ body {
 	background:#ddddde;
 	font-family: 'Ubuntu';
 	font-size: 14px;
-	
+	min-width: 1060px;
 }
 
 div#nav-links a{
@@ -555,6 +555,7 @@ div#about_pages a{
     height:100%;
     text-align:center;
     z-index: 1000;
+    min-width: 1060px;
 }
 
 #overlay-background {
@@ -567,6 +568,7 @@ div#about_pages a{
     background-color: white;
     z-index: 1000;
     opacity: 0.5;
+    min-width: 1060px;
 }
 
 #overlay div {
