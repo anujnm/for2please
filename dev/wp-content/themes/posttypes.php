@@ -143,7 +143,7 @@ function inventory_report_page() {
 	$data = get_data_for_inventory_report();
 
 	echo "<table border='1'>";
-	echo "<tr><th>Package ID</th><th>Business</th><th>Date Package</th><th>Number Sold</th><th>Number Redeemed</th><th>Number Available</th></tr>";
+	echo "<tr><th>Package ID</th><th>Business</th><th>Date Package</th><th>Number Sold</th><th>Number Redeemed</th><th>Number Available</th><th>Expiry Date</th><th>Total Sales ($)</th><th>Total Revenue ($)</th></tr>";
 
 	foreach ($data as $package => $package_data) {
 		echo '<tr>';
@@ -153,6 +153,9 @@ function inventory_report_page() {
 		echo "<td>" . $package_data['number_vouchers_sold'] . "</td>";
 		echo "<td>" . $package_data['number_vouchers_redeemed'] . "</td>";
 		echo "<td>" . $package_data['number_vouchers_available'] . "</td>";
+		echo "<td>" . $package_data['expiry_date'] . "</td>";
+		echo "<td>" . $package_data['total_sales'] . "</td>";
+		echo "<td>" . $package_data['total_revenue'] . "</td>";
 		echo '</tr>';
 	}
 	echo "</table>";
@@ -177,6 +180,7 @@ function get_data_for_inventory_report() {
 			$package_name = $post_info['package_name'][0];
 			$price_per_package = $post_info['price'][0];
 			$commission = $post_info['commission'][0];
+			$expiry_date = $post_info['expiration_date_package'][0];
 			$merchant_payout_percent = 0;
 			if ($commission != '') { 
 				$merchant_payout_percent = 100 - intval($post_info['commission'][0]);
@@ -192,8 +196,10 @@ function get_data_for_inventory_report() {
 					}
 				}
 			}
+			$total_sales = $number_vouchers_sold * $price_per_package;
+			$total_revenue = $total_sales * $commission / 100;
 			$number_vouchers_available = intval($number_vouchers_sold) - intval($number_vouchers_redeemed);
-			$package_data = array('package_id' => $package, 'business_name' => $business_name, 'package_name' => $package_name, 'number_vouchers_redeemed' => $number_vouchers_redeemed, 'number_vouchers_sold' => $number_vouchers_sold, 'number_vouchers_available' => $number_vouchers_available);
+			$package_data = array('package_id' => $package, 'business_name' => $business_name, 'package_name' => $package_name, 'number_vouchers_redeemed' => $number_vouchers_redeemed, 'number_vouchers_sold' => $number_vouchers_sold, 'number_vouchers_available' => $number_vouchers_available, 'expiry_date' => $expiry_date, 'total_sales' => $total_sales, 'total_revenue' => $total_revenue);
 			$data[$package] = $package_data;
 		}
 	}
