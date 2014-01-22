@@ -376,10 +376,14 @@ function pp_action() {
 	$lastName = filter_var($_POST['lastName'], FILTER_SANITIZE_STRING);
 	$redemptionFirstName = filter_var($_POST['redemptionFirstName'], FILTER_SANITIZE_STRING);
 	$redemptionLastName = filter_var($_POST['redemptionLastName'], FILTER_SANITIZE_STRING);
-	$price = filter_var($_POST['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-	$priceInCents = $price * 100; // Stripe requires the amount to be expressed in cents
-	$price_per_item = filter_var($_POST['pricePerItem'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$numberp = filter_var($_POST['quantity'], FILTER_SANITIZE_NUMBER_INT);
+	$post_info = get_post_meta($theID);
+	$price_per_package = $post_info['price'][0];
+	$taxes = $post_info['taxes'][0];
+	$fees = $post_info['fees'][0];
+	$total_per_package = $price_per_package + $taxes + $fees;
+	$total = $numberp * $total_per_package;
+	$total_cents = $total * 100;
 	Stripe::setApiKey($trialAPIKey);
     try
     {
@@ -388,30 +392,30 @@ function pp_action() {
         $pname = get_field('package_name',$theID);
         $uid = wp_get_current_user();
         if (!isset($token)) {
-			throw new Exception("Website Error: The Stripe token was not generated correctly or passed to the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
-		} 
-		if (!isset($email) && !filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
-			throw new Exception("Please ensure you have a valid email address to process this transaction. Your card was not charged. ");
-		}
-		if (!isset($firstName)) { 
-			throw new Exception("Website Error: FirstName was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
-		}
-		if (!isset($lastName)) { 
-			throw new Exception("Website Error: LastName was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
-		}
-		if (!isset($priceInCents)) { 
-			throw new Exception("Website Error: Price was NULL in the payment handler script. Your credit card was NOT charged. Please report this problem to the webmaster.");
-		}
-		if (!isset($redemptionFirstName) && !isset($redemptionLastName)) {
-			throw new Exception("Please enter a valid name for the person who will be using the date package. ");
-		}
-		if (!isset($numberp) || $numberp<0 || $numberp > 4) {
-			throw new Exception("Please select a valid quantity. Transaction failed, your card was not charged. ");
-		}
-		try {
-			// Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server. 
-			$charge = Stripe_Charge::create(array(
-             "amount" => $priceInCents,
+            throw new Exception("Server Error: Could not complete payment with payment provider Stripe. Please try again later.");
+        } 
+        if (!isset($email) && !filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Server Error: Please ensure you have a valid email address to process this transaction. Your card was not charged. ");
+        }
+        if (!isset($firstName)) { 
+            throw new Exception("Server Error: Invalid first name, your credit card was NOT charged. Please try again later.");
+        }
+        if (!isset($lastName)) { 
+            throw new Exception("Server Error: Invalid last name, your credit card was NOT charged. Please try again later.");
+        }
+        if (!isset($total_cents)) { 
+            throw new Exception("Server Error: Your credit card was NOT charged. Please try again later.");
+        }
+        if (!isset($redemptionFirstName) && !isset($redemptionLastName)) {
+            throw new Exception("Please enter a valid name for the person who will be using the date package. Your card was not charged.");
+        }
+        if (!isset($numberp) || $numberp<0 || $numberp > 4) {
+            throw new Exception("Transaction failed, your card was not charged. Please select a valid quantity.");
+        }
+        try {
+            // Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server. 
+            $charge = Stripe_Charge::create(array(
+             "amount" => $total_cents,
              "currency" => "cad",
              "card" => $token,
              "description" => "Purchase of ".$pname." from ".$bname." by ".$email,
@@ -424,15 +428,15 @@ function pp_action() {
 
             ));
             if ($charge->paid != true) {
-            	throw new Exception("Error while processing charge. Please try again later. ");
+                throw new Exception("Error while processing charge. Please try again later. ");
             }
             $voucherIDs = array();
             $voucherString = "";
             for ($i = $numberp; $i>0; $i--) {
-            	$unique = uniqid();
-            	$index = $numberp-$i;
-            	$voucherIDs[$index] = $unique;
-            	$voucherString = $voucherString.'<p style="margin:0;">'.($index+1).'. '.$unique.'</p>';
+                $unique = uniqid();
+                $index = $numberp-$i;
+                $voucherIDs[$index] = $unique;
+                $voucherString = $voucherString.'<p style="margin:0;">'.($index+1).'. '.$unique.'</p>';
             }
             $transID = $charge->id;
             $merchantuname = get_field('merchant_username',$theID);
@@ -441,14 +445,14 @@ function pp_action() {
             add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
             $numberVouchers = "";
             if ($numberp == 1) {
-            	$numberVouchers = $numberp." voucher";
+                $numberVouchers = $numberp." voucher";
             } else {
-            	$numberVouchers = $numberp." vouchers";
+                $numberVouchers = $numberp." vouchers";
             }
 
             // Send email using Mandrill API.
-            $html = '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$numberVouchers.' of '.$pname.' from '.$bname.' was successful!</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$price.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>Voucher IDs:</b></p><p style="margin:0;">'.$voucherString.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p><br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>';
-			$to = array(array('email'=>$email, 'type'=>'to'));
+            $html = '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$numberVouchers.' of '.$pname.' from '.$bname.' was successful!</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$total.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>Voucher IDs:</b></p><p style="margin:0;">'.$voucherString.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p><br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>';
+            $to = array(array('email'=>$email, 'type'=>'to'));
             $message = array('html'=> $html, 'subject' => 'Purchase Successful!', 'from_email'=>'info@fortwoplease.com', 'from_name'=> 'ForTwoPlease', 'to'=> $to);
             $data = json_encode(array('key'=>'OybeEIWO9N2oDsURJI3qmg', 'message' => $message));
             $curl = curl_init();
@@ -473,32 +477,32 @@ function pp_action() {
                     add_user_meta($uid->ID,$unique.'_for_fname', $redemptionFirstName);
                     add_user_meta($uid->ID,$unique.'_for_lname', $redemptionLastName);
                     add_user_meta($uid->ID, $unique.'_transID', $transID);
-                    add_user_meta($uid->ID, $unique.'_amount', $price_per_item);
+                    add_user_meta($uid->ID, $unique.'_amount', $price_per_package);
                     add_user_meta($merchantuname,$theID,$unique);
                     add_user_meta($merchantuname,$unique,$uid->ID); 
                     add_user_meta($merchantuname,$unique.'_d','notdone'); 
-                    $summary = $timestamp. ' '. $price . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
+                    $summary = $timestamp. ' '. $total . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
                     add_user_meta(1,'sold',$summary);
             }
             
             // Display confirmation to user.
-            $message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$price.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/dev/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/dev/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
-            $tax = $price - ($price_per_item * $numberp);
-            $ga_data = array('transID' => $transID, 'merchantName' => $bname, 'total' => $price, 'tax' => $tax, 'price_per_item' => $price_per_item, 'category' => '', 'productName' => $pname, 'quantity' => $numberp);
-            $array = array('result' => 0, 'email' => "anuj.nm@gmail.com", 'price' => $price, 'message' => $message, 'ga_data' => $ga_data);
+            $message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$total.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/dev/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/dev/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
+            $tax = $taxes * $numberp;
+            $ga_data = array('transID' => $transID, 'merchantName' => $bname, 'total' => $total, 'tax' => $tax, 'price_per_item' => $price_per_package, 'category' => '', 'productName' => $pname, 'quantity' => $numberp);
+            $array = array('result' => 0, 'email' => "anuj.nm@gmail.com", 'price' => $total, 'message' => $message, 'ga_data' => $ga_data);
             echo json_encode($array);
-		}
-		catch (Stripe_Error $e) {
-			$message = $e->getMessage();
-			$array = array('result' => 1, 'message' => $message);
-			echo json_encode($array);
-		}
+        }
+        catch (Stripe_Error $e) {
+            $message = $e->getMessage();
+            $array = array('result' => 1, 'message' => $message);
+            echo json_encode($array);
+        }
     }
     catch (Exception $e) 
     {
-    	$message = $e->getMessage();
-    	$array = array('result' => 1, 'message' => $message);
-    	echo json_encode($array);
+        $message = $e->getMessage();
+        $array = array('result' => 1, 'message' => $message);
+        echo json_encode($array);
     }
 
 	die();	
