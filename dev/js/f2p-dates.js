@@ -51,14 +51,12 @@ function stripeResponseHandler(status, response)
       var lastName = $("#billing_lname").val();
       var email = $("#billing_email").val();
       var quantity = $("#buy-quantity").val();
-      var pricePerItem = $("#price").text().substring(8)/quantity;
-      var price = $("#total_amount").html();
  
       var request = $.ajax({
 		type: "POST",
 		url: "/dev/wp-admin/admin-ajax.php",
 		dataType: "json",
-		data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&price="+price+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName+"&pricePerItem="+pricePerItem
+		data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName
 	});
 
  	request.success(function(msg)
@@ -208,23 +206,6 @@ jQuery(document).ready(function($) {
 		        transition_speed: 600
 	});
 
-	/*var map = new GMap2(document.getElementById("map_canvas"));
-	geocoder = new GClientGeocoder();
-	if (geocoder) {
-		geocoder.getLatLng(
-			address,
-			function(point) {
-				if (!point) {
-					alert(address + " not found");
-				} else { 
-					map.setCenter(point, 15);
-					var marker = new GMarker(point);
-					map.addOverlay(marker);
-				}
-			}
-		);
-	}*/
-
 	var geocoder;
 	var map;
 		geocoder = new google.maps.Geocoder();
@@ -304,22 +285,36 @@ jQuery(document).ready(function($) {
 
 		jQuery('#buy-now').live("click",function(){
 
-			// Disable button and remove errors.
-			$("#buy-now").attr("disabled", "disabled");
-			$("#overlay").css("visibility", "visible");
-			$("#overlay-background").css("visibility", "visible");
 			$("#payment-error").html("").hide();
 			// Boom! We passed the basic validation, so request a token from Stripe:
 			var user_firstname = $("#first_name").val();
 			var user_lastname = $("#last_name").val();
 			var fName = $('#billing_fname').val();
 	      	var lName = $('#billing_lname').val();
+	      	if ((fName == null || fName == "") && (lName == null || lName == "")) {
+	      		$("#payment-error").html("Please enter a valid name for billing.").show();
+	      		return false;
+	      	}
 	      	var email = $('#billing_email').val();
+	      	if (email == null || email == "") {
+	      		$("#payment-error").html("Sorry, we couldn't find your email address. Are you sure you're logged in? ").show();
+	      		return false;
+	      	}
 	      	var cardNumber = $('#cnumber').val();
+	      	if (cardNumber == null || cardNumber == "") {
+	      		$("#payment-error").html("Please enter a valid card number.").show();
+	      		return false;
+	      	}
 	      	var cardCVC = $('#csv').val();
+	      	if (cardCVC == null || cardCVC == "") {
+	      		$("#payment-error").html("Please enter a valid CVC.").show();
+	      		return false;
+	      	}
 	      	Stripe.setPublishableKey('pk_test_h98nYuHxvZmSc56VzOTfsKzB');
-	      	
-
+			// Disable button and remove errors.
+			$("#buy-now").attr("disabled", "disabled");
+			$("#overlay").css("visibility", "visible");
+			$("#overlay-background").css("visibility", "visible");
 			Stripe.createToken({
 			   number: cardNumber,
 			   cvc: cardCVC,
@@ -333,47 +328,6 @@ jQuery(document).ready(function($) {
 			return false;
 
 		});
-
-	/*
-		jQuery('#buy-now').live("click",function(){
-			cardholder = jQuery("#fullname").val();
-			eyear = jQuery("#eyear").val();
-			emonth = jQuery("#emonth").val();
-			nump = jQuery("#buy-quantity").val();
-			cardnum = jQuery("#cnumber").val();
-			csv = jQuery("#csv").val();
-			
-			var data= "url=https://www.beanstream.com/scripts/process_transaction.asp?merchant_id=117582634&requestType=BACKEND&trnType=P&trnOrderNumber="+postID+"-"+orderID+"&trnAmount="+total+"&trnCardOwner="+cardholder+"&trnCardNumber="+cardnum+"&ordName="+cardholder+"&trnCardCvd="+csv+"&trnExpMonth="+emonth+"&trnExpYear="+eyear;
-			jQuery.ajax({
-				type: "POST",
-				url: "/dev/wp-admin/admin-ajax.php",
-				data: "action=my_special_action&" + data +"&postid="+postID+"&numberp="+nump,
-				success: function(msg){
-				if(getQueryVariable("trnApproved",msg) == 0) {
-					var perror = getQueryVariable("messageText",msg);
-					var perror2 = perror.replace(/\+/g," ");
-					jQuery("#payment-error").html(perror2).show();;
-				}
-
-				if(getQueryVariable("trnApproved",msg) == 1) {
-					var theID = postID;
-					var amount = getQueryVariable("trnAmount",msg);
-					var authCode = getQueryVariable("authCode",msg);
-					jQuery("#buy-process").html("<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>Approved!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='margine:float:left;clear:both;'><p>Success! Your card has been charged the amount of $"+amount+".</p><p>Your authorization code is: "+authCode+".</p><p> A confirmation email has been emailed. Please check your account for details on how to make a reservation</p></div></div>");
-					input_data ="action=sendconfmail&theID="+theID+"&totalPrice="+amount+"&transID="+authCode; 
-					jQuery.ajax({
-						type: "POST",
-						url:  "/dev/wp-admin/admin-ajax.php",
-						data: input_data,
-						success: function(msg) {	
-						}
-					});
-				}
-			}
-		});
-		return false;
-	});
-	*/
 
 		jQuery('#share-submit').click(function(){
 			var input_data = jQuery('#share-this-date').serialize();
@@ -402,20 +356,6 @@ jQuery(document).ready(function($) {
 		}
 
 		function isLoggedIn(){
-			/*
-			var result = false;
-			jQuery.ajax({
-				type: "POST",
-				url: "/dev/wp-admin/admin-ajax.php",
-				data: "action=loggedin&",
-				async: false,
-				success: function(name){
-					console.log("logged in? " + name);
-					result = name;
-				}	
-			});
-			return result;
-			*/
 			return isUserLoggedIn;
 		}
 
