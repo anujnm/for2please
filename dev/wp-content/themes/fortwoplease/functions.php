@@ -391,6 +391,10 @@ function pp_action() {
         $bname = get_field('business_name',$theID);
         $pname = get_field('package_name',$theID);
         $uid = wp_get_current_user();
+
+        if (!isset($_POST['checkout']) || !wp_verify_nonce($_POST['checkout'], 'payment_csrf')) {
+        	throw new Exception("Server Error: Seems like we couldn't verify your request. Please try again later. ");
+        }
         if (!isset($token)) {
             throw new Exception("Server Error: Could not complete payment with payment provider Stripe. Please try again later.");
         } 

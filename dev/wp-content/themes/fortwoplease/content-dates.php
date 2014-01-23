@@ -120,6 +120,8 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 						</div>
 						<div class="background">
 						<form id="buy_package_form" action="" method="post">
+						<?php
+						wp_nonce_field('payment_csrf', 'purchase_' . get_the_ID()); ?>
 						<div style='color:#4d4d4d; padding: 5px; background-color: white;'>
 							<p style="font-size:100%; font-weight: bold;">Please confirm the full name of the person who will be using this Date Package.</p>
 							<br/>

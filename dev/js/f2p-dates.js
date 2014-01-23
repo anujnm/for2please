@@ -51,12 +51,14 @@ function stripeResponseHandler(status, response)
       var lastName = $("#billing_lname").val();
       var email = $("#billing_email").val();
       var quantity = $("#buy-quantity").val();
+      var nonce_name = 'purchase_' + postID;
+      var ajax_nonce = $('#' + nonce_name).val();
  
       var request = $.ajax({
 		type: "POST",
 		url: "/dev/wp-admin/admin-ajax.php",
 		dataType: "json",
-		data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName
+		data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName+"&checkout="+ajax_nonce
 	});
 
  	request.success(function(msg)
