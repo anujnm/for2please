@@ -11,17 +11,17 @@ Template Name: login
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <style type="text/css">
 body { margin: 0; font-family: 'Ubuntu' !important; }
-div.center_box { position:relative; width: 514px; height: 385px; background: url('/dev/wp-content/themes/images/sign_in_box.png') no-repeat top left; color: white; text-align: center;}
+div.center_box { position:relative; width: 514px; height: 445px; background: url('/dev/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
 div.center_box p { margin: 0; font-size: 122%; }
 div.center_box div.top { padding: 25px 0 0 0; text-align: center; }
 div.center_box div.top h1 { color: #ea5f1a; padding: 15px 0 10px 0; font-size: 266%; }
 div.center_box div.inputs { position: relative; top: 20px; margin: 0 auto; width: 514px; }
 div.center_box div.inputs p { padding: 6px 0; }
-div.center_box form { margin-top: 5px; }
+div.center_box form { margin-top: 25px; }
 div.center_box form input.text { width: 280px; margin: 0; font-size: 18px; text-align: center; }
 div.center_box form input.f2p-button { margin: 4px 0; }
 div.center_box div.fb_connect { margin-top: 5px; }
-div.center_box div.bottom { position:absolute; top: 343px; margin: 0 auto; width: 514px; }
+div.center_box div.bottom { position:absolute; top: 403px; margin: 0 auto; width: 514px; }
 div.center_box div.bottom p { color: #2895d8; font-size: 18px; }
 div.center_box div.bottom p label { color: white; }
 </style>
@@ -53,6 +53,7 @@ div.center_box div.bottom p label { color: white; }
 				<input id="password-clear<?php echo $randVal ?>" type="text" value="Password" autocomplete="off" class="text" />
 				<input id="password-password<?php echo $randVal ?>" type="password" name="password" class="text" style="display:none;" />
 			</p>
+			<p class="lightboxMessage hide"></p>
 			<p>
 				<input type="submit" id="submit-signin" name="submit" value="SIGN IN" class="f2p-button" />
 			</p>
@@ -106,6 +107,7 @@ div.center_box div.bottom p label { color: white; }
 
 	jQuery("#submit-signin").click(function() {
 		var input_data = jQuery('#sign_in_form').serialize();
+		$('.lightboxMessage').hide();
 		jQuery.ajax({
 			type: "POST",
 			url:  "/dev/wp-admin/admin-ajax.php",
@@ -117,7 +119,7 @@ div.center_box div.bottom p label { color: white; }
 					else
 						setTimeout("location.reload(true);");
 				} else { 
-					alert(msg)
+					$('.lightboxMessage').html(msg).show();
 				};
 			}
 		});
