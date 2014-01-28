@@ -21,7 +21,7 @@ div.center_box div.inputs p { padding: 6px 0; }
 div.center_box form { margin-top: 6px; }
 div.center_box form input.text { width: 280px; margin: 0; font-size: 18px; text-align: center; }
 div.center_box form input.f2p-button { margin: 4px 0; }
-div.center_box div.fb_connect { margin-top: 5px; }
+div.center_box div.fb_connect { }
 div.center_box div.bottom { position:absolute; top: 405px; margin: 0 auto; display:block; width: 514px; }
 div.center_box div.bottom p { color: #2895d8; font-size: 20px; }
 div.center_box div.bottom p label { color: white; }
@@ -69,6 +69,7 @@ div.center_box div.bottom p label { color: white; }
 				<input id="password-clear<?php echo $randVal ?>" type="text" value="Password" autocomplete="off" class="text" />
 				<input id="password-password<?php echo $randVal ?>" type="password" name="password" class="text" style="display:none;" />
 			</p>
+			<p class="lightboxMessage hide"></p>
 			<p>
 				<input type="submit" id="submit-email" name="submit" value="SIGN UP" class="f2p-button" />
 			</p>
@@ -118,7 +119,7 @@ div.center_box div.bottom p label { color: white; }
 		var status = false;     
 		var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 	     if (email.search(emailRegEx) == -1) {
-	          alert("Please enter a valid email address.");
+	          $('.lightboxMessage').html("Please enter a valid email address.").show();
 	     } else {
 	          status = true;
 	     }
@@ -126,6 +127,7 @@ div.center_box div.bottom p label { color: white; }
 	}
 
 	jQuery("#submit-email").click(function() {
+		$('.lightboxMessage').hide();
 		if (verifyEmail(jQuery('#email').val())) {
 			var input_data = jQuery('#email_subscription_form').serialize();
 			jQuery.ajax({
@@ -140,7 +142,7 @@ div.center_box div.bottom p label { color: white; }
 						else
 							setTimeout("location.reload(true);");
 					} else { 
-						alert(msg)
+						$('.lightboxMessage').html(msg).show();
 					};
 				}
 			});
