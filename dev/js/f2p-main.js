@@ -96,18 +96,18 @@ function loadResults(start,end){
 	
 	//jQuery("#results").hide();
 	for (var i = start; i < end; i++) {
-		if (sessionStorage.getItem(i) != "undefined" && sessionStorage.getItem(i)) {
+		if (sessionStorage.getItem(i) && sessionStorage.getItem(i) != "undefined") {
 		    var date1 = sessionStorage.getItem(i);
-			if(sessionStorage.getItem(i+1)){
+			if(sessionStorage.getItem(i+1) && sessionStorage.getItem(i+1) != "undefined"){
 			 var date2 = sessionStorage.getItem(i+1);
 			 i = i+1;
 			}
 			else{
 			 date2 = "empt";
 			 }
-			if(sessionStorage.getItem(i+2)){
-			 var date3 = sessionStorage.getItem(i+2);
-			 i = i+2;
+			if(sessionStorage.getItem(i+1) && sessionStorage.getItem(i+1) != "undefined"){
+			 var date3 = sessionStorage.getItem(i+1);
+			 i = i+1;
 			 
 			}
 			else{
@@ -149,7 +149,7 @@ function loadResults(start,end){
 
 
 //************************************DO A SEARCH*******************************************//
-function searchDate(iData){
+function searchDate(iData, isLandingPage){
 	searchIndex = 1;
 	jQuery("#results2").html("");
 	jQuery("#ur-date-ideas2").html("");
@@ -159,11 +159,15 @@ function searchDate(iData){
 		url:  "/dev/wp-admin/admin-ajax.php",
 		dataType: 'json',
 		data: input_date,
-		success: function(msg){	
+		success: function(msg) {	
 			jQuery('#loadImage').remove();
 			searchResults = msg; 
-			store();	
-			loadResults(1,15);
+			store();
+			if (typeof isLandingPage === "undefined") {
+				loadResults(1,15);
+			} else {
+				loadResults(1, msg.length);
+			}
 			console.log("success");
 			console.log(msg);
 		}
@@ -263,15 +267,14 @@ jQuery(document).ready(function($) {
 		//jQuery("#results").html("<img src='/dev/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
 		//if(sessionStorage.length < 1) {
 			var day = new Date().getUTCDay();
-			var type = "alltypes";
+			var type = "packages";
 			var location = "alllocations";
 			var price = "allprice";
 			var time = "alltime";
-	
 			input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day=" + day;
 			
 			console.log("searchDate");
-			searchDate(input_date);
+			searchDate(input_date, true);
 			//loadResults(1,9);
 		//} else {
 			//console.log("loadResults");
