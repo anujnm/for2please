@@ -63,7 +63,7 @@ div.center_box div.bottom p label { color: white; }
 	<div class="inputs">
 		<form id="email_subscription_form" action="" method="post">
 			<p>
-				<input type="text" name="email" value="Email" class="text" onblur="onBlur(this);" onfocus="onFocus(this);" />
+				<input type="text" id='email' name="email" value="Email" class="text" onblur="onBlur(this);" onfocus="onFocus(this);" />
 			</p>
 			<p>
 				<input id="password-clear<?php echo $randVal ?>" type="text" value="Password" autocomplete="off" class="text" />
