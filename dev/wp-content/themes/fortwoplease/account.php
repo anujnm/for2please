@@ -264,6 +264,7 @@ if(is_user_logged_in())
 				
 				<form id="set_pass" action="#" style="background:#222;color:white;;padding:8px;border-radius:10px; display: none;">
 					<p style="font-size:18px; margin-bottom:8px;">Set My ForTwoPlease Password</p>
+					<p class="lightboxMessage"></p>
 					<p><label class="pass_label"for="npass">New Password</label> <input class="pass" type="password" style="" name="npass" /></p>
 					<p><label class="pass_label" for="npassc">Confirm Password</label> <input class="pass" type="password" style="" name="npassc" /></p>
 					<div style="clear:both;"></div>
@@ -272,6 +273,7 @@ if(is_user_logged_in())
 				
 				<form id="changepass" action="#" style="background:#222;color:white;;padding:8px;border-radius:10px; display: none;">
 					<p style="font-size:18px; margin-bottom:8px;">Reset Password</p>
+					<p class="lightboxMessage"></p>
 					<p><label class="pass_label" for="opass">Old Password</label> <input class="pass" type="password" style="" name="opass" /></p>
 					<p><label class="pass_label"for="npass">New Password</label> <input class="pass" type="password" style="" name="npass" /></p>
 					<p><label class="pass_label" for="npassc">Confirm Password</label> <input class="pass" type="password" style="" name="npassc" /></p>
@@ -360,8 +362,7 @@ jQuery("#changepassword").click(function() {
 		url:  "/dev/wp-admin/admin-ajax.php",
 		data: "action=passchange&" + input_data,
 		success: function(msg) {
-			alert(msg.substring(0, msg.length-1));
-			setTimeout("location.reload(true);");
+			$('.lightboxMessage').html(msg.substring(0, msg.length-1)).show();
 		}
 	});
 	return false;
@@ -371,12 +372,10 @@ jQuery("#set_pass_btn").click(function() {
 	var input_data = jQuery('#set_pass').serialize();
 	jQuery.ajax({
 		type: "POST",
-		// url:  "/dev/wp-admin/admin-ajax.php",
 		url:  "/dev/wp-admin/admin-ajax.php",
 		data: "action=setftppass&" + input_data,
 		success: function(msg) {
-			alert(msg.substring(0, msg.length-1));
-			setTimeout("location.reload(true);");
+			$('.lightboxMessage').html(msg.substring(0, msg.length-1)).show();
 		}
 	});
 	return false;
