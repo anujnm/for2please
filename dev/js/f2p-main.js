@@ -99,19 +99,18 @@ function loadResults(start,end){
 		if (sessionStorage.getItem(i) && sessionStorage.getItem(i) != "undefined") {
 		    var date1 = sessionStorage.getItem(i);
 			if(sessionStorage.getItem(i+1) && sessionStorage.getItem(i+1) != "undefined"){
-			 var date2 = sessionStorage.getItem(i+1);
-			 i = i+1;
+				var date2 = sessionStorage.getItem(i+1);
+				i = i+1;
 			}
 			else{
 			 date2 = "empt";
 			 }
 			if(sessionStorage.getItem(i+1) && sessionStorage.getItem(i+1) != "undefined"){
-			 var date3 = sessionStorage.getItem(i+1);
-			 i = i+1;
-			 
+				var date3 = sessionStorage.getItem(i+1);
+				i = i+1;
 			}
 			else{
-			date3 = "empt";
+				date3 = "empt";
 			}
 
 			input_date = "action=loaddate&dateID1="+date1+"&dateID2="+date2+"&dateID3="+date3;
@@ -283,7 +282,7 @@ jQuery(document).ready(function($) {
 	}
 
 	jQuery(window).scroll(function () {
-		if (jQuery(window).scrollTop() == $(document).height() - $(window).height()) {
+		if ((jQuery(window).scrollTop() == $(document).height() - $(window).height()) && (searchIndex-1) % 15 == 0) {
 			loadResults(searchIndex,searchIndex+15);
 		}
 	});
