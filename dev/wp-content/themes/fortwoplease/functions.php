@@ -54,10 +54,10 @@ function load_single_date(){
 	}
 	$cflag = 1;
 	if($id[2] != "empt"){
-	$cflag = 2;
+		$cflag = 2;
 	}
 	if($id[3] != "empt"){
-	$cflag = 3;
+		$cflag = 3;
 	}
 	
 	for($iz=1;$iz<=$cflag;$iz++) {
@@ -1149,5 +1149,80 @@ function array2json($arr) {
      
     if($is_list) return '[' . $json . ']';//Return numerical JSON 
     return '{' . $json . '}';//Return associative JSON 
-} 
+}
+
+function thebreadcrumb() {
+	echo '<ul id="breadcrumbs">';
+	if (is_home()) {
+		echo '<li><a href="';
+		echo get_option('home');
+		echo '">';
+		echo 'Home';
+	}
+	if (!is_home()) {
+		echo '<li><a href="';
+		echo get_option('home');
+		echo '">';
+		echo 'Home';
+		echo '</a></li><li class="separator"> / </li>';
+		if (is_single()) {
+			if (get_field('price')) {
+				echo '<li><a href="/dev/date-type/packages/">Date Packages</a></li>';
+			}
+		}
+
+		if (is_category() || is_single()) {
+			echo '<li>';
+			the_category('</li><li class="separator"> / </li><li>');
+			if (is_single()) {
+				echo '</li><li class="separator"> / </li><li>'.get_the_title().'</li>';
+			}
+		} elseif (is_page()) {
+			echo 'Anuj10</li><li class="separator"> / </li><li>';
+			if ($post->post_parent) {
+				$anc = get_post_ancestors($post->ID);
+				foreach ($anc as $ancestor) {
+					$output = '<li><a href="'.get_permalink($ancestor).'" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li><li class="separator"> Anuj </li>';
+				}
+				echo $output;
+				echo '<strong title="'.$title.'">'.$title.'</strong>';
+			} else {
+				echo '<strong>';
+				echo the_title();
+				echo '</strong>';
+			}
+		}
+	} elseif (is_tag()) {
+		echo '<li>Anuj1</li><li class="separator"> / </li>';
+		single_tag_title();
+	} elseif (is_day()) {
+		echo '<li>Anuj2</li><li class="separator"> / </li>';
+		echo '<li>Archive for ';
+		the_time('F jS, Y');
+		echo '</li>';
+	} elseif (is_month()) {
+		echo '<li>Anuj3</li><li class="separator"> / </li>';
+		echo '<li>Archive for ';
+		echo the_time('F, Y');
+		echo '</li>';
+	} elseif (is_year()) {
+		echo '<li>Anuj4</li><li class="separator"> / </li>';
+		echo '<li>Archive for ';
+		echo the_time('Y');
+		echo '</li>';
+	} elseif (is_author()) {
+		echo '<li>Anuj5</li><li class="separator"> / </li>';
+		echo '<li>Author Archive</li>';
+	} elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {
+		echo '<li>Anuj6</li><li class="separator"> / </li>';
+		echo '<li>Blog Archives</li>';
+	} elseif (is_search()) {
+		echo '<li>Anuj7</li><li class="separator"> / </li>';
+		echo '<li>Search Results';
+		echo '</li>';
+	}
+	echo '</ul>';
+}
+add_action('thebreadcrumb', 'thebreadcrumb');
+add_action('thebreadcrumb', 'thebreadcrumb');
 ?>
