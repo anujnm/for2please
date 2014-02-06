@@ -67,6 +67,7 @@ function stripeResponseHandler(status, response)
       {
         jQuery('#buy-process').html(msg.message).attr("style", "display:none; z-index: 100; position: absolute; background-color: #1a1a1a; overflow:hidden; margin-bottom:20px;");
         jQuery("#buy-process").show();
+        mixpanel.track('Purchase Successful', {'postID': postID });
         var ga_data = msg.ga_data;
         GAAddTransaction(ga_data.transID, ga_data.merchantName, ga_data.total, ga_data.tax);
         GAAddItem(ga_data.transID, ga_data.productName, ga_data.category, ga_data.price_per_item, ga_data.quantity);
@@ -243,12 +244,14 @@ jQuery(document).ready(function($) {
 				$("#overlay").css("visibility", "hidden");
 				$("#overlay-background").css("visibility", "hidden");
 				ga('send', 'event', 'button', 'click', 'buy-button-logged-in', 1);
+				mixpanel.track('Clicked Buy Button', { 'postID': postID });
 				jQuery("#buy-process").show();
 				return false;
 			} else {
 				$("#overlay").css("visibility", "hidden");
 				$("#overlay-background").css("visibility", "hidden");
 				ga('send', 'event', 'button', 'click', 'buy-button-not-logged-in', 1);
+				mixpanel.track('Clicked Buy Button', { 'postID': postID });
 				jQuery("#user-ajax-login").show();
 				return false;	
 			}
@@ -324,7 +327,7 @@ jQuery(document).ready(function($) {
 			   exp_year: $('#eyear').val(),
 			   name: (fName+ " " + lName).trim()
 			}, stripeResponseHandler);
-			 
+		    mixpanel.track('Clicked Purchase', {'postID': postID });
 			ga('send', 'event', 'button', 'click', 'buy-now', 1);
 			// Prevent the default submit action on the form
 			return false;
@@ -408,5 +411,8 @@ jQuery(document).ready(function($) {
 			jQuery("#forgot-pass").hide();
 			jQuery("#user-ajax-login").show();
 		});
+		mixpanel.track('Loaded Date Package', {'postID': postID });
+	} else {
+		mixpanel.track('Loaded Date Idea', {'postID': postID });
 	}
 });

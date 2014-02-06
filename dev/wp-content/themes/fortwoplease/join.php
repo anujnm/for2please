@@ -135,12 +135,20 @@ div.center_box div.bottom p label { color: white; }
 				url:  "/dev/wp-admin/admin-ajax.php",
 				data: "action=email_subscribe&" + input_data,
 				success: function(msg) {
-					//console.log(msg);
-					if(msg == 'Success'){
-						if (window.location.pathname.indexOf("subscribe") > 0 || window.location.pathname.indexOf("join") > 0)
-							setTimeout("location.assign('<?php echo home_url(); ?>');");
-						else
-							setTimeout("location.reload(true);");
+					if(msg == 'Success') {
+						if (window.location.pathname.indexOf('subscribe') > 0) {
+							mixpanel.track('Successful Sign Up', { 'url': 'Subscribe' }, function() {
+								setTimeout("location.assign('<?php echo home_url(); ?>');");
+							});
+						} else if (window.location.pathname.indexOf("join") > 0) {
+							mixpanel.track('Successful Sign Up', { 'url': 'Join' }, function() {
+								setTimeout("location.assign('<?php echo home_url(); ?>');");
+							});
+						} else {
+							mixpanel.track('Successful Sign Up', { 'url': 'Lightbox' }, function() {
+								setTimeout("location.reload(true);");
+							});
+						}
 					} else { 
 						$('.lightboxMessage').html(msg).show();
 					};

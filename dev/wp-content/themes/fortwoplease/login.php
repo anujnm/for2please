@@ -114,10 +114,20 @@ div.center_box div.bottom p label { color: white; }
 			data: "action=logmein&" + input_data,
 			success: function(msg){
 				if(msg == 'Success'){
-					if (window.location.pathname.indexOf("subscribe") > 0 || window.location.pathname.indexOf("login") > 0)
-						setTimeout("location.assign('<?php echo home_url(); ?>');");
-					else
-						setTimeout("location.reload(true);");
+					if (window.location.pathname.indexOf("subscribe") > 0) {
+						mixpanel.track('Successful Login', { 'url': 'Subscribe' }, function() { 
+							setTimeout("location.assign('<?php echo home_url(); ?>');");
+						});
+					} else if (window.location.pathname.indexOf('login') > 0) {
+						mixpanel.track('Successful Login', { 'url': 'Login' }, function() {
+							setTimeout("location.assign('<?php echo home_url(); ?>');");
+						});
+					}
+					else {
+						mixpanel.track('Successful Login', { 'url': 'Lightbox' }, function() {
+							setTimeout("location.reload(true);");
+						});
+					}
 				} else { 
 					$('.lightboxMessage').html(msg).show();
 				};

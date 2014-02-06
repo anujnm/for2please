@@ -78,17 +78,21 @@
 	<link rel="stylesheet" href="/dev/js/dropkick.css" type="text/css" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery_cookie.js" type="text/javascript"></script>
+	<script src="/dev/js/sessionstorage.1.4.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 	<script src="/vancouver/js/jquery.lightbox_me.js" type="text/javascript"></script>
+	<!-- start Mixpanel -->
+	<script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+		typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+		b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+		mixpanel.init("0813a7af01d22d10ec6373cedce06431");
+	</script>
+	<!-- end Mixpanel -->
 	<script>
 		function downloadJSAtOnload() {
 			var element = document.createElement("script");
 			element.src = "/dev/js/jquery-ui.multidatespicker.js";
 			document.body.appendChild(element);
-
-			var element2 = document.createElement("script");
-			element2.src = "/dev/js/sessionstorage.1.4.js";
-			document.body.appendChild(element2);
 
 			var element3 = document.createElement("script");
 			element3.src = "//assets.pinterest.com/js/pinit.js";
