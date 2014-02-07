@@ -28,7 +28,7 @@ get_header(); ?>
 			$datetypes = get_the_term_list( $id, 'date-type', '', ', ', '' );
 			echo "<div id='";
 			echo $id;
-			echo "' onclick='location.href=\"$itemPermalink\"; 'class='testsearch date-container' style='background:url(";
+			echo "' onclick='location.href=\"$itemPermalink\";' class='testsearch date-container' style='background:url(";
 			echo get_field('thumbnail',$id);
 			echo");height:235px;width:330px; float:left;margin: 0 8px 30px 8px;box-shadow:2px 2px 5px #888;position:relative;'>";
 			if(stristr(strip_tags($datetypes),'Packages') !== FALSE) {
@@ -38,25 +38,28 @@ get_header(); ?>
 			echo "<div style='height:200px;width:330px;'>";
 			echo "<div id='searchtest' class='testsearch2'>";
 			echo "<div class='result-type' style='width:240px;text-align:right;'>";
-			if (!empty($datetypes))
-				echo '<p style="color:#F07323">', strip_tags($datetypes) ,'</p>';
-			echo "</div><div style='position: relative;  text-align: left; left: 20px; overflow: hidden; width: 305px; height: 140px;clear:both;'><a 								style='color:#FFF;font-size:18px;font-weight:700;text-decoration:none;' href='";
+			if (!empty($datetypes)) {
+				echo "<p style='color:#F07323'><a style='text-decoration:none;' href='". $itemPermalink . "'>", strip_tags($datetypes), "</a></p>";
+			}
+			echo "</div><div style='position: relative;  text-align: left; left: 20px; overflow: hidden; width: 305px; height: 140px;clear:both;'>";
+			echo "<a style='color:#FFF;font-size:18px;font-weight:700;text-decoration:none;' href='";
 			echo $itemPermalink;
 			echo "'>";
 			echo get_the_title($id);
 			echo "</a><br/>";
 			$terms_as_text = get_the_term_list( $id, 'location', '', ', ', '' );
-			if (!empty($terms_as_text)) echo '<p style="color:#FFF;">', strip_tags($terms_as_text) ,'</p>';
-			echo "<br/><p style='color:white;width:300px;'>";
+			if (!empty($terms_as_text)) echo '<p style="color:#FFF;"><a style="color:#FFF;text-decoration:none;" href="'. $itemPermalink .'">', strip_tags($terms_as_text) ,'</a></p>';
+			echo "<br/><p style='color:white;width:300px;'><a style='color:#FFF;text-decoration:none;' href='";
+			echo $itemPermalink."'>";
 			echo showBrief(get_field('short_description',$id),20 ); 
-			echo "...</p><a style='float:right;margin-right:10px;text-decoration:none;' href='";
+			echo "...</a></p><a style='float:right;margin-right:10px;text-decoration:none;' href='";
 			echo $itemPermalink;
 			echo "'>Read More...</a></div></div></div>";
 			echo "<div class='overlay'><h3><a href='";
 			echo $itemPermalink;
 			echo "'>";
 			echo the_field('sub_title',$id);
-			echo "</a></h3></div></div>";		
+			echo "</a></h3></div></div>";
 		endwhile;
 	endif;
 	?>
