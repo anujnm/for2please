@@ -977,19 +977,23 @@ add_action('wp_ajax_donedate', 'done_date');//for users that are not logged in.
 
 function share_date(){
 
-$toemail = $_POST['recipient-email'];
-$toname = $_POST['recipient-name'];
-$fromname = $_POST['sender-name'];
-$message = $_POST['message'];
-$postid = $_POST['pid'];
-$postobject = wp_get_single_post($postid);
-$permalink = get_permalink($id);
+	$toemail = $_POST['recipient-email'];
+	$toname = $_POST['recipient-name'];
+	$fromname = $_POST['sender-name'];
+	$message = $_POST['message'];
+	$postid = $_POST['pid'];
+	$postobject = wp_get_single_post($postid);
+	$permalink = get_permalink($postid);
 
-$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-	
-	
-add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-wp_mail($toemail, 'You’ve Been Asked Out By '.$fromname, '<p>Lucky You</p><p>You\'\ve been asked out by '.$fromname.' to go on this date:</p><b><a href="$permalink">'.$postobject->post_title .'</a></b><p>Let '.$fromname. ' know what you think.</p><p>Have Fun<br/>-The ForTwoPlease Team</p>',$headers);
+	$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
+	$contents = '<p>Lucky You!</p><p>'.$fromname.' thought you would like this great date idea:</p><b><a href="'.$permalink.'">'.$postobject->post_title .'</a></b><p>Check it out and let '.$fromname.' know what you think.</p><p>Have Fun<br/>-The ForTwoPlease Team</p>';
+
+	if (strlen($message) > 0) {
+		$contents = 'Message from '.$fromname.':<p><i> '.$message.'</i></p><p>You can check out the date here: <b><a href="'.$permalink.'">'.$postobject->post_title .'</a></b>';
+	}
+
+	add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
+	wp_mail($toemail, $fromname. ' has sent you this date idea', $contents, $headers);
 }
 
 add_action('wp_ajax_nopriv_sharedate', 'share_date');
