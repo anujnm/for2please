@@ -989,7 +989,7 @@ function share_date(){
 	$contents = '<p>Lucky You!</p><p>'.$fromname.' thought you would like this great date idea:</p><b><a href="'.$permalink.'">'.$postobject->post_title .'</a></b><p>Check it out and let '.$fromname.' know what you think.</p><p>Have Fun<br/>-The ForTwoPlease Team</p>';
 
 	if (strlen($message) > 0) {
-		$contents = 'Message from '.$fromname.':<p><i> '.$message.'</i></p><p>You can check out the date here: <b><a href="'.$permalink.'">'.$postobject->post_title .'</a></b>';
+		$contents = 'Message from '.$fromname.':<p><i> '.$message.'</i></p><p>You can check out the date here: <b><a href="'.$permalink.'">'.$postobject->post_title .'</a></b><p>Have Fun<br/>-The ForTwoPlease Team</p>';
 	}
 
 	add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
