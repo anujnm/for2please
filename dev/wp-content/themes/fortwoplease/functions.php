@@ -771,6 +771,19 @@ add_action('wp_ajax_nopriv_email_subscribe', 'email_subscription');
 add_action('wp_ajax_email_subscribe', 'email_subscription');//for users that are not logged in.
 
 
+function location_subscribe() {
+	$user_email = $_POST['email'];
+	$location = $_POST['location'];
+	$data = $location . ','. $user_email . "\n";
+	file_put_contents('/home/fortwo9/public_html/dev/subscriptions/location_subscribers.txt', $data, FILE_APPEND);
+	echo 'Success';
+	exit();
+}
+
+add_action('wp_ajax_nopriv_location_subscribe', 'location_subscribe');
+add_action('wp_ajax_location_subscribe', 'location_subscribe');
+
+
 function add_email_to_mail_chimp ($email, $fname, $lname) {
 	//MailChimp API Files
 	require_once 'inc/MCAPI.class.php';

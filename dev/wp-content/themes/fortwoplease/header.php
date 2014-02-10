@@ -251,8 +251,11 @@
 		</div>
 
 
-		<div id="header-about" style="float:right;margin-top:40px;">
-			<ul id="nav-one" class="nav" style="float:left;">
+		<div id="header-about" style="float:right;margin-top:15px;">
+			<div class="account_links">
+				<a id="not_from_location" href="#">Not From Vancouver?</a>
+			</div>
+			<ul id="nav-one" class="nav m-t-m m-l-xl" style="float:left;">
 				<li>
 					<a id="downarrow" style="float:left;" href="#item1">About&nbsp;&nbsp;<img src="/dev/wp-content/themes/images/down-arrow.png" /></a>
 					<ul style="display: block; border-top: 3px solid #6f6f6f;">

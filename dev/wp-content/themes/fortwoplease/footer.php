@@ -81,7 +81,7 @@
 
 <div id="join_div"></div>
 <div id="sign_in_div"></div>
-
+<div id='location_div'></div>
 <?php wp_footer(); ?>
 
 <script type="text/javascript">
@@ -168,14 +168,6 @@ jQuery("#sign_in").click(function(e){
 			
 		});
 		e.preventDefault();
-/*
-	} else {
-		jQuery("#sign_in_div").lightbox_me({
-			centered: true, 
-		});
-		e.preventDefault();
-	}
-*/
 	return false;
 });
 
@@ -190,15 +182,17 @@ jQuery("#join_now").click(function(e){
 			
 		});
 		e.preventDefault();
-/*
-	} else {
-		jQuery("#join_div").lightbox_me({
-			centered: true, 
-		});
-		e.preventDefault();
-	}
-*/
 	return false;
+});
+
+jQuery("#not_from_location").click(function(e) {
+    jQuery("#location_div").load('/dev/city/', function() {
+        jQuery("#location_div").lightbox_me({
+            centered: true,
+        });
+    });
+    e.preventDefault();
+    return false;
 });
 
 function squeeze_close_action() {
