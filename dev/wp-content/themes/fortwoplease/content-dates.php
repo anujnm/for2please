@@ -76,7 +76,75 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 				</div>
 				
 			</div>
+			<div class="date_info">
+				<div class="links">
+					<div style="width: 140px; margin-top:3px;">
+					<?php
+						$uri = $_SERVER["REQUEST_URI"];
+						$uri = substr($uri, 13);
+						#get_permalink( $post->ID );
+						//$uri = "http://fortwoplease.com/dev".$uri;
+						$uri = "http://fortwoplease.com/vancouver".$uri;
+						// echo $uri."<br/>";
+						echo '<div class="fb-like" data-href="'.$uri.'" data-send="false" data-layout="button_count" data-show-faces="false" data-action="recommend" data-font="verdana"></div>';
+					?>
+					</div>
+					
+					<div style="width: 90px; margin-top:3px;">
+					<a href="<?php echo $uri ?>" class="twitter-share-button">Tweet</a>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+					</div>
+					
+					<div style="width: 65px;"><a href="http://pinterest.com/pin/create/button/?url=<?php echo current_page_url(); ?>&media=<?php the_field('image_2'); ?>&description=this%20is%20the%20description" class="pin-it-button" count-layout="vertical"><img border="0" src="/dev/wp-content/themes/images/pinit.png" title="Pin It" /></a></div>
+					<div style="width: 70px; margin-top:3px;"><img src="/dev/wp-content/themes/images/email_btn.png" width="60" height="22" style="cursor:pointer;" onclick="jQuery('#share-date').lightbox_me({centered: true,});"/></div>
+        			
+				</div>
+				<div style="clear: both;"></div>
+				<?#php dd_fblike_generate('Recommend Button Count') ?>
+				<?#php dd_pinterest_generate('Compact') ?>
+				<?#php dd_twitter_generate('Compact','twitter_username') ?>
+				
+				<div id="share-date">
+					<form id="share-this-date">
+						<div class="info">
+							<div class="label">Recipient's Email:</div>
+							<div class="input"><input type='text' name="recipient-email" class="text_field" /></div>
+							<div style="clear: both;"></div>
+						</div>
+						<div class="info">
+							<div class="label">Recipient's Name:</div>
+							<div class="input"><input type='text' name="recipient-name" class="text_field" /></div>
+							<div style="clear: both;"></div>
+						</div>
+						<div class="info">
+							<div class="label">Your Name:</div>
+							<div class="input"><input type="text" name="sender-name" class="text_field" /></div>
+							<div style="clear: both;"></div>
+						</div>
+						<br/>
+						<div class="message">Message(optional): <br/> <textarea rows="5" name="message" cols="40"> </textarea></div>
+						
+						<br/>
+						<input type="submit" id="share-submit" value="send" class="f2p-button" />
+					</form>
+				</div>
+				
+				<div class="title">
+					<?php if(get_field('price')) { ?>
+						THE DATE PACKAGE...
+					<?php } else { ?>
+						THE DATE IDEA...
+					<?php }?>
+				</div>
+				<?php if(get_field('short_description')){ ?>
+					<p class="short_desc"><?php the_field('short_description'); ?></p>
+				<?php } ?>
+				<div class="why"><?php the_field('why_is_this_a_great_date'); ?></div>
 			
+				<div id="word-on-street" class="quotes"><?php the_field('word_on_the_street'); ?></div>
+			</div>
+		</div>
+		<div class="date_content">
 			<div class="date_package">
 				<?php if(get_field('price')){ ?>
 				<div class="package_info">
@@ -353,7 +421,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 				</div>
 
 				<?php } else { ?>
-					<div class="date_info">
+					<div class="similar_packages">
 						<div style="height: 2px;"></div>
 							<div class="content">
 								<div class="yourself">
@@ -423,81 +491,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 
 				<div style="clear: both;"></div>
 			</div>
-		</div>
-		<div style="clear:both;"></div>
-		<div class="date_content">
-			
-			<div class="date_info">
-				<div class="links">
-					<div style="width: 140px; margin-top:3px;">
-					<?php
-						$uri = $_SERVER["REQUEST_URI"];
-						$uri = substr($uri, 13);
-						#get_permalink( $post->ID );
-						//$uri = "http://fortwoplease.com/dev".$uri;
-						$uri = "http://fortwoplease.com/vancouver".$uri;
-						// echo $uri."<br/>";
-						echo '<div class="fb-like" data-href="'.$uri.'" data-send="false" data-layout="button_count" data-show-faces="false" data-action="recommend" data-font="verdana"></div>';
-					?>
-					</div>
-					
-					<div style="width: 90px; margin-top:3px;">
-					<a href="<?php echo $uri ?>" class="twitter-share-button">Tweet</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-					</div>
-					
-					<div style="width: 65px;"><a href="http://pinterest.com/pin/create/button/?url=<?php echo current_page_url(); ?>&media=<?php the_field('image_2'); ?>&description=this%20is%20the%20description" class="pin-it-button" count-layout="vertical"><img border="0" src="/dev/wp-content/themes/images/pinit.png" title="Pin It" /></a></div>
-					<div style="width: 70px; margin-top:3px;"><img src="/dev/wp-content/themes/images/email_btn.png" width="60" height="22" style="cursor:pointer;" onclick="jQuery('#share-date').lightbox_me({
-        centered: true, 
-        });"/></div>
-        			
-				</div>
-				<div style="clear: both;"></div>
-				<?#php dd_fblike_generate('Recommend Button Count') ?>
-				<?#php dd_pinterest_generate('Compact') ?>
-				<?#php dd_twitter_generate('Compact','twitter_username') ?>
-				
-				<div id="share-date">
-					<form id="share-this-date">
-						<div class="info">
-							<div class="label">Recipient's Email:</div>
-							<div class="input"><input type='text' name="recipient-email" class="text_field" /></div>
-							<div style="clear: both;"></div>
-						</div>
-						<div class="info">
-							<div class="label">Recipient's Name:</div>
-							<div class="input"><input type='text' name="recipient-name" class="text_field" /></div>
-							<div style="clear: both;"></div>
-						</div>
-						<div class="info">
-							<div class="label">Your Name:</div>
-							<div class="input"><input type="text" name="sender-name" class="text_field" /></div>
-							<div style="clear: both;"></div>
-						</div>
-						<br/>
-						<div class="message">Message(optional): <br/> <textarea rows="5" name="message" cols="40"> </textarea></div>
-						
-						<br/>
-						<input type="submit" id="share-submit" value="send" class="f2p-button" />
-					</form>
-				</div>
-				
-				<div class="title">
-					<?php if(get_field('price')) { ?>
-						THE DATE PACKAGE...
-					<?php } else { ?>
-						THE DATE IDEA...
-					<?php }?>
-				</div>
-				<?php if(get_field('short_description')){ ?>
-					<p class="short_desc"><?php the_field('short_description'); ?></p>
-				<?php } ?>
-				<div class="why"><?php the_field('why_is_this_a_great_date'); ?></div>
-			
-				<div id="word-on-street" class="quotes"><?php the_field('word_on_the_street'); ?></div>
-			</div>
-			
-			
 			<div class="date_details">
 				<?php if (get_the_term_list( $post->ID, 'date-type' ) != null ) { ?>	
 				<div id="locations" class="item">

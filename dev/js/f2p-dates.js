@@ -25,10 +25,10 @@ ref.parentNode.insertBefore(js, ref);
 
 function equalHeight () {
 	var date_details = jQuery(".date_details").height();
-	var date_content = jQuery(".date_content").height();
+	var date_info = jQuery(".date_info").height();
 	
-	if (date_content >= date_details) {
-		jQuery(".date_details").height(date_content+25);
+	if (date_info >= date_details) {
+		jQuery(".date_details").height(date_info+25);
 	}
 }
 
