@@ -6,8 +6,8 @@ div#share-date form#share-this-date div.info div.input { float: left; }
 div#share-date form#share-this-date div.message {  }
 
 div.date-content { position: relative; }
-div.date-content a:hover { color: #f07423 !important; }
-div.date-content a { color: #29A8E0 !important; }
+div.date-content a:hover { color: #f07423; }
+div.date-content a { color: #29A8E0; }
 
 div#content div#previous_page_link { position: absolute; top: 0px; left: -47px; }
 div#content div#previous_page_link div.previous_page_link { background: url(/dev/wp-content/themes/images/arrow_left.png); width: 47px; height: 49px;  }
@@ -112,7 +112,14 @@ div.date_content div.date_details div.map p.extra_info { color: #5d5d5d; width: 
 
 div.date_content div.date_package div.more_deals { width:335px; background:#f2f2f2; }
 
+div.date-content a.similar-package-link:hover { color: #fff;}
+div.date-content a.similar-package-link { color: #fff; }
 
+div.date-content a.similar-package-tags:hover { color: #f07323;}
+div.date-content a.similar-package-tags { color: #f07323; }
+
+a.similar-package-link {color:#fff;}
+a.similar-package-tags {color:#f07323;}
 
 
 

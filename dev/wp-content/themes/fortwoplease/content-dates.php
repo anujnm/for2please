@@ -365,25 +365,25 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 											<div id="searchtest" class="testsearch2-content" style="display: none;">
 												<div class="result-type" style="width:240px;text-align:right;">
 													<p style="color:#F07323">
-														<a style="text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Adventurous, Anniversary, Packages</a>
+														<a style="text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/" class='similar-package-tags'>Adventurous, Anniversary, Packages</a>
 													</p>
 												</div>
 												<div style="position: relative;  text-align: left; left: 20px; overflow: hidden; width: 305px; height: 140px;clear:both;">
-													<a style="color:#FFF;font-size:18px;font-weight:700;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Harbour Cruises &amp; Events</a>
+													<a style="color:#FFF;font-size:18px;font-weight:700;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/" class='similar-package-link'>Harbour Cruises &amp; Events</a>
 												<br>
 												<p style="color:#FFF;">
-													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">BC, Downtown, Vancouver</a>
+													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/" class='similar-package-link'>BC, Downtown, Vancouver</a>
 												</p>
 												<br>
 												<p style="color:white;width:300px;">
-													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Take a break from the malls, museums and theatres, and enjoy this beautiful city from the water!...</a>
+													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/" class='similar-package-link'>Take a break from the malls, museums and theatres, and enjoy this beautiful city from the water!...</a>
 												</p>
-												<a style="float:right;margin-right:10px;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Read More...</a>
+												<a style="float:right;margin-right:10px;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/" class='similar-package-link'>Read More...</a>
 											</div>
 										</div>
 									</div>
 									<div class="overlay-content">
-										<h3><a href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Paddleboat Harbour Tour</a></h3>
+										<h3><a href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/" class='similar-package-link'>Paddleboat Harbour Tour</a></h3>
 									</div>
 								</div>
 							</div>
@@ -396,24 +396,24 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 										<div id="searchtest" class="testsearch2-content" style="display: none;">
 											<div class="result-type" style="width:240px;text-align:right;">
 												<p style="color:#F07323">
-													<a style="text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">Adventurous, Anniversary, Dining, Packages</a>
+													<a style="text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/" class='similar-package-tags'>Adventurous, Anniversary, Dining, Packages</a>
 												</p>
 											</div>
 											<div style="position: relative;  text-align: left; left: 20px; overflow: hidden; width: 305px; height: 140px;clear:both;">
-												<a style="color:#FFF;font-size:18px;font-weight:700;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">Harbour Cruises &amp; Events</a>
+												<a style="color:#FFF;font-size:18px;font-weight:700;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/" class='similar-package-link'>Harbour Cruises &amp; Events</a>
 												<br>
 												<p style="color:#FFF;">
-													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">BC, Downtown, Vancouver</a>
+													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/" class='similar-package-link'>BC, Downtown, Vancouver</a>
 												</p><br>
 												<p style="color:white;width:300px;">
-													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">It's time for something different! ...</a>
+													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/" class='similar-package-link'>It's time for something different! ...</a>
 												</p>
-												<a style="float:right;margin-right:10px;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">Read More...</a>
+												<a style="float:right;margin-right:10px;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/" class='similar-package-link'>Read More...</a>
 											</div>
 										</div>
 									</div>
 									<div class="overlay-content">
-										<h3><a href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">Indian Arm Luncheon Cruise</a></h3>
+										<h3><a href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/" class='similar-package-link'>Indian Arm Luncheon Cruise</a></h3>
 									</div>
 								</div>
 							</div>
