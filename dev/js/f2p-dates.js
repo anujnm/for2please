@@ -165,6 +165,9 @@ jQuery(document).ready(function($) {
 	jQuery(".testsearch").live("mouseenter",function(){jQuery("div.testsearch2",this).fadeIn('fast');});
 	jQuery(".testsearch").live("mouseleave",function(){jQuery("div.testsearch2",this).fadeOut('fast');});
 
+	jQuery(".testsearch-content").live("mouseenter",function(){jQuery("div.testsearch2-content",this).fadeIn('fast');});
+	jQuery(".testsearch-content").live("mouseleave",function(){jQuery("div.testsearch2-content",this).fadeOut('fast');});
+
 	var i;
 	var id = postID;
 	for(i=1;i<sessionStorage.length+1;i++) {

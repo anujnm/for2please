@@ -42,7 +42,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 			<?php if (get_field("price")) { ?>
 				<div class="package_title">DATE PACKAGE</div>
 			<?php } else { ?>
-				<div class="date_title">DATE IDEA</div>
+				<div class="date_title">SIMILAR DATE PACKAGES</div>
 			<?php } ?>
 		</div>
 		
@@ -355,16 +355,67 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 				<?php } else { ?>
 					<div class="date_info">
 						<div style="height: 2px;"></div>
-						<div class="content">
-							<div class="yourself">
-								<b>This is a do-it-yourself idea.</b>
-								<p>Plan your date and add your own creative touches, or maybe use some of our suggestions to make it even more special.<p>
+							<div class="content">
+								<div class="yourself">
+									<div id="2107" onclick="location.href=&quot;http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/&quot;;" class="testsearch-content date-container" style="background:url(https://fortwoplease.com/dev/wp-content/uploads/2012/05/FTP-Search-Photo-Harbour-Cruises-Vancouver-Harbour-Tour.jpg);height:235px;width:320px; float:left;margin: 0 8px 30px 0;box-shadow:2px 2px 5px #888;position:relative;">
+										<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;">
+											<img src="/dev/wp-content/themes/images/get-it-here.png">
+										</div>
+										<div style="height:200px;width:320px;">
+											<div id="searchtest" class="testsearch2-content" style="display: none;">
+												<div class="result-type" style="width:240px;text-align:right;">
+													<p style="color:#F07323">
+														<a style="text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Adventurous, Anniversary, Packages</a>
+													</p>
+												</div>
+												<div style="position: relative;  text-align: left; left: 20px; overflow: hidden; width: 305px; height: 140px;clear:both;">
+													<a style="color:#FFF;font-size:18px;font-weight:700;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Harbour Cruises &amp; Events</a>
+												<br>
+												<p style="color:#FFF;">
+													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">BC, Downtown, Vancouver</a>
+												</p>
+												<br>
+												<p style="color:white;width:300px;">
+													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Take a break from the malls, museums and theatres, and enjoy this beautiful city from the water!...</a>
+												</p>
+												<a style="float:right;margin-right:10px;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Read More...</a>
+											</div>
+										</div>
+									</div>
+									<div class="overlay-content">
+										<h3><a href="http://fortwoplease.com/dev/dates/harbour-cruises-events-tour/">Paddleboat Harbour Tour</a></h3>
+									</div>
+								</div>
 							</div>
 							<div class="option">
-								<b>Want an easier option?</b>
-								<p>Let us do the planning! We work with the best local date spots to create exclusive date experiences for you to enjoy with someone special.</p>
-								<br/>
-								<a href="/dev/date-type/packages/" style="font-weight: bold;">Click here to see Date Packages.</a>
+								<div id="2105" onclick="location.href=&quot;http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/&quot;;" class="testsearch-content date-container" style="background:url(https://fortwoplease.com/dev/wp-content/uploads/2012/05/FTP-Search-Photo-Harbour-Cruises-Indian-Arm-Luncheon.jpg);height:235px;width:320px; float:left;margin: 0 8px 30px 0;box-shadow:2px 2px 5px #888;position:relative;">
+									<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;">
+										<img src="/dev/wp-content/themes/images/get-it-here.png">
+									</div>
+									<div style="height:200px;width:320px;">
+										<div id="searchtest" class="testsearch2-content" style="display: none;">
+											<div class="result-type" style="width:240px;text-align:right;">
+												<p style="color:#F07323">
+													<a style="text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">Adventurous, Anniversary, Dining, Packages</a>
+												</p>
+											</div>
+											<div style="position: relative;  text-align: left; left: 20px; overflow: hidden; width: 305px; height: 140px;clear:both;">
+												<a style="color:#FFF;font-size:18px;font-weight:700;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">Harbour Cruises &amp; Events</a>
+												<br>
+												<p style="color:#FFF;">
+													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">BC, Downtown, Vancouver</a>
+												</p><br>
+												<p style="color:white;width:300px;">
+													<a style="color:#FFF;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">It's time for something different! ...</a>
+												</p>
+												<a style="float:right;margin-right:10px;text-decoration:none;" href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">Read More...</a>
+											</div>
+										</div>
+									</div>
+									<div class="overlay-content">
+										<h3><a href="http://fortwoplease.com/dev/dates/harbour-cruises-events-indian-arm-luncheon-cruise/">Indian Arm Luncheon Cruise</a></h3>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

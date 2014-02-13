@@ -374,7 +374,15 @@ background:#CCC;
 	cursor:pointer;	
 }
 .testsearch2{
-	background:RGBA(0,0,0,0.7);height:200px;width:330px;
+	background:RGBA(0,0,0,0.7);height:200px;width:320px;
+  display: none;
+  
+}
+.testsearch-content{
+  cursor:pointer; 
+}
+.testsearch2-content{
+  background:RGBA(0,0,0,0.7);height:200px;width:320px;
   display: none;
   
 }
@@ -526,6 +534,29 @@ background:#CCC;
 	color:#f1f0f0;
 	text-decoration:none;
 }
+
+.overlay-content {
+  background:#111;
+  width:320px;
+  height:35px;
+  color:white;
+  
+ }
+
+.overlay-content h3{
+  padding-top:6px;
+}
+
+.overlay-content a{
+  color:#FFF;
+  text-decoration:none;
+}
+
+.overlay-content a:hover{
+  color:#f1f0f0;
+  text-decoration:none;
+}
+
 #package-description p{
 	padding-left:10px;
 	padding-right:10px;
