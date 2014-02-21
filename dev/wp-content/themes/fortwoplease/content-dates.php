@@ -91,7 +91,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					</div>
 					
 					<div style="width: 90px; margin-top:3px;">
-					<a href="<?php echo $uri ?>" class="twitter-share-button">Tweet</a>
+					<a href="<?php echo $uri ?>" class="twitter-share-button" url="http://twitter.com/share?url=<?php echo $uri ?>" data-counturl="<?php echo $uri ?>">Tweet</a>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 					</div>
 					
