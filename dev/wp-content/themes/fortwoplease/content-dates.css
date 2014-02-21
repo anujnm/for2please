@@ -84,11 +84,11 @@ div.date_content div.date_package div.package_info div.forgot_pass_block div.for
 
 div.date_content div.date_package div.similar_packages { background-color: black; background-color: #F2F2F2; height: 410px; text-align: center; padding-top:10px;}
 div.date_content div.date_package div.similar_packages div.header { font-size: 24px; color: white; padding: 18px 0;}
-div.date_content div.date_package div.similar_packages div.content { height: 340px; margin: 10px; padding: 0; }
+div.date_content div.date_package div.similar_packages div.content { height: 235px; margin: 10px; padding: 0; }
 div.date_content div.date_package div.similar_packages div.content div b { font-size: 20px; color: #4d4d4d; }
 div.date_content div.date_package div.similar_packages div.content div p { margin: 10px 0; color: #5d5d5d; }
 div.date_content div.date_package div.similar_packages div.content div.yourself { height: 120px; }
-div.date_content div.date_package div.similar_packages div.content div.option { margin-top: 30px; }
+div.date_content div.date_package div.similar_packages div.option { margin-top: 30px; margin-left: 10px;}
 
 div.date_content {float:left; background-color: #f2f2f2; width:335px; }
 

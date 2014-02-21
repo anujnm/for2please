@@ -416,6 +416,34 @@ jQuery(document).ready(function($) {
 		});
 		mixpanel.track('Loaded Date Package', {'postID': postID });
 	} else {
+		var day = new Date().getUTCDay();
+		var type = "packages";
+		var location = "alllocations";
+		var prices = "allprice";
+		var time = "alltime";
+		input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+prices+"&time="+time+"&day=" + day;
+		populateDatePackages(input_date);
+
 		mixpanel.track('Loaded Date Idea', {'postID': postID });
+	}
+
+	function populateDatePackages(iData){
+		searchIndex = 1;
+		jQuery("#results2").html("");
+		jQuery("#ur-date-ideas2").html("");
+		jQuery("#results").html("<img id='loadImage' src='/dev/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
+		jQuery.ajax({
+			type: "POST",
+			url:  "/dev/wp-admin/admin-ajax.php",
+			dataType: 'json',
+			data: input_date,
+			success: function(msg) {	
+				jQuery('#loadImage').remove();
+				searchResults = msg; 
+				store();
+				debugger;
+				loadResults(1, 2, true);
+			}
+		});
 	}
 });

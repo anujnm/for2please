@@ -43,9 +43,9 @@ add_action('wp_ajax_getpermalink', 'get_permalink_now');//for users that are not
 function load_single_date(){
 	if($_POST['dateID1']!='rand')
 	{
-	$id[1] = $_POST['dateID1'];
-	$id[2] = $_POST['dateID2'];
-	$id[3] = $_POST['dateID3'];
+		$id[1] = $_POST['dateID1'];
+		$id[2] = $_POST['dateID2'];
+		$id[3] = $_POST['dateID3'];
 	}
 	else{
 		$id[1]= get_random_date();
@@ -101,6 +101,72 @@ function load_single_date(){
 }
 add_action('wp_ajax_nopriv_loaddate', 'load_single_date');
 add_action('wp_ajax_loaddate', 'load_single_date');//for users that are not logged in.
+
+
+function load_date_for_idea_page(){
+	if($_POST['dateID1']!='rand')
+	{
+		$id[1] = $_POST['dateID1'];
+		$id[2] = $_POST['dateID2'];
+	}
+	else{
+		$id[1]= get_random_date();
+		$id[2] = get_random_date();
+	}
+	$cflag = 1;
+	if($id[2] != "empt"){
+		$cflag = 2;
+	}
+	
+	for($iz=1;$iz<=$cflag;$iz++) {
+		$itemPermalink = get_permalink($id[$iz]);
+		$datetypes = get_the_term_list( $id[$iz], 'date-type', '', ', ', '' );
+		echo '<div style="height: 2px;"></div>';
+		if ($iz == 1) {
+			echo '<div class="content"><div class="yourself">';
+		} else {
+			echo '<div class="option">';
+		}
+		echo "<div id='";
+		echo $id[$iz];
+		echo "' class='testsearch-content date-container' style='background:url(";
+		echo get_field('thumbnail',$id[$iz]);
+		echo");height:235px;width:320px; float:left;margin: 0 8px 30px 0;box-shadow:2px 2px 5px #888;position:relative;'>";
+		echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/dev/wp-content/themes/images/get-it-here.png"></div>';
+		echo "<div style='height:200px;width:320px;'>";
+		echo "<div id='searchtest' class='testsearch2-content' style='display: none;''>";
+		echo "<div class='result-type' style='width:240px;text-align:right;'>";
+		if (!empty($datetypes)) {
+			echo '<p style="color:#F07323"><a style="text-decoration:none;" href="', $itemPermalink, '" class="similar-package-tags">', strip_tags($datetypes), '</a></p>';
+		}
+		echo "</div><div style='position: relative;  text-align: left; left: 20px; overflow: hidden; width: 305px; height: 140px;clear:both;'><a style='color:#FFF;font-size:18px;font-weight:700;text-decoration:none;' href='";
+	    echo $itemPermalink;
+		echo "'>";
+		echo get_the_title($id[$iz]);
+		echo "</a><br/>";
+		$terms_as_text = get_the_term_list( $id[$iz], 'location', '', ', ', '' );
+		if (!empty($terms_as_text)) {
+			echo '<p style="color:#FFF;"><a style="color:#FFF;text-decoration:none;" href="', $itemPermalink, '" class="similar-package-link">', strip_tags($terms_as_text) ,'</a></p>';
+		}
+		echo "<br/><p style='color:white;width:300px;'><a style='color:#FFF;text-decoration:none;' href='", $itemPermalink, "' class='similar-package-link'>";
+		echo showBrief(get_field('short_description', $id[$iz]), 20); 
+		echo "...</a></p><a style='float:right;margin-right:10px;text-decoration:none;' href='";
+		echo $itemPermalink;
+		echo "'>Read More...</a></div></div></div>";
+		echo "<div class='overlay-content'><h3><a class='similar-package-link' href='";
+		echo $itemPermalink;
+		echo "'>";
+		echo the_field('sub_title',$id[$iz]);
+		echo "</a></h3></div></div></div>";
+		if ($iz == 1) {
+			echo '</div>';
+		}
+	}
+	exit();
+}
+add_action('wp_ajax_nopriv_loaddateforideapage', 'load_date_for_idea_page');
+add_action('wp_ajax_loaddateforideapage', 'load_date_for_idea_page');//for users that are not logged in.
+
 
 function get_random_date(){
 	$args = array('showposts' => 1, 'orderby' => 'rand', 'post_type' => 'dates', 'post_status' => 'publish');
@@ -1013,7 +1079,7 @@ add_action('wp_ajax_nopriv_sharedate', 'share_date');
 add_action('wp_ajax_sharedate', 'share_date');//for users that are not logged in.
 
 
-function search_dates(){
+function search_dates() {
 	
 	$datetype = $_POST['datetype'];
 	$location = $_POST['location'];
@@ -1038,93 +1104,92 @@ function search_dates(){
 		$datetype = array('restaurants','entertainment','active','adventurous','getaways','anniversary','packages');
 	}
 	
-$myquery['tax_query'] = array(
-    array(
-        'taxonomy' => 'date-type',
-        'terms' => $datetype,
-        'field' => 'slug',
-    ),
-    array(
-        'taxonomy' => 'location',
-        'terms' => $location,
-        'field' => 'slug',
-    ),
-	array(
-        'taxonomy' => 'price',
-        'terms' => $price,
-        'field' => 'slug',
-    ),
-	array(
-        'taxonomy' => 'time',
-        'terms' => $time,
-        'field' => 'slug'
-    )
-	
-);
+	$myquery['tax_query'] = array(
+	    array(
+	        'taxonomy' => 'date-type',
+	        'terms' => $datetype,
+	        'field' => 'slug',
+	    ),
+	    array(
+	        'taxonomy' => 'location',
+	        'terms' => $location,
+	        'field' => 'slug',
+	    ),
+		array(
+	        'taxonomy' => 'price',
+	        'terms' => $price,
+	        'field' => 'slug',
+	    ),
+		array(
+	        'taxonomy' => 'time',
+	        'terms' => $time,
+	        'field' => 'slug'
+	    )
+	);
 
 
-$myquery['orderby'] = 'rand';
-$myquery['post_type'] = 'dates';
-$myquery['posts_per_page'] = '300';
-$myquery['post_status'] = 'publish';
+	$myquery['orderby'] = 'rand';
+	$myquery['post_type'] = 'dates';
+	$myquery['posts_per_page'] = '300';
+	$myquery['post_status'] = 'publish';
 
 
-/*if($day == 0){$day = 'Sunday';}
-else if($day == 1){$day = 'Monday';}
-else if($day == 2){$day = 'Tuesday';}
-else if($day == 3){$day = 'Wednesday';}
-else if($day == 4){$day = 'Thursday';}
-else if($day == 5){$day = 'Friday';}
-else if($day == 6){$day = 'Saturday';}*/
+	/*if($day == 0){$day = 'Sunday';}
+	else if($day == 1){$day = 'Monday';}
+	else if($day == 2){$day = 'Tuesday';}
+	else if($day == 3){$day = 'Wednesday';}
+	else if($day == 4){$day = 'Thursday';}
+	else if($day == 5){$day = 'Friday';}
+	else if($day == 6){$day = 'Saturday';}*/
 
-query_posts($myquery);
-$result_array = array ();
-$index = 2;
-$index_s = 1;
-while ( have_posts() ) : the_post();
-//	if(get_the_ID()){
-	//foreach (get_field('days_availible') as $values){
-	//if($values=='All Days'){
-	$id = get_the_ID();
-	$datetypes = get_the_term_list( $id, 'date-type', '', ', ', '' );
-	if(stristr(strip_tags($datetypes),'Packages') !== FALSE && $index_s<2)
-	{
-	$result_array[$index_s] = $id;
-	$index_s++;
-	}
-	else{
-	$result_array[$index] = $id;
-//	echo $result[$index].'';
-	$index++;}
-//	break;
+	query_posts($myquery);
+	$result_array = array ();
+	$index = 2;
+	$index_s = 1;
+	while ( have_posts() ) : the_post();
+	//	if(get_the_ID()){
+		//foreach (get_field('days_availible') as $values){
+		//if($values=='All Days'){
+		$id = get_the_ID();
+		$datetypes = get_the_term_list( $id, 'date-type', '', ', ', '' );
+		if(stristr(strip_tags($datetypes),'Packages') !== FALSE && $index_s<2)
+		{
+		$result_array[$index_s] = $id;
+		$index_s++;
+		}
+		else{
+		$result_array[$index] = $id;
+	//	echo $result[$index].'';
+		$index++;}
+	//	break;
+			
+		//}
+		//else if($values == $day)
+		//{
+	//	$result_array[$index] = get_the_ID();
+	//	echo $result[$index].'';
+		//$index++;
+		//break;
+		//}
+		//}
+	//}
 		
-	//}
-	//else if($values == $day)
-	//{
-//	$result_array[$index] = get_the_ID();
-//	echo $result[$index].'';
-	//$index++;
-	//break;
-	//}
-	//}
-//}
-	
-endwhile;
-$result_array["length"] = $index;
-wp_reset_query();
-echo json_encode($result_array); 
-exit();
-
-
+	endwhile;
+	$result_array["length"] = $index;
+	wp_reset_query();
+	echo json_encode($result_array); 
+	exit();
 }
 add_action('wp_ajax_nopriv_searchdates', 'search_dates');
 add_action('wp_ajax_searchdates', 'search_dates');//for users that are not logged in.
+
 
 function showBrief($str, $length) {
   $str = strip_tags($str);
   $str = explode(" ", $str);
   return implode(" " , array_slice($str, 0, $length));
 }
+
 
 function array2json($arr) { 
     if(function_exists('json_encode')) return json_encode($arr); //Lastest versions of PHP already has this functionality.

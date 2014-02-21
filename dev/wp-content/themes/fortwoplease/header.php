@@ -76,6 +76,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="/dev/js/css/ui-darkness/jquery-ui-1.8.20.custom.css" />
 	<link rel="stylesheet" href="/dev/js/dropkick.css" type="text/css" />
+	<script src="/dev/js/f2p-base.js" type="text/javascript"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery_cookie.js" type="text/javascript"></script>
 	<script src="/dev/js/sessionstorage.1.4.js" type="text/javascript"></script>
@@ -219,6 +220,7 @@
 				}
 			);
 		 });
+
 	</script>
 	<style type="text/css">
 	@font-face {
