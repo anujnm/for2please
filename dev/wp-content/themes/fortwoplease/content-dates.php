@@ -95,7 +95,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 					</div>
 					
-					<div style="width: 65px;"><a href="http://pinterest.com/pin/create/button/?url=<?php echo current_page_url(); ?>&media=<?php the_field('image_2'); ?>&description=this%20is%20the%20description" class="pin-it-button" count-layout="vertical"><img border="0" src="/dev/wp-content/themes/images/pinit.png" title="Pin It" /></a></div>
+					<div style="width: 65px;"><a href="http://pinterest.com/pin/create/button/?url=<?php echo current_page_url(); ?>&media=<?php the_field('image_1'); ?>&description=this%20is%20the%20description" class="pin-it-button" count-layout="vertical"><img border="0" src="/dev/wp-content/themes/images/pinit.png" title="Pin It" /></a></div>
 					<div style="width: 70px; margin-top:3px;"><img src="/dev/wp-content/themes/images/email_btn.png" width="60" height="22" style="cursor:pointer;" onclick="jQuery('#share-date').lightbox_me({centered: true,});"/></div>
         			
 				</div>
