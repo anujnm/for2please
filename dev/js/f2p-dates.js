@@ -158,6 +158,7 @@ jQuery(document).ready(function($) {
 		jQuery('#price').html("Price: $" + price_t.toFixed(2));
 		jQuery('#taxes').html("Taxes: $" + taxe_t.toFixed(2));
 		jQuery('#fees').html("Fees: $" + fees_t.toFixed(2));
+		jQuery('#discounts').html("Discount: $" + discount.toFixed(2));
 		jQuery('#total_price').html("Total: $<span id='total_amount'>" + total_t.toFixed(2) + "</span>");
 		jQuery('#amount').val(total_t.toFixed(2));
 	}
@@ -386,8 +387,6 @@ jQuery(document).ready(function($) {
 			return false;
 		});
 
-
-
 		jQuery("#submitbtn2").click(function() {
 			var input_data = jQuery('#wp_reg_form').serialize();
 			jQuery.ajax({
@@ -418,7 +417,30 @@ jQuery(document).ready(function($) {
 			jQuery("#forgot-pass").hide();
 			jQuery("#user-ajax-login").show();
 		});
+
+		jQuery("#billing_discount").blur(function(e) {
+			e.preventDefault();
+			var discount_code = jQuery("#billing_discount").val();
+			if (discount_code != null && discount_code != undefined) {
+				var price = jQuery('#buy-quantity').val();
+				jQuery.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "/dev/wp-admin/admin-ajax.php",
+					data: "action=apply_discount&discount_code=" + discount_code + "&quantity=" + price + "&dateID=" + postID,
+					success: function(data) {
+						if (data.msg=='Error') {
+							jQuery('#discountMessage').html(data.error).show();
+						} else {
+							alert(data.msg);
+						}
+					}
+				});
+			}
+		});
+
 		mixpanel.track('Loaded Date Package', {'postID': postID });
+
 	} else {
 		var day = new Date().getUTCDay();
 		var type = "packages";

@@ -14,6 +14,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 <?php if(get_field('price')) { ?>;
 	var price = <?php the_field('price'); ?>;
 	var taxes = <?php the_field('taxes'); ?>;
+	var discount = 0;
 	var fees = <?php the_field('fees'); ?>;
 	var total = price + taxes + fees;
 	var orderID = <?php echo get_current_user_id(); }?>;
@@ -210,23 +211,29 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 							<p style="font-size:100%; font-weight: bold;">Please enter your payment information below.</p>
 							<br/>
 							<div id='payment-error' style='background:#FF9;clear:both;color:red;width:300px;margin-bottom:10px;overflow:hidden;padding:5px;display:none;'></div>
-							<div style='clear:both;margin-bottom:10px;float:right;'>
-								Quantity:
-								<select style='background-color:#f2f2f2;'id='buy-quantity' name="quantity">
+							<div style="clear:both;"></div>
+							<div style='padding-left:10px;height:30px;'>
+								Quantity: 
+								<select style='background-color:#f2f2f2;' class='m-l-m' id='buy-quantity' name="quantity">
 									<option value='1'>1</option>
 									<option value='2'>2</option>
 									<option value='3'>3</option>
 									<option value='4'>4</option>
 								</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<span id='price'> Price: $</span>
+								<span id='price' style='float:right;height: 20px;'> Price: $</span>
 							</div>
-							<div id='price-detail' style='float:right;clear:both;height:60px; text-align:right;'>
+							<div style='padding-left:10px;height:30px;'>
+								Promo Code: 
+								<input type='text' id='billing_discount' style='float:right;height: 20px;' value=""/>
+							</div>
+							<div id='price-detail' style='float:right;clear:both;height:75px; text-align:right;'>
 								<div id='taxes'>Taxes: $</div>
+								<div id='discounts'>Discount: $</div>
 								<div id='fees'>Fees: $</div>
 								<div id='total_price'>Total: $<span id="billing_total"></span></div>
 								<input type="hidden" id="amount" name="amount" />
 							</div>
-							<div style='float:left;margin-left:64px;margin-bottom:10px;'>
+							<div style='float:left;margin-left:64px;' class='m-t-l m-b-s'>
 								<img src='/dev/wp-content/themes/images/payments2.png'></img>
 							</div>
 							<div style='clear:both;'>
@@ -338,9 +345,9 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 									<input type="submit" id="submitbtn" name="submit" value="Login" class="f2p-button login_btn" />
 								</form>
 								<div class="fb_login">
-									<h2> or use facebook </h2>					
+									<h2> or use facebook </h2>
 									<img id="fb_login_btn" src="/dev/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/>
-								</div>					
+								</div>
 							</div>
 						</div>
 						<div style="clear:both;"></div>

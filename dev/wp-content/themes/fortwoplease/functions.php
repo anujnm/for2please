@@ -687,22 +687,16 @@ function pass_change() {
 	$wp_hasher = new PasswordHash(8, TRUE);
 	$check = $wp_hasher->CheckPassword($oldpass, $pass1);
 	
-		if($check)
-		{
-			if($newpass == $newpassconfirm)
-			{
+		if($check) {
+			if($newpass == $newpassconfirm) {
 			wp_update_user( array ('ID' => $current_user->ID, 'user_pass' => $newpass) ) ;
 			echo "Password change complete";
-			}
-			else
-			{
+			} else {
 			echo "The new password fields do not match";
 			}
-		}
-		else{
+		} else {
 			echo "Failed, please make sure you have entered the correct password";
 		}
-			
 	}
 add_action('wp_ajax_nopriv_passchange', 'pass_change');
 add_action('wp_ajax_passchange', 'pass_change');//for users that are not logged in.
@@ -990,11 +984,6 @@ add_action('wp_ajax_nopriv_setftppass', 'set_ftp_pass');
 add_action('wp_ajax_setftppass', 'set_ftp_pass');//for users that are not logged in.
 
 
-
-
-
-
-
 function new_user_reg(){
 	//We shall SQL escape all inputs
 	$user_login = $_POST['username'];
@@ -1193,6 +1182,17 @@ function search_dates() {
 add_action('wp_ajax_nopriv_searchdates', 'search_dates');
 add_action('wp_ajax_searchdates', 'search_dates');//for users that are not logged in.
 
+
+function apply_discount() {
+	$discountCode = $_POST['discount_code'];
+	$dateID = $_POST['dateID'];
+	$quantity = $_POST['quantity'];
+	$data = array('msg' => 'Success', 'Discount'=>$discountCode, 'DateID' => $dateID, 'quantity' => $quantity);
+	echo json_encode($data);
+	exit();
+}
+add_action('wp_ajax_nopriv_apply_discount', 'apply_discount');
+add_action('wp_ajax_apply_discount', 'apply_discount');
 
 function showBrief($str, $length) {
   $str = strip_tags($str);
