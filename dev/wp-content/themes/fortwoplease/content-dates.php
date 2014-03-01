@@ -322,6 +322,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								<p>
 									Don't have an account? <a id="regon" href="#">Register here </a>
 								</p>
+								<p class="lightboxMessage hide m-t-m"></p>
 								<!-- To hold validation results -->
 								<form id="wp_login_form" action="" method="post">
 									<div class="login_fields">
@@ -356,6 +357,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 							<p>
 								Already have an account? <a id="logon" href="#">Login here </a>
 							</p>
+							<p class="lightboxMessage hide m-t-m"></p>
 							<form id="wp_reg_form" action="" method="post">  
 								<div class="login_fields">
 									<label>Username</label>  

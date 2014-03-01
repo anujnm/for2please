@@ -665,7 +665,7 @@ function current_page_url() {
 	return $pageURL;
 }
 
-function logged_in() {		
+function logged_in() {
 	$result = is_user_logged_in();
 	return $result;
 
@@ -713,15 +713,24 @@ function log_me_in(){
 	$password = $_POST['password'];
 	$remember = $_POST['rememberme'];
 	
-	if($remember) $remember = "true";
-	else $remember = "false";
+	if (!username_exists($username)) {
+		echo 'There is no account for this email. Please try a different email address or create a new account.';
+		exit();
+	}
+
+	if ($remember) {
+		$remember = "true";	
+	} else {
+		$remember = "false";
+	}
+
 	$login_data = array();
 	$login_data['user_login'] = $username;
 	$login_data['user_password'] = $password;
 	$login_data['remember'] = $remember;
 	$user_verify = wp_signon( $login_data, true ); 
 	
-	if ( is_wp_error($user_verify) ) {
+	if (is_wp_error($user_verify)) {
 		echo 'Invalid username or password. Please try again!';
 		exit();
 	} else {

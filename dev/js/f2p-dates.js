@@ -378,7 +378,9 @@ jQuery(document).ready(function($) {
 						jQuery("#user-ajax-login").hide();
 						jQuery("#buy-process").show();
 						return false;
-					} else{ alert(msg) };
+					} else { 
+						$('.lightboxMessage').html(msg).show();
+					};
 				}
 			});
 			return false;
@@ -397,7 +399,9 @@ jQuery(document).ready(function($) {
 						jQuery("#user-ajax-register").hide();
 						jQuery("#buy-process").show();
 						return false;
-					} else { alert(msg) };
+					} else { 
+						$('.lightboxMessage').html(msg).show();
+					};
 				}
 			});
 			return false;
