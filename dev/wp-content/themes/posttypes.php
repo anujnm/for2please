@@ -240,6 +240,41 @@ function dates_init()
 	); 
 	register_post_type('dates',$args);
 }
+
+// Add new post type for Discounts
+add_action('init', 'discounts_init');
+function discounts_init() 
+{
+	$date_labels = array(
+		'name' => _x('Discounts', 'post type general name'),
+		'singular_name' => _x('Discount', 'post type singular name'),
+		'all_items' => __('All Discounts'),
+		'add_new' => _x('Add new Discount', 'Discounts'),
+		'add_new_item' => __('Add new Discount'),
+		'edit_item' => __('Edit Discount'),
+		'new_item' => __('New Discount'),
+		'view_item' => __('View Discount'),
+		'search_items' => __('Search in Discounts'),
+		'not_found' =>  __('No Discounts found'),
+		'not_found_in_trash' => __('No Discounts found in trash'), 
+		'parent_item_colon' => ''
+	);
+	$args = array(
+		'labels' => $date_labels,
+		'public' => true,
+		'publicly_queryable' => true,
+		'show_ui' => true, 
+		'query_var' => true,
+		'rewrite' => true,
+		'capability_type' => 'post',
+		'hierarchical' => false,
+		'menu_position' => 5,
+		'supports' => array('title','editor','author','thumbnail','excerpt','comments','custom-fields'),
+		'has_archive' => 'dates'
+	); 
+	register_post_type('discounts',$args);
+}
+
 ?>
 <?php 
 // Add new Custom Post Type icons
