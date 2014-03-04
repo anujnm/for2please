@@ -35,7 +35,7 @@ p[class=footer-content-left] { text-align: center !important; }
 img { height: auto; line-height: 100%;}
  } 
 /* Client-specific Styles */
-#outlook a { padding: 0; }	/* Force Outlook to provide a "view in browser" button. */
+#outlook a { padding: 0; }  /* Force Outlook to provide a "view in browser" button. */
 body { width: 100% !important; }
 .ReadMsgBody { width: 100%; }
 .ExternalClass { width: 100%; display:block !important; } /* Force Hotmail to display emails at full width */
@@ -46,14 +46,14 @@ img { outline: none; text-decoration: none; display: block;}
 br, strong br, b br, em br, i br { line-height:100%; }
 h1, h2, h3, h4, h5, h6 { line-height: 100% !important; -webkit-font-smoothing: antialiased; }
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { color: blue !important; }
-h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {	color: red !important; }
+h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active { color: red !important; }
 /* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
 h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited { color: purple !important; }
 /* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */  
 table td, table tr { border-collapse: collapse; }
 .yshortcuts, .yshortcuts a, .yshortcuts a:link,.yshortcuts a:visited, .yshortcuts a:hover, .yshortcuts a span {
 color: black; text-decoration: none !important; border-bottom: none !important; background: none !important;
-}	/* Body text color for the New Yahoo.  This example sets the font of Yahoo's Shortcuts to black. */
+}   /* Body text color for the New Yahoo.  This example sets the font of Yahoo's Shortcuts to black. */
 /* This most probably won't work in all email clients. Don't include code blocks in email. */
 code {
   white-space: normal;
@@ -72,7 +72,7 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
 .header-content a { font-weight: bold; color: #eeeeee; text-decoration: none; }
 #headline p { color: #eeeeee; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; font-size: 36px; text-align: center; margin-top:0px; margin-bottom:30px; }
 #headline p a { color: #eeeeee; text-decoration: none; }
-.article-title { font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; }
+.article-title { font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:10px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; }
 .article-title a { color: #F07323; text-decoration: none; }
 .article-title.with-meta {margin-bottom: 0;}
 .article-meta { font-size: 13px; line-height: 20px; color: #ccc; font-weight: bold; margin-top: 0;}
@@ -101,13 +101,13 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
 }
 </style>
 <![endif]--></head><body><table align="left" width="100%" cellpadding="0" cellspacing="0" border="0" id="background-table">
-	<tbody><tr>
-		<td align="center" bgcolor="#c7c7c7">
-        	<table class="w640" style="margin:0 10px;" width="640" cellpadding="0" cellspacing="0" border="0">
-            	<tbody><tr><td class="w640" width="640" height="20"></td></tr>
+    <tbody><tr>
+        <td align="center" bgcolor="#c7c7c7">
+            <table class="w640" style="margin:0 10px;" width="640" cellpadding="0" cellspacing="0" border="0">
+                <tbody><tr><td class="w640" width="640" height="20"></td></tr>
                 
-            	<tr>
-                	<td class="w640" width="640">
+                <tr>
+                    <td class="w640" width="640">
                         <table id="top-bar" class="w640" width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#000000">
     <tbody><tr>
         <td class="w15" width="15"></td>
@@ -150,122 +150,126 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
         <tbody><tr>
             <td class="w30" width="30"></td>
             <td class="w580" width="580">
-                <repeater>
+                
                                     
                 
-                    <layout label="Text only">
+                    
                         <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                             <tbody><tr>
                                 <td class="w580" width="580">
-                                    <p align="left" class="article-title"><singleline label="Title">Hey << Test First Name >>, thanks for creating an account on ForTwoPlease!</singleline></p>
+                                    <p align="left" class="article-title" style="font-size: 18px;line-height: 24px;color: #F07323;font-weight: bold;font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Hey  Test First Name, thanks for creating an account on ForTwoPlease!</p>
                                     <div align="left" class="article-content">
-                                        <multiline label="Description">I'm excited to have you join our community of Vancouverites, who love discovering fun new date ideas to try out. <br><br>Have fun browsing the site & discovering the best date ideas in Vancouver. In the meantime, we’ll be working with some of the best local date spots in town, and offering you elusive date experiences, which we call “Date Packages”.</multiline>
+                                        I'm excited to have you join our community of Vancouverites, who love discovering fun new date ideas to try out. <br><br>Have fun browsing the site & discovering the best date ideas in Vancouver. In the meantime, we’ll be working with some of the best local date spots in town, and offering you exclusive date experiences, which we call “Date Packages”.
                                     </div>
                                 </td>
                             </tr>
                             <tr><td class="w580" width="580" height="10"></td></tr>
                         </tbody></table>
-                    </layout>
+                    
                                         
                     
-                    <layout label="Row of two images">
+                    
                         <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                             <tbody><tr>
                                 <td class="w280" width="280" valign="top">
                                     <table class="w280" width="280" cellpadding="0" cellspacing="0" border="0">
-                                        <tbody><tr>
-                                            <td class="w280" width="280"><img src="https://fortwoplease.com/dev/wp-content/themes/images/Harbour_Cruises_Vancouver_Harbour_Tour.1.jpg" editable="true" label="Image" class="w280" width="280" border="0"></td>
-                                        </tr>
-                                        <tr><td class="w280" width="280" height="10"></td></tr>
-                                        <tr><td class="w280" width="280">
-                                            <p align="left" class="article-title"><singleline label="Title">Shop Date Packages</singleline></p>
-                                        </td></tr>
-                                        <tr>
-                                            <td class="w280" width="280">
-                                                <div align="left" class="article-content"><multiline label="Description"><a href="https://fortwoplease.com/dev/date-type/packages/">Click here</a> to browse some of the Date Packages we have for you this week.</multiline></div>
-                                            </td>
-                                        </tr>
-                                        <tr><td class="w280" width="280" height="10"></td></tr>
+                                        <tbody>
+                                            <tr><td class="w280" width="280">
+                                                <p align="left" class="article-title" style="font-size: 18px;line-height: 24px;color: #F07323;font-weight: bold;font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Shop Date Packages</p>
+                                            </td></tr>
+                                            <tr>
+                                                <td class="w280" width="280"><img src="https://fortwoplease.com/dev/wp-content/themes/images/Harbour_Cruises_Vancouver_Harbour_Tour.1.jpg" editable="true" label="Image" class="w280" width="280" border="0"></td>
+                                            </tr>
+                                            <tr><td class="w280" width="280" height="10"></td></tr>
+                                            <tr>
+                                                <td class="w280" width="280">
+                                                    <div align="left" class="article-content">Browse some of our <a href="https://fortwoplease.com/dev/date-type/packages/" style="color: #29A8E0;font-weight: bold;text-decoration: none;">date packages.</a></div>
+                                                </td>
+                                            </tr>
+                                            <tr><td class="w280" width="280" height="10"></td></tr>
                                     </tbody></table>
                                 </td>
                                 <td width="20"></td>
                                 <td class="w280" width="280" valign="top">
                                     <table class="w280" width="280" cellpadding="0" cellspacing="0" border="0">
-                                        <tbody><tr>
-                                            <td class="w280" width="280"><img src="https://fortwoplease.com/dev/wp-content/themes/images/Cycle_Scooter.jpg" editable="true" label="Image" class="w280" width="280" border="0"></td>
-                                        </tr>
-                                        <tr><td class="w280" width="280" height="10"></td></tr>
-                                        <tr><td class="w280" width="280">
-                                            <p align="left" class="article-title"><singleline label="Title">Discover Date Ideas</singleline></p>
-                                        </td></tr>
-                                        <tr>
-                                            <td class="w280" width="280">
-                                                <div align="left" class="article-content"><multiline label="Description"><a href="https://fortwoplease.com/dev/date-type/active/">Click here</a> to check out the newest date ideas for you to try with someone special.</multiline></div>
-                                            </td>
-                                        </tr>
-                                        <tr><td class="w280" width="280" height="10"></td></tr>
+                                        <tbody>
+                                            <tr><td class="w280" width="280">
+                                                <p align="left" class="article-title" style="font-size: 18px;line-height: 24px;color: #F07323;font-weight: bold;font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Discover Date Ideas</p>
+                                            </td></tr>
+                                            <tr>
+                                                <td class="w280" width="280"><img src="https://fortwoplease.com/dev/wp-content/themes/images/Cycle_Scooter.jpg" editable="true" label="Image" class="w280" width="280" border="0"></td>
+                                            </tr>
+                                            <tr><td class="w280" width="280" height="10"></td></tr>
+                                            <tr>
+                                                <td class="w280" width="280">
+                                                    <div align="left" class="article-content">Check out the newest <a href="https://fortwoplease.com/dev/date-type/active/" style="color: #29A8E0;font-weight: bold;text-decoration: none;">date ideas.</a></div>
+                                                </td>
+                                            </tr>
+                                            <tr><td class="w280" width="280" height="10"></td></tr>
                                     </tbody></table>
                                 </td>
                             </tr>
                         </tbody></table>
-                    </layout>
+                    
                                         
-                    <layout label="Row of two images">
+                    
                         <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                             <tbody><tr>
                                 <td class="w280" width="280" valign="top">
                                     <table class="w280" width="280" cellpadding="0" cellspacing="0" border="0">
-                                        <tbody><tr>
-                                            <td class="w280" width="280"><img src="https://fortwoplease.com/dev/wp-content/themes/images/Hot_Air_Ballooning.jpg" editable="true" label="Image" class="w280" width="280" border="0"></td>
-                                        </tr>
-                                        <tr><td class="w280" width="280" height="10"></td></tr>
-                                        <tr><td class="w280" width="280">
-                                            <p align="left" class="article-title"><singleline label="Title">Your Next Great Date</singleline></p>
-                                        </td></tr>
-                                        <tr>
-                                            <td class="w280" width="280">
-                                                <div align="left" class="article-content"><multiline label="Description">Whether you wanna try some new activities, escape the city for a romantic weekend getaway, or are craving a new favorite dessert spot – we’re here to help make it happen.</multiline></div>
-                                            </td>
-                                        </tr>
-                                        <tr><td class="w280" width="280" height="10"></td></tr>
+                                        <tbody>
+                                            <tr><td class="w280" width="280">
+                                                <p align="left" class="article-title" style="font-size: 18px;line-height: 24px;color: #F07323;font-weight: bold;font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Your Next Great Date</p>
+                                            </td></tr>
+                                            <tr>
+                                                <td class="w280" width="280"><img src="https://fortwoplease.com/dev/wp-content/themes/images/Hot_Air_Ballooning.jpg" editable="true" label="Image" class="w280" width="280" border="0"></td>
+                                            </tr>
+                                            <tr><td class="w280" width="280" height="10"></td></tr>
+                                            <tr>
+                                                <td class="w280" width="280">
+                                                    <div align="left" class="article-content">Whether you wanna try some new activities, escape the city for a romantic weekend getaway, or are craving a new favorite dessert spot – we’re here to help make it happen.</div>
+                                                </td>
+                                            </tr>
+                                            <tr><td class="w280" width="280" height="10"></td></tr>
                                     </tbody></table>
                                 </td>
                                 <td width="20"></td>
                                 <td class="w280" width="280" valign="top">
                                     <table class="w280" width="280" cellpadding="0" cellspacing="0" border="0">
-                                        <tbody><tr>
+                                        <tbody>
+                                            <tr><td class="w280" width="280">
+                                                <p align="left" class="article-title" style="font-size: 18px;line-height: 24px;color: #F07323;font-weight: bold;font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Your Fav Date Idea?</p>
+                                            </td></tr>
+                                            <tr>
                                             <td class="w280" width="280"><img src="https://fortwoplease.com/dev/wp-content/themes/images/Stanley_Park.jpg" editable="true" label="Image" class="w280" width="280" border="0"></td>
-                                        </tr>
-                                        <tr><td class="w280" width="280" height="10"></td></tr>
-                                        <tr><td class="w280" width="280">
-                                            <p align="left" class="article-title"><singleline label="Title">Your Fav Date Idea?</singleline></p>
-                                        </td></tr>
-                                        <tr>
-                                            <td class="w280" width="280">
-                                                <div align="left" class="article-content"><multiline label="Description">Got a date idea of your own? Share it with our community! Suggest a new date idea on our <a href="https://www.facebook.com/ForTwoPlease">Facebook page</a>.</multiline><a href="https://www.facebook.com/ForTwoPlease"><img src="https://fortwoplease.com/dev/wp-content/themes/images/facebook.png" style="display:inline-block; vertical-align:middle; height:20px; padding-left:5px;"></a></div>
-                                            </td>
-                                        </tr>
-                                        <tr><td class="w280" width="280" height="10"></td></tr>
+                                            </tr>
+                                            <tr><td class="w280" width="280" height="10"></td></tr>
+                                            <tr>
+                                                <td class="w280" width="280">
+                                                    <div align="left" class="article-content">Got a date idea of your own? Share it with our community! Suggest a new date idea on our <a href="https://www.facebook.com/ForTwoPlease" style="color: #29A8E0;font-weight: bold;text-decoration: none;">Facebook page</a>.<a href="https://www.facebook.com/ForTwoPlease"><img src="https://fortwoplease.com/dev/wp-content/themes/images/facebook.png" height="20" style="display:inline-block; vertical-align:middle; height:20px; padding-left:5px;"></a></div>
+                                                </td>
+                                            </tr>
+                                            <tr><td class="w280" width="280" height="10"></td></tr>
                                     </tbody></table>
                                 </td>
                             </tr>
                         </tbody></table>
-                    </layout>
+                    
 
-                    <layout label="Text only">
+                    
                         <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                             <tbody><tr>
                                 <td class="w580" width="580">
                                     <div align="left" class="article-content">
-                                        <multiline label="Description">See you soon!<br>Jesse,<br><b>Co-founder, ForTwoPlease</b><br></multiline>
+                                        See you soon!<br><br>Jesse Appleby,<br><b>Co-founder, ForTwoPlease</b><br>
                                     </div>
                                 </td>
                             </tr>
                             <tr><td class="w580" width="580" height="10"></td></tr>
                         </tbody></table>
-                    </layout>
                     
-                </repeater>
+                    
+                
             </td>
             <td class="w30" width="30"></td>
         </tr>
@@ -281,7 +285,7 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
             <td class="w30" width="30"></td>
             <td class="w580" width="360" valign="top">
             <span class="hide"><p id="permission-reminder" align="left" class="footer-content-left"></p></span>
-            <p align="left" class="footer-content-left"><preferences lang="en"><a href="*|UPDATE_PROFILE|*">Update Your Preferences</a></preferences> | <unsubscribe><a href="*|UNSUB|*">Unsubscribe</a></unsubscribe></p>
+            <p align="left" class="footer-content-left"><a href="*|UPDATE_PROFILE|*" style="color: #eeeeee;text-decoration: none;font-weight: bold;">Update Your Preferences</a> | <a href="*|UNSUB|*" style="color: #eeeeee;text-decoration: none;font-weight: bold;">Unsubscribe</a></p>
             </td>
             <td class="hide w0" width="60"></td>
             <td class="hide w0" width="160" valign="top">
@@ -296,5 +300,5 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
                 <tr><td class="w640" width="640" height="60"></td></tr>
             </tbody></table>
         </td>
-	</tr>
+    </tr>
 </tbody></table></body></html>
