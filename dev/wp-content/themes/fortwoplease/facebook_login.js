@@ -102,7 +102,7 @@ function fb_login () {
 
 					var input_data = "username=" + info.name  + "&fname=" + info.first_name + "&lname=" + info.last_name + "&email=" + info.email + "&password=123456&password2=123456";
 					// input_data = jQuery(input_data).serialize();
-					console.log(input_data);
+					//console.log(input_data);
 
 					jQuery.ajax({
 						type: "POST",
