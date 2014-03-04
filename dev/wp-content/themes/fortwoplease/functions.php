@@ -1186,22 +1186,6 @@ add_action('wp_ajax_nopriv_searchdates', 'search_dates');
 add_action('wp_ajax_searchdates', 'search_dates');//for users that are not logged in.
 
 
-function apply_discount() {
-	$discountCode = $_POST['discount_code'];
-	$dateID = $_POST['dateID'];
-	$quantity = $_POST['quantity'];
-	// Get list of discount post IDs, query for each discount post. 
-	// Check if any post has this text as discount code. 
-	// If so, apply discount and return discount amount. Let client calculate new total. 
-	// checkout ajax function must recalculate discount amount and verify that it is the same amount as shown on screen.
-
-	$data = array('msg' => 'Success', 'Discount'=>$discountCode, 'DateID' => $dateID, 'quantity' => $quantity);
-	echo json_encode($data);
-	exit();
-}
-add_action('wp_ajax_nopriv_apply_discount', 'apply_discount');
-add_action('wp_ajax_apply_discount', 'apply_discount');
-
 function showBrief($str, $length) {
   $str = strip_tags($str);
   $str = explode(" ", $str);

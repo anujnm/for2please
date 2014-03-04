@@ -14,7 +14,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 <?php if(get_field('price')) { ?>;
 	var price = <?php the_field('price'); ?>;
 	var taxes = <?php the_field('taxes'); ?>;
-	var discount = 0;
 	var fees = <?php the_field('fees'); ?>;
 	var total = price + taxes + fees;
 	var orderID = <?php echo get_current_user_id(); }?>;
@@ -222,13 +221,8 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<span id='price' style='float:right;height: 20px;'> Price: $</span>
 							</div>
-							<div style='padding-left:10px;height:30px;'>
-								Promo Code: 
-								<input type='text' id='billing_discount' style='float:right;height: 20px;' value=""/>
-							</div>
 							<div id='price-detail' style='float:right;clear:both;height:75px; text-align:right;'>
 								<div id='taxes'>Taxes: $</div>
-								<div id='discounts'>Discount: $</div>
 								<div id='fees'>Fees: $</div>
 								<div id='total_price'>Total: $<span id="billing_total"></span></div>
 								<input type="hidden" id="amount" name="amount" />
