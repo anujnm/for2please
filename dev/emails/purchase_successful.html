@@ -72,7 +72,7 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
 .header-content a { font-weight: bold; color: #eeeeee; text-decoration: none; }
 #headline p { color: #eeeeee; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; font-size: 36px; text-align: center; margin-top:0px; margin-bottom:30px; }
 #headline p a { color: #eeeeee; text-decoration: none; }
-.article-title { font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; }
+.article-title { font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:10px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; }
 .article-title a { color: #F07323; text-decoration: none; }
 .article-title.with-meta {margin-bottom: 0;}
 .article-meta { font-size: 13px; line-height: 20px; color: #ccc; font-weight: bold; margin-top: 0;}
@@ -131,10 +131,9 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
                         <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                             <tbody><tr>
                                 <td class="w580" width="580">
-                                    <p align="left" class="article-title" style="font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Congratulations!</p>
+                                    <p align="left" class="article-title" style="font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:10px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Congratulations <span mc:edit="customerName">Name</span>!</p>
                                     <div align="left" class="article-content">
-                                        Your purchase of <span mc:edit="numberVouchers">n vouchers</span> of <span mc:edit="packageName">pname</span> from <span mc:edit="businessName">bname</span> was successful!
-                                        
+                                        You have successfully purchased <span mc:edit="numberVouchers">1 voucher</span> of: <span mc:edit="packageName">pname</span> from <span mc:edit="businessName">bname</span>!
                                     </div>
                                 </td>
                             </tr>
@@ -146,7 +145,7 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
                         <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                             <tbody><tr>
                                 <td class="w580" width="580">
-                                    <p align="left" class="article-title" style="font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Payment Summary</p>
+                                    <p align="left" class="article-title" style="font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:10px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Payment Summary</p>
                                     <div align="left" class="article-content">
                                         
                                         Total: $<span mc:edit="total">total</span> <br>
@@ -163,7 +162,7 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
                         <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                             <tbody><tr>
                                 <td class="w580" width="580">
-                                    <p align="left" class="article-title" style="font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Voucher Codes</p>
+                                    <p align="left" class="article-title" style="font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:10px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;"><span mc:edit="voucherQuantityString">Voucher Codes</span></p>
                                     <div align="left" class="article-content">
                                         
                                         <span mc:edit="voucherString">voucherString</span> <br>
@@ -179,10 +178,10 @@ body, td { font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif; 
                         <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
                             <tbody><tr>
                                 <td class="w580" width="580">
-                                    <p align="left" class="article-title" style="font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:18px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">How-To-Use This Date Package:</p>
+                                    <p align="left" class="article-title" style="font-size: 18px; line-height:24px; color: #F07323; font-weight:bold; margin-top:0px; margin-bottom:10px; font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">How-To-Use This Date Package:</p>
                                     <div align="left" class="article-content">
                                         
-                                        1. Make your reservation now by calling <span mc:edit="businessName&gt;"> bname</span> at <span mc:edit="phone">phone</span> <br>
+                                        1. Make your reservation now by calling <span mc:edit="businessName">bname</span> at <span mc:edit="phone">phone</span> <br>
                                             2. Print and bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>. <br>
                                             (Reservations are required for all ForTwoPlease Date Packages) <br><br>
                                             Enjoy! <br>
