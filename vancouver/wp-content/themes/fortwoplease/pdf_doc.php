@@ -160,13 +160,14 @@ $pdf->Ln(5);
 $pdf->WriteHTML("<b>Expires On: </b> $expiry_date[0]");
 $pdf->Ln(5);
 // $pdf->Cell(0, 5,'Expires On: ' . $expiry_date[0], 0, 1);
-if ($transID[0])
-	$pdf->WriteHTML("<b>Voucher Code: $transID[0]</b>");
-else
-	$pdf->WriteHTML("<b>Voucher Code: $guid</b>");
+//if ($transID[0])
+//	$pdf->WriteHTML("<b>Voucher Code: $transID[0]</b>");
+//else
+$pdf->WriteHTML("<b>Voucher Code: $guid</b>");
 $pdf->Ln(5);
 // $pdf->Cell(0, 5,'Voucher Code: '.$guid, 0, 1);
-$pdf->WriteHTML("<b>Price Paid: </b> $$price");
+$formatted_price = money_format('$%i', $price);
+$pdf->WriteHTML("<b>Price Paid: </b> $formatted_price");
 $pdf->Ln(5);
 // $pdf->Cell(0, 5,'Price Paid: $' . $price[0], 0, 1);
 $pdf->SetFont('Helvetica','',10);
@@ -213,10 +214,10 @@ $pdf->Ln(2);
 $pdf->SetFont('Helvetica','BI',12);
 $pdf->WriteHTML("Need some help?");
 $pdf->SetFont('Helvetica','',10);
-$pdf->WriteHTML("  Email us at support@fortwoplease.com or call us anytime 604.600.8441.");
+$pdf->WriteHTML("  Email us at support@fortwoplease.com.");
 // $pdf->Cell(0,6,'Need some help?',0,1);
 // $pdf->SetFont('Helvetica','',10);
-// $pdf->Cell(0,6,'Email us at support@fortwoplease.com or call us anytime 604.600.8441.',0,1);
+// $pdf->Cell(0,6,'Email us at support@fortwoplease.com.',0,1);
 
 
 $pdf->Ln(8);

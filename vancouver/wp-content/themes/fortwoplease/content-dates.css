@@ -6,8 +6,8 @@ div#share-date form#share-this-date div.info div.input { float: left; }
 div#share-date form#share-this-date div.message {  }
 
 div.date-content { position: relative; }
-div.date-content a:hover { color: #f07423 !important; }
-div.date-content a { color: #29A8E0 !important; }
+div.date-content a:hover { color: #f07423; }
+div.date-content a { color: #29A8E0; }
 
 div#content div#previous_page_link { position: absolute; top: 0px; left: -47px; }
 div#content div#previous_page_link div.previous_page_link { background: url(/vancouver/wp-content/themes/images/arrow_left.png); width: 47px; height: 49px;  }
@@ -25,79 +25,80 @@ div.content_header div.date_title { background-color: #60AD46; border-radius:0px
 div.content_header div.links { float: right; padding: 15px 0 0 0; }
 div.content_header div.links span { float: left; padding: 0 5px; }
 
-div.content_header div.header_info { clear:both; background-color: black; }
+div.content_header div.header_info { clear:both; background-color: black; float: left;}
+div.header_info {width: 685px; float:left;}
 div.header_info div.pictures { float: left; width: 685px; height: 410px; background-color:#F2F2F2; }
 div.header_info div.pictures div.sub_title { font-size: 18px; line-height: 30px; text-align: center; background-color: #1a1a1a; width: 685px; color: white; display:block; overflow:visible; }
 
-div.header_info div.date_package { float: left; width: 335px; position:relative; background: white; }
-div.header_info div.date_package div.package_info { background-color: #1a1a1a; height: 410px; }
-div.header_info div.date_package div.member { background-image:url(/vancouver/wp-content/themes/images/price-desc-bckg.png) !important; height:30px !important; margin-top:5px; width:306px; margin-left:15px; }
-div.header_info div.date_package div.member div.descriptor { margin-top: 0px; padding: 10px 0 0 10px; color:#FFF; font-weight:700; }
-div.header_info div.date_package div.package_info div#buy { }
-div.header_info div.date_package div.package_info div#buy div#buy-button { margin: 0 18px; float: left; }
-div.header_info div.date_package div.package_info div.buy_btn { height: 45px; width: 225px; margin: 10px auto;}
-div.header_info div.date_package div.package_info div#buy div.price { float: left; color: white; font-size: 32px; }
-div.header_info div.date_package div.package_info div.background { background-color: #F2F2F2; padding: 0 8px 10px 8px; }
-div.header_info div.date_package div.package_info div.desc { background-color: white; margin: 15px 0 0 0; height: 325px; }
-div.header_info div.date_package div.package_info div.desc div.fine_print { font-size: 12px; height: 187px; color: #4c4c4c; line-height: 15px; padding: 12px 30px 0 30px; }
-div.header_info div.date_package div.package_info div.desc div.fine_print b { font-size: 14px; }
-div.header_info div.date_package div.package_info div.desc div.divider { border-top: thin dotted; width: 280px; height: 1px; margin: 0 auto; }
-div.header_info div.date_package div.package_info div.desc div.questions { text-align: center; padding: 10px 0; margin-bottom: 2px; height: 116px; }
-div.header_info div.date_package div.package_info div.desc div.title { font-size: 18px; font-weight: bold; color: #4c4c4c; }
-div.header_info div.date_package div.package_info div.desc div.sub_title { font-size: 16px; color: #4c4c4c; }
-div.header_info div.date_package div.package_info div.desc div.phone { margin: 6px 0; font-size: 16px; font-weight: bold; color: #29A8E0; }
-div.header_info div.date_package div.package_info div.desc div.email { font-size: 14px; }
-div.header_info div.date_package div.package_info div.desc div.email p { margin: 4px 0; padding: 0; }
-div.header_info div.date_package div.package_info div.desc div.email p b { color: #29A8E0; }
+div.date_content div.date_package { float: left; width: 335px; position:relative; background: #f2f2f2; }
+div.date_content div.date_package div.package_info { background-color: #1a1a1a; height: 410px; }
+div.date_content div.date_package div.member { background-image:url(/vancouver/wp-content/themes/images/price-desc-bckg.png) !important; height:30px !important; margin-top:5px; width:306px; margin-left:15px; }
+div.date_content div.date_package div.member div.descriptor { margin-top: 0px; padding: 10px 0 0 10px; color:#FFF; font-weight:700; }
+div.date_content div.date_package div.package_info div#buy { }
+div.date_content div.date_package div.package_info div#buy div#buy-button { margin: 0 18px; float: left; }
+div.date_content div.date_package div.package_info div.buy_btn { height: 45px; width: 225px; margin: 10px auto;}
+div.date_content div.date_package div.package_info div#buy div.price { float: left; color: white; font-size: 32px; }
+div.date_content div.date_package div.package_info div.background { background-color: #F2F2F2; padding: 0 8px 10px 8px; }
+div.date_content div.date_package div.package_info div.desc { background-color: white; margin: 15px 0 0 0; height: 325px; }
+div.date_content div.date_package div.package_info div.desc div.fine_print { font-size: 12px; height: 187px; color: #4c4c4c; line-height: 15px; padding: 12px 30px 0 30px; }
+div.date_content div.date_package div.package_info div.desc div.fine_print b { font-size: 14px; }
+div.date_content div.date_package div.package_info div.desc div.divider { border-top: thin dotted; width: 280px; height: 1px; margin: 0 auto; }
+div.date_content div.date_package div.package_info div.desc div.questions { text-align: center; padding: 10px 0; margin-bottom: 2px; height: 116px; }
+div.date_content div.date_package div.package_info div.desc div.title { font-size: 18px; font-weight: bold; color: #4c4c4c; }
+div.date_content div.date_package div.package_info div.desc div.sub_title { font-size: 16px; color: #4c4c4c; }
+div.date_content div.date_package div.package_info div.desc div.phone { margin: 6px 0; font-size: 16px; font-weight: bold; color: #29A8E0; }
+div.date_content div.date_package div.package_info div.desc div.email { font-size: 14px; }
+div.date_content div.date_package div.package_info div.desc div.email p { margin: 4px 0; padding: 0; }
+div.date_content div.date_package div.package_info div.desc div.email p b { color: #29A8E0; }
 
 
-div.header_info div.date_package div.package_info div.blocks { display:none; color:white; }
-div.header_info div.date_package div.package_info div.blocks div.header { width: 325px; height:40px; }
-div.header_info div.date_package div.package_info div.blocks div.header h1 { float:left; margin:0 15px; }
-div.header_info div.date_package div.package_info div.blocks div.header img { float:right; margin-top:5px; }
-div.header_info div.date_package div.package_info div.blocks form div.login_fields { height: 30px; }
-div.header_info div.date_package div.package_info div.blocks form input.login_text { height: 20px; float:right; width:120px; }
+div.date_content div.date_package div.package_info div.blocks { display:none; color:white; }
+div.date_content div.date_package div.package_info div.blocks div.header { width: 325px; height:40px; }
+div.date_content div.date_package div.package_info div.blocks div.header h1 { float:left; margin:0 15px; }
+div.date_content div.date_package div.package_info div.blocks div.header img { float:right; margin-top:5px; }
+div.date_content div.date_package div.package_info div.blocks form div.login_fields { height: 30px; }
+div.date_content div.date_package div.package_info div.blocks form input.login_text { height: 20px; float:right; width:120px; }
 
-div.header_info div.date_package div.package_info div.login_block { }
-div.header_info div.date_package div.package_info div.login_block div.login_info { margin:3px; color: black; background-color: white; padding: 10px; height:320px; }
-div.header_info div.date_package div.package_info div.login_block div.login_info form { width: 270px; margin-top:10px; }
-div.header_info div.date_package div.package_info div.login_block div.login_info form div.login_fields { width: 300px; }
+div.date_content div.date_package div.package_info div.login_block { }
+div.date_content div.date_package div.package_info div.login_block div.login_info { margin:3px; color: black; background-color: white; padding: 10px; height:320px; }
+div.date_content div.date_package div.package_info div.login_block div.login_info form { width: 270px; margin-top:10px; }
+div.date_content div.date_package div.package_info div.login_block div.login_info form div.login_fields { width: 300px; }
 
-div.header_info div.date_package div.package_info div.login_block div.login_info form a.forgot_pass { float: right; }
-div.header_info div.date_package div.package_info div.login_block div.login_info form input.login_btn { float:right; margin:10px 0; clear:both; font-size:18px; padding:5px; width:85px; }
-div.header_info div.date_package div.package_info div.login_block div.login_info div.fb_login { clear: both; width: 276px; margin: 15px 0;}
-div.header_info div.date_package div.package_info div.login_block div.login_info div.fb_login h2 { float: left; margin: 0 10px; }
+div.date_content div.date_package div.package_info div.login_block div.login_info form a.forgot_pass { float: right; }
+div.date_content div.date_package div.package_info div.login_block div.login_info form input.login_btn { float:right; margin:10px 0; clear:both; font-size:18px; padding:5px; width:85px; }
+div.date_content div.date_package div.package_info div.login_block div.login_info div.fb_login { clear: both; width: 276px; margin: 15px 0;}
+div.date_content div.date_package div.package_info div.login_block div.login_info div.fb_login h2 { float: left; margin: 0 10px; }
 
-div.header_info div.date_package div.package_info div.register_block { }
-div.header_info div.date_package div.package_info div.register_block div.register_info { margin:3px; background-color: white; height: 320px; color: black; padding: 10px; }
+div.date_content div.date_package div.package_info div.register_block { }
+div.date_content div.date_package div.package_info div.register_block div.register_info { margin:3px; background-color: white; height: 320px; color: black; padding: 10px; }
 
-div.header_info div.date_package div.package_info div.register_block div.register_info form { margin-top:15px; width:300px; }
-div.header_info div.date_package div.package_info div.register_block div.register_info form div.login_fields { width:300px; }
-div.header_info div.date_package div.package_info div.register_block div.register_info form input.register_btn {clear:both; display:block; margin: 0 auto;}
+div.date_content div.date_package div.package_info div.register_block div.register_info form { margin-top:15px; width:300px; }
+div.date_content div.date_package div.package_info div.register_block div.register_info form div.login_fields { width:300px; }
+div.date_content div.date_package div.package_info div.register_block div.register_info form input.register_btn {clear:both; display:block; margin: 0 auto;}
 
-div.header_info div.date_package div.package_info div.forgot_pass_block { }
-div.header_info div.date_package div.package_info div.forgot_pass_block div.forgot_pass_info { margin: 3px; background-color: white; color: black; height: 320px; padding: 10px; }
-div.header_info div.date_package div.package_info div.forgot_pass_block div.forgot_pass_info h1 { margin: 5px 10px; }
-div.header_info div.date_package div.package_info div.forgot_pass_block div.forgot_pass_info div.reset { margin:0 auto; text-align:center; }
-div.header_info div.date_package div.package_info div.forgot_pass_block div.forgot_pass_info div.reset input.reset_btn { font-size: 18px; }
+div.date_content div.date_package div.package_info div.forgot_pass_block { }
+div.date_content div.date_package div.package_info div.forgot_pass_block div.forgot_pass_info { margin: 3px; background-color: white; color: black; height: 320px; padding: 10px; }
+div.date_content div.date_package div.package_info div.forgot_pass_block div.forgot_pass_info h1 { margin: 5px 10px; }
+div.date_content div.date_package div.package_info div.forgot_pass_block div.forgot_pass_info div.reset { margin:0 auto; text-align:center; }
+div.date_content div.date_package div.package_info div.forgot_pass_block div.forgot_pass_info div.reset input.reset_btn { font-size: 18px; }
 
-div.header_info div.date_package div.date_info { background-color: black; background-color: #F2F2F2; height: 410px; text-align: center; }
-div.header_info div.date_package div.date_info div.header { font-size: 24px; color: white; padding: 18px 0;}
-div.header_info div.date_package div.date_info div.content { background-color: white; height: 340px; margin: 10px; padding: 25px; 20px; }
-div.header_info div.date_package div.date_info div.content div b { font-size: 20px; color: #4d4d4d; }
-div.header_info div.date_package div.date_info div.content div p { margin: 10px 0; color: #5d5d5d; }
-div.header_info div.date_package div.date_info div.content div.yourself { height: 120px; border-bottom: thin dotted; margin-top: 20px; }
-div.header_info div.date_package div.date_info div.content div.option { margin-top: 30px; }
+div.date_content div.date_package div.similar_packages { background-color: black; background-color: #F2F2F2; height: 410px; text-align: center; padding-top:10px;}
+div.date_content div.date_package div.similar_packages div.header { font-size: 24px; color: white; padding: 18px 0;}
+div.date_content div.date_package div.similar_packages div.content { height: 235px; margin: 10px; padding: 0; }
+div.date_content div.date_package div.similar_packages div.content div b { font-size: 20px; color: #4d4d4d; }
+div.date_content div.date_package div.similar_packages div.content div p { margin: 10px 0; color: #5d5d5d; }
+div.date_content div.date_package div.similar_packages div.content div.yourself { height: 120px; }
+div.date_content div.date_package div.similar_packages div.option { margin-top: 30px; margin-left: 10px;}
 
-div.date_content { }
+div.date_content {float:left; background-color: #f2f2f2; width:335px; }
 
-div.date_content div.date_info { float: left; width: 645px; padding: 10px 20px; }
-div.date_content div.date_info div.links div { float: left; }
-div.date_content div.date_info div.title { margin-top: 10px; color:#2FB2FC; font-weight:700; font-size:24px; padding: 5px 0; }
-div.date_content div.date_info div.why { color: #5d5d5d; width: 570px; }
-div.date_content div.date_info p.short_desc { font-size: 18px; font-weight: 700; padding: 10px 0; color: #4d4d4d; width: 570px; }
-div.date_content div.date_info p { padding: 5px 0; }
-div.date_content div.date_info div.quotes { width: 570px; margin-top: 30px; color: rgb(41, 168, 224); border: 3px solid rgb(41, 168, 224); border-radius: 10px 10px 10px 10px; font-style: italic; padding: 10px 14px; }
+div.header_info div.date_info { float: left; width: 645px; padding: 10px 20px; }
+div.header_info div.date_info div.links div { float: left; }
+div.header_info div.date_info div.title { margin-top: 10px; color:#2FB2FC; font-weight:700; font-size:24px; padding: 5px 0; }
+div.header_info div.date_info div.why { color: #5d5d5d; width: 570px; }
+div.header_info div.date_info p.short_desc { font-size: 18px; font-weight: 700; padding: 10px 0; color: #4d4d4d; width: 570px; }
+div.header_info div.date_info p { padding: 5px 0; }
+div.header_info div.date_info div.quotes { width: 570px; margin-top: 30px; color: rgb(41, 168, 224); border: 3px solid rgb(41, 168, 224); border-radius: 10px 10px 10px 10px; font-style: italic; padding: 10px 14px; }
 
 
 div.date_content div.date_details { float: left; background-color: #f2f2f2; width: 335px; }
@@ -112,7 +113,17 @@ div.date_content div.date_details div.map p.extra_info { color: #5d5d5d; width: 
 
 div.date_content div.date_package div.more_deals { width:335px; background:#f2f2f2; }
 
+div.date-content a.similar-package-link:hover { color: #fff;}
+div.date-content a.similar-package-link { color: #fff; }
 
+div.date-content a.similar-package-tags:hover { color: #f07323;}
+div.date-content a.similar-package-tags { color: #f07323; }
+
+div.date-content div.content {margin-left:7px;}
+div.date-content div.content div.overlay-content {text-align: center;}
+
+a.similar-package-link {color:#fff;}
+a.similar-package-tags {color:#f07323;}
 
 
 

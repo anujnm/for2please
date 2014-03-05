@@ -21,7 +21,7 @@ div.center_box div.inputs p { padding: 6px 0; }
 div.center_box form { margin-top: 6px; }
 div.center_box form input.text { width: 280px; margin: 0; font-size: 18px; text-align: center; }
 div.center_box form input.f2p-button { margin: 4px 0; }
-div.center_box div.fb_connect { margin-top: 5px; }
+div.center_box div.fb_connect { }
 div.center_box div.bottom { position:absolute; top: 405px; margin: 0 auto; display:block; width: 514px; }
 div.center_box div.bottom p { color: #2895d8; font-size: 20px; }
 div.center_box div.bottom p label { color: white; }
@@ -40,22 +40,22 @@ div.center_box div.bottom p label { color: white; }
 <?php $randVal = rand(); ?>
 
 <div class="center_box" id="join_block">
-	<!-- <img src="/vancouver/wp-content/themes/images/close_icon.png" width="34" height="34" id="join_close_button"/> -->
 	<div class="top">
 		<h1>Your guide to the best</h1>
-		<h1>Date Ideas In Vancouver</h1>
+		<h1>Date Ideas In Vancouver!</h1>
 		<p>Sign up to get a weekly email of local Date Ideas</p>
 	</div>
 		
 	<div class="inputs">
 		<form id="email_subscription_form" action="" method="post">
 			<p>
-				<input type="text" id="email" name="email" value="Email" class="text" onblur="onBlur(this);" onfocus="onFocus(this);" />
+				<input type="text" id='email' name="email" value="Email" class="text" onblur="onBlur(this);" onfocus="onFocus(this);" />
 			</p>
 			<p>
 				<input id="password-clear<?php echo $randVal ?>" type="text" value="Password" autocomplete="off" class="text" />
 				<input id="password-password<?php echo $randVal ?>" type="password" name="password" class="text" style="display:none;" />
 			</p>
+			<p class="lightboxMessage hide"></p>
 			<p>
 				<input type="submit" id="submit-email" name="submit" value="SIGN UP" class="f2p-button" />
 			</p>
@@ -72,7 +72,7 @@ div.center_box div.bottom p label { color: white; }
 <script type="text/javascript">
 	jQuery('#login_link').click(function() {
 		jQuery("#join_block").load("/vancouver/login", function() {
-			window.setTimeout("GoogleTracking('/vancouver/login/');", 100);
+			//window.setTimeout("GoogleTracking('/vancouver/login/');", 100);
 		});
 	});
 
@@ -104,7 +104,7 @@ div.center_box div.bottom p label { color: white; }
 		var status = false;     
 		var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 	     if (email.search(emailRegEx) == -1) {
-	          alert("Please enter a valid email address.");
+	          $('.lightboxMessage').html("Please enter a valid email address.").show();
 	     } else {
 	          status = true;
 	     }
@@ -112,6 +112,7 @@ div.center_box div.bottom p label { color: white; }
 	}
 
 	jQuery("#submit-email").click(function() {
+		$('.lightboxMessage').hide();
 		if (verifyEmail(jQuery('#email').val())) {
 			var input_data = jQuery('#email_subscription_form').serialize();
 			jQuery.ajax({
@@ -119,14 +120,22 @@ div.center_box div.bottom p label { color: white; }
 				url:  "/vancouver/wp-admin/admin-ajax.php",
 				data: "action=email_subscribe&" + input_data,
 				success: function(msg) {
-					//console.log(msg);
-					if(msg == 'Success'){
-						if (window.location.pathname.indexOf("subscribe") > 0 || window.location.pathname.indexOf("join") > 0)
-							setTimeout("location.assign('<?php echo home_url(); ?>');");
-						else
-							setTimeout("location.reload(true);");
+					if(msg == 'Success') {
+						if (window.location.pathname.indexOf('subscribe') > 0) {
+							mixpanel.track('Successful Sign Up', { 'url': 'Subscribe' }, function() {
+								setTimeout("location.assign('<?php echo home_url(); ?>');");
+							});
+						} else if (window.location.pathname.indexOf("join") > 0) {
+							mixpanel.track('Successful Sign Up', { 'url': 'Join' }, function() {
+								setTimeout("location.assign('<?php echo home_url(); ?>');");
+							});
+						} else {
+							mixpanel.track('Successful Sign Up', { 'url': 'Lightbox' }, function() {
+								setTimeout("location.reload(true);");
+							});
+						}
 					} else { 
-						alert(msg)
+						$('.lightboxMessage').html(msg).show();
 					};
 				}
 			});

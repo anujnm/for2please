@@ -91,7 +91,7 @@
   .dk_options a {
     background-color: RGBA(240,115,35,0.6);
     border-bottom: 1px solid #FFF;
-	color:#FFF;
+  color:#FFF;
     padding: 7px;
   }
   .dk_options li:last-child a {
@@ -101,7 +101,7 @@
   .dk_option_current a {
     background-color: #FFF;
     color: #f07323;
-	font-weight:bold;
+  font-weight:bold;
     text-decoration: none;
    
   }
@@ -181,12 +181,5 @@
   max-height: none;
   overflow: visible;
 }
-
-.dk_fouc select {
-  position: relative;
-  top: -99999em;
-  visibility: hidden;
-}
-
 
 /***** End Critical to the continued enjoyment of working dropdowns ******/

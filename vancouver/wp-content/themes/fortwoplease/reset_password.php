@@ -47,7 +47,7 @@ div.center_box div.bottom p label { color: #f35a23; }
 			</p>
 			<p>
 				<?php do_action('login_form', 'resetpass'); ?>
-				<input id="reset_pass_submit_btn" type="submit" class="f2p-button" name="user-submit" value="<?php _e('RESET MY PASSWORD'); ?>" class="user-submit" />
+				<input id="user_login" type="submit" class="f2p-button" name="user-submit" value="<?php _e('RESET MY PASSWORD'); ?>" class="user-submit" />
 				<?php $reset = $_GET['reset']; if($reset == true) { echo '<p style="font-size: 100%; color: white;">Check your email! A message has been sent with instructions to reset your password.</p>'; } ?>
 				<input type="hidden" name="redirect_to" value="<?php echo $_SERVER['REQUEST_URI']; ?>?reset=true" />
 				<input type="hidden" name="user-cookie" value="1" />
@@ -82,7 +82,7 @@ div.center_box div.bottom p label { color: #f35a23; }
 
 	jQuery('#pass_login_link').click(function() {
 		jQuery("#password_block").load("/vancouver/login", function() {
-			window.setTimeout("GoogleTracking('/vancouver/login')", 100);
+			//window.setTimeout("GoogleTracking('/vancouver/login')", 100);
 		});
 	});
 

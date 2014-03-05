@@ -11,17 +11,17 @@ Template Name: login
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <style type="text/css">
 body { margin: 0; font-family: 'Ubuntu' !important; }
-div.center_box { position:relative; width: 514px; height: 385px; background: url('/vancouver/wp-content/themes/images/sign_in_box.png') no-repeat top left; color: white; text-align: center;}
+div.center_box { position:relative; width: 514px; height: 445px; background: url('/vancouver/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
 div.center_box p { margin: 0; font-size: 122%; }
 div.center_box div.top { padding: 25px 0 0 0; text-align: center; }
 div.center_box div.top h1 { color: #ea5f1a; padding: 15px 0 10px 0; font-size: 266%; }
 div.center_box div.inputs { position: relative; top: 20px; margin: 0 auto; width: 514px; }
 div.center_box div.inputs p { padding: 6px 0; }
-div.center_box form { margin-top: 5px; }
+div.center_box form { margin-top: 25px; }
 div.center_box form input.text { width: 280px; margin: 0; font-size: 18px; text-align: center; }
 div.center_box form input.f2p-button { margin: 4px 0; }
 div.center_box div.fb_connect { margin-top: 5px; }
-div.center_box div.bottom { position:absolute; top: 343px; margin: 0 auto; width: 514px; }
+div.center_box div.bottom { position:absolute; top: 403px; margin: 0 auto; width: 514px; }
 div.center_box div.bottom p { color: #2895d8; font-size: 18px; }
 div.center_box div.bottom p label { color: white; }
 </style>
@@ -53,11 +53,11 @@ div.center_box div.bottom p label { color: white; }
 				<input id="password-clear<?php echo $randVal ?>" type="text" value="Password" autocomplete="off" class="text" />
 				<input id="password-password<?php echo $randVal ?>" type="password" name="password" class="text" style="display:none;" />
 			</p>
+			<p class="lightboxMessage hide"></p>
 			<p>
 				<input type="submit" id="submit-signin" name="submit" value="SIGN IN" class="f2p-button" />
 			</p>
 		</form>
-		
 	</div>
 	
 	<div class="bottom">
@@ -68,13 +68,13 @@ div.center_box div.bottom p label { color: white; }
 <script type="text/javascript">
 	jQuery('#password_link').click(function() {
 		jQuery("#sign_in_block").load("/vancouver/forgot-password", function() {
-			window.setTimeout("GoogleTracking('/vancouver/forgot-password/');", 100);
+			//window.setTimeout("GoogleTracking('/vancouver/forgot-password/');", 100);
 		});
 	});
 	
 	jQuery('#join_link').click(function() {
 		jQuery("#sign_in_block").load("/vancouver/join", function() {
-			window.setTimeout("GoogleTracking('/vancouver/join/');", 100);
+			//window.setTimeout("GoogleTracking('/vancouver/join/');", 100);
 		});
 	});
 	
@@ -111,12 +111,22 @@ div.center_box div.bottom p label { color: white; }
 			data: "action=logmein&" + input_data,
 			success: function(msg){
 				if(msg == 'Success'){
-					if (window.location.pathname.indexOf("subscribe") > 0 || window.location.pathname.indexOf("login") > 0)
-						setTimeout("location.assign('<?php echo home_url(); ?>');");
-					else
-						setTimeout("location.reload(true);");
+					if (window.location.pathname.indexOf("subscribe") > 0) {
+						mixpanel.track('Successful Login', { 'url': 'Subscribe' }, function() { 
+							setTimeout("location.assign('<?php echo home_url(); ?>');");
+						});
+					} else if (window.location.pathname.indexOf('login') > 0) {
+						mixpanel.track('Successful Login', { 'url': 'Login' }, function() {
+							setTimeout("location.assign('<?php echo home_url(); ?>');");
+						});
+					}
+					else {
+						mixpanel.track('Successful Login', { 'url': 'Lightbox' }, function() {
+							setTimeout("location.reload(true);");
+						});
+					}
 				} else { 
-					alert(msg)
+					$('.lightboxMessage').html(msg).show();
 				};
 			}
 		});

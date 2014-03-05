@@ -14,9 +14,6 @@ if (document.referrer == "" || document.referrer == "http://fortwoplease.com/" |
 
 <div class="center_content">
 
-	<div class="banner" style="display:none;">
-	</div>
-
 	<div class="dates_content">
 		<div id="ur-date-ideas" class="dates_searched">
 			<div class="dash_line"></div>
@@ -27,6 +24,9 @@ if (document.referrer == "" || document.referrer == "http://fortwoplease.com/" |
 		<div style="clear: both;"></div>
 	</div>
 </div>
- 
+ <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="/vancouver/js/f2p-main.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    Stripe.setPublishableKey('pk_test_h98nYuHxvZmSc56VzOTfsKzB');  // Test key!
+</script>
 <?php get_footer(); ?>

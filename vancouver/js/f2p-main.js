@@ -2,7 +2,7 @@ var searchResults = new Array();
 var searchIndex = 15;
 
 jQuery(function() {
-	jQuery("#datepicker").multiDatesPicker();
+	//jQuery("#datepicker").multiDatesPicker();
 });
 
 jQuery("#testclick").click( function() {
@@ -80,76 +80,9 @@ jQuery("#packg-link").click(function(){
 	searchDate(input_date);
 });
 
-//************************************LOAD SIGNLE RESULT WINDOW *******************************************//
-function loadResults(start,end){
-	if(!sessionStorage) {
-		alert("noresults");
-	}
-
-	var cookies = get_cookies_array();
-	for(var name in cookies) {
-		if(name == 'f2p-browsing') {
-			var iselector = "#"+cookies[name];
-		}
-	}
-
-	
-	//jQuery("#results").hide();
-	for (var i = start; i < end; i++) {
-		if (sessionStorage.getItem(i) != "undefined" && sessionStorage.getItem(i)) {
-		    var date1 = sessionStorage.getItem(i);
-			if(sessionStorage.getItem(i+1)){
-			 var date2 = sessionStorage.getItem(i+1);
-			 i = i+1;
-			}
-			else{
-			 date2 = "empt";
-			 }
-			if(sessionStorage.getItem(i+2)){
-			 var date3 = sessionStorage.getItem(i+2);
-			 i = i+2;
-			 
-			}
-			else{
-			date3 = "empt";
-			}
-
-			input_date = "action=loaddate&dateID1="+date1+"&dateID2="+date2+"&dateID3="+date3;
-			
-			jQuery.ajax({
-				type: "POST",
-				url:  "/vancouver/wp-admin/admin-ajax.php",
-				data: input_date,
-				success: function(msg){
-					jQuery("#results2").append(msg);
-					if(iselector){			
-						jQuery(iselector).find('.testsearch2').css('display','block');
-					}
-				}
-			});
-		} else {
-			jQuery("#ur-date-ideas2").html('<p style="font-size:24px;color:#777;clear:both;">------------------------------ WE ALSO SUGGEST ------------------------------</p>');
-			input_date = "action=loaddate&dateID1=rand";
-			
-			jQuery.ajax({
-				type: "POST",
-				url:  "/vancouver/wp-admin/admin-ajax.php",
-				data: input_date,
-				success: function(msg){
-				jQuery("#results2").append(msg);	
-
-				}
-			});
-		}
-	}
-	
-	//jQuery("#results").show();
-	searchIndex += end;
-}
-
 
 //************************************DO A SEARCH*******************************************//
-function searchDate(iData){
+function searchDate(iData, isLandingPage){
 	searchIndex = 1;
 	jQuery("#results2").html("");
 	jQuery("#ur-date-ideas2").html("");
@@ -159,24 +92,19 @@ function searchDate(iData){
 		url:  "/vancouver/wp-admin/admin-ajax.php",
 		dataType: 'json',
 		data: input_date,
-		success: function(msg){	
+		success: function(msg) {	
 			jQuery('#loadImage').remove();
 			searchResults = msg; 
-			store();	
-			loadResults(1,15);
+			store();
+			if (typeof isLandingPage === "undefined") {
+				loadResults(1,15);
+			} else {
+				loadResults(1, msg.length);
+			}
 			console.log("success");
 			console.log(msg);
 		}
 	});
-}
-
-function store() {
-	if(searchResults) {
-		sessionStorage.clear();
-		for(var i=1;i<searchResults.length+1;i++) {
-			sessionStorage[i] = searchResults[i];
-		}
-	}
 }
 
 function getParameterByName(name) {
@@ -263,7 +191,7 @@ jQuery(document).ready(function($) {
 		//jQuery("#results").html("<img src='/vancouver/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
 		//if(sessionStorage.length < 1) {
 			var day = new Date().getUTCDay();
-			var type = "alltypes";
+			var type = "packages";
 			var location = "alllocations";
 			var price = "allprice";
 			var time = "alltime";
@@ -271,7 +199,7 @@ jQuery(document).ready(function($) {
 			input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day=" + day;
 			
 			console.log("searchDate");
-			searchDate(input_date);
+			searchDate(input_date, true);
 			//loadResults(1,9);
 		//} else {
 			//console.log("loadResults");
@@ -280,29 +208,12 @@ jQuery(document).ready(function($) {
 	}
 
 	jQuery(window).scroll(function () {
-		if (jQuery(window).scrollTop() == $(document).height() - $(window).height()) {
+		if ((jQuery(window).scrollTop() == $(document).height() - $(window).height()) && (searchIndex-1) % 15 == 0) {
 			loadResults(searchIndex,searchIndex+15);
 		}
 	});
 });
 
-//***********************TEXT SEARCH BOX*******************
-function get_cookies_array() {
-	var cookies = { };
-
-	if (document.cookie && document.cookie != '') {
-		var split = document.cookie.split(';');
-		for (var i = 0; i < split.length; i++) {
-	   		var name_value = split[i].split("=");
-	  		name_value[0] = name_value[0].replace(/^ /, '');
-	  		cookies[decodeURIComponent(name_value[0])] = decodeURIComponent(name_value[1]);
-		}
-	}
-
-	return cookies;
-}
-
-//***********************TEXT SEARCH BOX*******************
 jQuery(".testsearch").live("mouseenter",function(){jQuery("div.testsearch2",this).fadeIn('fast');});
 jQuery(".testsearch").live("mouseleave",function(){jQuery("div.testsearch2",this).fadeOut('fast');});
 

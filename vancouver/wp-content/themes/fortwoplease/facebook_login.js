@@ -113,9 +113,11 @@ function fb_login () {
 									setTimeout("location.assign('/'+window.location.pathname.split('/')[1]);");
 								else
 									setTimeout("location.reload(true);");
-							} else { 
-								alert(msg)
-							};
+							} else if ($('.lightboxMessage').length) { 
+								$('.lightboxMessage').html(msg).show();
+							}; else {
+								alert(msg);
+							}
 						}
 					});	
 				});

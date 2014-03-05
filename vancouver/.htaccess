@@ -16,6 +16,16 @@ RewriteRule . /vancouver/index.php [L]
 
 </IfModule>
 
+<FilesMatch "\.(txt|xml|js|css)$">
+Header set Last-Modified "Wed, 05 Feb 2014 11:00:00 GMT"
+Header set Cache-Control "max-age=604800"
+</FilesMatch>
+
+<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+Header set Last-Modified "Wed, 05 Feb 2014 11:00:00 GMT"
+Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
+
 # END WordPress
 
 # compress text, html, javascript, css and xml

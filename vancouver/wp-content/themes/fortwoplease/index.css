@@ -1,4 +1,4 @@
-div.center_content { margin: 0 auto; background-color: white; width: 1060px; /* box-shadow: 1px 14px 30px 4px #333; */ box-shadow: 1px 24px 30px 4px #333; }
+div.center_content { margin: 0 auto; background-color: white; width: 1060px; box-shadow: 1px 14px 30px 4px #333; }
 div.center_content div.header { background-image: url('/vancouver/wp-content/themes/images/search-widget-bckg.png'); width: 1036px; height: 224px; }
 div.center_content div.header div.controls { float: left; margin: 0; margin: 20px 0 0 16px; }
 div.center_content div.header ul li { list-style: none; float: left; margin:0;}
