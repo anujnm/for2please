@@ -123,18 +123,6 @@ jQuery("#submitreg").click(function() {
 	return false;
 	
 	});
-	
-		jQuery("#regon").click(function(){
-		jQuery("#user-ajax-login").hide();
-		jQuery("#user-ajax-register").show();
-		return false;
-	});
-	jQuery("#logon").click(function(){
-		jQuery("#user-ajax-register").hide();
-		jQuery("#user-ajax-login").show();
-		return false;
-	});
-	
 		
 	jQuery("#env-img").click(function(e){
 		jQuery('#share-date').lightbox_me({

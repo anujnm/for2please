@@ -417,6 +417,18 @@ jQuery(document).ready(function($) {
 			jQuery("#user-ajax-login").show();
 		});
 
+		jQuery("#regon").click(function() {
+	        jQuery("#user-ajax-login").hide();
+	        jQuery("#user-ajax-register").show();
+	        return false;
+		});
+
+		jQuery("#logon").click(function() {
+   			jQuery("#user-ajax-register").hide();
+    		jQuery("#user-ajax-login").show();
+    		return false;
+		});
+
 		mixpanel.track('Loaded Date Package', {'postID': postID });
 
 	} else {

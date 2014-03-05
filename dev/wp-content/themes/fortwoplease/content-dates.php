@@ -359,34 +359,30 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								Already have an account? <a id="logon" href="#">Login here </a>
 							</p>
 							<p class="lightboxMessage hide m-t-m"></p>
-							<form id="wp_reg_form" action="" method="post">  
+							<form id="wp_reg_form" action="" method="post">
 								<div class="login_fields">
-									<label>Username</label>  
-									<input type="text" name="username" class="text login_text" value=""/>
-								</div>  
-								<div class="login_fields">
-									<label>First Name</label>  
+									<label>First Name</label>
 									<input type="text" name="fname" class="text login_text" value="" />
-								</div> 
+								</div>
 								<div class="login_fields">
-									<label>Last Name</label>  
+									<label>Last Name</label>
 									<input type="text" name="lname" class="text login_text" value="" />
-								</div> 
+								</div>
 								<div class="login_fields">
-									<label>Email address</label>  
+									<label>Email address</label>
 									<input type="text" name="email" class="text login_text" value="" />
-								</div> 
+								</div>
 								<div class="login_fields">
-									<label>Password</label>  
+									<label>Password</label>
 									<input type="password" name="password" class="text login_text" value="" />
-								</div> 
+								</div>
 								<div class="login_fields">
-									<label>Confirm Password</label>  
+									<label>Confirm Password</label>
 									<input type="password" name="password2" class="text login_text" value="" />
 								</div>
 								<br/>
 								<input type="submit" class="f2p-button register_btn" value="SignUp" name="submit" id="submitbtn2" />
-							</form> 
+							</form>
 						</div>
 						</div>
 						<div style="clear:both;"></div>
