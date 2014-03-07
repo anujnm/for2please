@@ -829,7 +829,7 @@ function email_subscription() {
 			
 				//Call the method that adds the email to the MailChimp subscriber list
 				add_email_to_mail_chimp($user_email, null, null);
-			
+				send_welcome_email($user_email);
 				echo 'Success';
 			} else {
 				echo 'Invalid Email. Please try again.';
@@ -890,6 +890,26 @@ function add_email_to_mail_chimp ($email, $fname, $lname) {
 			}
 		}
 	}
+}
+
+
+function send_welcome_email($user_email, $first_name) {
+	$to = array(array('email'=>$user_email, 'type'=>'to'));
+    $message = array('from_email'=>'jesse@fortwoplease.com', 'from_name'=> 'Jesse from ForTwoPlease', 'to'=> $to);
+    if ($first_name	) {
+    	$greeting = "Hey " . $first_name . ",";
+    } else {
+    	$greeting  = "Hey, ";
+    }
+    $template_content = array(array('name'=>'greeting', 'content'=>$greeting));
+    $data = json_encode(array('key'=>'OybeEIWO9N2oDsURJI3qmg', 'template_name'=>'Welcome', 'message' => $message, 'template_content'=>$template_content));
+    $curl = curl_init();
+	curl_setopt($curl, CURLOPT_POST, 1);
+	curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+	curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+	curl_setopt($curl, CURLOPT_URL, 'https://mandrillapp.com/api/1.0/messages/send-template.json');
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	$response = curl_exec($curl);
 }
 
 
@@ -955,6 +975,7 @@ function fb_check_user_existence_and_login() {
 	//} else {
 		if (!$already_exists) {
 			add_email_to_mail_chimp($user_email, $first_name, $last_name);
+			send_welcome_email($user_email, $first_name);
 			// $headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
 			// add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 			// wp_mail($user_email, 'Your Dates Just Got Better ', '<strong>You are in!</strong><p>We’re excited that you’ve joined our ForTwoPlease community. Now that you’re a member, we can start recommending better dates that we think you’ll enjoy.</p><p><b>It’s easy to get started.</b> Find local date ideas based on what you want to do and we’ll help you with the rest – like cabs, babysitters and even private airplanes!</p><a href="http://fortwoplease.com">Your next great date awaits</a><p>If you have any questions, we’d love to hear from you. Shoot us a line on <a href="http://www.facebook.com/fortwoplease/">Facebook</a>
@@ -1019,6 +1040,7 @@ function new_user_reg(){
 			// wp_mail($user_email, 'Your Dates Just Got Better ', '<strong>You are in!</strong><p>We’re excited that you’ve joined our ForTwoPlease community. Now that you’re a member, we can start recommending better dates that we think you’ll enjoy.</p><p><b>It’s easy to get started.</b> Find local date ideas based on what you want to do and we’ll help you with the rest – like cabs, babysitters and even private airplanes!</p><a href="http://fortwoplease.com">Your next great date awaits</a><p>If you have any questions, we’d love to hear from you. Shoot us a line on <a href="http://www.facebook.com/fortwoplease/">Facebook</a>
 			// or email us at support@ForTwoPlease.</p><p>Best of Luck!</p><p>The ForTwoPlease Team</p>',$headers);
 			add_email_to_mail_chimp($user_email, null, null);
+			send_welcome_email($user_email, $firstname);
 			echo 'Success';
 		} 
 		exit();
