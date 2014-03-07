@@ -895,7 +895,7 @@ function add_email_to_mail_chimp ($email, $fname, $lname) {
 
 function send_welcome_email($user_email, $first_name) {
 	$to = array(array('email'=>$user_email, 'type'=>'to'));
-    $message = array('from_email'=>'jesse@fortwoplease.com', 'from_name'=> 'Jesse Appleby', 'to'=> $to);
+    $message = array('from_email'=>'jesse@fortwoplease.com', 'from_name'=> 'Jesse from ForTwoPlease', 'to'=> $to);
     if ($first_name	) {
     	$greeting = "Hey " . $first_name . ",";
     } else {
