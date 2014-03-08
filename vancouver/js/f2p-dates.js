@@ -293,7 +293,7 @@ jQuery(document).ready(function($) {
 	      		$("#payment-error").html("Please enter a valid CVC.").show();
 	      		return false;
 	      	}
-	      	Stripe.setPublishableKey('pk_test_h98nYuHxvZmSc56VzOTfsKzB');
+	      	Stripe.setPublishableKey('pk_live_LhLms0qy1k0TT1GqO4zf50jn');
 			// Disable button and remove errors.
 			$("#buy-now").attr("disabled", "disabled");
 			$("#overlay").css("visibility", "visible");
