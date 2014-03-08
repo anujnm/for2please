@@ -63,12 +63,12 @@ Template Name: subscribe
 	</div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
+<script src="/vancouver/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 /* Don't need Google Analytics on Dev */
 		jQuery(document).ready(function() {
-			jQuery("#login_box").load("/dev/join", function() {
+			jQuery("#login_box").load("/vancouver/join", function() {
 				jQuery(".skip").show();
 			});
 		});
