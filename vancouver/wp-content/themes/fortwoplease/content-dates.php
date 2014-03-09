@@ -338,7 +338,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 									<input type="submit" id="submitbtn" name="submit" value="Login" class="f2p-button login_btn" />
 								</form>
 								<div class="fb_login">
-									<h2> or use facebook </h2>
 									<img id="fb_login_btn" src="/vancouver/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/>
 								</div>
 							</div>

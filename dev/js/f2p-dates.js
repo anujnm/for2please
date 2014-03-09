@@ -375,8 +375,7 @@ jQuery(document).ready(function($) {
 				data: "action=logmein&" + input_data,
 				success: function(msg) {
 					if(msg=='Success'){
-						jQuery("#user-ajax-login").hide();
-						jQuery("#buy-process").show();
+						setTimeout("location.reload(true);");
 						return false;
 					} else { 
 						$('.lightboxMessage').html(msg).show();
