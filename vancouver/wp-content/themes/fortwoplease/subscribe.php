@@ -10,6 +10,7 @@ Template Name: subscribe
 <head>
 	<?php include_once("analyticstracking.php") ?>
 	<link rel="icon" type="image/png" href="/vancouver/wp-content/themes/images/favicon2c.png">
+	<script src="https://fortwoplease.com/vancouver/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		// Add a script element as a child of the body
 		function downloadJSAtOnload() {

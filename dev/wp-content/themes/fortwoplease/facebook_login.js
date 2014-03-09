@@ -35,9 +35,7 @@ function fb_login () {
 	console.log("button clicked...");
 	/*
 	FB.getLoginStatus(function(response) {
-	
-		console.log(response);
-	
+		//console.log(response);	
 	  if (response.status === 'connected') {
 	    // the user is logged in and has authenticated your
 	    // app, and response.authResponse supplies
@@ -46,8 +44,8 @@ function fb_login () {
 	    // and signed request each expire
 	    var uid = response.authResponse.userID;
 	    var accessToken = response.authResponse.accessToken;
-		
-		console.log("is connected");
+
+		//console.log("is connected");
 
 		FB.api('/me', function(info) {
 
@@ -63,7 +61,7 @@ function fb_login () {
 
 			var input_data = "username=" + info.name  + "&fname=" + info.first_name + "&lname=" + info.last_name + "&email=" + info.email + "&password=123456&password2=123456";
 			// input_data = jQuery(input_data).serialize();
-			console.log(input_data);
+			//console.log(input_data);
 			jQuery.ajax({
 				type: "POST",
 				url: "/dev/wp-admin/admin-ajax.php",
@@ -84,9 +82,9 @@ function fb_login () {
 	  } else {
 	  */
 	    // the user isn't logged in to Facebook.
+		//console.log("is not logged in");
 		FB.login(function(response) {
 			if (response.authResponse) {
-				console.log("is not logged in");
 				FB.api('/me', function(info) {
 /*
 					console.log("user first_name: " + info.first_name);
@@ -97,12 +95,16 @@ function fb_login () {
 					console.log("user gender: " + info.gender);
 */
 
-					if (info.email === undefined)
-						return;
-
-					var input_data = "username=" + info.name  + "&fname=" + info.first_name + "&lname=" + info.last_name + "&email=" + info.email + "&password=123456&password2=123456";
-					// input_data = jQuery(input_data).serialize();
-					//console.log(input_data);
+					if (info.email === undefined) {
+						if (info.username === undefined) {
+							return;
+						} else {
+							var email = info.username + "@facebook.com";
+							var input_data = "username=" + info.name  + "&fname=" + info.first_name + "&lname=" + info.last_name + "&email=" + email + "&password=123456&password2=123456";
+						}
+					} else {
+						var input_data = "username=" + info.name  + "&fname=" + info.first_name + "&lname=" + info.last_name + "&email=" + info.email + "&password=123456&password2=123456";
+					}
 
 					jQuery.ajax({
 						type: "POST",
@@ -117,7 +119,7 @@ function fb_login () {
 									setTimeout("location.reload(true);");
 							} else if ($('.lightboxMessage').length) { 
 								$('.lightboxMessage').html(msg).show();
-							}; else {
+							} else {
 								alert(msg);
 							}
 						}

@@ -970,19 +970,11 @@ function fb_check_user_existence_and_login() {
 		wp_set_auth_cookie($user -> id, true);
 	}
 
-	//if (is_wp_error($user_verify)) {
-	//	echo 'Invalid username or password. Please try again!';
-	//} else {
-		if (!$already_exists) {
-			add_email_to_mail_chimp($user_email, $first_name, $last_name);
-			send_welcome_email($user_email, $first_name);
-			// $headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-			// add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-			// wp_mail($user_email, 'Your Dates Just Got Better ', '<strong>You are in!</strong><p>We’re excited that you’ve joined our ForTwoPlease community. Now that you’re a member, we can start recommending better dates that we think you’ll enjoy.</p><p><b>It’s easy to get started.</b> Find local date ideas based on what you want to do and we’ll help you with the rest – like cabs, babysitters and even private airplanes!</p><a href="http://fortwoplease.com">Your next great date awaits</a><p>If you have any questions, we’d love to hear from you. Shoot us a line on <a href="http://www.facebook.com/fortwoplease/">Facebook</a>
-			// or email us at support@ForTwoPlease.</p><p>Best of Luck!</p><p>The ForTwoPlease Team</p>',$headers);	
-		}
-		echo 'Success';
-	//}
+	if (!$already_exists) {
+		add_email_to_mail_chimp($user_email, $first_name, $last_name);
+		send_welcome_email($user_email, $first_name);
+	}
+	echo 'Success';
 	
 	exit();
 }

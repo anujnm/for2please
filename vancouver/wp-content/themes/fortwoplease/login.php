@@ -32,7 +32,6 @@ div.center_box div.bottom p label { color: white; }
 	}
 </script>
 
-<script src="<?php bloginfo('stylesheet_directory'); ?>/facebook_login.js" type="text/javascript"></script>
 </head>
 
 <?php $randVal = rand(); ?>
@@ -105,6 +104,7 @@ div.center_box div.bottom p label { color: white; }
 
 	jQuery("#submit-signin").click(function() {
 		var input_data = jQuery('#sign_in_form').serialize();
+		$('.lightboxMessage').hide();
 		jQuery.ajax({
 			type: "POST",
 			url:  "/vancouver/wp-admin/admin-ajax.php",

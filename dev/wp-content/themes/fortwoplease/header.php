@@ -19,7 +19,7 @@
 <html id="ie8" <?php language_attributes(); ?>>
 <![endif]-->
 <!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
-<html <?php language_attributes(); ?> xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:fb="http://ogp.me/ns/fb#">
+<html <?php language_attributes(); ?> xmlns="https://www.w3.org/1999/xhtml" xmlns:og="https://opengraphprotocol.org/schema/" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:fb="http://ogp.me/ns/fb#">
 <!--<![endif]-->
 <head>
 	<?php include_once("analyticstracking.php") ?>
@@ -27,19 +27,25 @@
 	
 	<?php
 		echo '<meta property="og:title" content="'.get_field('sub_title').'" />';
-		// echo '<meta property="og:description" content="description" />';
-		if(get_field('image_1'))
-			echo '<meta property="og:image" content="'.get_field('image_1').'" />';
-			//echo '<meta property="og:image" content="http://fortwoplease.com/vancouver/wp-content/uploads/2012/03/FTP-Date-Idea-Photo-1-Nuba-Restaurant-Lunch.jpg" />';
-		else if (has_post_thumbnail())
-			echo '<meta property="og:image" content="'.the_post_thumbnail('full').'" />';
-		echo '<meta property="og:site_name" content="For Two Please" />';
+	if(get_field('image_1')) {
+		echo '<meta property="og:image" content="'.get_field('image_1').'" />';
+		echo '<link rel="image_src" href="'.get_field('image_1').'" />';
+	} else if (has_post_thumbnail()) {
+		echo '<meta property="og:image" content="'.the_post_thumbnail('full').'" />';
+		echo '<link rel="image_src" href="'.the_post_thumbnail('full').'" />';
+	}
+	echo '<meta property="og:site_name" content="For Two Please" />';
+	if (get_field('short_description')) {
+		echo '<meta name="description" content="'.get_field('short_description').'" />';
 		echo '<meta property="og:description" content="'.get_field('short_description').'" />';
-		$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-		echo '<meta property="og:url" content="'.$protocol.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" />';
-		echo '<meta property="og:type" content="article">';
-		//echo '<meta property="og:type" content="Web Site" />';
-	?>
+	} else {
+		echo '<meta name="description" content="Find the best date ideas in Vancouver, and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights."/>';
+	}
+	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+	echo '<meta property="og:url" content="'.$protocol.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" />';
+	echo '<meta property="og:type" content="article">';
+	//echo '<meta property="og:type" content="Web Site" />';
+?>
 
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -65,7 +71,7 @@
 	
 		?>
 	</title>
-	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="profile" href="https://gmpg.org/xfn/11" />
 	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	<!--[if lt IE 9]>
@@ -82,6 +88,7 @@
 	<script src="/dev/js/sessionstorage.1.4.js" type="text/javascript"></script>
 	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 	<script src="/vancouver/js/jquery.lightbox_me.js" type="text/javascript"></script>
+	<script src="https://fortwoplease.com/dev/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
 	<!-- start Mixpanel -->
 	<script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
 		typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);

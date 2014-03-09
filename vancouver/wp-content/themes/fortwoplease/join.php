@@ -33,8 +33,6 @@ div.center_box div.bottom p label { color: white; }
 	}
 </script>
 
-<script src="<?php bloginfo('stylesheet_directory'); ?>/facebook_login.js" type="text/javascript"></script>
-
 </head>
 
 <?php $randVal = rand(); ?>
