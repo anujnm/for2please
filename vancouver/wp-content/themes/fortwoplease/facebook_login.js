@@ -96,15 +96,12 @@ function fb_login () {
 */
 
 					if (info.email === undefined) {
-						if (info.username === undefined) {
-							return;
-						} else {
-							var email = info.username + "@facebook.com";
-							var input_data = "username=" + info.name  + "&fname=" + info.first_name + "&lname=" + info.last_name + "&email=" + email + "&password=123456&password2=123456";
-						}
-					} else {
-						var input_data = "username=" + info.name  + "&fname=" + info.first_name + "&lname=" + info.last_name + "&email=" + info.email + "&password=123456&password2=123456";
-					}
+						var msg = 'Facebook Connect doesn\'t seem to be working right now. Please try using an email address instead.';
+						$('.lightboxMessage').html(msg).show();
+						return;
+					} 
+					
+					var input_data = "username=" + info.name  + "&fname=" + info.first_name + "&lname=" + info.last_name + "&email=" + info.email + "&password=123456&password2=123456";
 
 					jQuery.ajax({
 						type: "POST",
