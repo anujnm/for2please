@@ -73,7 +73,7 @@ div.date_content div.date_package div.package_info div.register_block div.regist
 
 div.date_content div.date_package div.package_info div.register_block div.register_info form { margin-top:15px; width:300px; }
 div.date_content div.date_package div.package_info div.register_block div.register_info form div.login_fields { width:300px; }
-div.date_content div.date_package div.package_info div.register_block div.register_info form input.register_btn {clear:both; display:block; margin: 0 auto;}
+div.date_content div.date_package div.package_info div.register_block div.register_info form input.register_btn {clear:both; display:block; margin: 0 auto; float:right;}
 
 div.date_content div.date_package div.package_info div.forgot_pass_block { }
 div.date_content div.date_package div.package_info div.forgot_pass_block div.forgot_pass_info { margin: 3px; background-color: white; color: black; height: 320px; padding: 10px; }
