@@ -1015,14 +1015,14 @@ function new_user_reg(){
 
 	$userdata = compact('user_login', 'user_pass', 'first_name', 'last_name') ;
 	
-	$status = wp_insert_user(array ('user_login' => $user_email, 'user_email' => $user_email, 'user_pass' => $user_pass, 'first_name' => $firstname, 'last_name' => $lastname));	
+	$status = wp_insert_user(array ('user_login' => $user_login, 'user_email' => $user_login, 'user_pass' => $user_pass, 'first_name' => $firstname, 'last_name' => $lastname));	
 	
 	if (is_wp_error($status)) {
 		echo 'Username already exists. Please try another one. ';
 		exit();
 	} else {
 		$login_data = array();
-		$login_data['user_login'] = $user_email;
+		$login_data['user_login'] = $user_login;
 		$login_data['user_password'] = $user_pass;
 		$login_data['remember'] = "true";
 		$user_verify = wp_signon( $login_data, true );  
@@ -1031,8 +1031,8 @@ function new_user_reg(){
 			// add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 			// wp_mail($user_email, 'Your Dates Just Got Better ', '<strong>You are in!</strong><p>We’re excited that you’ve joined our ForTwoPlease community. Now that you’re a member, we can start recommending better dates that we think you’ll enjoy.</p><p><b>It’s easy to get started.</b> Find local date ideas based on what you want to do and we’ll help you with the rest – like cabs, babysitters and even private airplanes!</p><a href="http://fortwoplease.com">Your next great date awaits</a><p>If you have any questions, we’d love to hear from you. Shoot us a line on <a href="http://www.facebook.com/fortwoplease/">Facebook</a>
 			// or email us at support@ForTwoPlease.</p><p>Best of Luck!</p><p>The ForTwoPlease Team</p>',$headers);
-			add_email_to_mail_chimp($user_email, null, null);
-			send_welcome_email($user_email, $firstname);
+			add_email_to_mail_chimp($user_login, null, null);
+			send_welcome_email($user_login, $firstname);
 			echo 'Success';
 		} 
 		exit();

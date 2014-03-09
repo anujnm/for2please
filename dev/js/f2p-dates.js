@@ -393,8 +393,7 @@ jQuery(document).ready(function($) {
 				data: "action=newuserreg&" + input_data,
 				success: function(msg) {
 					if(msg=='Success') {
-						jQuery("#user-ajax-register").hide();
-						jQuery("#buy-process").show();
+						setTimeout("location.reload(true);");
 						return false;
 					} else { 
 						$('.lightboxMessage').html(msg).show();
