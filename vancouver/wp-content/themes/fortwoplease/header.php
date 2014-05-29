@@ -325,11 +325,11 @@
         <?php } else { ?>
           <li><a href="/vancouver/date-type/adventurous/">Adventurous</a></li>
         <?php } if ($category == "getaways") { ?>
-          <li><a href="/vancouver/date-type/getaways/">Getaways</a></li>
+          <li><a href="/vancouver/date-type/getaways/" class="selected">Getaways</a></li>
         <?php } else { ?>
           <li><a href="/vancouver/date-type/getaways/">Getaways</a></li>
         <?php } if ($category == "entertainment") { ?>
-          <li><a href="/vancouver/date-type/entertainment/">Entertainment</a></li>
+          <li><a href="/vancouver/date-type/entertainment/" class="selected">Entertainment</a></li>
         <?php } else { ?>
           <li><a href="/vancouver/date-type/entertainment/">Entertainment</a></li>
         <?php } ?>
