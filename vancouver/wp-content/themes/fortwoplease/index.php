@@ -11,8 +11,13 @@ if (document.referrer == "" || document.referrer == "http://fortwoplease.com/" |
 
 <link rel="stylesheet" type="text/css" href="/vancouver/wp-content/themes/fortwoplease/index.css" />
 <script src="/vancouver/js/jquery.dropkick-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <div class="center_content">
+	<ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px;padding-top:20px;padding-left:30px;"
+                     data-ad-client="ca-pub-4081693765901599"
+                     data-ad-slot="6672957644"></ins>
 
 	<div class="dates_content">
 		<div id="ur-date-ideas" class="dates_searched">
@@ -28,5 +33,6 @@ if (document.referrer == "" || document.referrer == "http://fortwoplease.com/" |
 <script src="/vancouver/js/f2p-main.js" type="text/javascript" charset="utf-8"></script>
 <script>
     Stripe.setPublishableKey('pk_test_h98nYuHxvZmSc56VzOTfsKzB');  // Test key!
+    (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <?php get_footer(); ?>

@@ -92,17 +92,17 @@ function searchDate(iData, isLandingPage){
 		url:  "/vancouver/wp-admin/admin-ajax.php",
 		dataType: 'json',
 		data: input_date,
-		success: function(msg) {	
+		success: function(msg) {
 			jQuery('#loadImage').remove();
-			searchResults = msg; 
+			searchResults = msg;
 			store();
 			if (typeof isLandingPage === "undefined") {
+				loadResults(1,15);
+			} else if (typeof isLandingPage == "boolean" && isLandingPage == true) {
 				loadResults(1,15);
 			} else {
 				loadResults(1, msg.length);
 			}
-			console.log("success");
-			console.log(msg);
 		}
 	});
 }
@@ -130,14 +130,14 @@ jQuery(document).ready(function($) {
 		} else {
 			var day = date.getUTCDay();
 		}
-	
+
 		var type = jQuery("#type").val();
 		var location = jQuery("#location").val();
 		var price = jQuery("#price").val();
 		var time = "alltime";
-	
+
 		input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day=" + day;
-	
+
 		searchDate(input_date);
 	});
 
@@ -170,7 +170,7 @@ jQuery(document).ready(function($) {
 
 	var querySearch = getParameterByName("q");
 	console.log(querySearch);
-	
+
 	if (querySearch != "") {
 		jQuery("#ur-date-ideas-title").html("YOUR DATE IDEAS");
 		searchIndex = 1;
@@ -182,8 +182,8 @@ jQuery(document).ready(function($) {
 			data: input_data,
 			dataType: 'json',
 			success: function(msg) {
-				searchResults = msg; 
-				store();	
+				searchResults = msg;
+				store();
 				loadResults(1,15);
 			}
 		});
@@ -191,13 +191,13 @@ jQuery(document).ready(function($) {
 		//jQuery("#results").html("<img src='/vancouver/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
 		//if(sessionStorage.length < 1) {
 			var day = new Date().getUTCDay();
-			var type = "packages";
+			var type = "alltypes";
 			var location = "alllocations";
 			var price = "allprice";
 			var time = "alltime";
-	
+
 			input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day=" + day;
-			
+
 			console.log("searchDate");
 			searchDate(input_date, true);
 			//loadResults(1,9);
@@ -208,7 +208,7 @@ jQuery(document).ready(function($) {
 	}
 
 	jQuery(window).scroll(function () {
-		if ((jQuery(window).scrollTop() == $(document).height() - $(window).height()) && (searchIndex-1) % 15 == 0) {
+		if (jQuery(window).scrollTop() == $(document).height() - $(window).height()) {
 			loadResults(searchIndex,searchIndex+15);
 		}
 	});
@@ -217,7 +217,7 @@ jQuery(document).ready(function($) {
 jQuery(".testsearch").live("mouseenter",function(){jQuery("div.testsearch2",this).fadeIn('fast');});
 jQuery(".testsearch").live("mouseleave",function(){jQuery("div.testsearch2",this).fadeOut('fast');});
 
-jQuery(".testsearch").live("click",function(){ 
+jQuery(".testsearch").live("click",function(){
 	document.cookie = 'f2p-browsing='+this.id;
 	document.cookie = 'f2p-type='+jQuery("#dk_container_type>a>span").text();
 	document.cookie = 'f2p-location='+jQuery("#dk_container_location>a>span").text();
@@ -246,19 +246,19 @@ function checkboxTrigger(){
 	var dayChk = jQuery("#chk-day").is(':checked');
 	var eveChk = jQuery("#chk-eve").is(':checked');
 
-	if(morChk&&dayChk && eveChk) { 
+	if(morChk&&dayChk && eveChk) {
 		jQuery("div#dk_container_time>a.dk_toggle>span.dk_label").html("Any Time");
-	} else if(morChk && dayChk) { 
+	} else if(morChk && dayChk) {
 		jQuery("div#dk_container_time>a.dk_toggle>span.dk_label").html("Morning, Day");
-	} else if(morChk && eveChk) { 
+	} else if(morChk && eveChk) {
 		jQuery("div#dk_container_time>a.dk_toggle>span.dk_label").html("Morning, Evening");
-	} else if(dayChk && eveChk) { 
+	} else if(dayChk && eveChk) {
 		jQuery("div#dk_container_time>a.dk_toggle>span.dk_label").html("Day, Evening");
-	} else if(morChk) { 
+	} else if(morChk) {
 		jQuery("div#dk_container_time>a.dk_toggle>span.dk_label").html("Morning");
-	} else if(dayChk) { 
+	} else if(dayChk) {
 		jQuery("div#dk_container_time>a.dk_toggle>span.dk_label").html("Day");
-	} else if(eveChk) { 
+	} else if(eveChk) {
 		jQuery("div#dk_container_time>a.dk_toggle>span.dk_label").html("Evening");
 	} else{
 		jQuery("div#dk_container_time>a.dk_toggle>span.dk_label").html("Please Select");

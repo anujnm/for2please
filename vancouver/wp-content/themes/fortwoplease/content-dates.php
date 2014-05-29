@@ -18,7 +18,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 	var total = price + taxes + fees;
 	var orderID = <?php echo get_current_user_id(); }?>;
 </script>
-
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script src="https://js.stripe.com/v1/?ver=3.4.1" type="text/javascript" charset="utf-8"></script>
 <script src="/vancouver/js/f2p-dates.js" type="text/javascript" charset="utf-8"></script>
 <!-- <script src="https://maps.google.com/maps?file=api&v=2&key=AIzaSyDLEOimOjJBjY5kPHxkRcSAfihslNNOUAI&sensor=false" type="text/javascript"></script> -->
@@ -39,22 +39,18 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 	<div class="content_block">
 		<div class="content_header">
 			<div class="title"><?php the_field('sub_title'); ?></div>
-			<?php if (get_field("price")) { ?>
-				<div class="package_title">DATE PACKAGE</div>
-			<?php } else { ?>
-				<div class="date_title">SIMILAR DATE PACKAGES</div>
-			<?php } ?>
+				<div class="package_title">DATE IDEA</div>
 		</div>
-		
-		
-		
+
+
+
 		<div class="header_info">
 			<div class="pictures" style="overflow:hidden;">
 				<div class="galleria-info sub_title">
 					<?php the_title(); ?>
 				</div>
 				<div id="image-slider" style="overflow:hidden; z-index:-1000; margin-top: -50px; ">
-					<?php 
+					<?php
 					if(get_field('image_1')){ ?>
 						<div id="galleria">
 							<img src=<?php the_field('image_1'); ?>>
@@ -68,13 +64,13 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								<img src=<?php the_field('image_5'); ?>>
 							<?php }  ?>
 						</div>
-						
+
 					<?php
 					} else if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
 						the_post_thumbnail('full');
 					} ?>
 				</div>
-				
+
 			</div>
 			<div class="date_info">
 				<div class="links">
@@ -89,20 +85,20 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 						echo '<div class="fb-like" data-href="'.$uri.'" data-send="false" data-layout="button_count" data-show-faces="false" data-action="recommend" data-font="verdana"></div>';
 					?>
 					</div>
-					
+
 					<div style="width: 90px;">
 					<a href="<?php echo $uri ?>" class="twitter-share-button" url="http://twitter.com/share?url=<?php echo $uri ?>" data-counturl="<?php echo $uri ?>">Tweet</a>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 					</div>
 					<div style="width: 70px;"><img src="/dev/wp-content/themes/images/email_btn.png" width="60" height="22" style="cursor:pointer;" onclick="jQuery('#share-date').lightbox_me({centered: true,});"/></div>
 					<div style="width: 65px;"><a href="http://pinterest.com/pin/create/button/?url=<?php echo current_page_url(); ?>&media=<?php the_field('image_1'); ?>&description=this%20is%20the%20description" class="pin-it-button" count-layout="vertical"><img border="0" src="/dev/wp-content/themes/images/pinit.png" title="Pin It" /></a></div>
-        			
+
 				</div>
 				<div style="clear: both;"></div>
 				<?#php dd_fblike_generate('Recommend Button Count') ?>
 				<?#php dd_pinterest_generate('Compact') ?>
 				<?#php dd_twitter_generate('Compact','twitter_username') ?>
-				
+
 				<div id="share-date">
 					<form id="share-this-date">
 						<div class="info">
@@ -122,37 +118,38 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 						</div>
 						<br/>
 						<div class="message">Message(optional): <br/> <textarea rows="5" name="message" cols="40"> </textarea></div>
-						
+
 						<br/>
 						<input type="submit" id="share-submit" value="send" class="f2p-button" />
 					</form>
 				</div>
-				
+
 				<div class="title">
-					<?php if(get_field('price')) { ?>
-						THE DATE PACKAGE...
-					<?php } else { ?>
 						THE DATE IDEA...
-					<?php }?>
 				</div>
 				<?php if(get_field('short_description')){ ?>
 					<p class="short_desc"><?php the_field('short_description'); ?></p>
 				<?php } ?>
 				<div class="why"><?php the_field('why_is_this_a_great_date'); ?></div>
-			
+
 				<div id="word-on-street" class="quotes"><?php the_field('word_on_the_street'); ?></div>
 			</div>
 		</div>
 		<div class="date_content">
 			<div class="date_package">
-				<?php if(get_field('price')){ ?>
+				<!-- FTP Sidebar Ads 2 -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:300px;height:250px;padding-top:50px;padding-bottom:110px;padding-left:18px;"
+				     data-ad-client="ca-pub-4081693765901599"
+				     data-ad-slot="7853482845"></ins>
+				<?//php if(get_field('price')){ ?>
+				<!--
 				<div class="package_info">
 					<br/>
 					<div id="loading">
 						<img src="/vancouver/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
 					</div>
 
-					<!--<div id="buy-button" class="buynow buy_btn"></div>-->
 					<div id="buy">
 						<div id="buy-button">
 							<input type="button" value="BUY NOW" class="f2p-button" style="font-weight: bold;"/>
@@ -211,7 +208,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 							<div id='payment-error' style='background:#FF9;clear:both;color:red;width:300px;margin-bottom:10px;overflow:hidden;padding:5px;display:none;'></div>
 							<div style="clear:both;"></div>
 							<div style='padding-left:10px;height:30px;'>
-								Quantity: 
+								Quantity:
 								<select style='background-color:#f2f2f2;' class='m-l-m' id='buy-quantity' name="quantity">
 									<option value='1'>1</option>
 									<option value='2'>2</option>
@@ -231,15 +228,15 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 							</div>
 							<div style='clear:both;'>
 								<div style='padding-left:10px;height:30px;'>
-									First Name: 
+									First Name:
 									<input type='text' id='billing_fname' style='float:right;height: 20px;' value="<?php echo $user_data['first_name'][0]; ?>"/>
 								</div>
 								<div style='padding-left:10px;height:30px;'>
-									Last Name: 
+									Last Name:
 									<input type='text' id='billing_lname' style='float:right;height: 20px;' value="<?php echo $user_data['last_name'][0]; ?>"/>
 								</div>
 								<div style='padding-left:10px;height:30px;'>
-									Card Number: 
+									Card Number:
 									<input type='text' id='cnumber' style='float:right;height: 20px;'/>
 								</div>
 								<div style='padding-left:10px;height:30px;'>
@@ -273,7 +270,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 									</select>
 								</div>
 								<div style='padding-left:10px;height:30px;'>
-									Security Code: 
+									Security Code:
 									<input type='text' id='csv' style='float: right; height: 20px;'/>
 								</div>
 								<br/>
@@ -291,7 +288,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 						</div>
 						</form>
 						</div>
-						
+
 						<div class="background" style="margin-top: -15px;">
 							<div class="desc">
 								<div class="fine_print">
@@ -323,7 +320,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 									Don't have an account? <a id="regon" href="#">Register here </a>
 								</p>
 								<p class="lightboxMessage hide m-t-m"></p>
-								<!-- To hold validation results -->
 								<form id="wp_login_form" action="" method="post">
 									<div class="login_fields">
 										<label>Username/Email</label>
@@ -334,7 +330,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 										<input type="password" name="password" class="text login_text" value="" /><br/>
 									</div>
 									<a id="fpassword" href="#" class="forgot_pass" >Forgot your password?</a>
-	
+
 									<input type="submit" id="submitbtn" name="submit" value="Login" class="f2p-button login_btn" />
 								</form>
 								<div class="fb_login">
@@ -416,33 +412,35 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 						<div style="clear:both;"></div>
 					</div>
 				</div>
-
-				<?php } else { ?>
+				-->
+				<?//php } else { ?>
+					<!--
 					<div class="similar_packages">
 					</div>
-				<?php } ?>
+				-->
+				<?//php } ?>
 
 				<div style="clear: both;"></div>
 			</div>
 			<div class="date_details">
-				<?php if (get_the_term_list( $post->ID, 'date-type' ) != null ) { ?>	
+				<?php if (get_the_term_list( $post->ID, 'date-type' ) != null ) { ?>
 				<div id="locations" class="item">
 					<div class="block"><p>DATE TYPE</p> <?php echo get_the_term_list( $post->ID, 'date-type', '', ', ', '' ); ?></div>
 				</div>
-				<?php } ?> 
-				
-				<?php if (get_the_term_list( $post->ID, 'location' ) != null ) { ?>	
+				<?php } ?>
+
+				<?php if (get_the_term_list( $post->ID, 'location' ) != null ) { ?>
 				<div id="location" class="item">
 					<div class="block"><p>LOCATION</p> <?php echo get_the_term_list( $post->ID, 'location', '', ', ', '' ); ?></div>
 				</div>
-				<?php } ?> 
-				
-				<?php if (get_the_term_list( $post->ID, 'time' ) != null ) { ?>	
+				<?php } ?>
+
+				<?php if (get_the_term_list( $post->ID, 'time' ) != null ) { ?>
 				<div id="time" class="item">
 					<div class="block"><p>TIME</p> <?php echo get_the_term_list( $post->ID, 'time', '', ', ', '' ); ?></div>
 				</div>
-				<?php } ?>  
-				
+				<?php } ?>
+
 				<div style="clear:both;"></div>
 				<div class="map">
 					<p class="business_name"><?php the_field('business_name'); ?></p>
@@ -461,12 +459,15 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					<br/><br/>
 				</div>
 			</div>
-			
+
 			<div style="clear:both;"></div>
 		</div>
-		
+
 		<div style="clear:both;"></div>
 	</div>
 </div>
 
 </article>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>

@@ -105,5 +105,3 @@ function get_cookies_array() {
 
     return cookies;
 }
-
-

@@ -1,5 +1,5 @@
 <?php
-show_admin_bar( false ); 
+show_admin_bar( false );
 
 function limit_terms($val) {
     return array_splice($val, 0, 3);
@@ -59,7 +59,7 @@ function load_single_date(){
 	if($id[3] != "empt"){
 		$cflag = 3;
 	}
-	
+
 	for($iz=1;$iz<=$cflag;$iz++) {
 		$itemPermalink = get_permalink($id[$iz]);
 		$datetypes = get_the_term_list( $id[$iz], 'date-type', '', ', ', '' );
@@ -87,7 +87,7 @@ function load_single_date(){
 			echo '<p style="color:#FFF;">', strip_tags($terms_as_text) ,'</p>';
 		}
 		echo "<br/><p style='color:white;width:300px;'>";
-		echo showBrief(get_field('short_description',$id[$iz]),20 ); 
+		echo showBrief(get_field('short_description',$id[$iz]),20 );
 		echo "...</p><a style='float:right;margin-right:10px;text-decoration:none;' href='";
 		echo $itemPermalink;
 		echo "'>Read More...</a></div></div></div>";
@@ -117,7 +117,7 @@ function load_date_for_idea_page(){
 	if($id[2] != "empt"){
 		$cflag = 2;
 	}
-	
+
 	for($iz=1;$iz<=$cflag;$iz++) {
 		$itemPermalink = get_permalink($id[$iz]);
 		$datetypes = get_the_term_list( $id[$iz], 'date-type', '', ', ', '' );
@@ -149,7 +149,7 @@ function load_date_for_idea_page(){
 			echo '<p style="color:#FFF;"><a style="color:#FFF;text-decoration:none;" href="', $itemPermalink, '" class="similar-package-link">', strip_tags($terms_as_text) ,'</a></p>';
 		}
 		echo "<br/><p style='color:white;width:300px;'><a style='color:#FFF;text-decoration:none;' href='", $itemPermalink, "' class='similar-package-link'>";
-		echo showBrief(get_field('short_description', $id[$iz]), 20); 
+		echo showBrief(get_field('short_description', $id[$iz]), 20);
 		echo "...</a></p><a style='float:right;margin-right:10px;text-decoration:none;' href='";
 		echo $itemPermalink;
 		echo "'>Read More...</a></div></div></div>";
@@ -180,10 +180,10 @@ function recommend_dates(){
 	$ID[0] = $_POST['id1'];
 	$ID[1] = $_POST['id2'];
 	$ID[2] = $_POST['id3'];
-	
-	
+
+
 	//$POST = wp_get_single_post($ID1);
-	
+
 	for ($i=0;$i<3;$i++)
 {
 	if($ID[$i]==0){
@@ -195,7 +195,7 @@ function recommend_dates(){
 		echo "<p style='font-size:16px;font-weight:700;color:#666;margin-left:90px;padding-top:10px;'>More Great Date Ideas</p>";
 	}
 	echo "<div id='";
-	
+
 	echo $ID[$i];
 	echo "' class='testsearch' style='background:url(";
 	echo get_field('thumbnail',$ID[$i]);
@@ -215,7 +215,7 @@ function recommend_dates(){
 	echo "</a><br/>";
 	echo strip_tags(get_the_term_list( $ID[$i], 'location', '', ', ', '' ));
 	echo "<br/><p style='color:white;width:240px;margin-top:10px;'>";
-	echo showBrief(get_field('short_description',$ID[$i]),20 ); 
+	echo showBrief(get_field('short_description',$ID[$i]),20 );
 	echo "...</p>";
 	echo "</div></div></div>";
 	echo "<div class='overlay' style='width:264px;height:20px;text-align:center;'><p style='font-size:14px;font-weight:700;'><a href='";
@@ -225,7 +225,7 @@ function recommend_dates(){
 	echo "</a></p></div></div><div style='clear:both;'></div>";
 }
 	exit();
-	
+
 }
 add_action('wp_ajax_nopriv_recommenddates', 'recommend_dates');
 add_action('wp_ajax_recommenddates', 'recommend_dates');//for users that are not logged in.
@@ -239,7 +239,7 @@ function search_by_keyword(){
 	while ( have_posts() ) : the_post();
 	if(stristr(get_the_title(),$_POST['key']) !== FALSE || stristr(get_field('sub_title'),$_POST['key']) !== FALSE || stristr(get_field('short_description'),$_POST['key']) !== FALSE )
 	{
-	
+
 	$result_array[$index] = get_the_ID();
 	$index++;
 
@@ -247,10 +247,10 @@ function search_by_keyword(){
 	endwhile;
 	$result_array["length"] = $index;
 	wp_reset_query();
-	echo json_encode($result_array); 
+	echo json_encode($result_array);
 	exit();
 
-	
+
 }
 add_action('wp_ajax_nopriv_searchbykeyword', 'search_by_keyword');
 add_action('wp_ajax_searchbykeyword', 'search_by_keyword');//for users that are not logged in.
@@ -265,11 +265,12 @@ add_action('wp_ajax_searchbykeyword', 'search_by_keyword');//for users that are 
  * @param	string	The POST Message fields in &name=value pair format
  * @return	array	Parsed HTTP Response body
  */
+/*
 function pp_action() {
 	/*
 	$environment = 'live';	// or 'beta-sandbox' or 'live'
 	global $environment;
-	
+
 	// Set up your API credentials, PayPal end point, and API version.
 	$API_UserName = urlencode('admin_api1.fortwoplease.com');
 	$API_Password = urlencode('CXFGR3NZBH5BPJL6');
@@ -279,7 +280,7 @@ function pp_action() {
 		$API_Endpoint = "https://api-3t.$environment.paypal.com/nvp";
 	}
 	$version = urlencode('51.0');
-	
+
 	/*
 	error_log("first_name: ".$_POST['first_name']);
 	error_log("last_name: ".$_POST['last_name']);
@@ -305,7 +306,7 @@ function pp_action() {
 	$pname = get_field('package_name',$theID);
 	$postid = $_POST['postid'];
 	$numberp = $_POST['quantity'];
-	
+
 	// Set request-specific fields.
 	$paymentType = urlencode('Sale');				// or 'Sale'
 	$firstName = urlencode($_POST['cardholder_fname']);
@@ -326,13 +327,13 @@ function pp_action() {
 	$country = urlencode($_POST['country_code']);				// US or other valid country code
 	$amount = urlencode($_POST['amount']);
 	$currencyID = urlencode('CAD');							// or other currency ('GBP', 'EUR', 'JPY', 'CAD', 'AUD')
-	
+
 
 	// Add request-specific fields to the request string.
 	$nvpStr =	"&PAYMENTACTION=$paymentType&AMT=$amount&ACCT=$creditCardNumber".
 				"&EXPDATE=$padDateMonth$expDateYear&CVV2=$cvv2Number&FIRSTNAME=$firstName&LASTNAME=$lastName".
 				"&STREET=$address1&CITY=$city&STATE=$state&ZIP=$zip&COUNTRYCODE=$country&CURRENCYCODE=$currencyID";
-	
+
 
 	// Set the curl parameters.
 	$ch = curl_init();
@@ -351,7 +352,7 @@ function pp_action() {
 
 	// Set the request as a POST FIELD for curl.
 	//curl_setopt($ch, CURLOPT_POSTFIELDS, $nvpreq);
-	
+
 	/*
 	if(curl_errno($ch)) {
 	  $err = print_r(curl_getinfo($ch),1);
@@ -384,12 +385,12 @@ function pp_action() {
 
 	if((0 == sizeof($httpParsedResponseAr)) || !array_key_exists('ACK', $httpParsedResponseAr)) {
 		exit("Invalid HTTP Response for POST request($nvpreq) to $API_Endpoint.");
-	}	
+	}
 	*/
 	/*
 	//if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"])) {
 		//$transID = $httpParsedResponseAr['TRANSACTIONID'];
-		
+
 		$transID = 0;
 		$uid = wp_get_current_user();
 		$userID = $uid->ID;
@@ -400,7 +401,7 @@ function pp_action() {
 		add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 		wp_mail($user_email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$amount.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
 <br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
-		
+
 		$uid = wp_get_current_user();
 		$merchantuname = get_field('merchant_username',$postid);
 		$datename = get_field('sub_title',$postid);
@@ -410,32 +411,32 @@ function pp_action() {
 		$merchantname = intval($merchantuname);
 		for ($i = $numberp; $i > 0; $i--) {
 			$unique = uniqid();
-			add_user_meta($uid->ID,'purchased',$unique); 
+			add_user_meta($uid->ID,'purchased',$unique);
 			add_user_meta($uid->ID,$unique.'_item',$datename);
-			add_user_meta($uid->ID,$unique.'_id',$postid); 
+			add_user_meta($uid->ID,$unique.'_id',$postid);
 			add_user_meta($uid->ID,$unique.'_np',$numberp);
 			add_user_meta($uid->ID,$unique.'_time',$timestamp);
 			add_user_meta($uid->ID,$unique.'_stat','notdone');
 			add_user_meta($uid->ID,$unique.'_for_fname', $_POST['first_name']);
 			add_user_meta($uid->ID,$unique.'_for_lname', $_POST['last_name']);
 			add_user_meta($merchantuname,$postid,$unique);
-			add_user_meta($merchantuname,$unique,$uid->ID); 
-			add_user_meta($merchantuname,$unique.'_d','notdone'); 
+			add_user_meta($merchantuname,$unique,$uid->ID);
+			add_user_meta($merchantuname,$unique.'_d','notdone');
 			$summary = $timestamp. ' '. $price . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
 			add_user_meta(1,'sold',$summary);
 		}
-		
+
 		echo "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$amount.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/dev/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/dev/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
-		
+
 		//echo "Success";
 		error_log ('Direct Payment Completed Successfully: '.print_r($httpParsedResponseAr, true));
-	
+
 	/*} else {
 		echo "Your payment did not go through. Please review all required fields to ensure accuracy. If you need help purchasing, email ForTwoPlease at support@fortwoplease.com." ;
-		
+
 		error_log ($httpParsedResponseAr['TIMESTAMP']);
 		error_log ('DoDirectPayment failed: ' . print_r($httpParsedResponseAr, true));
-	}*/
+	}
 	require_once('stripe-php-1.10.1/lib/Stripe.php');
 	$trialAPIKey = "sk_test_2Dx34r6YqUHebwPHUEoqf1JC"; // These are the SECRET keys!
 	$token = $_POST['stripeToken'];
@@ -466,17 +467,17 @@ function pp_action() {
         }
         if (!isset($token)) {
             throw new Exception("Server Error: Could not complete payment with payment provider Stripe. Please try again later.");
-        } 
+        }
         if (!isset($email) && !filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Server Error: Please ensure you have a valid email address to process this transaction. Your card was not charged. ");
         }
-        if (!isset($firstName)) { 
+        if (!isset($firstName)) {
             throw new Exception("Server Error: Invalid first name, your credit card was NOT charged. Please try again later.");
         }
-        if (!isset($lastName)) { 
+        if (!isset($lastName)) {
             throw new Exception("Server Error: Invalid last name, your credit card was NOT charged. Please try again later.");
         }
-        if (!isset($total_cents)) { 
+        if (!isset($total_cents)) {
             throw new Exception("Server Error: Your credit card was NOT charged. Please try again later.");
         }
         if (!isset($redemptionFirstName) && !isset($redemptionLastName)) {
@@ -486,7 +487,7 @@ function pp_action() {
             throw new Exception("Transaction failed, your card was not charged. Please select a valid quantity.");
         }
         try {
-            // Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server. 
+            // Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server.
             $charge = Stripe_Charge::create(array(
              "amount" => $total_cents,
              "currency" => "cad",
@@ -545,9 +546,9 @@ function pp_action() {
             $merchantname = intval($merchantuname);
             for ($i = $numberp; $i > 0; $i--) {
                     $unique = $voucherIDs[$numberp-$i];
-                    add_user_meta($uid->ID,'purchased',$unique); 
+                    add_user_meta($uid->ID,'purchased',$unique);
                     add_user_meta($uid->ID,$unique.'_item',$datename);
-                    add_user_meta($uid->ID,$unique.'_id',$theID); 
+                    add_user_meta($uid->ID,$unique.'_id',$theID);
                     add_user_meta($uid->ID,$unique.'_np',$numberp);
                     add_user_meta($uid->ID,$unique.'_time',$timestamp);
                     add_user_meta($uid->ID,$unique.'_stat','notdone');
@@ -556,12 +557,12 @@ function pp_action() {
                     add_user_meta($uid->ID, $unique.'_transID', $transID);
                     add_user_meta($uid->ID, $unique.'_amount', $price_per_package);
                     add_user_meta($merchantuname,$theID,$unique);
-                    add_user_meta($merchantuname,$unique,$uid->ID); 
-                    add_user_meta($merchantuname,$unique.'_d','notdone'); 
+                    add_user_meta($merchantuname,$unique,$uid->ID);
+                    add_user_meta($merchantuname,$unique.'_d','notdone');
                     $summary = $timestamp. ' '. $total . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
                     add_user_meta(1,'sold',$summary);
             }
-            
+
             // Display confirmation to user.
             $message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/dev/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$total.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/dev/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/dev/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
             $tax = $taxes * $numberp;
@@ -575,32 +576,34 @@ function pp_action() {
             echo json_encode($array);
         }
     }
-    catch (Exception $e) 
+    catch (Exception $e)
     {
         $message = $e->getMessage();
         $array = array('result' => 1, 'message' => $message);
         echo json_encode($array);
     }
 
-	die();	
+	die();
 }
 add_action('wp_ajax_nopriv_pp_action', 'pp_action');
 add_action('wp_ajax_pp_action', 'pp_action');//for users that are not logged in.
+*/
 
-function implement_ajax() {		
+
+function implement_ajax() {
 			//set POST variables
 	$postid = $_POST['postid'];
 	$numberp = $_POST['numberp'];
 	$url = $_POST['url'];
 	unset($_POST['url']);
- 
+
 	$fields_string = "";
 	//url-ify the data for the POST
 	foreach($_POST as $key=>$value) {
     $fields_string .= $key.'='.$value.'&';
 	}
 	$fields_string = rtrim($fields_string,'&');
- 
+
 	//open connection
 	$ch = curl_init();
  	curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
@@ -608,19 +611,19 @@ function implement_ajax() {
 	curl_setopt($ch,CURLOPT_URL,$url);
 	curl_setopt($ch,CURLOPT_POST,count($_POST));
 	curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
- 
+
 	//execute post
 	$result = curl_exec($ch);
 	//close connection
 	parse_str($result,$parsedresults);
 	if($parsedresults['trnApproved'] == 0)
-	{		
+	{
 		echo $result;
 	}
 	if($parsedresults['trnApproved'] == 1)
 	{
 	echo $result;
-		
+
 	$uid = wp_get_current_user();
 	$merchantuname = get_field('merchant_username',$postid);
 	$datename = get_field('sub_title',$postid);
@@ -629,25 +632,25 @@ function implement_ajax() {
 	$merchantname = intval($merchantuname);
 	for ($i = $numberp; $i > 0; $i--) {
 	$unique = uniqid();
-	add_user_meta($uid->ID,'purchased',$unique); 
+	add_user_meta($uid->ID,'purchased',$unique);
 	add_user_meta($uid->ID,$unique.'_item',$datename);
-	add_user_meta($uid->ID,$unique.'_id',$postid); 
+	add_user_meta($uid->ID,$unique.'_id',$postid);
 	add_user_meta($uid->ID,$unique.'_np',$numberp);
 	add_user_meta($uid->ID,$unique.'_time',$timestamp);
 	add_user_meta($uid->ID,$unique.'_stat','notdone');
 	add_user_meta($merchantuname,$postid,$unique);
-	add_user_meta($merchantuname,$unique,$uid->ID); 
-	add_user_meta($merchantuname,$unique.'_d','notdone'); 
+	add_user_meta($merchantuname,$unique,$uid->ID);
+	add_user_meta($merchantuname,$unique.'_d','notdone');
 	$summary = $timestamp. ' '. $price . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
 	add_user_meta(1,'sold',$summary);
 	}
-		
+
 	}
-	
-	
+
+
 	curl_close($ch);
-	
-	
+
+
 	exit;
 }// end if
 
@@ -678,18 +681,18 @@ add_action('wp_ajax_loggedin', 'logged_in');//for users that are not logged in.
 
 
 function pass_change() {
-	include '../wp-includes/class-phpass.php';	
+	include '../wp-includes/class-phpass.php';
 		$oldpass = $_POST['opass'];
 		$newpass = $_POST['npass'];
 		$newpassconfirm = $_POST['npassc'];
 		global $current_user;
 		get_currentuserinfo();
-		
+
 		$pass1 = $current_user->user_pass;
-	
+
 	$wp_hasher = new PasswordHash(8, TRUE);
 	$check = $wp_hasher->CheckPassword($oldpass, $pass1);
-	
+
 		if($check) {
 			if($newpass == $newpassconfirm) {
 			wp_update_user( array ('ID' => $current_user->ID, 'user_pass' => $newpass) ) ;
@@ -709,14 +712,14 @@ function log_me_in(){
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$remember = $_POST['rememberme'];
-	
+
 	if (!username_exists($username)) {
 		echo 'There is no account for this email. Please try a different email address or create a new account.';
 		exit();
 	}
 
 	if ($remember) {
-		$remember = "true";	
+		$remember = "true";
 	} else {
 		$remember = "false";
 	}
@@ -725,8 +728,8 @@ function log_me_in(){
 	$login_data['user_login'] = $username;
 	$login_data['user_password'] = $password;
 	$login_data['remember'] = $remember;
-	$user_verify = wp_signon( $login_data, true ); 
-	
+	$user_verify = wp_signon( $login_data, true );
+
 	if (is_wp_error($user_verify)) {
 		echo 'Invalid username or password. Please try again!';
 		exit();
@@ -735,10 +738,11 @@ function log_me_in(){
 		exit();
 	}
 }
-	
+
 add_action('wp_ajax_nopriv_logmein', 'log_me_in');
 add_action('wp_ajax_logmein', 'log_me_in');//for users that are not logged in.
 
+/*
 function send_confirmation_email(){
 	$theID = $_POST['theID'];
 	$totalPrice = $_POST['totalPrice'];
@@ -750,18 +754,17 @@ function send_confirmation_email(){
 	$userID = $uid->ID;
 	$name = $uid->user_login;
 	$user_email = $uid->user_email;
-	
+
 	$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
 	add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 	wp_mail($user_email, 'Your Next Great Date!', '<strong>Congratulations '.$name.'</strong><p>Your purchase of ['.$bname.'-'.$pname.'] was successful.</p><p><b>TO USE: Phone '.$phone.' to reserve a time for your date.</b> Just say your name and ForTwoPlease ID, which is <b>'.$userID.'</b>, and the business will take care of the rest. (You can call to reserve anytime, however you have to reserve before you can use your date.)</p><p>When you show up, say your name and ForTwoPlease ID -  it’s that easy!</p><p>The details of your Date Package are also in your account, which you can access at anytime: <a href="http://fortwoplease.com/myaccount/">Your Account</a>. But please don’t print anything. Dating is a classy affair!</p><BR /><strong>Date Package Payment Summary</strong><p>Total: $'.$totalPrice.'</p><p>Transaction ID:'.$transID.'</p><BR /><p>And, if you want to really WOW your date, we can help you with flowers, babysitters or even hair dos with our <a href="http://fortwoplease.com/date-enhancer/">Date Enhancers.</a></p><p>Enjoy!</p><p>-The ForTwoPlease Team</p><p>p.s. As always, if you have any questions shoot us an email and we’ll get back to you within one business day - support@ForTwoPlease.com</p>',$headers);
-	
-	
-	
+
+
+
 }
 add_action('wp_ajax_nopriv_sendconfmail', 'send_confirmation_email');
 add_action('wp_ajax_sendconfmail', 'send_confirmation_email');//for users that are not logged in.
-
-
+*/
 
 
 
@@ -781,7 +784,7 @@ function add_googleanalytics() {
 	echo "_gaq.push(['_setAccount', 'UA-22573395-1']);";
 	echo "_gaq.push(['_setDomainName', 'fortwoplease.com']);";
 	echo "_gaq.push(['_trackPageview']);";
-	
+
 	echo "(function() {";
 	echo "var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;";
 	echo "ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';";
@@ -797,16 +800,16 @@ function email_subscription() {
 	//We shall SQL escape all inputs
 	$user_email = $_POST['email'];
 	$user_pass = $_POST['password'];
-	
+
 	$already_exists = email_exists($user_email);
-	
+
 	//If not exist, then we add a new user first
 	if (!$already_exists) {
-	
+
 		//$userdata = compact('user_email', 'user_pass') ;
 		$status = wp_insert_user(array ('user_login' => $user_email, 'user_email' => $user_email, 'user_pass' => $user_pass));
 	}
-	
+
 	if ($already_exists) {
 		echo 'Email already exists. Please try another one';
 	} else {
@@ -818,7 +821,7 @@ function email_subscription() {
 			$login_data['user_login'] = $user_email;
 			$login_data['user_password'] = $user_pass;
 			$login_data['remember'] = "true";
-			$user_verify = wp_signon( $login_data, true );  
+			$user_verify = wp_signon( $login_data, true );
 			if ( !is_wp_error($user_verify) ) {
 			/*
 				$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
@@ -826,7 +829,7 @@ function email_subscription() {
 				wp_mail($user_email, 'Your Dates Just Got Better ', '<strong>You are in!</strong><p>We’re excited that you’ve joined our ForTwoPlease community. Now that you’re a member, we can start recommending better dates that we think you’ll enjoy.</p><p><b>It’s easy to get started.</b> Find local date ideas based on what you want to do and we’ll help you with the rest – like cabs, babysitters and even private airplanes!</p><a href="http://fortwoplease.com">Your next great date awaits</a><p>If you have any questions, we’d love to hear from you. Shoot us a line on <a href="http://www.facebook.com/fortwoplease/">Facebook</a>
 				or email us at support@ForTwoPlease.</p><p>Best of Luck!</p><p>The ForTwoPlease Team</p>',$headers);
 			*/
-			
+
 				//Call the method that adds the email to the MailChimp subscriber list
 				add_email_to_mail_chimp($user_email, null, null);
 				send_welcome_email($user_email);
@@ -836,10 +839,10 @@ function email_subscription() {
 			}
 		}
 	}
-	
+
 	exit();
 }
-	
+
 add_action('wp_ajax_nopriv_email_subscribe', 'email_subscription');
 add_action('wp_ajax_email_subscribe', 'email_subscription');//for users that are not logged in.
 
@@ -870,7 +873,7 @@ function add_email_to_mail_chimp ($email, $fname, $lname) {
 	// By default this sends a confirmation email - you will not see new members
 	// until the link contained in it is clicked!
 	$retval = $api->listSubscribe( $listId, $email, $merge_vars, 'html', false );
-	
+
 	if ($api->errorCode) {
 		error_log("Unable to load listSubscribe()!", 0);
 		error_log("\tCode=".$api->errorCode."\n", 0);
@@ -917,7 +920,7 @@ function check_user_has_ftp_account () {
 	$user_email = $_POST['user_login'];
 	error_log($_POST['user_login']);
 	$user = get_user_by_email($user_email);
-	
+
 	//require_once('/fortwoplease/wp-includes/class-phpass.php');
 	require_once ( ABSPATH . 'wp-includes/class-phpass.php');
 	$wp_hasher = new PasswordHash(8, TRUE);
@@ -937,7 +940,7 @@ add_action('wp_ajax_nopriv_userhasftpaccount', 'check_user_has_ftp_account');
 add_action('wp_ajax_userhasftpaccount', 'check_user_has_ftp_account');//for users that are not logged in.
 
 
-//Check if 
+//Check if
 function fb_check_user_existence_and_login() {
 	//We shall SQL escape all inputs
 	$user_login = $_POST['username'];
@@ -946,21 +949,21 @@ function fb_check_user_existence_and_login() {
 	$first_name = $_POST['fname'];
 	$last_name = $_POST['lname'];
 	$user_email = $_POST['email'];
-	
+
 	$already_exists = true;
-	
+
 	//If not exist, then we add a new user first
 	if (!email_exists($user_email)) {
 		$already_exists = false;
 		$userdata = compact('user_login', 'user_email', 'user_pass', 'first_name', 'last_name') ;
-		$status = wp_insert_user($userdata);	
+		$status = wp_insert_user($userdata);
 	}
-	
+
 	$user = get_user_by_email($user_email);
 	$username = $user -> user_login;
 	$login_data = array();
 	$login_data['user_login'] = $username;
-	
+
 	if (!$already_exists) {
 		$login_data['user_password'] = $user_pass;
 		$login_data['remember'] = "true";
@@ -975,7 +978,7 @@ function fb_check_user_existence_and_login() {
 		send_welcome_email($user_email, $first_name);
 	}
 	echo 'Success';
-	
+
 	exit();
 }
 add_action('wp_ajax_nopriv_fbcheckuserexists', 'fb_check_user_existence_and_login');
@@ -1007,16 +1010,16 @@ function new_user_reg(){
 	$firstname = $_POST['fname'];
 	$last_name = $_POST['lname'];
 	$user_login = $_POST['email'];
-	
+
 	if ($user_pass != $user_pass2) {
 		echo "Please ensure that the passwords match.";
 		exit();
 	}
 
 	$userdata = compact('user_login', 'user_pass', 'first_name', 'last_name') ;
-	
-	$status = wp_insert_user(array ('user_login' => $user_login, 'user_email' => $user_login, 'user_pass' => $user_pass, 'first_name' => $firstname, 'last_name' => $lastname));	
-	
+
+	$status = wp_insert_user(array ('user_login' => $user_login, 'user_email' => $user_login, 'user_pass' => $user_pass, 'first_name' => $firstname, 'last_name' => $lastname));
+
 	if (is_wp_error($status)) {
 		echo 'Username already exists. Please try another one. ';
 		exit();
@@ -1025,7 +1028,7 @@ function new_user_reg(){
 		$login_data['user_login'] = $user_login;
 		$login_data['user_password'] = $user_pass;
 		$login_data['remember'] = "true";
-		$user_verify = wp_signon( $login_data, true );  
+		$user_verify = wp_signon( $login_data, true );
 		if (!is_wp_error($user_verify)) {
 			// $headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
 			// add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
@@ -1034,14 +1037,15 @@ function new_user_reg(){
 			add_email_to_mail_chimp($user_login, null, null);
 			send_welcome_email($user_login, $firstname);
 			echo 'Success';
-		} 
+		}
 		exit();
 	}
-}	
+}
 add_action('wp_ajax_nopriv_newuserreg', 'new_user_reg');
 add_action('wp_ajax_newuserreg', 'new_user_reg');//for users that are not logged in.
 
 
+/*
 function done_date(){
 	date_default_timezone_set('Canada/Pacific');
 	$uval = $_POST['uniqueval'];
@@ -1062,6 +1066,7 @@ function done_date(){
 
 add_action('wp_ajax_nopriv_donedate', 'done_date');
 add_action('wp_ajax_donedate', 'done_date');//for users that are not logged in.
+*/
 
 function share_date(){
 
@@ -1089,13 +1094,13 @@ add_action('wp_ajax_sharedate', 'share_date');//for users that are not logged in
 
 
 function search_dates() {
-	
+
 	$datetype = $_POST['datetype'];
 	$location = $_POST['location'];
 	$price = $_POST['price'];
 	$time = $_POST['time'];
 	$day = 1;
-	
+
 	if($time == 'alltime')
 	{
 		$time = array('morning','day','night');
@@ -1112,7 +1117,7 @@ function search_dates() {
 	{
 		$datetype = array('restaurants','entertainment','active','adventurous','getaways','anniversary','packages');
 	}
-	
+
 	$myquery['tax_query'] = array(
 	    array(
 	        'taxonomy' => 'date-type',
@@ -1171,7 +1176,7 @@ function search_dates() {
 	//	echo $result[$index].'';
 		$index++;}
 	//	break;
-			
+
 		//}
 		//else if($values == $day)
 		//{
@@ -1182,11 +1187,11 @@ function search_dates() {
 		//}
 		//}
 	//}
-		
+
 	endwhile;
 	$result_array["length"] = $index;
 	wp_reset_query();
-	echo json_encode($result_array); 
+	echo json_encode($result_array);
 	exit();
 }
 add_action('wp_ajax_nopriv_searchdates', 'search_dates');
@@ -1200,48 +1205,202 @@ function showBrief($str, $length) {
 }
 
 
-function array2json($arr) { 
+function array2json($arr) {
     if(function_exists('json_encode')) return json_encode($arr); //Lastest versions of PHP already has this functionality.
-    $parts = array(); 
-    $is_list = false; 
+    $parts = array();
+    $is_list = false;
 
-    //Find out if the given array is a numerical array 
-    $keys = array_keys($arr); 
-    $max_length = count($arr)-1; 
+    //Find out if the given array is a numerical array
+    $keys = array_keys($arr);
+    $max_length = count($arr)-1;
     if(($keys[0] == 0) and ($keys[$max_length] == $max_length)) {//See if the first key is 0 and last key is length - 1
-        $is_list = true; 
-        for($i=0; $i<count($keys); $i++) { //See if each key correspondes to its position 
-            if($i != $keys[$i]) { //A key fails at position check. 
-                $is_list = false; //It is an associative array. 
-                break; 
-            } 
-        } 
-    } 
+        $is_list = true;
+        for($i=0; $i<count($keys); $i++) { //See if each key correspondes to its position
+            if($i != $keys[$i]) { //A key fails at position check.
+                $is_list = false; //It is an associative array.
+                break;
+            }
+        }
+    }
 
-    foreach($arr as $key=>$value) { 
-        if(is_array($value)) { //Custom handling for arrays 
-            if($is_list) $parts[] = array2json($value); /* :RECURSION: */ 
-            else $parts[] = '"' . $key . '":' . array2json($value); /* :RECURSION: */ 
-        } else { 
-            $str = ''; 
-            if(!$is_list) $str = '"' . $key . '":'; 
+    foreach($arr as $key=>$value) {
+        if(is_array($value)) { //Custom handling for arrays
+            if($is_list) $parts[] = array2json($value); /* :RECURSION: */
+            else $parts[] = '"' . $key . '":' . array2json($value); /* :RECURSION: */
+        } else {
+            $str = '';
+            if(!$is_list) $str = '"' . $key . '":';
 
-            //Custom handling for multiple data types 
-            if(is_numeric($value)) $str .= $value; //Numbers 
-            elseif($value === false) $str .= 'false'; //The booleans 
-            elseif($value === true) $str .= 'true'; 
-            else $str .= '"' . addslashes($value) . '"'; //All other things 
-            // :TODO: Is there any more datatype we should be in the lookout for? (Object?) 
+            //Custom handling for multiple data types
+            if(is_numeric($value)) $str .= $value; //Numbers
+            elseif($value === false) $str .= 'false'; //The booleans
+            elseif($value === true) $str .= 'true';
+            else $str .= '"' . addslashes($value) . '"'; //All other things
+            // :TODO: Is there any more datatype we should be in the lookout for? (Object?)
 
-            $parts[] = $str; 
-        } 
-    } 
-    $json = implode(',',$parts); 
-     
-    if($is_list) return '[' . $json . ']';//Return numerical JSON 
-    return '{' . $json . '}';//Return associative JSON 
+            $parts[] = $str;
+        }
+    }
+    $json = implode(',',$parts);
+
+    if($is_list) return '[' . $json . ']';//Return numerical JSON
+    return '{' . $json . '}';//Return associative JSON
 }
 
+function create_date_idea() {
+  $business_name = $_POST['business_name'];
+  $user_name = $_POST['user_name'];
+  $user_title = $_POST['user_title'];
+  $user_email = $_POST['user_email'];
+  $business_phone = $_POST['business_phone'];
+  $website = $_POST['website'];
+  $street_address1 = $_POST['street_address1'];
+  $street_address2 = $_POST['street_address2'];
+  $city = $_POST['city'];
+  $province = $_POST['province'];
+  $country = $_POST['country'];
+  $postal_code = $_POST['postal_code'];
+  $contact_time = $_POST['contact_time'];
+
+  $date_title = $_POST['date_title'];
+  $short_desc = $_POST['short_desc'];
+  $full_desc = $_POST['full_desc'];
+  $date_idea_types = $_POST['date_idea_type'];
+  $date_times = $_POST['date_time'];
+  $testimonial1 = $_POST['testimonial1'];
+  $testimonial2 = $_POST['testimonial2'];
+  $testimonial3 = $_POST['testimonial3'];
+  $neighbourhood = $_POST['neighbourhood'];
+
+  require_once( ABSPATH . 'wp-admin/includes/image.php' );
+	require_once( ABSPATH . 'wp-admin/includes/file.php' );
+	require_once( ABSPATH . 'wp-admin/includes/media.php' );
+
+  $post = array(
+    'post_content' => '',
+    'post_name' => $date_title,
+    'post_title' => $business_name,
+    'post_status' => 'draft',
+    'post_type' => 'dates',
+    'post_author' => 727,
+    'post_date' => time(),
+    'post_date_gmt' => time()
+  );
+
+  $testimonials = $testimonial1 . '<p>' . $testimonial2 . '<p>' . $testimonial3;
+  $mailing_address = $street_address1;
+  if ($street_address2 != '') {
+    $mailing_address = $street_address1 . '\n' . $street_address2;
+  }
+
+  $result1 = wp_insert_post($post, true);
+  $result2 = add_post_meta($result1, 'sub_title', $date_title, true);
+  $result3 = add_post_meta($result1, 'why_is_this_a_great_date', $full_desc, true);
+  $result4 = add_post_meta($result1, 'this_package_does_not_expire', '1', true);
+  $result5 = add_post_meta($result1, 'days_availible', 'All Days', true);
+  $result6 = add_post_meta($result1, 'short_description', $short_desc, true);
+  $result7 = add_post_meta($result1, 'word_on_the_street', $testimonials, true);
+  $result8 = add_post_meta($result1, 'mailing_address', $mailing_address, true);
+  $result9 = add_post_meta($result1, 'city', $city, true);
+  $result10 = add_post_meta($result1, 'postal_code', $postal_code, true);
+  $result11 = add_post_meta($result1, 'phone_number', $business_phone, true);
+  $result12 = add_post_meta($result1, 'web_address', $website, true);
+  $result13 = add_post_meta($result1, 'business_name', $business_name, true);
+
+  if (isset($_FILES['attach1'])) {
+    $attachment1 = media_handle_upload('attach1', $result1);
+    if (!is_wp_error($attachment1)) {
+      $result14 = add_post_meta($result1, 'image_1', $attachment1, true);
+    } else {
+      $result14 = $attachment1->get_error_message();
+    }
+  }
+  if (isset($_FILES['attach2'])) {
+    $attachment2 = media_handle_upload('attach2', $result1);
+    if (!is_wp_error($attachment2)) {
+      $result15 = add_post_meta($result1, 'image_2', $attachment2, true);
+    } else {
+      $result15 = $attachment2->get_error_message();
+    }
+  }
+  if (isset($_FILES['attach3'])) {
+    $attachment3 = media_handle_upload('attach3', $result1);
+    if (!is_wp_error($attachment3)) {
+      $result16 = add_post_meta($result1, 'image_3', $attachment3, true);
+    } else {
+      $result16 = $attachment3->get_error_message();
+    }
+  }
+  if (isset($_FILES['attach4'])) {
+    $attachment4 = media_handle_upload('attach4', $result1);
+    if (!is_wp_error($attachment4)) {
+      $result17 = add_post_meta($result1, 'image_4', $attachment4, true);
+    } else {
+      $result17 = $attachment4->get_error_message();
+    }
+  }
+  if (isset($_FILES['attach5'])) {
+    $attachment5 = media_handle_upload('attach5', $result1);
+    if (!is_wp_error($attachment5)) {
+      $result18 = add_post_meta($result1, 'image_5', $attachment5, true);
+    } else {
+      $result18 = $attachment5->get_error_message();
+    }
+  }
+
+
+  $date_idea_types = array_map('intval', $date_idea_types);
+  $date_idea_types = array_unique($date_idea_types);
+  $result19 = wp_set_object_terms($result1, $date_idea_types, 'date-type');
+  $date_times = array_map('intval', $date_times);
+  $date_times = array_unique($date_times);
+  $result20 = wp_set_object_terms($result1, $date_times, 'time');
+
+  $response['msg'] = 'Success';
+  $response['result1'] = $result1;
+  $response['result2'] = $result2;
+  $response['result3'] = $result3;
+  $response['result4'] = $result4;
+  $response['result5'] = $result5;
+  $response['result6'] = $result6;
+  $response['result7'] = $result7;
+  $response['result8'] = $result8;
+  $response['result9'] = $result9;
+  $response['result10'] = $result10;
+  $response['result11'] = $result11;
+  $response['result12'] = $result12;
+  $response['result13'] = $result13;
+  $response['result14'] = $result14;
+  $response['result15'] = $result15;
+  $response['result16'] = $result16;
+  $response['result17'] = $result17;
+  $response['result18'] = $result18;
+  $response['result19'] = $result19;
+  $response['result20'] = $result20;
+
+  $preview_link = 'http://fortwoplease.com/dev/?post_type=dates&p=' . $result1 . '&preview=true';
+  $csv_contents = array($result1, $preview_link, $business_name, $user_name, $user_title, $user_email, $business_phone, $website, $street_address1, $street_address2, $city, $province, $country, $postal_code, $contact_time, $neighbourhood);
+  #$csv_contents = array('Post ID', 'Preview Link', 'Business Name', 'Contact Name', 'Title', 'Email', 'Phone', 'Website', 'Street 1', 'Street 2', 'City', 'Province', 'Country', 'Postal Code', 'Best contact time', 'Neighbourhood');
+
+  $file = fopen('business_info2.csv', 'a');
+  fputcsv($file, $csv_contents, ',');
+  fclose($file);
+  // $response = "<div id=\"header-content\" style=\"background:#FFF;color:black;overflow:hidden; border-bottom: 30px solid black; min-height:600px; width: 1060px; box-shadow: 1px 40px 30px 4px #333;\">
+  //     <div id=\"left-hand\" style=\"float:left;width:640px;padding:20px;\">
+  //       <h1 style=\"margin:10px 0; color:#1596d0;\">TOP SUMMER DATE SPOTS GUIDE</h1>
+  //       <div class=\"separation_line\"></div><br/>
+  //       <br/>
+  //       <p>Thanks for submitting your entry! We\'ll notify you when we\'ve reviewed your application.</p><br/>
+  //       <p><a href=\"/dev/upload\">Submit another entry</a></p>";
+  $redirect_url = "http://fortwoplease.com/dev/upload?uploaded=True";
+  header('Location: '. $redirect_url);
+  die();
+}
+add_action('wp_ajax_nopriv_create_date_idea', 'create_date_idea');
+add_action('wp_ajax_create_date_idea', 'create_date_idea');
+
+
+/*
 function thebreadcrumb() {
 	echo '<ul id="breadcrumbs">';
 	if (is_home()) {
@@ -1316,4 +1475,5 @@ function thebreadcrumb() {
 }
 add_action('thebreadcrumb', 'thebreadcrumb');
 add_action('thebreadcrumb', 'thebreadcrumb');
+*/
 ?>

@@ -1,23 +1,24 @@
 function equalHeight () {
 	var date_details = jQuery(".date_details").height();
 	var date_info = jQuery(".date_info").height();
-	
+
 	if (date_info >= date_details) {
 		jQuery(".date_details").height(date_info+25);
 	}
 }
 
+/*
 function stripeResponseHandler(status, response)
 {
-   if (response.error) 
+   if (response.error)
    {
       $("#payment-error").html(response.error.message).show();;
       $("#buy-now").removeAttr("disabled");
       $("#overlay").css("visibility", "hidden");
       $("#overlay-background").css("visibility", "hidden");
-   } 
+   }
    else
-   {  
+   {
       // Stripe.js generated a token successfully. The card can now be charged.
       var token = response.id;
       var redemptionFirstName = $("#first_name").val();
@@ -28,7 +29,7 @@ function stripeResponseHandler(status, response)
       var quantity = $("#buy-quantity").val();
       var nonce_name = 'purchase_' + postID;
       var ajax_nonce = $('#' + nonce_name).val();
- 
+
       var request = $.ajax({
 		type: "POST",
 		url: "/vancouver/wp-admin/admin-ajax.php",
@@ -68,6 +69,7 @@ function stripeResponseHandler(status, response)
     });
    }
 }
+*/
 
 function GAAddTransaction(transID, merchantName, revenue, tax) {
 	ga('ecommerce:addTransaction', {
@@ -93,12 +95,12 @@ function GAAddItem(transID, productName, category, price, quantity) {
 
 jQuery(document).ready(function($) {
 	equalHeight();
-	
+
 	var id = postID;
 	var id1 = 0;
 	var id2 = 0;
 	var id3 = 0;
-	
+
 	for(i=1;i<sessionStorage.length+1;i++) {
 		if(sessionStorage.getItem(i) == id) {
 			if(sessionStorage.getItem(i+1)) {
@@ -123,18 +125,20 @@ jQuery(document).ready(function($) {
 			jQuery("#more-deals").html(msg);
 		}
 	});
-	
+
 	if(typeof price !== 'undefined') {
+		/*
 		var price_t=price*jQuery('#buy-quantity').val();
 		var taxe_t=taxes*jQuery('#buy-quantity').val();
 		var fees_t=fees*jQuery('#buy-quantity').val();
 		var total_t = total*jQuery('#buy-quantity').val();
-	
+
 		jQuery('#price').html("Price: $" + price_t.toFixed(2));
 		jQuery('#taxes').html("Taxes: $" + taxe_t.toFixed(2));
 		jQuery('#fees').html("Fees: $" + fees_t.toFixed(2));
 		jQuery('#total_price').html("Total: $<span id='total_amount'>" + total_t.toFixed(2) + "</span>");
 		jQuery('#amount').val(total_t.toFixed(2));
+		*/
 	}
 
 	jQuery(".testsearch").live("mouseenter",function(){jQuery("div.testsearch2",this).fadeIn('fast');});
@@ -211,8 +215,8 @@ jQuery(document).ready(function($) {
 	});
 
 
-	if(typeof price !== 'undefined') { 
-
+	if(typeof price !== 'undefined') {
+		/*
 		jQuery("#buy-button").click(function() {
 			jQuery("#buy").hide();
 			$("#overlay").css("visibility", "visible");
@@ -231,11 +235,11 @@ jQuery(document).ready(function($) {
 				ga('send', 'event', 'button', 'click', 'buy-button-not-logged-in', 1);
 				mixpanel.track('Clicked Buy Button', { 'postID': postID });
 				jQuery("#user-ajax-login").show();
-				return false;	
+				return false;
 			}
 		});
 
-		jQuery("#price-descriptor").click(function(){	
+		jQuery("#price-descriptor").click(function(){
 			jQuery("#buy-button").hide();
 			$("#overlay").css("visibility", "visible");
 			$("#overlay-background").css("visibility", "visible");
@@ -293,7 +297,7 @@ jQuery(document).ready(function($) {
 	      		$("#payment-error").html("Please enter a valid CVC.").show();
 	      		return false;
 	      	}
-	      	Stripe.setPublishableKey('pk_live_LhLms0qy1k0TT1GqO4zf50jn');
+	      	Stripe.setPublishableKey('');
 			// Disable button and remove errors.
 			$("#buy-now").attr("disabled", "disabled");
 			$("#overlay").css("visibility", "visible");
@@ -310,7 +314,7 @@ jQuery(document).ready(function($) {
 			// Prevent the default submit action on the form
 			return false;
 
-		});
+		});*/
 
 		jQuery('#share-submit').click(function(){
 			var input_data = jQuery('#share-this-date').serialize();
@@ -352,7 +356,7 @@ jQuery(document).ready(function($) {
 					if(msg=='Success'){
 						setTimeout("location.reload(true);");
 						return false;
-					} else { 
+					} else {
 						$('.lightboxMessage').html(msg).show();
 					};
 				}
@@ -372,7 +376,7 @@ jQuery(document).ready(function($) {
 					if(msg=='Success') {
 						setTimeout("location.reload(true);");
 						return false;
-					} else { 
+					} else {
 						$('.lightboxMessage').html(msg).show();
 					};
 				}
@@ -428,11 +432,10 @@ jQuery(document).ready(function($) {
 			url:  "/vancouver/wp-admin/admin-ajax.php",
 			dataType: 'json',
 			data: input_date,
-			success: function(msg) {	
+			success: function(msg) {
 				jQuery('#loadImage').remove();
-				searchResults = msg; 
+				searchResults = msg;
 				store();
-				debugger;
 				loadResults(1, 2, true);
 			}
 		});

@@ -24,7 +24,7 @@
 <head>
 	<?php include_once("analyticstracking.php") ?>
 	<link rel="icon" type="image/png" href="/dev/wp-content/themes/images/favicon2c.png">
-	
+
 	<?php
 		echo '<meta property="og:title" content="'.get_field('sub_title').'" />';
 	if(get_field('image_1')) {
@@ -54,21 +54,21 @@
 		 * Print the <title> tag based on what is being viewed.
 		 */
 		global $page, $paged;
-	
+
 		wp_title( '|', true, 'right' );
-	
+
 		// Add the blog name.
 		bloginfo( 'name' );
-	
+
 		// Add the blog description for the home/front page.
 		$site_description = "Go on your next great date";
 		if ( $site_description && ( is_home() || is_front_page() ) )
 			echo " | $site_description";
-	
+
 		// Add a page number if necessary:
 		if ( $paged >= 2 || $page >= 2 )
 			echo ' | ' . sprintf( __( 'Page %s', 'twentyeleven' ), max( $paged, $page ) );
-	
+
 		?>
 	</title>
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
@@ -77,9 +77,9 @@
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 	<![endif]-->
-	
+
 	<?php wp_head(); ?>
-	
+
 	<link rel="stylesheet" type="text/css" href="/dev/js/css/ui-darkness/jquery-ui-1.8.20.custom.css" />
 	<link rel="stylesheet" href="/dev/js/dropkick.css" type="text/css" />
 	<script src="/dev/js/f2p-base.js" type="text/javascript"></script>
@@ -137,42 +137,43 @@
 			if(msg==true)
 			{window.location = "error-ie.html";
 			}
-			
+
 		}
-		
+
 		checkVersion();
-		
+
 		if (navigator.appVersion.indexOf("Mac")!=-1) {
-			$("body").css("background-color","#DEDEE0");	
+			$("body").css("background-color","#DEDEE0");
 		};
-		
+
 		jQuery(document).ready(function() {
 			<?php if ( !is_user_logged_in() ) { ?>
-				if (window.location.href === "<?php echo get_home_url() ?>/") {
+				if ((window.location.href === "<?php echo get_home_url() ?>/") ||
+              (window.location.href.indexOf('upload') >= 0)) {
 					// do nothing...
 				} else {
 					var squeeze_show_cookie = $.cookie('squeeze_popup');
 					if (squeeze_show_cookie == null) {
 						setTimeout(function() {
 							jQuery("#join_div").load('/dev/join', function() {
-								
+
 								jQuery("#join_div").lightbox_me({
-									centered: true, 
+									centered: true,
 								});
 								jQuery('#join_div').append('<img src="/dev/wp-content/themes/images/close_icon.png" width="34" height="34" id="squeeze_close_button" style="position:absolute; top: 14px; left: 470px; cursor: pointer;" onclick="squeeze_close_action();" />');
 							});
-		
+
 		/*
 							setTimeout(function() {
 								jQuery('#join_div').append('<img src="/dev/wp-content/themes/images/close_icon.png" width="34" height="34" id="squeeze_close_button" style="position:absolute; top: 14px; left: 470px; cursor: pointer;" onclick="squeeze_close_action();" />');
 								}, 200);
 								*/
-		
+
 						}, 5000);
 					}
 				}
 			<?php } ?>
-			
+
 			<?php
 				$uri = parse_url(current_page_url());
 				$path_str = "". $uri['path'];
@@ -194,7 +195,7 @@
 			$(".header-logo-link").click(function() {
 				ga('send', 'event', 'link', 'click', 'header-logo-link', 1);
 			});
-			
+
 			$(".header-account-link").click(function() {
 				ga('send', 'event', 'link', 'click', 'header-account-link', 1);
 			});
@@ -206,7 +207,7 @@
 			$(".header-signout-link").click(function() {
 				ga('send', 'event', 'link', 'click', 'header-signout-link', 1);
 			});
-			
+
 			$(".header-join-link").click(function() {
 				ga('send', 'event', 'link', 'click', 'header-join-link', 1);
 			});
@@ -277,7 +278,7 @@
 						<li><a class="about" id="careers" href="/dev/careers/">Careers</a></li>
 						<li><a class="about" id="policies" href="/dev/policies/">Policies</a></li>
 					</ul>
-				</li>			
+				</li>
 			</ul>
 		</div>
 
@@ -296,7 +297,7 @@
 			</div>
 		</div>
 	</div>
-    
+
 	<div id="suggest-date" style="background:url(/dev/wp-content/themes/images/addons/add-on-bckg.png);color:white;padding:20px;display:none;width:500px;">
 		<strong>Suggest a Date</strong>
 		<p>Do you have a great date idea that we've missed? Let us know on our <a href="https://facebook.com/fortwoplease/" target="_blank">Facebook Page</a> or send us an email (dateideas@fortwoplease.com) - we're always looking for hidden gems!</p> <br/>
@@ -308,20 +309,27 @@
 	<div class="search_area">
 		<div class="category_box">
 			<ul class="categories">
-				<li style="margin: 3px 13px 0 13px;"><a class="date-package-link" href="/dev/date-type/packages/">Date Packages</a></li>
-				<ul id="nav-two" class="header-dropdown" style="float:left;">
-					<li>
-						<a id="downarrow2" style="float:left;" href="#">Date Ideas&nbsp;&nbsp;<img src="/dev/wp-content/themes/images/down-arrow.png" /></a>
-						<ul style="display: block;">
-							<li><a class="about" id="how_it_works" href="/dev/date-type/restaurants/">Dining</a></li>
-							<li><a class="about" id="perfectdate" href="/dev/date-type/active/">Active</a></li>
-							<li><a class="about" id="suggestadate"href="/dev/date-type/adventurous/">Adventurous</a></li>
-							<li><a class="about" id="contactus" href="/dev/date-type/getaways/">Getaways</a></li>
-							<li><a class="about" id="entertainment" href="/dev/date-type/entertainment/">Entertainment</a></li>
-						</ul>
-					</li>			
-				</ul>
-				
+        <?php if ($category == "restaurants") {?>
+          <li><a href="/dev/date-type/restaurants/" class="selected">Dining</a></li>
+        <?php } else { ?>
+          <li><a href="/dev/date-type/restaurants/">Dining</a></li>
+        <?php } if ($category == "active") {?>
+          <li><a href="/dev/date-type/active/" class="selected">Active</a></li>
+        <?php } else { ?>
+          <li><a href="/dev/date-type/active/">Active</a></li>
+        <?php } if ($category == "adventurous") {?>
+          <li><a href="/dev/date-type/adventurous/" class="selected">Adventurous</a></li>
+        <?php } else { ?>
+          <li><a href="/dev/date-type/adventurous/">Adventurous</a></li>
+        <?php } if ($category == "getaways") {?>
+          <li><a href="/dev/date-type/getaways/" class="selected">Getaways</a></li>
+        <?php } else { ?>
+          <li><a href="/dev/date-type/getaways/">Getaways</a></li>
+        <?php } if ($category == "entertainment") {?>
+          <li><a href="/dev/date-type/entertainment/" class="selected">Entertainment</a></li>
+        <?php } else { ?>
+          <li><a href="/dev/date-type/entertainment/">Entertainment</a></li>
+        <?php } ?>
 				<div style="clear: both;"></div>
 			</ul>
 		</div>
