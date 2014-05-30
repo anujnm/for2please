@@ -258,25 +258,20 @@
 		<a class="header-logo-link" href="/vancouver/">
 			<img src="/vancouver/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
 		</a>
-		<img src="/vancouver/wp-content/themes/images/ftp_best_date_ideas_tagline.png" style="border:none;"/>
+		<span style='font-size:18px'>The best date ideas in your city</span>
 	</div>
 </div>
 
 
-		<div id="header-about" style="float:right;margin-top:15px;">
-			<div class="account_links">
-				<a id="not_from_location" href="#">Not From Vancouver?</a>
-			</div>
+		<div id="header-about" style="float:right;margin-top:30px;">
 			<ul id="nav-one" class="nav m-t-m m-l-xl" style="float:left;">
 				<li>
 					<a id="downarrow" style="float:left;" href="#item1">About&nbsp;&nbsp;<img src="/vancouver/wp-content/themes/images/down-arrow.png" /></a>
 					<ul style="display: block; border-top: 3px solid #6f6f6f;">
-						<li><a class="about" id="how_it_works" href="/vancouver/about-us/">How It Works</a></li>
-						<li><a class="about" id="perfectdate" href="/vancouver/perfect-date-guarantee/">Date Guarantee</a></li>
 						<li><a class="about" id="suggestadate"href="#">Suggest a Date Idea</a></li>
 						<li><a class="about" id="faq" href="/vancouver/faq/">FAQ</a></li>
 						<li><a class="about" id="contactus" href="/vancouver/contact-us/">Contact</a></li>
-						<li><a class="about" id="aboutus" href="/vancouver/about-us/">About Us</a></li>
+						<li><a class="about" id="aboutus" href="/vancouver/about-us-fortwoplease/">About Us</a></li>
 						<li><a class="about" id="careers" href="/vancouver/careers/">Careers</a></li>
 						<li><a class="about" id="policies" href="/vancouver/policies/">Policies</a></li>
 					</ul>

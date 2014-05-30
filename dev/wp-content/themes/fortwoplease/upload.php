@@ -19,7 +19,7 @@ Template Name: upload
 ?>
 
   <div id="header-content" style="background:#FFF;color:black;overflow:hidden; border-bottom: 30px solid black; min-height:600px; width: 1060px; box-shadow: 1px 40px 30px 4px #333;">
-      <div id="left-hand" style="float:left;width:640px;padding:20px;">
+      <div id="left-hand" style="float:left;width:640px;padding:20px 20px 20px 50px;">
 
         <?php
         if (isset($_GET['uploaded']) && $_GET['uploaded'] == 'True') {
@@ -36,8 +36,8 @@ Template Name: upload
           <div class="separation_line"></div><br/>
           <br/>
           <p>Hey there! Are you one of Toronto's best date spots for summer?</p><br/>
-          <p>Please fill out the form below by May 31, 2014, to be nominated for the "ForTwoPlease Summer Date Spot" - a guide To Toronto's Best Summer Date Spots.</p><br/>
-          <p>Final selections will be made by June 30, 2014.</p><br/><br/>
+          <p>Please fill out the form below by June 6, 2014, to be nominated for the "ForTwoPlease Summer Date Spot" - a guide To Toronto's Best Summer Date Spots.</p><br/>
+          <p>Final selections will be made by June 15, 2014.</p><br/><br/>
         <?php
         }
         ?>
@@ -120,7 +120,7 @@ Template Name: upload
               <textarea id='full_desc' name="full_desc" class="text login_text" value="" rows="10" cols="50">
               </textarea>
             </div>
-            <p style='font-size: 12px;'>Minimum Allowed: 150 characters</p><br/>
+            <p style='font-size: 12px;'>Recommended Minimum: 150 characters</p><br/>
             <div class="upload_checkbox date_idea_type">
               <div>Please select the Date Idea Types that apply to you (Maximum 3): </div>
               <span>
@@ -252,24 +252,6 @@ jQuery(document).ready(function(jQuery) {
       form.submit();
       return false;
     }
-    /*
-    var input_data = form.serialize();
-    jQuery.ajax({
-      type: "POST",
-      url:  "/dev/wp-admin/admin-ajax.php",
-      data: "action=create_date_idea&" + input_data,
-      success: function(data) {
-        debugger;
-        if(data.msg=='Success') {
-          setTimeout("location.reload(true);");
-          return false;
-        } else {
-          $('.lightboxMessage').html(msg).show();
-        };
-      }
-    });
-    return false;
-    */
   });
 
   function validate_form(form) {
@@ -301,16 +283,5 @@ jQuery(document).ready(function(jQuery) {
     });
   });
 
-  function checktextarea() {
-
-   var minLength = 150;
-
-   var desc_length = $('#full_desc').text().length;
-   if(desc_length < minLength) {
-      var message = 'You need to enter at least ' + minLength + ' + characters in the Date Idea Full Description. You have currently entered ' + desc_length + '. ';
-      jQuery('.lightboxMessage').html(message).show();
-      return false;
-   }
- }
 });
 </script>
