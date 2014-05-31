@@ -8,6 +8,7 @@ form div.upload_checkbox input { width:13px; height: 25px; }
 form div.upload_fields input { width:300px; height: 25px; }
 
 div.separation_line { border-bottom: 1px solid #3395df; margin: 20px 0 6px 0; clear:both; }
+div.header-content {background:#FFF;color:black;overflow:hidden; border-bottom: 30px solid black; min-height:600px; width: 1060px; box-shadow: 1px 40px 30px 4px #333;}
 
 </style>
 
@@ -15,14 +16,20 @@ div.separation_line { border-bottom: 1px solid #3395df; margin: 20px 0 6px 0; cl
 /*
 Template Name: upload
 */
- get_header();
+  get_header();
+  $city_list = array('vancouver' => 'Vancouver', 'sf' => 'San Francisco', 'seattle' => 'Seattle', 'portland' => 'Portland', 'la' => 'Los Angeles', 'toronto' => 'Toronto', 'victoria' => 'Victoria');
 ?>
 
-  <div id="header-content" style="background:#FFF;color:black;overflow:hidden; border-bottom: 30px solid black; min-height:600px; width: 1060px; box-shadow: 1px 40px 30px 4px #333;">
+  <div id="header-content" class='header-content' style="color:black">
       <div id="left-hand" style="float:left;width:640px;padding:20px 20px 20px 50px;">
 
         <?php
         if (isset($_GET['uploaded']) && $_GET['uploaded'] == 'True') {
+          if (isset($_GET['city']) && array_key_exists(strtolower($_GET['city']), $city_list)) {
+            $current_city = $city_list[strtolower($_GET['city'])];
+          } elseif (isset($_GET['city']) && trim($_GET['city']) != '') {
+            $current_city = $_GET['city'];
+          }
           ?>
           <h1 style='margin:10px 0; color:#1596d0;'>THANKS FOR YOUR ENTRY!</h1>
           <div class="separation_line"></div><br/>
@@ -30,19 +37,32 @@ Template Name: upload
           <p>We'll review your date idea and get back to you as soon as we can!</p><br/>
           <p>Till then, feel free to make another entry.</p><br/>
           <?php
-        } else {
+        } elseif (isset($_GET['city']) && array_key_exists(strtolower($_GET['city']), $city_list)) {
+          $current_city = $city_list[strtolower($_GET['city'])];
           ?>
           <h1 style='margin:10px 0; color:#1596d0;'>TOP SUMMER DATE SPOTS GUIDE</h1>
           <div class="separation_line"></div><br/>
           <br/>
-          <p>Are you one of Toronto's best date spots for summer?</p><br/>
-          <p>Please fill out the form below by June 6, 2014, to be nominated for the "ForTwoPlease Guide to Toronto's Best Summer Date Spots".</p><br/>
+          <p>Hey there! Are you one of <?php echo $current_city; ?>'s best date spots for summer?</p><br/>
+          <p>Please fill out the form below by June 6, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</p><br/>
           <p>Final selections will be made by June 15, 2014.</p><br/><br/>
         <?php
+        } else {
+        if (isset($_GET['city']) && trim($_GET['city']) != '') {
+          $current_city = trim($_GET['city']);
         }
         ?>
+        <h1 style='margin:10px 0; color:#1596d0;'>TOP SUMMER DATE SPOTS GUIDE</h1>
+          <div class="separation_line"></div><br/>
+          <br/>
+          <p>Hey there! Are you one of your city's best date spots for summer?</p><br/>
+          <p>Please fill out the form below by June 6, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</p><br/>
+          <p>Final selections will be made by June 15, 2014.</p><br/><br/>
+        <?php
+      }
+        ?>
         <p>Thanks!</p><br/>
-        <p>Mike \& Jesse</p><br/>
+        <p>Mike & Jesse</p><br/>
         <p>ForTwoPlease.com</p><br/>
         <div class="separation_line"></div><br/>
 
@@ -51,6 +71,17 @@ Template Name: upload
           <p style="font-size: 18px; font-weight:bold;">Business Details </p>
           <form id="create_date_idea_form" action="/vancouver/wp-admin/admin-ajax.php" method="post" enctype="multipart/form-data" data-remote="true">
             <input type='hidden' name='action' id='action' value='create_date_idea' />
+            <?php
+            if (isset($current_city)) {
+              ?>
+              <input type='hidden' name='form_city' value='<?php echo $current_city; ?>'>
+            <?php
+            } else {
+            ?>
+              <input type='hidden' name='form_city' value=''>
+            <?php
+            }
+            ?>
             <div class="upload_fields">
               <label>Business Name:</label>
               <input type="text" name="business_name" class="text login_text" value="" />
@@ -112,14 +143,12 @@ Template Name: upload
             <p style='font-size: 12px;'>Maximum Allowed: 50 characters</p><br/>
             <div class="upload_fields">
               <label>Date Idea Short Description: </label>
-              <textarea name="short_desc" class="text login_text" value="" maxlength="180" rows="10" cols="50">
-              </textarea>
+              <textarea name="short_desc" class="text login_text" value="" maxlength="180" rows="10" cols="50"></textarea>
             </div>
             <p style='font-size: 12px;'>Maximum Allowed: 180 characters</p><br/>
             <div class="upload_fields">
               <label>Date Idea Full Description and Tips: </label>
-              <textarea id='full_desc' name="full_desc" class="text login_text" value="" rows="10" cols="50">
-              </textarea>
+              <textarea id='full_desc' name="full_desc" class="text login_text" value="" rows="10" cols="50"></textarea>
             </div>
             <p style='font-size: 12px;'>Recommended Minimum: 150 characters</p><br/>
             <div class="upload_checkbox date_idea_type">
@@ -183,18 +212,15 @@ Template Name: upload
             <div style='padding-top:20px;font-weight:bold;'>Enter up to 3 sets of testimonials and awards: </div>
             <div class="upload_fields">
               <label>Testimonials and Awards 1: </label>
-              <textarea name="testimonial1" class="text login_text testimonial" value="" rows="5" cols="50"/>
-              </textarea>
+              <textarea name="testimonial1" class="text login_text testimonial" value="" rows="5" cols="50"/></textarea>
             </div>
             <div class="upload_fields">
               <label>Testimonials and Awards 2: </label>
-              <textarea name="testimonial2" class="text login_text testimonial" value="" rows="5" cols="50" />
-              </textarea>
+              <textarea name="testimonial2" class="text login_text testimonial" value="" rows="5" cols="50" /></textarea>
             </div>
             <div class="upload_fields">
               <label>Testimonials and Awards 3: </label>
-              <textarea name="testimonial3" class="text login_text testimonial" value="" rows="5" cols="50" />
-              </textarea>
+              <textarea name="testimonial3" class="text login_text testimonial" value="" rows="5" cols="50" /></textarea>
             </div>
             <div style='font-weight:bold;padding-top:20px;'>Upload up to 5 images of resolutions 700x350 pixels or greater: </div>
             <div class="upload_fields">
