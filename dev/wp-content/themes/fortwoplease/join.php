@@ -39,11 +39,11 @@ div.center_box div.bottom p label { color: white; }
 
 <div class="center_box" id="join_block">
 	<div class="top">
-		<h1>Your guide to the best</h1>
-		<h1>Date Ideas In Vancouver!</h1>
-		<p>Sign up to get a weekly email of local Date Ideas</p>
+		<h1>A guide to the best</h1>
+		<h1>date ideas in your city!</h1>
+		<p>Sign up to get a weekly email of local date ideas</p>
 	</div>
-		
+
 	<div class="inputs">
 		<form id="email_subscription_form" action="" method="post">
 			<p>
@@ -61,7 +61,7 @@ div.center_box div.bottom p label { color: white; }
 		<br/>
 		<div class="fb_connect"><img id="fb_login_btn" src="/dev/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/></div>
 	</div>
-	
+
 	<div class="bottom">
 		<p><label>Already a member?</label> <a href="#" id="login_link" style="font-weight: bold;">Login here</a></p>
 	</div>
@@ -91,7 +91,7 @@ div.center_box div.bottom p label { color: white; }
 		jQuery('#password-password<?php echo $randVal ?>').show();
 		jQuery('#password-password<?php echo $randVal ?>').focus();
 	});
-	
+
 	jQuery('#password-password<?php echo $randVal ?>').blur(function() {
 		if(jQuery('#password-password<?php echo $randVal ?>').val() == '') {
 			jQuery('#password-clear<?php echo $randVal ?>').show();
@@ -100,7 +100,7 @@ div.center_box div.bottom p label { color: white; }
 	});
 
 	function verifyEmail(email){
-		var status = false;     
+		var status = false;
 		var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 	     if (email.search(emailRegEx) == -1) {
 	          $('.lightboxMessage').html("Please enter a valid email address.").show();
@@ -133,7 +133,7 @@ div.center_box div.bottom p label { color: white; }
 								setTimeout("location.reload(true);");
 							});
 						}
-					} else { 
+					} else {
 						$('.lightboxMessage').html(msg).show();
 					};
 				}
