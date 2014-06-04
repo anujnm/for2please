@@ -6,10 +6,10 @@ form div.upload_checkbox div {font-weight:bold;}
 form div.upload_checkbox span {width:180px; display:inline-block;}
 form div.upload_checkbox input { width:13px; height: 25px; }
 form div.upload_fields input { width:300px; height: 25px; }
-
 div.separation_line { border-bottom: 1px solid #3395df; margin: 20px 0 6px 0; clear:both; }
 div.header-content {background:#FFF;color:black;overflow:hidden; border-bottom: 30px solid black; min-height:600px; width: 1060px; box-shadow: 1px 40px 30px 4px #333;}
-
+.lightboxMessage {padding: 5px 20px;border-radius: 10px; background-color: #F2DEDE;border: 1px solid #EED3D7;color: #B94A48;width: 66%;margin: auto;}
+.hide {display:none;}
 </style>
 
 <?php
@@ -40,10 +40,11 @@ Template Name: upload
         } elseif (isset($_GET['city']) && array_key_exists(strtolower($_GET['city']), $city_list)) {
           $current_city = $city_list[strtolower($_GET['city'])];
           ?>
-          <h1 style='margin:10px 0; color:#1596d0;'>TOP SUMMER DATE SPOTS GUIDE</h1>
+          <h1 style='margin:10px 0; color:#1596d0;'>FORTWOPLEASE GUIDE TO <?php echo strtoupper($current_city); ?>'S BEST SUMMER DATE SPOTS</h1>
           <div class="separation_line"></div><br/>
           <br/>
-          <p>Hey there! Are you one of <?php echo $current_city; ?>'s best date spots for summer?</p><br/>
+          <p>Hey there! </p><br/>
+          <p>Are you one of <?php echo $current_city; ?>'s best date spots for summer?</p><br/>
           <p>Please fill out the form below by June 6, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</p><br/>
           <p>Final selections will be made by June 15, 2014.</p><br/><br/>
         <?php
@@ -55,14 +56,15 @@ Template Name: upload
           <h1 style='margin:10px 0; color:#1596d0;'>TOP SUMMER DATE SPOTS GUIDE</h1>
           <div class="separation_line"></div><br/>
           <br/>
-          <p>Hey there! Are you one of your city's best date spots for summer?</p><br/>
+          <p>Hey there! </p><br/>
+          <p>Are you one of your city's best date spots for summer?</p><br/>
           <p>Please fill out the form below by June 6, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</p><br/>
           <p>Final selections will be made by June 15, 2014.</p><br/><br/>
         <?php
       }
         ?>
         <p>Thanks!</p><br/>
-        <p>Mike & Jesse</p><br/>
+        <p>Devon, Community Manager</p><br/>
         <p>ForTwoPlease.com</p><br/>
         <div class="separation_line"></div><br/>
 
@@ -111,7 +113,7 @@ Template Name: upload
               <input type="text" name="street_address1" class="text login_text" value="" />
             </div>
             <div class="upload_fields">
-              <label>Business Street Address 2: </label>
+              <label>Business Street Address 2 (Optional): </label>
               <input id='street_address2' type="text" name="street_address2" class="text login_text" value="" />
             </div>
             <div class="upload_fields">
@@ -272,8 +274,10 @@ jQuery(document).ready(function(jQuery) {
   });
 
   jQuery("#submitbtn").click(function() {
+    jQuery('.lightboxMessage').text('').hide();
     form = jQuery('#create_date_idea_form');
     if (validate_form(form) == false) {
+      jQuery('.lightboxMessage').text('All fields on this form are compulsory unless marked otherwise. Please complete the form and try again.').show();
       return false;
     } else {
       form.submit();
@@ -290,13 +294,15 @@ jQuery(document).ready(function(jQuery) {
         }
       }
     });
-    $('#create_date_idea_form textarea').each(function(index, data) {
-      if (!(this.id == 'testimonial')) {
-        if (this.value == '') {
-          is_valid = false;
+    if (is_valid) {
+      $('#create_date_idea_form textarea').each(function(index, data) {
+        if (!(this.classList.contains('testimonial'))) {
+          if (this.value == '') {
+            is_valid = false;
+          }
         }
-      }
-    });
+      });
+    }
     return is_valid;
   }
 
