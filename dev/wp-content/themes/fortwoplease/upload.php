@@ -107,6 +107,7 @@ Template Name: upload
             <div class="upload_fields">
               <label>Business Website: </label>
               <input type="text" name="website" class="text login_text" value="" />
+              <p style='font-size: 12px;'>Please enter the full URL. Example: https://www.google.com</p>
             </div>
             <div class="upload_fields">
               <label>Business Street Address: </label>
@@ -147,9 +148,10 @@ Template Name: upload
               <label>Date Idea Short Description: </label>
               <textarea name="short_desc" class="text login_text" value="" maxlength="180" rows="10" cols="50"></textarea>
             </div>
-            <p style='font-size: 12px;'>Maximum Allowed: 180 characters</p><br/>
+            <p style='font-size: 12px;'>Maximum Allowed: 180 characters</p><br/><br/>
+            <p style='padding-bottom:10px;'>Date Idea Full Description and Tips:</p>
+            <p>This is where you can tell us exactly why its great place for a date, what to expect, and any other related information.</p>
             <div class="upload_fields">
-              <label>Date Idea Full Description and Tips: </label>
               <textarea id='full_desc' name="full_desc" class="text login_text" value="" rows="10" cols="50"></textarea>
             </div>
             <p style='font-size: 12px;'>Recommended Minimum: 150 characters</p><br/>
@@ -211,7 +213,10 @@ Template Name: upload
                 <label class='choice' for='time3'>Evening</label>
               </span>
             </div>
-            <div style='padding-top:20px;font-weight:bold;'>Enter up to 3 sets of testimonials and awards: </div>
+            <div style='padding-top:20px;font-weight:bold;'>
+              <p>Enter up to 3 sets of testimonials and awards: </p><br/>
+              <p>Please ensure the testimonials and awards are descriptive. Mention the source of the review if possible, but please do not link to other websites. </p>
+            </div>
             <div class="upload_fields">
               <label>Testimonials and Awards 1: </label>
               <textarea name="testimonial1" class="text login_text testimonial" value="" rows="5" cols="50"/></textarea>
@@ -274,9 +279,9 @@ jQuery(document).ready(function(jQuery) {
   });
 
   $(".business_phone").on('change', function() {
-        var number = $(this).val()
-        number = number.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{3})(\d{4})/, "$1.$2.$3");
-        $(this).val(number)
+    var number = $(this).val()
+    number = number.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{3})(\d{4})/, "$1.$2.$3");
+    $(this).val(number)
   });
 
   jQuery("#submitbtn").click(function() {
