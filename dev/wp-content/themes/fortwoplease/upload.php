@@ -102,7 +102,7 @@ Template Name: upload
             </div>
             <div class="upload_fields">
               <label>Business Phone Number:</label>
-              <input type="text" name="business_phone" class="text login_text" value="" />
+              <input type="text" name="business_phone" class="text login_text business_phone" value="" />
             </div>
             <div class="upload_fields">
               <label>Business Website: </label>
@@ -271,6 +271,12 @@ jQuery(document).ready(function(jQuery) {
     this.preventDefault();
     alert("Form submitted, id");
     debugger;
+  });
+
+  $(".business_phone").on('change', function() {
+        var number = $(this).val()
+        number = number.replace(/[^0-9]/g, '').replace(/(\d{3})(\d{3})(\d{4})/, "$1.$2.$3");
+        $(this).val(number)
   });
 
   jQuery("#submitbtn").click(function() {
