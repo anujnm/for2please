@@ -3,6 +3,8 @@
 
 *.yml
 
+*.csv
+
 vancouver/wp-content/themes/fortwoplease/stripe-php-1.10.1/CHANGELOG
 
 vancouver/wp-content/themes/fortwoplease/stripe-php-1.10.1/LICENSE
