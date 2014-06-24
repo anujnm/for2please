@@ -1257,12 +1257,10 @@ function create_date_idea() {
   $business_phone = $_POST['business_phone'];
   $website = $_POST['website'];
   $street_address1 = $_POST['street_address1'];
-  $street_address2 = $_POST['street_address2'];
   $city = $_POST['city'];
   $province = $_POST['province'];
   $country = $_POST['country'];
   $postal_code = $_POST['postal_code'];
-  $contact_time = $_POST['contact_time'];
 
   $date_title = $_POST['date_title'];
   $short_desc = $_POST['short_desc'];
@@ -1272,7 +1270,6 @@ function create_date_idea() {
   $testimonial1 = $_POST['testimonial1'];
   $testimonial2 = $_POST['testimonial2'];
   $testimonial3 = $_POST['testimonial3'];
-  $neighbourhood = $_POST['neighbourhood'];
 
   require_once( ABSPATH . 'wp-admin/includes/image.php' );
 	require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -1290,25 +1287,21 @@ function create_date_idea() {
   );
 
   $testimonials = $testimonial1 . '<p>' . $testimonial2 . '<p>' . $testimonial3;
-  $mailing_address = $street_address1;
-  if ($street_address2 != '') {
-    $mailing_address = $street_address1 . '\n' . $street_address2;
-  }
 
   $result1 = wp_insert_post($post, true);
-  $result2 = add_post_meta($result1, 'sub_title', $date_title, true);
-  $result3 = add_post_meta($result1, 'why_is_this_a_great_date', $full_desc, true);
-  $result4 = add_post_meta($result1, 'this_package_does_not_expire', '1', true);
-  $result5 = add_post_meta($result1, 'days_availible', 'All Days', true);
-  $result6 = add_post_meta($result1, 'short_description', $short_desc, true);
-  $result7 = add_post_meta($result1, 'word_on_the_street', $testimonials, true);
-  $result8 = add_post_meta($result1, 'mailing_address', $mailing_address, true);
-  $result9 = add_post_meta($result1, 'city', $city, true);
-  $result10 = add_post_meta($result1, 'postal_code', $postal_code, true);
-  $result11 = add_post_meta($result1, 'phone_number', $business_phone, true);
-  $result12 = add_post_meta($result1, 'web_address', $website, true);
-  $result13 = add_post_meta($result1, 'business_name', $business_name, true);
-  $result21 = add_post_meta($result1, 'form_city', $form_city, true);
+  add_post_meta($result1, 'sub_title', $date_title, true);
+  add_post_meta($result1, 'why_is_this_a_great_date', $full_desc, true);
+  add_post_meta($result1, 'this_package_does_not_expire', '1', true);
+  add_post_meta($result1, 'days_availible', 'All Days', true);
+  add_post_meta($result1, 'short_description', $short_desc, true);
+  add_post_meta($result1, 'word_on_the_street', $testimonials, true);
+  add_post_meta($result1, 'mailing_address', $street_address1, true);
+  add_post_meta($result1, 'city', $city, true);
+  add_post_meta($result1, 'postal_code', $postal_code, true);
+  add_post_meta($result1, 'phone_number', $business_phone, true);
+  add_post_meta($result1, 'web_address', $website, true);
+  add_post_meta($result1, 'business_name', $business_name, true);
+  add_post_meta($result1, 'form_city', $form_city, true);
 
   if (isset($_FILES['attach1'])) {
     $attachment1 = media_handle_upload('attach1', $result1);
@@ -1354,49 +1347,19 @@ function create_date_idea() {
 
   $date_idea_types = array_map('intval', $date_idea_types);
   $date_idea_types = array_unique($date_idea_types);
-  $result19 = wp_set_object_terms($result1, $date_idea_types, 'date-type');
+  wp_set_object_terms($result1, $date_idea_types, 'date-type');
   $date_times = array_map('intval', $date_times);
   $date_times = array_unique($date_times);
-  $result20 = wp_set_object_terms($result1, $date_times, 'time');
-
-  $response['msg'] = 'Success';
-  $response['result1'] = $result1;
-  $response['result2'] = $result2;
-  $response['result3'] = $result3;
-  $response['result4'] = $result4;
-  $response['result5'] = $result5;
-  $response['result6'] = $result6;
-  $response['result7'] = $result7;
-  $response['result8'] = $result8;
-  $response['result9'] = $result9;
-  $response['result10'] = $result10;
-  $response['result11'] = $result11;
-  $response['result12'] = $result12;
-  $response['result13'] = $result13;
-  $response['result14'] = $result14;
-  $response['result15'] = $result15;
-  $response['result16'] = $result16;
-  $response['result17'] = $result17;
-  $response['result18'] = $result18;
-  $response['result19'] = $result19;
-  $response['result20'] = $result20;
-  $response['result21'] = $result21;
+  wp_set_object_terms($result1, $date_times, 'time');
 
   $preview_link = 'http://fortwoplease.com/dev/?post_type=dates&p=' . $result1 . '&preview=true';
   #$csv_contents = array($result1, $preview_link, $business_name, $user_name, $user_title, $user_email, $business_phone, $website, $street_address1, $street_address2, $city, $province, $country, $postal_code, $contact_time, $neighbourhood);
   #$csv_contents = array('Post ID', 'Preview Link', 'Business Name', 'Contact Name', 'Title', 'Email', 'Phone', 'Website', 'Street 1', 'Street 2', 'City', 'Province', 'Country', 'Postal Code', 'Best contact time', 'Neighbourhood');
-  $csv_contents = array($result1, $preview_link, $business_name, $user_name, $user_title, $user_email, $business_phone, $website, $street_address1, $street_address2, $city, $province, $country, $postal_code, $contact_time, $neighbourhood, $form_city);
+  $csv_contents = array($result1, $preview_link, $business_name, $user_name, $user_title, $user_email, $business_phone, $website, $street_address1, '', $city, $province, $country, $postal_code, '', '', $form_city);
   $file = fopen('business_info.csv', 'a');
   fputcsv($file, $csv_contents, ',');
   #fputcsv($file, $csv_contents2, ',');
   fclose($file);
-  // $response = "<div id=\"header-content\" style=\"background:#FFF;color:black;overflow:hidden; border-bottom: 30px solid black; min-height:600px; width: 1060px; box-shadow: 1px 40px 30px 4px #333;\">
-  //     <div id=\"left-hand\" style=\"float:left;width:640px;padding:20px;\">
-  //       <h1 style=\"margin:10px 0; color:#1596d0;\">TOP SUMMER DATE SPOTS GUIDE</h1>
-  //       <div class=\"separation_line\"></div><br/>
-  //       <br/>
-  //       <p>Thanks for submitting your entry! We\'ll notify you when we\'ve reviewed your application.</p><br/>
-  //       <p><a href=\"/dev/upload\">Submit another entry</a></p>";
   $redirect_url = "http://fortwoplease.com/vancouver/upload?uploaded=True&city=". $form_city;
   header('Location: '. $redirect_url);
   die();
@@ -1404,81 +1367,4 @@ function create_date_idea() {
 add_action('wp_ajax_nopriv_create_date_idea', 'create_date_idea');
 add_action('wp_ajax_create_date_idea', 'create_date_idea');
 
-
-/*
-function thebreadcrumb() {
-	echo '<ul id="breadcrumbs">';
-	if (is_home()) {
-		echo '<li><a href="';
-		echo get_option('home');
-		echo '">';
-		echo 'Home';
-	}
-	if (!is_home()) {
-		echo '<li><a href="';
-		echo get_option('home');
-		echo '">';
-		echo 'Home';
-		echo '</a></li><li class="separator"> / </li>';
-		if (is_single()) {
-			if (get_field('price')) {
-				echo '<li><a href="/vancouver/date-type/packages/">Date Packages</a></li>';
-			}
-		}
-
-		if (is_category() || is_single()) {
-			echo '<li>';
-			the_category('</li><li class="separator"> / </li><li>');
-			if (is_single()) {
-				echo '</li><li class="separator"> / </li><li>'.get_the_title().'</li>';
-			}
-		} elseif (is_page()) {
-			echo 'Anuj10</li><li class="separator"> / </li><li>';
-			if ($post->post_parent) {
-				$anc = get_post_ancestors($post->ID);
-				foreach ($anc as $ancestor) {
-					$output = '<li><a href="'.get_permalink($ancestor).'" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li><li class="separator"> Anuj </li>';
-				}
-				echo $output;
-				echo '<strong title="'.$title.'">'.$title.'</strong>';
-			} else {
-				echo '<strong>';
-				echo the_title();
-				echo '</strong>';
-			}
-		}
-	} elseif (is_tag()) {
-		echo '<li>Anuj1</li><li class="separator"> / </li>';
-		single_tag_title();
-	} elseif (is_day()) {
-		echo '<li>Anuj2</li><li class="separator"> / </li>';
-		echo '<li>Archive for ';
-		the_time('F jS, Y');
-		echo '</li>';
-	} elseif (is_month()) {
-		echo '<li>Anuj3</li><li class="separator"> / </li>';
-		echo '<li>Archive for ';
-		echo the_time('F, Y');
-		echo '</li>';
-	} elseif (is_year()) {
-		echo '<li>Anuj4</li><li class="separator"> / </li>';
-		echo '<li>Archive for ';
-		echo the_time('Y');
-		echo '</li>';
-	} elseif (is_author()) {
-		echo '<li>Anuj5</li><li class="separator"> / </li>';
-		echo '<li>Author Archive</li>';
-	} elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {
-		echo '<li>Anuj6</li><li class="separator"> / </li>';
-		echo '<li>Blog Archives</li>';
-	} elseif (is_search()) {
-		echo '<li>Anuj7</li><li class="separator"> / </li>';
-		echo '<li>Search Results';
-		echo '</li>';
-	}
-	echo '</ul>';
-}
-add_action('thebreadcrumb', 'thebreadcrumb');
-add_action('thebreadcrumb', 'thebreadcrumb');
-*/
 ?>

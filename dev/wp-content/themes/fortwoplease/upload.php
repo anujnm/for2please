@@ -45,8 +45,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of <?php echo $current_city; ?>'s best date spots for summer?</p><br/>
-          <p>Please fill out the form below by June 6, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</p><br/>
-          <p>Final selections will be made by June 15, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by June 30, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</b></p><br/>
+          <p>Final selections will be made by July 4, 2014.</p><br/><br/>
         <?php
       } else {
         if (isset($_GET['city']) && trim($_GET['city']) != '') {
@@ -58,8 +58,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of your city's best date spots for summer?</p><br/>
-          <p>Please fill out the form below by June 6, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</p><br/>
-          <p>Final selections will be made by June 15, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by June 30, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
+          <p>Final selections will be made by July 4, 2014.</p><br/><br/>
         <?php
       }
         ?>
@@ -114,10 +114,6 @@ Template Name: upload
               <input type="text" name="street_address1" class="text login_text" value="" />
             </div>
             <div class="upload_fields">
-              <label>Business Street Address 2 (Optional): </label>
-              <input id='street_address2' type="text" name="street_address2" class="text login_text" value="" />
-            </div>
-            <div class="upload_fields">
               <label>City: </label>
               <input type="text" name="city" class="text login_text" value="" />
             </div>
@@ -137,7 +133,7 @@ Template Name: upload
             <div class="separation_line"></div><br/>
 
             <p style="font-size: 18px; font-weight:bold;">Date Idea Content</p>
-            <p style='padding-top:10px;'>Please tell us more about why you are a great date spot for couples.</p><br/>
+            <p style='padding-top:10px;'>Tell our couples why they should visit your business on their next date!</p><br/>
 
             <div class="upload_fields">
               <label>Date Idea Title: </label>
@@ -250,15 +246,6 @@ Template Name: upload
               <label>Image 5: </label>
               <input type='file' name='attach5' id='attach5'>
             </div>
-
-            <div class="upload_fields">
-              <label>Neighbourhood (Optional): </label>
-              <input id='neighbourhood' type="text" name="neighbourhood" class="text login_text" value="" />
-            </div>
-            <div class="upload_fields">
-              <label>Best time to contact you in case we have questions (Optional): </label>
-              <input id='contact_time' type="text" name="contact_time" class="text login_text" value="" />
-            </div>
             <input type="submit" id="submitbtn" name="submit" value="Submit" class="f2p-button login_btn m-t-l" />
           </form>
         </div>
@@ -299,10 +286,8 @@ jQuery(document).ready(function(jQuery) {
   function validate_form(form) {
     var is_valid = true;
     $('#create_date_idea_form input[type="text"]').each(function(index, data) {
-      if (!(this.id == 'contact_time') && !(this.id=='neighbourhood') && !(this.id=='street_address2')) {
-        if (this.value == '') {
-          is_valid = false;
-        }
+      if (this.value == '') {
+        is_valid = false;
       }
     });
     if (is_valid) {
