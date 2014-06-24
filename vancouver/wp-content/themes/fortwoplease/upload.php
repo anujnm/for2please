@@ -17,7 +17,38 @@ div.header-content {background:#FFF;color:black;overflow:hidden; border-bottom: 
 Template Name: upload
 */
   get_header();
-  $city_list = array('vancouver' => 'Vancouver', 'sf' => 'San Francisco', 'seattle' => 'Seattle', 'portland' => 'Portland', 'la' => 'Los Angeles', 'toronto' => 'Toronto', 'victoria' => 'Victoria');
+  $city_list = array(
+    'vancouver' => 'Vancouver',
+    'sf' => 'San Francisco',
+    'seattle' => 'Seattle',
+    'portland' => 'Portland',
+    'la' => 'Los Angeles',
+    'toronto' => 'Toronto',
+    'victoria' => 'Victoria',
+    'abbotsford' => 'Abbotsford',
+    'barrie' => 'Barrie',
+    'calgary' => 'Calgary',
+    'edmonton' => 'Edmonton',
+    'guelph' => 'Guelph',
+    'halifax' => 'Halifax',
+    'hamilton' => 'Hamilton',
+    'kelowna' => 'Kelowna',
+    'kingston' => 'Kingston',
+    'kitchener' => 'Kitchener',
+    'london' => 'London',
+    'mississauga' => 'Mississauga',
+    'montreal' => 'Montreal',
+    'oshawa' => 'Oshawa',
+    'ottawa' => 'Ottawa',
+    'quebec' => 'Quebec City',
+    'regina' => 'Regina',
+    'richmond' => 'Richmond',
+    'saskatoon' => 'Saskatoon',
+    'sherbrooke' => 'Sherbrooke',
+    'stjohns' => 'St. Johns',
+    'sudbury' => 'Sudbury',
+    'windsor' => 'Windsor',
+    'winnipeg' => 'Winnipeg');
 ?>
 
   <div id='header-content' class="header-content" style='color:black;'>
