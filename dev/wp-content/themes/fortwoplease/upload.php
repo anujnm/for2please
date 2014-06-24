@@ -93,10 +93,6 @@ Template Name: upload
               <input type="text" name="user_name" class="text login_text" value="" />
             </div>
             <div class="upload_fields">
-              <label>Your Title:</label>
-              <input type="text" name="user_title" class="text login_text" value="" />
-            </div>
-            <div class="upload_fields">
               <label>Best Email:</label>
               <input type="text" name="user_email" class="text login_text" value="" />
             </div>

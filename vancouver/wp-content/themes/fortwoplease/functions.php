@@ -1252,7 +1252,6 @@ function create_date_idea() {
   $form_city = $_POST['form_city'];
   $business_name = $_POST['business_name'];
   $user_name = $_POST['user_name'];
-  $user_title = $_POST['user_title'];
   $user_email = $_POST['user_email'];
   $business_phone = $_POST['business_phone'];
   $website = $_POST['website'];
@@ -1355,7 +1354,7 @@ function create_date_idea() {
   $preview_link = 'http://fortwoplease.com/dev/?post_type=dates&p=' . $result1 . '&preview=true';
   #$csv_contents = array($result1, $preview_link, $business_name, $user_name, $user_title, $user_email, $business_phone, $website, $street_address1, $street_address2, $city, $province, $country, $postal_code, $contact_time, $neighbourhood);
   #$csv_contents = array('Post ID', 'Preview Link', 'Business Name', 'Contact Name', 'Title', 'Email', 'Phone', 'Website', 'Street 1', 'Street 2', 'City', 'Province', 'Country', 'Postal Code', 'Best contact time', 'Neighbourhood');
-  $csv_contents = array($result1, $preview_link, $business_name, $user_name, $user_title, $user_email, $business_phone, $website, $street_address1, '', $city, $province, $country, $postal_code, '', '', $form_city);
+  $csv_contents = array($result1, $preview_link, $business_name, $user_name, '', $user_email, $business_phone, $website, $street_address1, '', $city, $province, $country, $postal_code, '', '', $form_city);
   $file = fopen('business_info.csv', 'a');
   fputcsv($file, $csv_contents, ',');
   #fputcsv($file, $csv_contents2, ',');
