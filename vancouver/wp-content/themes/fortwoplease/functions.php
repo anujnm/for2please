@@ -69,7 +69,7 @@ function load_single_date(){
 		echo get_field('thumbnail',$id[$iz]);
 		echo");height:235px;width:330px;margin-bottom:30px;float:left;margin-right:10px;box-shadow:2px 2px 5px #888;position:relative;'>";
 		if(stristr(strip_tags($datetypes),'Packages') !== FALSE) {
-			echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/vancouver/wp-content/themes/images/get-it-here.png"></div>';
+			echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/date-ideas/wp-content/themes/images/get-it-here.png"></div>';
 		}
 		echo "<div style='height:200px;width:330px;'>";
 		echo "<div id='searchtest' class='testsearch2'>";
@@ -132,7 +132,7 @@ function load_date_for_idea_page(){
 		echo "' class='testsearch-content date-container' style='background:url(";
 		echo get_field('thumbnail',$id[$iz]);
 		echo");height:235px;width:320px; float:left;margin: 0 8px 30px 0;box-shadow:2px 2px 5px #888;position:relative;'>";
-		echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/vancouver/wp-content/themes/images/get-it-here.png"></div>';
+		echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/date-ideas/wp-content/themes/images/get-it-here.png"></div>';
 		echo "<div style='height:200px;width:320px;'>";
 		echo "<div id='searchtest' class='testsearch2-content' style='display: none;''>";
 		echo "<div class='result-type' style='width:240px;text-align:right;'>";
@@ -202,7 +202,7 @@ function recommend_dates(){
 	echo");height:188px;width:264px;margin-bottom:30px;float:left;margin-right:10px;box-shadow:2px 2px 5px #888;margin-top:10px;margin-left:35px;color:#FFF;'>";
 	if(stristr(strip_tags(get_the_term_list( $ID[$i], 'date-type', '', ', ', '' )),'Packages') !== FALSE)
 	{
-	echo '<div style="z-index:2;position:absolute;"><img src="/vancouver/wp-content/themes/images/get-it-here.png"></div>';
+	echo '<div style="z-index:2;position:absolute;"><img src="/date-ideas/wp-content/themes/images/get-it-here.png"></div>';
 	}
 	echo "<div style='height:180px;width:264px'>";
 	echo "<div id='searchtest' class='testsearch2' style='height:180px;width:264px;'>";
@@ -399,8 +399,8 @@ function pp_action() {
 
 		$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
 		add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-		wp_mail($user_email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$amount.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
-<br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
+		wp_mail($user_email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$amount.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/date-ideas/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
+<br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/date-ideas/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
 
 		$uid = wp_get_current_user();
 		$merchantuname = get_field('merchant_username',$postid);
@@ -426,7 +426,7 @@ function pp_action() {
 			add_user_meta(1,'sold',$summary);
 		}
 
-		echo "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/vancouver/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$amount.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/vancouver/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/vancouver/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
+		echo "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/date-ideas/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$amount.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/date-ideas/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/date-ideas/myaccount'>Your Account</a><br/><a href='/date-ideas/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
 
 		//echo "Success";
 		error_log ('Direct Payment Completed Successfully: '.print_r($httpParsedResponseAr, true));
@@ -528,7 +528,7 @@ function pp_action() {
             }
 
             // Send email using Mandrill API.
-            //$html = '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$numberVouchers.' of '.$pname.' from '.$bname.' was successful!</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$total.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>Voucher IDs:</b></p><p style="margin:0;">'.$voucherString.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/vancouver/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p><br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/vancouver/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>';
+            //$html = '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$numberVouchers.' of '.$pname.' from '.$bname.' was successful!</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$total.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>Voucher IDs:</b></p><p style="margin:0;">'.$voucherString.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/date-ideas/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p><br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/date-ideas/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>';
             $to = array(array('email'=>$email, 'type'=>'to'));
             $message = array('subject' => 'Purchase Successful!', 'from_email'=>'info@fortwoplease.com', 'from_name'=> 'ForTwoPlease', 'to'=> $to);
             $template_content = array(array('name'=>'numberVouchers', 'content'=>$numberVouchers), array('name'=>'packageName', 'content'=>$pname), array('name'=>'businessName', 'content'=>$bname), array('name'=>'total', 'content'=>$total), array('name'=>'transID', 'content'=>$transID), array('name'=>'voucherString', 'content'=>$voucherString), array('name'=>'phone', 'content'=>$phone), array('name'=>'customerName', 'content'=>$redemptionFirstName), array('name'=>'voucherQuantityString', 'content'=>$voucherQuantityString));
@@ -564,7 +564,7 @@ function pp_action() {
             }
 
             // Display confirmation to user.
-            $message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/vancouver/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$total.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/vancouver/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/vancouver/myaccount'>Your Account</a><br/><a href='/vancouver/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
+            $message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/date-ideas/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$total.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/date-ideas/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/date-ideas/myaccount'>Your Account</a><br/><a href='/date-ideas/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
             $tax = $taxes * $numberp;
             $ga_data = array('transID' => $transID, 'merchantName' => $bname, 'total' => $total, 'tax' => $tax, 'price_per_item' => $price_per_package, 'category' => '', 'productName' => $pname, 'quantity' => $numberp);
             $array = array('result' => 0, 'email' => "anuj.nm@gmail.com", 'price' => $total, 'message' => $message, 'ga_data' => $ga_data);
@@ -851,7 +851,7 @@ function location_subscribe() {
 	$user_email = $_POST['email'];
 	$location = $_POST['location'];
 	$data = $location . ','. $user_email . "\n";
-	file_put_contents('/home/fortwo9/public_html/vancouver/subscriptions/location_subscribers.txt', $data, FILE_APPEND);
+	file_put_contents('/home/fortwo9/public_html/date-ideas/subscriptions/location_subscribers.txt', $data, FILE_APPEND);
 	echo 'Success';
 	exit();
 }
@@ -1359,7 +1359,7 @@ function create_date_idea() {
   fputcsv($file, $csv_contents, ',');
   #fputcsv($file, $csv_contents2, ',');
   fclose($file);
-  $redirect_url = "http://fortwoplease.com/vancouver/upload?uploaded=True&city=". $form_city;
+  $redirect_url = "http://fortwoplease.com/date-ideas/upload?uploaded=True&city=". $form_city;
   header('Location: '. $redirect_url);
   die();
 }

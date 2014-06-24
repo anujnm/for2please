@@ -11,7 +11,7 @@ Template Name: reset_password
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <style type="text/css">
 body { margin: 0; font-family: 'Ubuntu'; }
-div.center_box { position:relative; width: 514px; height: 448px; background: url('/vancouver/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
+div.center_box { position:relative; width: 514px; height: 448px; background: url('/date-ideas/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
 div.center_box p { margin: 0; font-size: 122%; }
 div.center_box div.top { padding: 25px; text-align: center; }
 div.center_box div.top h1 { color: #f35a23 !important; padding: 15px 0 20px 0; font-size: 266%; }
@@ -39,7 +39,7 @@ div.center_box div.bottom p label { color: #f35a23; }
 		<h1>LOSE SOMETHING?</h1>
 		<p>Enter your email to reset your password.</p>
 	</div>
-		
+
 	<div class="inputs">
 		<form id="reset_pass_form" method="post" action="<?php echo site_url('wp-login.php?action=lostpassword', 'login_post') ?>"
 			<p>
@@ -54,7 +54,7 @@ div.center_box div.bottom p label { color: #f35a23; }
 			</p>
 		</form>
 	</div>
-	
+
 	<div class="bottom">
 		<p><label>Back to</label> <a href="#" id="pass_login_link">login</a></p>
 	</div>
@@ -66,12 +66,12 @@ div.center_box div.bottom p label { color: #f35a23; }
 		var input_data = jQuery('#reset_pass_form').serialize();
 		jQuery.ajax({
 			type: "POST",
-			url:  "/vancouver/wp-admin/admin-ajax.php",
+			url:  "/date-ideas/wp-admin/admin-ajax.php",
 			data: "action=userhasftpaccount&" + input_data,
 			success: function(msg) {
 				console.log(msg);
 				if(msg == 'Success-1'){
-					jQuery("#password_block").load("/vancouver/login-fb");
+					jQuery("#password_block").load("/date-ideas/login-fb");
 				} else {
 					console.log("submit form now...");
 					jQuery('#reset_pass_form').submit();
@@ -81,8 +81,8 @@ div.center_box div.bottom p label { color: #f35a23; }
 	});
 
 	jQuery('#pass_login_link').click(function() {
-		jQuery("#password_block").load("/vancouver/login", function() {
-			//window.setTimeout("GoogleTracking('/vancouver/login')", 100);
+		jQuery("#password_block").load("/date-ideas/login", function() {
+			//window.setTimeout("GoogleTracking('/date-ideas/login')", 100);
 		});
 	});
 

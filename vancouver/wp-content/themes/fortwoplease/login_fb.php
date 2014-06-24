@@ -9,7 +9,7 @@ Template Name: login_fb
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <style type="text/css">
 body { margin: 0; font-family: 'Ubuntu' !important; }
-div.center_box { position:relative; width: 514px; height: 385px; background: url('/vancouver/wp-content/themes/images/sign_in_box.png') no-repeat top left; color: white; text-align: center;}
+div.center_box { position:relative; width: 514px; height: 385px; background: url('/date-ideas/wp-content/themes/images/sign_in_box.png') no-repeat top left; color: white; text-align: center;}
 div.center_box p { margin: 0; font-size: 122%; }
 div.center_box div.top { padding: 25px; text-align: center; }
 div.center_box div.top h1 { color: #ea5f1a; padding: 15px 0 10px 0; font-size: 266%; }
@@ -34,12 +34,12 @@ div.center_box div.bottom p label { color: #f35a23; }
 	<div class="top">
 		<h1>SIGN IN BELOW!</h1>
 	</div>
-		
+
 	<div class="inputs">
 		<p>Your ForTwoPlease account is connected through Facebook. Please Connect with Facebook.</p>
-		<div class="fb_connect"><img id="fb_login_btn2" src="/vancouver/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/></div>
+		<div class="fb_connect"><img id="fb_login_btn2" src="/date-ideas/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/></div>
 	</div>
-	
+
 	<div class="bottom">
 	</div>
 </div>

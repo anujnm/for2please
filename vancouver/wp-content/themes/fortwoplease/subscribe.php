@@ -9,17 +9,17 @@ Template Name: subscribe
 
 <head>
 	<?php include_once("analyticstracking.php") ?>
-	<link rel="icon" type="image/png" href="/vancouver/wp-content/themes/images/favicon2c.png">
-	<script src="https://fortwoplease.com/vancouver/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
+	<link rel="icon" type="image/png" href="/date-ideas/wp-content/themes/images/favicon2c.png">
+	<script src="https://fortwoplease.com/date-ideas/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		// Add a script element as a child of the body
 		function downloadJSAtOnload() {
 			var element = document.createElement("script");
-			element.src = "/vancouver/js/googleanalyticscall.js";
+			element.src = "/date-ideas/js/googleanalyticscall.js";
 			document.body.appendChild(element);
 
 			var element2 = document.createElement("script");
-			element2.src = "/vancouver/js/jquery_cookie.js";
+			element2.src = "/date-ideas/js/jquery_cookie.js";
 			document.body.appendChild(element2);
 
 		}
@@ -33,15 +33,15 @@ Template Name: subscribe
 
 	</script>
 	<style type="text/css">
-	body { margin: 0; background: #fff url('/vancouver/wp-content/themes/images/squeeze_page_bg_2.jpg') no-repeat !important; background-size: 100% !important; font-family: 'Ubuntu'; }
+	body { margin: 0; background: #fff url('/date-ideas/wp-content/themes/images/squeeze_page_bg_2.jpg') no-repeat !important; background-size: 100% !important; font-family: 'Ubuntu'; }
 	p { margin: 0; }
 	div.subscribe {margin:40px;}
 	div.head {padding-top: 80px;font-size:40px;text-align:left; }
-	div.head div.logo { margin: 80px 0 0 40px; background: url('/vancouver/wp-content/themes/images/squeeze_tagline_2.png') no-repeat; background-size: 100%; width: 70%; height: 100px; }
+	div.head div.logo { margin: 80px 0 0 40px; background: url('/date-ideas/wp-content/themes/images/squeeze_tagline_2.png') no-repeat; background-size: 100%; width: 70%; height: 100px; }
 	div.head img { height: 76px; }
 	div.login_box {padding-top:80px;}
 	div.head-box {display:inline-block; height:76px; vertical-align:middle;}
-	div.skip { background: url('/vancouver/wp-content/themes/images/sign_up_skip_box.png') no-repeat; margin-top: 10px; width: 518px; height: 94px; padding: 26px 0; color: white; font-size: 16px; }
+	div.skip { background: url('/date-ideas/wp-content/themes/images/sign_up_skip_box.png') no-repeat; margin-top: 10px; width: 518px; height: 94px; padding: 26px 0; color: white; font-size: 16px; }
 	@font-face {
 		font-family: 'Ubuntu';
 		font-style: normal;
@@ -70,12 +70,12 @@ Template Name: subscribe
 	</div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script src="/vancouver/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
+<script src="/date-ideas/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 /* Don't need Google Analytics on Dev */
 		jQuery(document).ready(function() {
-			jQuery(".login_box").load("/vancouver/join", function() {
+			jQuery(".login_box").load("/date-ideas/join", function() {
 				jQuery(".skip").show();
 				jQuery(".head").show();
 			});

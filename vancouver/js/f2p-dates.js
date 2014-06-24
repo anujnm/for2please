@@ -32,7 +32,7 @@ function stripeResponseHandler(status, response)
 
       var request = $.ajax({
 		type: "POST",
-		url: "/vancouver/wp-admin/admin-ajax.php",
+		url: "/date-ideas/wp-admin/admin-ajax.php",
 		dataType: "json",
 		data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName+"&checkout="+ajax_nonce
 	});
@@ -155,7 +155,7 @@ jQuery(document).ready(function($) {
 			if(sessionStorage.getItem(i-1)) {
 				jQuery.ajax({
 					type: "POST",
-					url:  "/vancouver/wp-admin/admin-ajax.php",
+					url:  "/date-ideas/wp-admin/admin-ajax.php",
 					data: "action=getpermalink&id=" + sessionStorage.getItem(i-1),
 					success: function(msg){
 						jQuery("#previous_page_link").html("<a href='"+msg+"'><div class='previous_page_link'><div>Prev</div></div></a>");
@@ -165,7 +165,7 @@ jQuery(document).ready(function($) {
 			if(sessionStorage.getItem(i+1)) {
 				jQuery.ajax({
 					type: "POST",
-					url:  "/vancouver/wp-admin/admin-ajax.php",
+					url:  "/date-ideas/wp-admin/admin-ajax.php",
 					data: "action=getpermalink&id=" + sessionStorage.getItem(i+1),
 					success: function(msg){
 						jQuery("#next_page_link").html("<a href='"+msg+"'><div class='next_page_link'><div>Next</div></div></a>");
@@ -320,7 +320,7 @@ jQuery(document).ready(function($) {
 			var input_data = jQuery('#share-this-date').serialize();
 			jQuery.ajax({
 				type: "POST",
-				url: "/vancouver/wp-admin/admin-ajax.php",
+				url: "/date-ideas/wp-admin/admin-ajax.php",
 				data: "action=sharedate&" + input_data +"&pid="+postID,
 				success: function(msg){
 					jQuery('#share-date').trigger('close');
@@ -350,7 +350,7 @@ jQuery(document).ready(function($) {
 			var input_data = jQuery('#wp_login_form').serialize();
 			jQuery.ajax({
 				type: "POST",
-				url:  "/vancouver/wp-admin/admin-ajax.php",
+				url:  "/date-ideas/wp-admin/admin-ajax.php",
 				data: "action=logmein&" + input_data,
 				success: function(msg) {
 					if(msg=='Success'){
@@ -370,7 +370,7 @@ jQuery(document).ready(function($) {
 			var input_data = jQuery('#wp_reg_form').serialize();
 			jQuery.ajax({
 				type: "POST",
-				url:  "/vancouver/wp-admin/admin-ajax.php",
+				url:  "/date-ideas/wp-admin/admin-ajax.php",
 				data: "action=newuserreg&" + input_data,
 				success: function(msg) {
 					if(msg=='Success') {
@@ -426,10 +426,10 @@ jQuery(document).ready(function($) {
 		searchIndex = 1;
 		jQuery("#results2").html("");
 		jQuery("#ur-date-ideas2").html("");
-		jQuery("#results").html("<img id='loadImage' src='/vancouver/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
+		jQuery("#results").html("<img id='loadImage' src='/date-ideas/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
 		jQuery.ajax({
 			type: "POST",
-			url:  "/vancouver/wp-admin/admin-ajax.php",
+			url:  "/date-ideas/wp-admin/admin-ajax.php",
 			dataType: 'json',
 			data: input_date,
 			success: function(msg) {

@@ -23,7 +23,7 @@
 <!--<![endif]-->
 <head>
 	<?php include_once("analyticstracking.php") ?>
-	<link rel="icon" type="image/png" href="/vancouver/wp-content/themes/images/favicon2c.png">
+	<link rel="icon" type="image/png" href="/date-ideas/wp-content/themes/images/favicon2c.png">
 
 <?php
 	echo '<meta property="og:title" content="'.get_field('sub_title').'" />';
@@ -82,15 +82,15 @@
 
 	<?php wp_head(); ?>
 
-	<link rel="stylesheet" type="text/css" href="/vancouver/js/css/ui-darkness/jquery-ui-1.8.20.custom.css" />
-	<link rel="stylesheet" href="/vancouver/js/dropkick.css" type="text/css" />
-	<script src="/vancouver/js/f2p-base.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="/date-ideas/js/css/ui-darkness/jquery-ui-1.8.20.custom.css" />
+	<link rel="stylesheet" href="/date-ideas/js/dropkick.css" type="text/css" />
+	<script src="/date-ideas/js/f2p-base.js" type="text/javascript"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	<script src="/vancouver/js/jquery_cookie.js" type="text/javascript"></script>
-	<script src="/vancouver/js/sessionstorage.1.4.js" type="text/javascript"></script>
-	<script src="/vancouver/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
-	<script src="/vancouver/js/jquery.lightbox_me.js" type="text/javascript"></script>
-	<script src="https://fortwoplease.com/vancouver/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
+	<script src="/date-ideas/js/jquery_cookie.js" type="text/javascript"></script>
+	<script src="/date-ideas/js/sessionstorage.1.4.js" type="text/javascript"></script>
+	<script src="/date-ideas/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
+	<script src="/date-ideas/js/jquery.lightbox_me.js" type="text/javascript"></script>
+	<script src="https://fortwoplease.com/date-ideas/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
 	<!-- start Mixpanel -->
 	<script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
 		typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
@@ -101,7 +101,7 @@
 	<script>
 		function downloadJSAtOnload() {
 			var element = document.createElement("script");
-			element.src = "/vancouver/js/jquery-ui.multidatespicker.js";
+			element.src = "/date-ideas/js/jquery-ui.multidatespicker.js";
 			document.body.appendChild(element);
 
 			var element3 = document.createElement("script");
@@ -156,12 +156,12 @@
 					var squeeze_show_cookie = $.cookie('squeeze_popup');
 					if (squeeze_show_cookie == null) {
 						setTimeout(function() {
-							//window.setTimeout("GoogleTracking('/vancouver/join/');", 100);
-							jQuery("#join_div").load('/vancouver/join', function() {
+							//window.setTimeout("GoogleTracking('/date-ideas/join/');", 100);
+							jQuery("#join_div").load('/date-ideas/join', function() {
 								jQuery("#join_div").lightbox_me({
 									centered: true,
 								});
-								jQuery('#join_div').append('<img src="/vancouver/wp-content/themes/images/close_icon.png" width="34" height="34" id="squeeze_close_button" style="position:absolute; top: 14px; left: 470px; cursor: pointer;" onclick="squeeze_close_action();" />');
+								jQuery('#join_div').append('<img src="/date-ideas/wp-content/themes/images/close_icon.png" width="34" height="34" id="squeeze_close_button" style="position:absolute; top: 14px; left: 470px; cursor: pointer;" onclick="squeeze_close_action();" />');
 							});
 
 		/*
@@ -246,17 +246,17 @@
 </div>
 <div id="overlay">
      <div>
-          <img src="/vancouver/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
+          <img src="/date-ideas/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
      </div>
 </div>
 <div id="brandingfortwo">
-<img class="source-image" src="/vancouver/wp-content/themes/images/main-bckg2.jpg" alt="" />
+<img class="source-image" src="/date-ideas/wp-content/themes/images/main-bckg2.jpg" alt="" />
 <div id="header-content">
 
 <div id="header-left" style="float:left;">
 	<div style='margin-top:20px;'>
-		<a class="header-logo-link" href="/vancouver/">
-			<img src="/vancouver/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
+		<a class="header-logo-link" href="/date-ideas/">
+			<img src="/date-ideas/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
 		</a>
 		<span style='font-size:18px'>The best date ideas in your city</span>
 	</div>
@@ -266,14 +266,14 @@
 		<div id="header-about" style="float:right;margin-top:30px;">
 			<ul id="nav-one" class="nav m-t-m m-l-xl" style="float:left;">
 				<li>
-					<a id="downarrow" style="float:left;" href="#item1">About&nbsp;&nbsp;<img src="/vancouver/wp-content/themes/images/down-arrow.png" /></a>
+					<a id="downarrow" style="float:left;" href="#item1">About&nbsp;&nbsp;<img src="/date-ideas/wp-content/themes/images/down-arrow.png" /></a>
 					<ul style="display: block; border-top: 3px solid #6f6f6f;">
 						<li><a class="about" id="suggestadate"href="#">Suggest a Date Idea</a></li>
-						<li><a class="about" id="faq" href="/vancouver/faq/">FAQ</a></li>
-						<li><a class="about" id="contactus" href="/vancouver/contact-us/">Contact</a></li>
-						<li><a class="about" id="aboutus" href="/vancouver/about-us-fortwoplease/">About Us</a></li>
-						<li><a class="about" id="careers" href="/vancouver/careers/">Careers</a></li>
-						<li><a class="about" id="policies" href="/vancouver/policies/">Policies</a></li>
+						<li><a class="about" id="faq" href="/date-ideas/faq/">FAQ</a></li>
+						<li><a class="about" id="contactus" href="/date-ideas/contact-us/">Contact</a></li>
+						<li><a class="about" id="aboutus" href="/date-ideas/about-us-fortwoplease/">About Us</a></li>
+						<li><a class="about" id="careers" href="/date-ideas/careers/">Careers</a></li>
+						<li><a class="about" id="policies" href="/date-ideas/policies/">Policies</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -281,21 +281,21 @@
 
 		<div id="header-right" style="float:right;margin-top:15px;margin-right:20px;">
 			<div style="margin: 0 0 6px 16px;">
-				<a href="http://www.twitter.com/fortwoplease" target="_blank"><img src="/vancouver/wp-content/themes/images/twitter_page_btn.png" /></a>&nbsp;&nbsp;
-				<a href="http://www.facebook.com/fortwoplease" target="_blank"><img src="/vancouver/wp-content/themes/images/fb_page_btn.png" /></a>
+				<a href="http://www.twitter.com/fortwoplease" target="_blank"><img src="/date-ideas/wp-content/themes/images/twitter_page_btn.png" /></a>&nbsp;&nbsp;
+				<a href="http://www.facebook.com/fortwoplease" target="_blank"><img src="/date-ideas/wp-content/themes/images/fb_page_btn.png" /></a>
 			</div>
 			<div class="account_links">
 			<?php if ( !is_user_logged_in() ) { ?>
 				<!--<a class="logmein" href="#">Login</a> | <a class="registerme" href="#">Register</a>-->
 				<a id="sign_in" class="header-signin-link" href="#">Login</a> | <a class="header-join-link" id="join_now" href="#">Join</a>
 			<?php } else{ ?>
-				<a class="header-account-link" href="/vancouver/myaccount/">My Account</a> | <a class="header-signout-link" href="<?php echo wp_logout_url(current_page_url()); ?>" title="Logout">Logout</a>
+				<a class="header-account-link" href="/date-ideas/myaccount/">My Account</a> | <a class="header-signout-link" href="<?php echo wp_logout_url(current_page_url()); ?>" title="Logout">Logout</a>
 			<?php } ?>
 			</div>
 		</div>
 	</div>
 
-	<div id="suggest-date" style="background:url(/vancouver/wp-content/themes/images/addons/add-on-bckg.png);color:white;padding:20px;display:none;width:500px;">
+	<div id="suggest-date" style="background:url(/date-ideas/wp-content/themes/images/addons/add-on-bckg.png);color:white;padding:20px;display:none;width:500px;">
 		<strong>Suggest a Date</strong>
 		<p>Do you have a great date idea that we've missed? Let us know on our <a href="https://facebook.com/fortwoplease/" target="_blank">Facebook Page</a> or send us an email (dateideas@fortwoplease.com) - we're always looking for hidden gems!</p> <br/>
 		<strong>Not sure if it's a good idea?</strong>
@@ -308,25 +308,25 @@
 		<div class="category_box">
 			<ul class="categories">
         <?php if ($category == "restaurants") { ?>
-          <li><a href="/vancouver/date-type/restaurants/" class="selected">Dining</a></li>
+          <li><a href="/date-ideas/date-type/restaurants/" class="selected">Dining</a></li>
         <?php } else { ?>
-          <li><a href="/vancouver/date-type/restaurants/">Dining</a></li>
+          <li><a href="/date-ideas/date-type/restaurants/">Dining</a></li>
         <?php } if ($category == "active") { ?>
-          <li><a href="/vancouver/date-type/active/" class="selected">Active</a></li>
+          <li><a href="/date-ideas/date-type/active/" class="selected">Active</a></li>
         <?php } else { ?>
-          <li><a href="/vancouver/date-type/active/">Active</a></li>
+          <li><a href="/date-ideas/date-type/active/">Active</a></li>
         <?php } if ($category == "adventurous") { ?>
-          <li><a href="/vancouver/date-type/adventurous/" class="selected">Adventurous</a></li>
+          <li><a href="/date-ideas/date-type/adventurous/" class="selected">Adventurous</a></li>
         <?php } else { ?>
-          <li><a href="/vancouver/date-type/adventurous/">Adventurous</a></li>
+          <li><a href="/date-ideas/date-type/adventurous/">Adventurous</a></li>
         <?php } if ($category == "getaways") { ?>
-          <li><a href="/vancouver/date-type/getaways/" class="selected">Getaways</a></li>
+          <li><a href="/date-ideas/date-type/getaways/" class="selected">Getaways</a></li>
         <?php } else { ?>
-          <li><a href="/vancouver/date-type/getaways/">Getaways</a></li>
+          <li><a href="/date-ideas/date-type/getaways/">Getaways</a></li>
         <?php } if ($category == "entertainment") { ?>
-          <li><a href="/vancouver/date-type/entertainment/" class="selected">Entertainment</a></li>
+          <li><a href="/date-ideas/date-type/entertainment/" class="selected">Entertainment</a></li>
         <?php } else { ?>
-          <li><a href="/vancouver/date-type/entertainment/">Entertainment</a></li>
+          <li><a href="/date-ideas/date-type/entertainment/">Entertainment</a></li>
         <?php } ?>
 				<div style="clear: both;"></div>
 			</ul>
@@ -334,7 +334,7 @@
 		<div class="search_box">
 			<form id="text-form">
 				<input id="input-text-search" type="text" class="search_field"/>
-				<img id="text-search" src="/vancouver/wp-content/themes/images/search-mag.png" />
+				<img id="text-search" src="/date-ideas/wp-content/themes/images/search-mag.png" />
 			</form>
 		</div>
 		<div style="clear: both;"></div>

@@ -51,7 +51,7 @@ function loadResults(start,end, is_idea_page) {
 
             jQuery.ajax({
                 type: "POST",
-                url:  "/vancouver/wp-admin/admin-ajax.php",
+                url:  "/date-ideas/wp-admin/admin-ajax.php",
                 data: input_date,
                 success: function(msg) {
                     if (is_idea_page == true) {
@@ -74,7 +74,7 @@ function loadResults(start,end, is_idea_page) {
 
             jQuery.ajax({
                 type: "POST",
-                url:  "/vancouver/wp-admin/admin-ajax.php",
+                url:  "/date-ideas/wp-admin/admin-ajax.php",
                 data: input_date,
                 success: function(msg) {
                     if (is_idea_page == true) {

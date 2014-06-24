@@ -12,7 +12,7 @@
 
 	</div><!-- #main -->
 
-	
+
 
 	<div id="colophon" role="contentinfo">
 
@@ -24,7 +24,7 @@
 					get_sidebar( 'footer' );
 			?>
 
-			
+
 	</div><!-- #colophon -->
 
 <div id="how-it-works" style="background:url(/dev/wp-content/themes/images/addons/add-on-bckg.png);border-radius:10px;border:solid 1px #ccc;width:900px;height:500px;display:none;color:#FFF;">
@@ -87,29 +87,29 @@
 <script type="text/javascript">
 jQuery("#text-search").click( function () {
 	var query = jQuery("#input-text-search").val();
-	window.location.assign("/vancouver/index.php?q=" + query);
+	window.location.assign("/date-ideas/index.php?q=" + query);
  });
-		 
+
 jQuery("#text-form").submit( function (e) {
 	e.preventDefault();
 	var query = jQuery("#input-text-search").val();
-	window.location.assign("/vancouver/index.php?q=" + query);
+	window.location.assign("/date-ideas/index.php?q=" + query);
 });
 
 jQuery(document).ready(function(){
-	
+
 	jQuery("#nav-one li").hover(
-		function(){ 
-            jQuery("ul", this).fadeIn("fast"); 
-        }, 
-		function() { } 
+		function(){
+            jQuery("ul", this).fadeIn("fast");
+        },
+		function() { }
 	);
   	if (document.all) {
 		jQuery("#nav-one li").hoverClass ("sfHover");
 	}
 
     jQuery("#nav-two li").hover(
-        function() { 
+        function() {
             jQuery("ul", this).fadeIn("fast");
         },
         function() {}
@@ -119,32 +119,32 @@ jQuery(document).ready(function(){
         jQuery("nav-two li").hoverClass("sfHover");
     }
 });
-	  
+
 jQuery.fn.hoverClass = function(c) {
 	return this.each(function(){
-		jQuery(this).hover( 
+		jQuery(this).hover(
 			function() { jQuery(this).addClass(c);  },
 			function() { jQuery(this).removeClass(c); }
 		);
 	});
-};	  
-		
-	
+};
+
+
 jQuery("#forgotpass").click(function(){
 	jQuery("#login-part").hide();
 	jQuery("#tab3_login").show();
 	});
-	
+
 	jQuery("#qmark").click(function(e){
 		jQuery('#qmark-popup').lightbox_me({
-        centered: true, 
+        centered: true,
         });
     e.preventDefault();
 	});
 
 	jQuery("#howitworks").click(function(e){
 		jQuery('#how-it-works').lightbox_me({
-        centered: true, 
+        centered: true,
         });
     e.preventDefault();
 	return false;
@@ -152,7 +152,7 @@ jQuery("#forgotpass").click(function(){
 
 jQuery("#suggestadate").click(function(e){
 		jQuery('#suggest-date').lightbox_me({
-        centered: true, 
+        centered: true,
         });
     e.preventDefault();
 	return false;
@@ -160,12 +160,12 @@ jQuery("#suggestadate").click(function(e){
 
 jQuery("#sign_in").click(function(e){
 //	if (jQuery("#sign_in_block").length == 0) {
-		jQuery("#sign_in_div").load('/vancouver/login', function() {
+		jQuery("#sign_in_div").load('/date-ideas/login', function() {
 			//window.setTimeout("GoogleTracking('/dev/login/');", 100);
 			jQuery("#sign_in_div").lightbox_me({
-				centered: true, 
+				centered: true,
 			});
-			
+
 		});
 		e.preventDefault();
 	return false;
@@ -173,20 +173,20 @@ jQuery("#sign_in").click(function(e){
 
 jQuery("#join_now").click(function(e){
 //	if (jQuery("#join_block").length == 0) {
-		jQuery("#join_div").load('/vancouver/join', function() {
+		jQuery("#join_div").load('/date-ideas/join', function() {
 			// Don't need Google Analytics on Dev
 			//window.setTimeout("GoogleTracking('/dev/join/');", 100);
 			jQuery("#join_div").lightbox_me({
-				centered: true, 
+				centered: true,
 			});
-			
+
 		});
 		e.preventDefault();
 	return false;
 });
 
 jQuery("#not_from_location").click(function(e) {
-    jQuery("#location_div").load('/vancouver/city/', function() {
+    jQuery("#location_div").load('/date-ideas/city/', function() {
         jQuery("#location_div").lightbox_me({
             centered: true,
         });
@@ -214,8 +214,8 @@ ref.parentNode.insertBefore(js, ref);
 }(document));
 
 
-	
-	
+
+
 </script>
 
 </body>

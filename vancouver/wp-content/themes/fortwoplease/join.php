@@ -11,7 +11,7 @@ Template Name: join
 <style type="text/css">
 body { margin: 0; font-family: 'Ubuntu'; }
 
-div.center_box { position:relative; width: 514px; height: 448px; background: url('/vancouver/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
+div.center_box { position:relative; width: 514px; height: 448px; background: url('/date-ideas/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
 div.center_box p { margin: 0; font-size: 122%; }
 div.center_box div.top { padding: 35px 20px 0 20px; text-align: center; }
 div.center_box div.top h1 { color: #f4782c !important;  padding: 0; font-size: 222%; }
@@ -59,7 +59,7 @@ div.center_box div.bottom p label { color: white; }
 			</p>
 		</form>
 		<br/>
-		<div class="fb_connect"><img id="fb_login_btn" src="/vancouver/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/></div>
+		<div class="fb_connect"><img id="fb_login_btn" src="/date-ideas/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/></div>
 	</div>
 
 	<div class="bottom">
@@ -69,8 +69,8 @@ div.center_box div.bottom p label { color: white; }
 
 <script type="text/javascript">
 	jQuery('#login_link').click(function() {
-		jQuery("#join_block").load("/vancouver/login", function() {
-			//window.setTimeout("GoogleTracking('/vancouver/login/');", 100);
+		jQuery("#join_block").load("/date-ideas/login", function() {
+			//window.setTimeout("GoogleTracking('/date-ideas/login/');", 100);
 		});
 	});
 
@@ -115,7 +115,7 @@ div.center_box div.bottom p label { color: white; }
 			var input_data = jQuery('#email_subscription_form').serialize();
 			jQuery.ajax({
 				type: "POST",
-				url:  "/vancouver/wp-admin/admin-ajax.php",
+				url:  "/date-ideas/wp-admin/admin-ajax.php",
 				data: "action=email_subscribe&" + input_data,
 				success: function(msg) {
 					if(msg == 'Success') {

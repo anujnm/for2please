@@ -22,15 +22,15 @@ div.separation_line { border-bottom: 1px solid #3395df; margin: 20px 0 6px 0; cl
 Template Name: account
 */
  get_header();
- 
+
   wp_get_current_user();
-  
+
 $total_packages_sold = 0;
 $total_sales_amount = 0.00;
 $total_packages_available =0;
 
 if(is_user_logged_in())
-{ 
+{
 ?>
 	<div id="header-content" style="background:#FFF;color:black;overflow:hidden; border-bottom: 30px solid black; min-height:600px; width: 1060px; box-shadow: 1px 40px 30px 4px #333;">
 		<?php
@@ -38,7 +38,7 @@ if(is_user_logged_in())
 		{
 		?>
 			<div id="left-hand" style="float:left;width:640px;padding:20px;">
-				<?php 
+				<?php
 				echo "<h1 style='margin:10px 0; color:#1596d0;'>MY DATE PACKAGES</h1>";
 				foreach (get_user_meta($current_user->ID, 'pckg',false) as $values) {
 					echo "<div class='separation_line'></div>";
@@ -90,7 +90,7 @@ if(is_user_logged_in())
 										echo '<td class="f2p_id">' . $numbers . "</td>";
 										echo '<td><input id="'.$numbers.'_d" type="button" value="Redeem" class="f2p-button-redeemed"/></td>';
 										echo '</tr>';
-										
+
 										$item_price = get_user_meta($user_info->ID, $numbers.'_amount');
 										if ($item_price!= null && $item_price[0] && $item_price[0]!=null) {
 											$total_sales_amount += $item_price[0];
@@ -148,7 +148,7 @@ if(is_user_logged_in())
 						}
 						$table_content .= '</table>';
 						?>
-					
+
 				<?php
 					if (!$has_data) {
 						echo '<p style="color:red;">Nothing Redeemed</p>';
@@ -166,7 +166,7 @@ if(is_user_logged_in())
 				<p>Email us anytime at <a href="mailto:support@fortwoplease.com">support@fortwoplease.com</a>.</p>
 				<br/>
 				<h1 style='color:#1596d0; font-weight: normal;'>MY PURCHASED DATE PACKAGES</h1><br/>
-				<?php  
+				<?php
 				if (get_user_meta($current_user->ID, 'purchased',false)) {
 					foreach (get_user_meta($current_user->ID, 'purchased',false) as $values) {
 						$pid = get_user_meta($current_user->ID, $values.'_id');
@@ -199,9 +199,9 @@ if(is_user_logged_in())
 				} else {
 					echo "You do not currently have any active date packages";
 				} ?>
-				
+
 				<div class="separation_line"></div><br/>
-				
+
 				<?php
 				if (get_user_meta($current_user->ID, 'purchased',false)) {
 				?>
@@ -246,7 +246,7 @@ if(is_user_logged_in())
 									<div style="font-style:italic;margin-top:5px;"><?php echo the_field('fine_print',$pid[0]); ?></div>
 								</div>
 							</div>
-						<?php 
+						<?php
 						}
 					}
 				}
@@ -261,7 +261,7 @@ if(is_user_logged_in())
 			<div id="account-info" style="border:1px solid #000;padding:5px; margin-top:5px; ">
 				<!-- <p>Your unique ForTwoPlease ID is: <b><?php echo $current_user->ID ?></b> </p> -->
 				<p>Email: <?php echo $current_user->user_email ?> </p>
-				
+
 				<form id="set_pass" action="#" style="background:#222;color:white;;padding:8px;border-radius:10px; display: none;">
 					<p style="font-size:18px; margin-bottom:8px;">Set My ForTwoPlease Password</p>
 					<p class="lightboxMessage"></p>
@@ -270,7 +270,7 @@ if(is_user_logged_in())
 					<div style="clear:both;"></div>
 					<p class="submit" style="margin: 14px 0 0 175px;" ><input id="set_pass_btn" type="submit" value="Submit" class="f2p-button" style="font-size:18px;padding:10px;marign-left;"/></p>
 				</form>
-				
+
 				<form id="changepass" action="#" style="background:#222;color:white;;padding:8px;border-radius:10px; display: none;">
 					<p style="font-size:18px; margin-bottom:8px;">Reset Password</p>
 					<p class="lightboxMessage"></p>
@@ -282,7 +282,7 @@ if(is_user_logged_in())
 				</form>
 			</div>
 
-			<?php 
+			<?php
 			if($current_user->roles[0] == 'merchant') {
 			?>
 			<div style="border:1px solid #000;padding:5px; margin-top:50px; ">
@@ -297,14 +297,14 @@ if(is_user_logged_in())
 			}?>
 		</div>
 	</div>
-	
+
 <?php
 } else {
 ?>
 <div>You must be logged in </div>
 <?php
   }
- get_footer(); 
+ get_footer();
 ?>
 
 <script type="text/javascript">
@@ -316,7 +316,7 @@ jQuery(document).ready(function(jQuery) {
 		if (confirmation) {
 			jQuery.ajax({
 				type: "POST",
-				url:  "/vancouver/wp-admin/admin-ajax.php",
+				url:  "/date-ideas/wp-admin/admin-ajax.php",
 				data: "action=donedate&uniqueval="+uval+"&checked=checked",
 				success: function(msg) {
 					setTimeout("location.reload(true);");
@@ -331,7 +331,7 @@ jQuery(document).ready(function(jQuery) {
 		if (confirmation) {
 			jQuery.ajax({
 				type: "POST",
-				url:  "/vancouver/wp-admin/admin-ajax.php",
+				url:  "/date-ideas/wp-admin/admin-ajax.php",
 				data: "action=donedate&uniqueval="+uval+"&checked=notchecked",
 				success: function(msg) {
 					setTimeout("location.reload(true);");
@@ -339,10 +339,10 @@ jQuery(document).ready(function(jQuery) {
 			});
 		}
 	});
-	
+
 	jQuery.ajax({
 		type: "POST",
-		url:  "/vancouver/wp-admin/admin-ajax.php",
+		url:  "/date-ideas/wp-admin/admin-ajax.php",
 		data: "action=userhasftpaccount&" + "user_login=<?php echo $current_user -> user_email ?>" ,
 		success: function(msg) {
 			if(msg == 'Success0'){
@@ -359,7 +359,7 @@ jQuery("#changepassword").click(function() {
 	var input_data = jQuery('#changepass').serialize();
 	jQuery.ajax({
 		type: "POST",
-		url:  "/vancouver/wp-admin/admin-ajax.php",
+		url:  "/date-ideas/wp-admin/admin-ajax.php",
 		data: "action=passchange&" + input_data,
 		success: function(msg) {
 			$('.lightboxMessage').html(msg.substring(0, msg.length-1)).show();
@@ -372,7 +372,7 @@ jQuery("#set_pass_btn").click(function() {
 	var input_data = jQuery('#set_pass').serialize();
 	jQuery.ajax({
 		type: "POST",
-		url:  "/vancouver/wp-admin/admin-ajax.php",
+		url:  "/date-ideas/wp-admin/admin-ajax.php",
 		data: "action=setftppass&" + input_data,
 		success: function(msg) {
 			$('.lightboxMessage').html(msg.substring(0, msg.length-1)).show();
@@ -385,5 +385,3 @@ jQuery("#set_pass_btn").click(function() {
 
 
 </script>
-
-

@@ -11,12 +11,12 @@ window.fbAsyncInit = function() {
 	cookie     : true, // enable cookies to allow the server to access the session
 	xfbml      : true  // parse XFBML
 	//oauth : true
-	});	
+	});
 };
 */
 
 function fb_login () {
-	
+
 	var uid;
 	var accessToken;
 	FB._https = (window.location.protocol == "https:");
@@ -31,16 +31,16 @@ function fb_login () {
 	xfbml      : true  // parse XFBML
 	//oauth : true
 	});
-	
+
 	console.log("button clicked...");
 	/*
 	FB.getLoginStatus(function(response) {
-		//console.log(response);	
+		//console.log(response);
 	  if (response.status === 'connected') {
 	    // the user is logged in and has authenticated your
 	    // app, and response.authResponse supplies
 	    // the user's ID, a valid access token, a signed
-	    // request, and the time the access token 
+	    // request, and the time the access token
 	    // and signed request each expire
 	    var uid = response.authResponse.userID;
 	    var accessToken = response.authResponse.accessToken;
@@ -64,7 +64,7 @@ function fb_login () {
 			//console.log(input_data);
 			jQuery.ajax({
 				type: "POST",
-				url: "/vancouver/wp-admin/admin-ajax.php",
+				url: "/date-ideas/wp-admin/admin-ajax.php",
 				data: "action=fbcheckuserexists&" + input_data,
 				success: function(msg) {
 					if(msg == 'Success'){
@@ -73,7 +73,7 @@ function fb_login () {
 							setTimeout("location.assign('/'+window.location.pathname.split('/')[1]);");
 						else
 							setTimeout("location.reload(true);");
-					} else { 
+					} else {
 						alert(msg)
 					};
 				}
@@ -99,13 +99,13 @@ function fb_login () {
 						var msg = 'Facebook Connect doesn\'t seem to be working right now. Please try using an email address instead.';
 						$('.lightboxMessage').html(msg).show();
 						return;
-					} 
-					
+					}
+
 					var input_data = "username=" + info.name  + "&fname=" + info.first_name + "&lname=" + info.last_name + "&email=" + info.email + "&password=123456&password2=123456";
 
 					jQuery.ajax({
 						type: "POST",
-						url: "/vancouver/wp-admin/admin-ajax.php",
+						url: "/date-ideas/wp-admin/admin-ajax.php",
 						data: "action=fbcheckuserexists&" + input_data,
 						success: function(msg) {
 							if(msg == 'Success'){
@@ -114,13 +114,13 @@ function fb_login () {
 									setTimeout("location.assign('/'+window.location.pathname.split('/')[1]);");
 								else
 									setTimeout("location.reload(true);");
-							} else if ($('.lightboxMessage').length) { 
+							} else if ($('.lightboxMessage').length) {
 								$('.lightboxMessage').html(msg).show();
 							} else {
 								alert(msg);
 							}
 						}
-					});	
+					});
 				});
 			} else {
 			}

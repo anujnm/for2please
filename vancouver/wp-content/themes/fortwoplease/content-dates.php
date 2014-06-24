@@ -20,7 +20,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 </script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script src="https://js.stripe.com/v1/?ver=3.4.1" type="text/javascript" charset="utf-8"></script>
-<script src="/vancouver/js/f2p-dates.js" type="text/javascript" charset="utf-8"></script>
+<script src="/date-ideas/js/f2p-dates.js" type="text/javascript" charset="utf-8"></script>
 <!-- <script src="https://maps.google.com/maps?file=api&v=2&key=AIzaSyDLEOimOjJBjY5kPHxkRcSAfihslNNOUAI&sensor=false" type="text/javascript"></script> -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
@@ -29,7 +29,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 	<div id="next_page_link"></div>
 </div>
 
-<div style="display:none;"><img src="/vancouver/wp-content/themes/images/get-it-normal.png" /><img src="/vancouver/wp-content/themes/images/get-t-hover.png"  /><img src="/vancouver/wp-content/themes/images/get-it-pressed.png"  /></div>
+<div style="display:none;"><img src="/date-ideas/wp-content/themes/images/get-it-normal.png" /><img src="/date-ideas/wp-content/themes/images/get-t-hover.png"  /><img src="/date-ideas/wp-content/themes/images/get-it-pressed.png"  /></div>
 <div class="date-content">
 
 
@@ -80,7 +80,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 						$uri = substr($uri, 13);
 						#get_permalink( $post->ID );
 						//$uri = "http://fortwoplease.com/dev".$uri;
-						$uri = "http://fortwoplease.com/vancouver".$uri;
+						$uri = "http://fortwoplease.com/date-ideas".$uri;
 						// echo $uri."<br/>";
 						echo '<div class="fb-like" data-href="'.$uri.'" data-send="false" data-layout="button_count" data-show-faces="false" data-action="recommend" data-font="verdana"></div>';
 					?>
@@ -147,7 +147,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 				<div class="package_info">
 					<br/>
 					<div id="loading">
-						<img src="/vancouver/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
+						<img src="/date-ideas/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
 					</div>
 
 					<div id="buy">
@@ -168,7 +168,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 									<div class="sub_title">We're here to help.</div>
 									<div class="email">
 										<p><b>Email us:</b> <a href="mailto:support@fortwoplease.com?Subject=ForTwoPlease Support">Support@ForTwoPlease.com</a></p>
-										<p><a href="/vancouver/policies/">Refund Policy</a></p>
+										<p><a href="/date-ideas/policies/">Refund Policy</a></p>
 									</div>
 								</div>
 							</div>
@@ -179,7 +179,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					<div id="buy-process" style="display:none; z-index: 100; position: absolute; background-color: #1a1a1a; min-height:450px; overflow:hidden; margin-bottom:20px;">
 						<div style='width:312px; height:30px; margin-left: 15px;'>
 							<h1 style='float:left; color: white;'>PAYMENT</h1>
-							<img style='float:right;' src='/vancouver/wp-content/themes/images/step2.png' />
+							<img style='float:right;' src='/date-ideas/wp-content/themes/images/step2.png' />
 							<div style='clear:both;'></div>
 						</div>
 						<div class="background">
@@ -224,7 +224,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								<input type="hidden" id="amount" name="amount" />
 							</div>
 							<div style='float:left;margin-left:64px;' class='m-t-l m-b-s'>
-								<img src='/vancouver/wp-content/themes/images/payments2.png'></img>
+								<img src='/date-ideas/wp-content/themes/images/payments2.png'></img>
 							</div>
 							<div style='clear:both;'>
 								<div style='padding-left:10px;height:30px;'>
@@ -275,7 +275,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 								</div>
 								<br/>
 								<div style="padding-left:10px; float:left;">
-									<img src="/vancouver/wp-content/themes/images/lock_icon.png" width="35" height="35" />
+									<img src="/date-ideas/wp-content/themes/images/lock_icon.png" width="35" height="35" />
 								</div>
 								<input type="hidden" id="billing_email" value="<?php echo wp_get_current_user()->user_email?>" />
 								<div style='height:30px; float:right;'>
@@ -301,7 +301,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 									<div class="sub_title">We're here to help.</div>
 									<div class="email">
 										<p><b>Email us:</b> <a href="mailto:support@fortwoplease.com?Subject=ForTwoPlease Support">Support@ForTwoPlease.com</a></p>
-										<p><a href="/vancouver/policies/">Refund Policy</a></p>
+										<p><a href="/date-ideas/policies/">Refund Policy</a></p>
 									</div>
 								</div>
 							</div>
@@ -311,7 +311,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					<div id="user-ajax-login" class="blocks login_block">
 						<div class="header">
 							<h1>LOGIN</h1>
-							<img src="/vancouver/wp-content/themes/images/step1.png" />
+							<img src="/date-ideas/wp-content/themes/images/step1.png" />
 							<div style="clear: both;"></div>
 						</div>
 						<div class="background">
@@ -334,7 +334,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 									<input type="submit" id="submitbtn" name="submit" value="Login" class="f2p-button login_btn" />
 								</form>
 								<div class="fb_login">
-									<img id="fb_login_btn" src="/vancouver/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/>
+									<img id="fb_login_btn" src="/date-ideas/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/>
 								</div>
 							</div>
 						</div>
@@ -344,7 +344,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					<div id="user-ajax-register" class="blocks register_block">
 						<div class="header">
 							<h1>REGISTER</h1>
-							<img src="/vancouver/wp-content/themes/images/step1.png" />
+							<img src="/date-ideas/wp-content/themes/images/step1.png" />
 						</div>
 
 						<div class="background">

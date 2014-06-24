@@ -10,10 +10,10 @@ div.date-content a:hover { color: #f07423; }
 div.date-content a { color: #29A8E0; }
 
 div#content div#previous_page_link { position: absolute; top: 0px; left: -47px; }
-div#content div#previous_page_link div.previous_page_link { background: url(/vancouver/wp-content/themes/images/arrow_left.png); width: 47px; height: 49px;  }
+div#content div#previous_page_link div.previous_page_link { background: url(/date-ideas/wp-content/themes/images/arrow_left.png); width: 47px; height: 49px;  }
 div#content div#previous_page_link div.previous_page_link div { -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); position: relative; top: 9px; left: 10px; }
 div#content div#next_page_link { position: absolute; top: 0px; right: -47px; }
-div#content div#next_page_link div.next_page_link { background: url(/vancouver/wp-content/themes/images/arrow_right.png); width: 47px; height: 49px; }
+div#content div#next_page_link div.next_page_link { background: url(/date-ideas/wp-content/themes/images/arrow_right.png); width: 47px; height: 49px; }
 div#content div#next_page_link div.next_page_link div { -webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg); position: relative; top: 10px; right: 10px; }
 
 div.center_content { text-align: center; }
@@ -32,7 +32,7 @@ div.header_info div.pictures div.sub_title { font-size: 18px; line-height: 30px;
 
 div.date_content div.date_package { float: left; width: 335px; position:relative; background: #f2f2f2; }
 div.date_content div.date_package div.package_info { background-color: #1a1a1a; height: 410px; }
-div.date_content div.date_package div.member { background-image:url(/vancouver/wp-content/themes/images/price-desc-bckg.png) !important; height:30px !important; margin-top:5px; width:306px; margin-left:15px; }
+div.date_content div.date_package div.member { background-image:url(/date-ideas/wp-content/themes/images/price-desc-bckg.png) !important; height:30px !important; margin-top:5px; width:306px; margin-left:15px; }
 div.date_content div.date_package div.member div.descriptor { margin-top: 0px; padding: 10px 0 0 10px; color:#FFF; font-weight:700; }
 div.date_content div.date_package div.package_info div#buy { }
 div.date_content div.date_package div.package_info div#buy div#buy-button { margin: 0 18px; float: left; }
@@ -123,9 +123,3 @@ div.date-content div.content div.overlay-content {text-align: center;}
 
 a.similar-package-link {color:#fff;}
 a.similar-package-tags {color:#f07323;}
-
-
-
-
-
-

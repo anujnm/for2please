@@ -3,14 +3,14 @@
 <script type="text/javascript">
 <?php if ( !is_user_logged_in() ) { ?>
 if (document.referrer == "" || document.referrer == "http://fortwoplease.com/" || document.referrer.indexOf("fortwoplease") < 0) {
-	window.location.assign('/vancouver/subscribe');
+	window.location.assign('/date-ideas/subscribe');
 }
 <?php } ?>
 
 </script>
 
-<link rel="stylesheet" type="text/css" href="/vancouver/wp-content/themes/fortwoplease/index.css" />
-<script src="/vancouver/js/jquery.dropkick-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/date-ideas/wp-content/themes/fortwoplease/index.css" />
+<script src="/date-ideas/js/jquery.dropkick-1.0.0.js" type="text/javascript" charset="utf-8"></script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <div class="center_content">
@@ -30,7 +30,7 @@ if (document.referrer == "" || document.referrer == "http://fortwoplease.com/" |
 	</div>
 </div>
  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script src="/vancouver/js/f2p-main.js" type="text/javascript" charset="utf-8"></script>
+<script src="/date-ideas/js/f2p-main.js" type="text/javascript" charset="utf-8"></script>
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>

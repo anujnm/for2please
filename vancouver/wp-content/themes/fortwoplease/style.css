@@ -1,7 +1,7 @@
 /*
 Theme Name:     Twenty Eleven Child
-Theme URI:      http://fortwoplease.com/vancouver
-Description:    ForTwoPlease.com Custom Theme 
+Theme URI:      http://fortwoplease.com/date-ideas
+Description:    ForTwoPlease.com Custom Theme
 Author:         Amin Moshgabadi
 Author URI:     http://aminmoshgabadi.com
 Template:       twentyeleven
@@ -64,7 +64,7 @@ background-color:#0c0c0c;
 border-bottom:solid 3px #777;
 }
 
-div.search_background { 
+div.search_background {
 box-shadow: 1px 14px 30px 4px #333;
 /* box-shadow: 2px 1px 20px #333, -2px 1px 20px #333; */
  width: 1060px; margin: 0 auto; background-color: white; padding-bottom: 30px; }
@@ -144,7 +144,7 @@ div#word-on-street p{
 	margin-bottom:10px;
 }
 /* Navigation */
-.nav, .nav ul { 
+.nav, .nav ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -179,20 +179,20 @@ div#word-on-street p{
 
 .nav li a:hover{
   background: #ccc;
-  color: #000;	
+  color: #000;
 
 }
-#nav-one li:hover a, 
+#nav-one li:hover a,
 #nav-one li.sfHover a {
   background: #ccc;
   color: #000;
 }
-#nav-one li:hover ul a, 
+#nav-one li:hover ul a,
 #nav-one li.sfHover ul a{
   background: #E7722B;
   color: white;
 }
-#nav-one li:hover ul a:hover, 
+#nav-one li:hover ul a:hover,
 #nav-one li.sfHover ul a:hover {
   background: white;
   color: #E7722B;
@@ -231,7 +231,7 @@ div#word-on-street p{
 .header-dropdown {
     list-style: none;
     margin: 0;
-    padding: 0;  
+    padding: 0;
     font-family: Ubuntu;
     z-index: 120;
     position: relative;
@@ -269,20 +269,20 @@ div#word-on-street p{
 
 .header-dropdown li a:hover{
   background: #ccc;
-  color: #000;  
+  color: #000;
 
 }
-#nav-two li:hover a, 
+#nav-two li:hover a,
 #nav-two li.sfHover a {
   background: #ccc;
   color: #000;
 }
-#nav-two li:hover ul a, 
+#nav-two li:hover ul a,
 #nav-two li.sfHover ul a{
   background: #E7722B;
   color: white;
 }
-#nav-two li:hover ul a:hover, 
+#nav-two li:hover ul a:hover,
 #nav-two li.sfHover ul a:hover {
   background: white;
   color: #E7722B;
@@ -333,7 +333,7 @@ background:#CCC;
 	background-color:#000;
 	height:40px;
 	width: 65px;
-	margin-bottom: 10px; 
+	margin-bottom: 10px;
 	margin-top: 10px;
 	margin-left:115px;
 	border-radius:5px;
@@ -348,22 +348,22 @@ background:#CCC;
 
             /* This rule is read by Galleria to define the gallery height: */
 #galleria{height:470px;width:710px;}
-			
-			
+
+
 .buynow {
-	background:url(/vancouver/wp-content/themes/images/get-it-normal.png);
+	background:url(/date-ideas/wp-content/themes/images/get-it-normal.png);
 	cursor:pointer;
 }.buynow:hover {
-	background:url(/vancouver/wp-content/themes/images/get-t-hover.png);
+	background:url(/date-ideas/wp-content/themes/images/get-t-hover.png);
 }.buynow:active {
-	background:url(/vancouver/wp-content/themes/images/get-it-pressed.png);
+	background:url(/date-ideas/wp-content/themes/images/get-it-pressed.png);
 }
 #package-description ul{
 	margin-top:0px;
 }
 #chk-mor,#chk-eve,#chk-day{
 	position:relative;
-	top:2px;	
+	top:2px;
 }
 
 #loading{
@@ -371,20 +371,20 @@ background:#CCC;
 	margin-left: 130px; margin-top: 10px;
 }
 .testsearch{
-	cursor:pointer;	
+	cursor:pointer;
 }
 .testsearch2{
 	background:RGBA(0,0,0,0.7);height:200px;width:330px;
   display: none;
-  
+
 }
 .testsearch-content{
-  cursor:pointer; 
+  cursor:pointer;
 }
 .testsearch2-content{
   background:RGBA(0,0,0,0.7);height:200px;width:320px;
   display: none;
-  
+
 }
 #text-search:hover{
 	cursor:pointer;
@@ -395,27 +395,27 @@ background:#CCC;
 }
 
 #searchsubmit{
-	background-image:url("/vancouver/wp-content/themes/images/go-button.png"); height:75px; width:202px;
+	background-image:url("/date-ideas/wp-content/themes/images/go-button.png"); height:75px; width:202px;
 }
 #searchsubmit:hover{
 	cursor:pointer;
-	background-image:url("/vancouver/wp-content/themes/images/go-hover.png");
+	background-image:url("/date-ideas/wp-content/themes/images/go-hover.png");
 }
 #searchsubmit:active{
 	cursor:pointer;
-	background-image:url("/vancouver/wp-content/themes/images/go-press.png");
+	background-image:url("/date-ideas/wp-content/themes/images/go-press.png");
 }
 
 #suprise-me{
-	background-image:url("/vancouver/wp-content/themes/images/suprise-button.png"); height:38px; width:202px;
+	background-image:url("/date-ideas/wp-content/themes/images/suprise-button.png"); height:38px; width:202px;
 }
 #suprise-me:hover{
 	cursor:pointer;
-	background-image:url("/vancouver/wp-content/themes/images/suprise-hover.png");
+	background-image:url("/date-ideas/wp-content/themes/images/suprise-hover.png");
 }
 #suprise-me:active{
 	cursor:pointer;
-	background-image:url("/vancouver/wp-content/themes/images/suprise-press.png");
+	background-image:url("/date-ideas/wp-content/themes/images/suprise-press.png");
 }
 
 
@@ -423,18 +423,18 @@ background:#CCC;
 	position:relative;
 	top:10px;
 	font-weight:700;
-	
+
 }
 
 #links-cat a{
 	margin-right:14px;
-	
+
 }
 
 
 #links-cat a:hover{
 	cursor:pointer;
-	
+
 }
 
 .selected{
@@ -442,7 +442,7 @@ background:#CCC;
 }
 
 
- 
+
  .f2p-button {
   color: #ffffff;
   font-size: 24px;
@@ -508,7 +508,7 @@ background:#CCC;
 	margin-top:20px;
 	clear:both;
 	height:40px;
-	
+
 }
 .result-type a{
 	color: #f07323;
@@ -521,7 +521,7 @@ background:#CCC;
   width:330px;
   height:35px;
   color:white;
-  
+
  }
  .overlay h3{
 	padding-top:6px;
@@ -540,7 +540,7 @@ background:#CCC;
   width:320px;
   height:35px;
   color:white;
-  
+
  }
 
 .overlay-content h3{

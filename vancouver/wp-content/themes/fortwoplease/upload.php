@@ -71,7 +71,7 @@ Template Name: upload
         <div>
           <p class="lightboxMessage hide m-t-m"></p>
           <p style="font-size: 18px; font-weight:bold;">Business Details </p>
-          <form id="create_date_idea_form" action="/vancouver/wp-admin/admin-ajax.php" method="post" enctype="multipart/form-data" data-remote="true">
+          <form id="create_date_idea_form" action="/date-ideas/wp-admin/admin-ajax.php" method="post" enctype="multipart/form-data" data-remote="true">
             <input type='hidden' name='action' id='action' value='create_date_idea' />
             <?php
             if (isset($current_city)) {

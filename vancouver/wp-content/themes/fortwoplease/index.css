@@ -1,5 +1,5 @@
 div.center_content { margin: 0 auto; background-color: white; width: 1060px; box-shadow: 1px 14px 30px 4px #333; }
-div.center_content div.header { background-image: url('/vancouver/wp-content/themes/images/search-widget-bckg.png'); width: 1036px; height: 224px; }
+div.center_content div.header { background-image: url('/date-ideas/wp-content/themes/images/search-widget-bckg.png'); width: 1036px; height: 224px; }
 div.center_content div.header div.controls { float: left; margin: 0; margin: 20px 0 0 16px; }
 div.center_content div.header ul li { list-style: none; float: left; margin:0;}
 div.center_content div.header ul.title { float:left; color: white; margin: 18px 0 2px 18px; width: 736px; }
@@ -15,7 +15,7 @@ div.center_content div.header ul.filters li div.datepicker_options div.datepicke
 
 
 div.center_content div.header div.left_controls { position: relative; }
-div.center_content div.header div.left_controls div.help { background-image: url('/vancouver/wp-content/themes/images/qmark-normal.png'); height: 18px; width: 18px; position: absolute; top:25px; right: 27px; }
+div.center_content div.header div.left_controls div.help { background-image: url('/date-ideas/wp-content/themes/images/qmark-normal.png'); height: 18px; width: 18px; position: absolute; top:25px; right: 27px; }
 div.center_content div.header div.left_controls div.go_btn { position: absolute; top: 35px; right: 44px; }
 div.center_content div.header div.left_controls div.surprise_btn { position: absolute; top: 124px; right: 40px; }
 /*div.center_content div.header div.left_controls div.go_btn { margin:0 !important; padding: 0 !important; position:absolute !important; top: 40px !important; left: 780px !important; }*/
