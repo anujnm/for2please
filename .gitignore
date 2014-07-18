@@ -124,3 +124,7 @@ vancouver/wp-content/themes/fortwoplease/stripe-php-1.10.1/test/Stripe/Error.php
 vancouver/wp-content/themes/fortwoplease/stripe-php-1.10.1/test/Stripe/DiscountTest.php
 
 crawlers/yelp/data.txt
+
+*.png
+
+*.sql
