@@ -12,7 +12,7 @@
 
 	</div><!-- #main -->
 
-	
+
 
 	<div id="colophon" role="contentinfo">
 
@@ -24,10 +24,10 @@
 					get_sidebar( 'footer' );
 			?>
 
-			
+
 	</div><!-- #colophon -->
 
-<div id="how-it-works" style="background:url(/dev/wp-content/themes/images/addons/add-on-bckg.png);border-radius:10px;border:solid 1px #ccc;width:900px;height:500px;display:none;color:#FFF;">
+<div id="how-it-works" style="background:url(/wp-content/themes/images/addons/add-on-bckg.png);border-radius:10px;border:solid 1px #ccc;width:900px;height:500px;display:none;color:#FFF;">
 
 <h2 style="margin-top:20px;margin-bottom:20px;">How it Works</h2>
 <p style="margin-top:20px;margin-bottom:20px;font-weight:700;">We make it easy to go on your next great date.</p>
@@ -87,29 +87,29 @@
 <script type="text/javascript">
 jQuery("#text-search").click( function () {
 	var query = jQuery("#input-text-search").val();
-	window.location.assign("/dev/index.php?q=" + query);
+	window.location.assign("/index.php?q=" + query);
  });
-		 
+
 jQuery("#text-form").submit( function (e) {
 	e.preventDefault();
 	var query = jQuery("#input-text-search").val();
-	window.location.assign("/dev/index.php?q=" + query);
+	window.location.assign("/index.php?q=" + query);
 });
 
 jQuery(document).ready(function(){
-	
+
 	jQuery("#nav-one li").hover(
-		function(){ 
-            jQuery("ul", this).fadeIn("fast"); 
-        }, 
-		function() { } 
+		function(){
+            jQuery("ul", this).fadeIn("fast");
+        },
+		function() { }
 	);
   	if (document.all) {
 		jQuery("#nav-one li").hoverClass ("sfHover");
 	}
 
     jQuery("#nav-two li").hover(
-        function() { 
+        function() {
             jQuery("ul", this).fadeIn("fast");
         },
         function() {}
@@ -119,32 +119,32 @@ jQuery(document).ready(function(){
         jQuery("nav-two li").hoverClass("sfHover");
     }
 });
-	  
+
 jQuery.fn.hoverClass = function(c) {
 	return this.each(function(){
-		jQuery(this).hover( 
+		jQuery(this).hover(
 			function() { jQuery(this).addClass(c);  },
 			function() { jQuery(this).removeClass(c); }
 		);
 	});
-};	  
-		
-	
+};
+
+
 jQuery("#forgotpass").click(function(){
 	jQuery("#login-part").hide();
 	jQuery("#tab3_login").show();
 	});
-	
+
 	jQuery("#qmark").click(function(e){
 		jQuery('#qmark-popup').lightbox_me({
-        centered: true, 
+        centered: true,
         });
     e.preventDefault();
 	});
 
 	jQuery("#howitworks").click(function(e){
 		jQuery('#how-it-works').lightbox_me({
-        centered: true, 
+        centered: true,
         });
     e.preventDefault();
 	return false;
@@ -152,7 +152,7 @@ jQuery("#forgotpass").click(function(){
 
 jQuery("#suggestadate").click(function(e){
 		jQuery('#suggest-date').lightbox_me({
-        centered: true, 
+        centered: true,
         });
     e.preventDefault();
 	return false;
@@ -160,12 +160,12 @@ jQuery("#suggestadate").click(function(e){
 
 jQuery("#sign_in").click(function(e){
 //	if (jQuery("#sign_in_block").length == 0) {
-		jQuery("#sign_in_div").load('/dev/login', function() {
-			//window.setTimeout("GoogleTracking('/dev/login/');", 100);
+		jQuery("#sign_in_div").load('/login', function() {
+			//window.setTimeout("GoogleTracking('/login/');", 100);
 			jQuery("#sign_in_div").lightbox_me({
-				centered: true, 
+				centered: true,
 			});
-			
+
 		});
 		e.preventDefault();
 	return false;
@@ -173,20 +173,20 @@ jQuery("#sign_in").click(function(e){
 
 jQuery("#join_now").click(function(e){
 //	if (jQuery("#join_block").length == 0) {
-		jQuery("#join_div").load('/dev/join', function() {
+		jQuery("#join_div").load('/join', function() {
 			// Don't need Google Analytics on Dev
-			//window.setTimeout("GoogleTracking('/dev/join/');", 100);
+			//window.setTimeout("GoogleTracking('/join/');", 100);
 			jQuery("#join_div").lightbox_me({
-				centered: true, 
+				centered: true,
 			});
-			
+
 		});
 		e.preventDefault();
 	return false;
 });
 
 jQuery("#not_from_location").click(function(e) {
-    jQuery("#location_div").load('/dev/city/', function() {
+    jQuery("#location_div").load('/city/', function() {
         jQuery("#location_div").lightbox_me({
             centered: true,
         });
@@ -214,8 +214,8 @@ ref.parentNode.insertBefore(js, ref);
 }(document));
 
 
-	
-	
+
+
 </script>
 
 </body>

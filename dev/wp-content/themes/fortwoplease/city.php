@@ -11,7 +11,7 @@ Template Name: city
 <style type="text/css">
 body { margin: 0; font-family: 'Ubuntu'; }
 
-div.center_box { position:relative; width: 514px; height: 448px; background: url('/dev/wp-content/themes/images/sign_in_box.png') no-repeat top left; color: white; text-align: center;}
+div.center_box { position:relative; width: 514px; height: 448px; background: url('/wp-content/themes/images/sign_in_box.png') no-repeat top left; color: white; text-align: center;}
 div.center_box p { margin: 0; font-size: 122%; }
 div.center_box div.top { padding: 35px 20px 0 20px; text-align: center; }
 div.center_box div.top h1 { color: #f4782c !important;  padding: 0; font-size: 222%; }
@@ -59,7 +59,7 @@ div.center_box .inputs p {width: 80%; margin-left: 52px;}
     <div class="top">
         <h1>Not from Vancouver?</h1>
     </div>
-        
+
     <div class="inputs">
         <p style='width:80%; text-align: center; margin-left:52px; margin-right:51px;'>Tell us where you're from and we'll update you when we launch there!</p>
         <form id="email_subscription_form" action="" method="post">
@@ -111,7 +111,7 @@ div.center_box .inputs p {width: 80%; margin-left: 52px;}
         </form>
         <br/>
     </div>
-    
+
     <div class="bottom">
         <p><label>Wait, you're from Vancouver after all?</label> <a href="#" id="login_link" style="font-weight: bold;">Login here</a></p>
     </div>
@@ -119,9 +119,9 @@ div.center_box .inputs p {width: 80%; margin-left: 52px;}
 
 <script type="text/javascript">
     jQuery('#login_link').click(function() {
-        jQuery("#join_block").load("/dev/login", function() {
+        jQuery("#join_block").load("/login", function() {
             // Don't need Google Analytics on Dev
-            //window.setTimeout("GoogleTracking('/dev/login/');", 100);
+            //window.setTimeout("GoogleTracking('/login/');", 100);
         });
     });
 
@@ -141,7 +141,7 @@ div.center_box .inputs p {width: 80%; margin-left: 52px;}
         jQuery('#password-password<?php echo $randVal ?>').show();
         jQuery('#password-password<?php echo $randVal ?>').focus();
     });
-    
+
     jQuery('#password-password<?php echo $randVal ?>').blur(function() {
         if(jQuery('#password-password<?php echo $randVal ?>').val() == '') {
             jQuery('#password-clear<?php echo $randVal ?>').show();
@@ -150,7 +150,7 @@ div.center_box .inputs p {width: 80%; margin-left: 52px;}
     });
 
     function verifyEmail(email){
-        var status = false;     
+        var status = false;
         var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
          if (email.search(emailRegEx) == -1) {
               $('.lightboxMessage').html("Please enter a valid email address.").show();
@@ -166,7 +166,7 @@ div.center_box .inputs p {width: 80%; margin-left: 52px;}
             var input_data = jQuery('#email_subscription_form').serialize();
             jQuery.ajax({
                 type: "POST",
-                url:  "/dev/wp-admin/admin-ajax.php",
+                url:  "/wp-admin/admin-ajax.php",
                 data: "action=location_subscribe&" + input_data,
                 success: function(msg) {
                     if(msg == 'Success') {
@@ -183,12 +183,12 @@ div.center_box .inputs p {width: 80%; margin-left: 52px;}
                                 setTimeout("location.reload(true);", 5000);
                             });
                         }
-                    } else { 
+                    } else {
                         $('.lightboxMessage').html(msg).show();
                     };
                 }
             });
-        } 
+        }
         return false;
     });
 </script>

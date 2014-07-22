@@ -23,7 +23,7 @@
 <!--<![endif]-->
 <head>
 	<?php include_once("analyticstracking.php") ?>
-	<link rel="icon" type="image/png" href="/dev/wp-content/themes/images/favicon2c.png">
+	<link rel="icon" type="image/png" href="/wp-content/themes/images/favicon2c.png">
 
 	<?php
 		echo '<meta property="og:title" content="'.get_field('sub_title').'" />';
@@ -80,15 +80,15 @@
 
 	<?php wp_head(); ?>
 
-	<link rel="stylesheet" type="text/css" href="/dev/js/css/ui-darkness/jquery-ui-1.8.20.custom.css" />
-	<link rel="stylesheet" href="/dev/js/dropkick.css" type="text/css" />
-	<script src="/dev/js/f2p-base.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="/js/css/ui-darkness/jquery-ui-1.8.20.custom.css" />
+	<link rel="stylesheet" href="/js/dropkick.css" type="text/css" />
+	<script src="/js/f2p-base.js" type="text/javascript"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-	<script src="/dev/js/jquery_cookie.js" type="text/javascript"></script>
-	<script src="/dev/js/sessionstorage.1.4.js" type="text/javascript"></script>
-	<script src="/dev/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
-	<script src="/vancouver/js/jquery.lightbox_me.js" type="text/javascript"></script>
-	<script src="https://fortwoplease.com/dev/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
+	<script src="/js/jquery_cookie.js" type="text/javascript"></script>
+	<script src="/js/sessionstorage.1.4.js" type="text/javascript"></script>
+	<script src="/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
+	<script src="/js/jquery.lightbox_me.js" type="text/javascript"></script>
+	<script src="https://fortwoplease.com/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
 	<!-- start Mixpanel -->
 	<script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
 		typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
@@ -99,7 +99,7 @@
 	<script>
 		function downloadJSAtOnload() {
 			var element = document.createElement("script");
-			element.src = "/dev/js/jquery-ui.multidatespicker.js";
+			element.src = "/js/jquery-ui.multidatespicker.js";
 			document.body.appendChild(element);
 
 			var element3 = document.createElement("script");
@@ -155,17 +155,17 @@
 					var squeeze_show_cookie = $.cookie('squeeze_popup');
 					if (squeeze_show_cookie == null) {
 						setTimeout(function() {
-							jQuery("#join_div").load('/dev/join', function() {
+							jQuery("#join_div").load('/join', function() {
 
 								jQuery("#join_div").lightbox_me({
 									centered: true,
 								});
-								jQuery('#join_div').append('<img src="/dev/wp-content/themes/images/close_icon.png" width="34" height="34" id="squeeze_close_button" style="position:absolute; top: 14px; left: 470px; cursor: pointer;" onclick="squeeze_close_action();" />');
+								jQuery('#join_div').append('<img src="/wp-content/themes/images/close_icon.png" width="34" height="34" id="squeeze_close_button" style="position:absolute; top: 14px; left: 470px; cursor: pointer;" onclick="squeeze_close_action();" />');
 							});
 
 		/*
 							setTimeout(function() {
-								jQuery('#join_div').append('<img src="/dev/wp-content/themes/images/close_icon.png" width="34" height="34" id="squeeze_close_button" style="position:absolute; top: 14px; left: 470px; cursor: pointer;" onclick="squeeze_close_action();" />');
+								jQuery('#join_div').append('<img src="/wp-content/themes/images/close_icon.png" width="34" height="34" id="squeeze_close_button" style="position:absolute; top: 14px; left: 470px; cursor: pointer;" onclick="squeeze_close_action();" />');
 								}, 200);
 								*/
 
@@ -245,16 +245,16 @@
 </div>
 <div id="overlay">
      <div>
-          <img src="/dev/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
+          <img src="/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
      </div>
 </div>
 <div id="brandingfortwo">
-	<img class="source-image" src="/dev/wp-content/themes/images/main-bckg2.jpg" alt="" />
+	<img class="source-image" src="/wp-content/themes/images/main-bckg2.jpg" alt="" />
 	<div id="header-content">
 		<div id="header-left" style="float:left;">
 			<div style='margin-top:20px;'>
-				<a class="header-logo-link" href="/dev/">
-					<img src="/dev/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
+				<a class="header-logo-link" href="/">
+					<img src="/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
 				</a>
 				<span style='font-size:18px'>The best date ideas in your city</span>
 			</div>
@@ -264,14 +264,28 @@
 		<div id="header-about" style="float:right;margin-top:30px;">
 			<ul id="nav-one" class="nav m-t-m m-l-xl" style="float:left;">
 				<li>
-					<a id="downarrow" style="float:left;" href="#item1">About&nbsp;&nbsp;<img src="/dev/wp-content/themes/images/down-arrow.png" /></a>
+					<a id="downarrow" style="float:left;" href="#item1">Vancouver<img src="/wp-content/themes/images/down-arrow.png" /></a>
+					<ul style="display: block; border-top: 3px solid #6f6f6f;">
+						<li><a class="about" id="suggestadate"href="#">Toronto</a></li>
+						<li><a class="about" id="faq" href="/faq/">Victoria</a></li>
+						<li><a class="about" id="contactus" href="/contact-us/">Seattle</a></li>
+						<li><a class="about" id="aboutus" href="/about-us-fortwoplease/">Portland</a></li>
+						<li><a class="about" id="careers" href="/careers/">San Francisco</a></li>
+						<li><a class="about" id="policies" href="/policies/">Los Angeles</a></li>
+						<li><a class="about" id="policies" href="/policies/">San Diego</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="nav-one" class="nav m-t-m m-l-xl" style="float:left;">
+				<li>
+					<a id="downarrow" style="float:left;" href="#item1">About&nbsp;&nbsp;<img src="/wp-content/themes/images/down-arrow.png" /></a>
 					<ul style="display: block; border-top: 3px solid #6f6f6f;">
 						<li><a class="about" id="suggestadate"href="#">Suggest a Date Idea</a></li>
-						<li><a class="about" id="faq" href="/dev/faq/">FAQ</a></li>
-						<li><a class="about" id="contactus" href="/dev/contact-us/">Contact</a></li>
-						<li><a class="about" id="aboutus" href="/dev/about-us-fortwoplease/">About Us</a></li>
-						<li><a class="about" id="careers" href="/dev/careers/">Careers</a></li>
-						<li><a class="about" id="policies" href="/dev/policies/">Policies</a></li>
+						<li><a class="about" id="faq" href="/faq/">FAQ</a></li>
+						<li><a class="about" id="contactus" href="/contact-us/">Contact</a></li>
+						<li><a class="about" id="aboutus" href="/about-us-fortwoplease/">About Us</a></li>
+						<li><a class="about" id="careers" href="/careers/">Careers</a></li>
+						<li><a class="about" id="policies" href="/policies/">Policies</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -279,21 +293,21 @@
 
 		<div id="header-right" style="float:right;margin-top:15px;margin-right:20px;">
 			<div style="margin: 0 0 6px 16px;">
-				<a href="http://www.twitter.com/fortwoplease" target="_blank"><img src="/dev/wp-content/themes/images/twitter_page_btn.png" /></a>&nbsp;&nbsp;
-				<a href="http://www.facebook.com/fortwoplease" target="_blank"><img src="/dev/wp-content/themes/images/fb_page_btn.png" /></a>
+				<a href="http://www.twitter.com/fortwoplease" target="_blank"><img src="/wp-content/themes/images/twitter_page_btn.png" /></a>&nbsp;&nbsp;
+				<a href="http://www.facebook.com/fortwoplease" target="_blank"><img src="/wp-content/themes/images/fb_page_btn.png" /></a>
 			</div>
 			<div class="account_links">
 			<?php if ( !is_user_logged_in() ) { ?>
 				<!--<a class="logmein" href="#">Login</a> | <a class="registerme" href="#">Register</a>-->
 				<a id="sign_in" class="header-signin-link" href="#">Login</a> | <a class="header-join-link" id="join_now" href="#">Join</a>
 			<?php } else{ ?>
-				<a class="header-account-link" href="/dev/myaccount/">My Account</a> | <a class="header-signout-link" href="<?php echo wp_logout_url(current_page_url()); ?>" title="Logout">Logout</a>
+				<a class="header-account-link" href="/myaccount/">My Account</a> | <a class="header-signout-link" href="<?php echo wp_logout_url(current_page_url()); ?>" title="Logout">Logout</a>
 			<?php } ?>
 			</div>
 		</div>
 	</div>
 
-	<div id="suggest-date" style="background:url(/dev/wp-content/themes/images/addons/add-on-bckg.png);color:white;padding:20px;display:none;width:500px;">
+	<div id="suggest-date" style="background:url(/wp-content/themes/images/addons/add-on-bckg.png);color:white;padding:20px;display:none;width:500px;">
 		<strong>Suggest a Date</strong>
 		<p>Do you have a great date idea that we've missed? Let us know on our <a href="https://facebook.com/fortwoplease/" target="_blank">Facebook Page</a> or send us an email (dateideas@fortwoplease.com) - we're always looking for hidden gems!</p> <br/>
 		<strong>Not sure if it's a good idea?</strong>
@@ -305,25 +319,25 @@
 		<div class="category_box">
 			<ul class="categories">
         <?php if ($category == "restaurants") {?>
-          <li><a href="/dev/date-type/restaurants/" class="selected">Dining</a></li>
+          <li><a href="/date-type/restaurants/" class="selected">Dining</a></li>
         <?php } else { ?>
-          <li><a href="/dev/date-type/restaurants/">Dining</a></li>
+          <li><a href="/date-type/restaurants/">Dining</a></li>
         <?php } if ($category == "active") {?>
-          <li><a href="/dev/date-type/active/" class="selected">Active</a></li>
+          <li><a href="/date-type/active/" class="selected">Active</a></li>
         <?php } else { ?>
-          <li><a href="/dev/date-type/active/">Active</a></li>
+          <li><a href="/date-type/active/">Active</a></li>
         <?php } if ($category == "adventurous") {?>
-          <li><a href="/dev/date-type/adventurous/" class="selected">Adventurous</a></li>
+          <li><a href="/date-type/adventurous/" class="selected">Adventurous</a></li>
         <?php } else { ?>
-          <li><a href="/dev/date-type/adventurous/">Adventurous</a></li>
+          <li><a href="/date-type/adventurous/">Adventurous</a></li>
         <?php } if ($category == "getaways") {?>
-          <li><a href="/dev/date-type/getaways/" class="selected">Getaways</a></li>
+          <li><a href="/date-type/getaways/" class="selected">Getaways</a></li>
         <?php } else { ?>
-          <li><a href="/dev/date-type/getaways/">Getaways</a></li>
+          <li><a href="/date-type/getaways/">Getaways</a></li>
         <?php } if ($category == "entertainment") {?>
-          <li><a href="/dev/date-type/entertainment/" class="selected">Entertainment</a></li>
+          <li><a href="/date-type/entertainment/" class="selected">Entertainment</a></li>
         <?php } else { ?>
-          <li><a href="/dev/date-type/entertainment/">Entertainment</a></li>
+          <li><a href="/date-type/entertainment/">Entertainment</a></li>
         <?php } ?>
 				<div style="clear: both;"></div>
 			</ul>
@@ -331,7 +345,7 @@
 		<div class="search_box">
 			<form id="text-form">
 				<input id="input-text-search" type="text" class="search_field"/>
-				<img id="text-search" src="/dev/wp-content/themes/images/search-mag.png" />
+				<img id="text-search" src="/wp-content/themes/images/search-mag.png" />
 			</form>
 		</div>
 		<div style="clear: both;"></div>

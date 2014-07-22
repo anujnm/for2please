@@ -11,7 +11,7 @@ Template Name: reset_password
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <style type="text/css">
 body { margin: 0; font-family: 'Ubuntu'; }
-div.center_box { position:relative; width: 514px; height: 448px; background: url('/dev/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
+div.center_box { position:relative; width: 514px; height: 448px; background: url('/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
 div.center_box p { margin: 0; font-size: 122%; }
 div.center_box div.top { padding: 25px; text-align: center; }
 div.center_box div.top h1 { color: #f35a23 !important; padding: 15px 0 20px 0; font-size: 266%; }
@@ -39,7 +39,7 @@ div.center_box div.bottom p label { color: #f35a23; }
 		<h1>LOSE SOMETHING?</h1>
 		<p>Enter your email to reset your password.</p>
 	</div>
-		
+
 	<div class="inputs">
 		<form id="reset_pass_form" method="post" action="<?php echo site_url('wp-login.php?action=lostpassword', 'login_post') ?>"
 			<p>
@@ -54,7 +54,7 @@ div.center_box div.bottom p label { color: #f35a23; }
 			</p>
 		</form>
 	</div>
-	
+
 	<div class="bottom">
 		<p><label>Back to</label> <a href="#" id="pass_login_link">login</a></p>
 	</div>
@@ -66,12 +66,12 @@ div.center_box div.bottom p label { color: #f35a23; }
 		var input_data = jQuery('#reset_pass_form').serialize();
 		jQuery.ajax({
 			type: "POST",
-			url:  "/dev/wp-admin/admin-ajax.php",
+			url:  "/wp-admin/admin-ajax.php",
 			data: "action=userhasftpaccount&" + input_data,
 			success: function(msg) {
 				console.log(msg);
 				if(msg == 'Success-1'){
-					jQuery("#password_block").load("/dev/login-fb");
+					jQuery("#password_block").load("/login-fb");
 				} else {
 					console.log("submit form now...");
 					jQuery('#reset_pass_form').submit();
@@ -81,9 +81,9 @@ div.center_box div.bottom p label { color: #f35a23; }
 	});
 
 	jQuery('#pass_login_link').click(function() {
-		jQuery("#password_block").load("/dev/login", function() {
+		jQuery("#password_block").load("/login", function() {
 			// Don't need Google Analytics on Dev
-			//window.setTimeout("GoogleTracking('/dev/login')", 100);
+			//window.setTimeout("GoogleTracking('/login')", 100);
 		});
 	});
 
@@ -97,13 +97,13 @@ div.center_box div.bottom p label { color: #f35a23; }
 			el.value = '';
 		}
 	}
-	
+
 	/*
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-22573395-1']);
 	_gaq.push(['_setDomainName', 'fortwoplease.com']);
 	_gaq.push(['_trackPageview']);
-	
+
 	(function() {
 		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';

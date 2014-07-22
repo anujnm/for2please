@@ -32,69 +32,6 @@ function equalHeight () {
 	}
 }
 
-/*
-function stripeResponseHandler(status, response)
-{
-   if (response.error)
-   {
-      $("#payment-error").html(response.error.message).show();;
-      $("#buy-now").removeAttr("disabled");
-      $("#overlay").css("visibility", "hidden");
-      $("#overlay-background").css("visibility", "hidden");
-   }
-   else
-   {
-      // Stripe.js generated a token successfully. The card can now be charged.
-      var token = response.id;
-      var redemptionFirstName = $("#first_name").val();
-      var redemptionLastName = $("#last_name").val();
-      var firstName = $("#billing_fname").val();
-      var lastName = $("#billing_lname").val();
-      var email = $("#billing_email").val();
-      var quantity = $("#buy-quantity").val();
-      var nonce_name = 'purchase_' + postID;
-      var ajax_nonce = $('#' + nonce_name).val();
-
-      var request = $.ajax({
-		type: "POST",
-		url: "/dev/wp-admin/admin-ajax.php",
-		dataType: "json",
-		data: "action=pp_action&stripeToken="+token+"&email="+email+"&firstName="+firstName+"&lastName="+lastName+"&quantity="+quantity+"&theID="+postID+"&redemptionFirstName="+redemptionFirstName+"&redemptionLastName="+redemptionLastName+"&checkout="+ajax_nonce
-	});
-
- 	request.success(function(msg)
-	{
-      if (msg.result === 0)
-      {
-        jQuery('#buy-process').html(msg.message).attr("style", "display:none; z-index: 100; position: absolute; background-color: #1a1a1a; overflow:hidden; margin-bottom:20px;");
-        jQuery("#buy-process").show();
-        mixpanel.track('Purchase Successful', {'postID': postID });
-        var ga_data = msg.ga_data;
-        GAAddTransaction(ga_data.transID, ga_data.merchantName, ga_data.total, ga_data.tax);
-        GAAddItem(ga_data.transID, ga_data.productName, ga_data.category, ga_data.price_per_item, ga_data.quantity);
-        ga('ecommerce:send');
-      }
-      else
-      {
-        if (msg.message !== null && msg.message !== undefined) {
-        	$("#payment-error").html(msg.message).show();;
-        }
-      }
-      $("#buy-now").removeAttr("disabled");
-      $("#overlay").css("visibility", "hidden");
-      $("#overlay-background").css("visibility", "hidden");
-    });
-
-    request.error(function(jqXHR, textStatus)
-    {
-    	$("#payment-error").html("Failed to complete request, your card was not charged").show();;
-    	$("#buy-now").removeAttr("disabled");
-    	$("#overlay").css("visibility", "hidden");
-    	$("#overlay-background").css("visibility", "hidden");
-    });
-   }
-}
-*/
 
 jQuery(document).ready(function($) {
 	equalHeight();
@@ -129,21 +66,6 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	if(typeof price !== 'undefined') {
-		/*
-		var price_t=price*jQuery('#buy-quantity').val();
-		var taxe_t=taxes*jQuery('#buy-quantity').val();
-		var fees_t=fees*jQuery('#buy-quantity').val();
-		var total_t = total*jQuery('#buy-quantity').val();
-
-		jQuery('#price').html("Price: $" + price_t.toFixed(2));
-		jQuery('#taxes').html("Taxes: $" + taxe_t.toFixed(2));
-		jQuery('#fees').html("Fees: $" + fees_t.toFixed(2));
-		jQuery('#total_price').html("Total: $<span id='total_amount'>" + total_t.toFixed(2) + "</span>");
-		jQuery('#amount').val(total_t.toFixed(2));
-		*/
-	}
-
 	jQuery(".testsearch").live("mouseenter",function(){jQuery("div.testsearch2",this).fadeIn('fast');});
 	jQuery(".testsearch").live("mouseleave",function(){jQuery("div.testsearch2",this).fadeOut('fast');});
 
@@ -158,7 +80,7 @@ jQuery(document).ready(function($) {
 			if(sessionStorage.getItem(i-1)) {
 				jQuery.ajax({
 					type: "POST",
-					url:  "/dev/wp-admin/admin-ajax.php",
+					url:  "/wp-admin/admin-ajax.php",
 					data: "action=getpermalink&id=" + sessionStorage.getItem(i-1),
 					success: function(msg){
 						jQuery("#previous_page_link").html("<a href='"+msg+"'><div class='previous_page_link'><div>Prev</div></div></a>");
@@ -168,7 +90,7 @@ jQuery(document).ready(function($) {
 			if(sessionStorage.getItem(i+1)) {
 				jQuery.ajax({
 					type: "POST",
-					url:  "/dev/wp-admin/admin-ajax.php",
+					url:  "/wp-admin/admin-ajax.php",
 					data: "action=getpermalink&id=" + sessionStorage.getItem(i+1),
 					success: function(msg){
 						jQuery("#next_page_link").html("<a href='"+msg+"'><div class='next_page_link'><div>Next</div></div></a>");
@@ -219,111 +141,12 @@ jQuery(document).ready(function($) {
 
 
 	if(typeof price !== 'undefined') {
-		/*
-		jQuery("#buy-button").click(function() {
-			jQuery("#buy").hide();
-			$("#overlay").css("visibility", "visible");
-			$("#overlay-background").css("visibility", "visible");
-
-			if(isLoggedIn()==0) {
-				$("#overlay").css("visibility", "hidden");
-				$("#overlay-background").css("visibility", "hidden");
-				ga('send', 'event', 'button', 'click', 'buy-button-logged-in', 1);
-				mixpanel.track('Clicked Buy Button', { 'postID': postID });
-				jQuery("#buy-process").show();
-				return false;
-			} else {
-				$("#overlay").css("visibility", "hidden");
-				$("#overlay-background").css("visibility", "hidden");
-				ga('send', 'event', 'button', 'click', 'buy-button-not-logged-in', 1);
-				mixpanel.track('Clicked Buy Button', { 'postID': postID });
-				jQuery("#user-ajax-login").show();
-				return false;
-			}
-		});
-
-		jQuery("#price-descriptor").click(function(){
-			jQuery("#buy-button").hide();
-			$("#overlay").css("visibility", "visible");
-			$("#overlay-background").css("visibility", "visible");
-
-			if(isLoggedIn()==0) {
-				$("#overlay").css("visibility", "hidden");
-				$("#overlay-background").css("visibility", "hidden");
-				jQuery("#buy-process").show();
-				return false;
-			} else {
-				$("#overlay").css("visibility", "hidden");
-				$("#overlay-background").css("visibility", "hidden");
-				jQuery("#user-ajax-login").show();
-				return false;
-			}
-		});
-
-		jQuery('#buy-quantity').live("change",function(){
-			var price_t=price*jQuery('#buy-quantity').val();
-			var taxe_t=taxes*jQuery('#buy-quantity').val();
-			var fees_t=fees*jQuery('#buy-quantity').val();
-			var total_t = total*jQuery('#buy-quantity').val();
-
-			jQuery('#price').html("Price: $" + price_t.toFixed(2));
-			jQuery('#taxes').html("Taxes: $" + taxe_t.toFixed(2));
-			jQuery('#fees').html("Fees: $" + fees_t.toFixed(2));
-			jQuery('#total_price').html("Total: $<span id='total_amount'>" + total_t.toFixed(2) + "</span>");
-			jQuery('#amount').val(total_t.toFixed(2));
-		});
-
-		jQuery('#buy-now').live("click",function(){
-
-			$("#payment-error").html("").hide();
-			// Boom! We passed the basic validation, so request a token from Stripe:
-			var user_firstname = $("#first_name").val();
-			var user_lastname = $("#last_name").val();
-			var fName = $('#billing_fname').val();
-	      	var lName = $('#billing_lname').val();
-	      	if ((fName == null || fName == "") && (lName == null || lName == "")) {
-	      		$("#payment-error").html("Please enter a valid name for billing.").show();
-	      		return false;
-	      	}
-	      	var email = $('#billing_email').val();
-	      	if (email == null || email == "") {
-	      		$("#payment-error").html("Sorry, we couldn't find your email address. Are you sure you're logged in? ").show();
-	      		return false;
-	      	}
-	      	var cardNumber = $('#cnumber').val();
-	      	if (cardNumber == null || cardNumber == "") {
-	      		$("#payment-error").html("Please enter a valid card number.").show();
-	      		return false;
-	      	}
-	      	var cardCVC = $('#csv').val();
-	      	if (cardCVC == null || cardCVC == "") {
-	      		$("#payment-error").html("Please enter a valid CVC.").show();
-	      		return false;
-	      	}
-	      	Stripe.setPublishableKey('');
-			// Disable button and remove errors.
-			$("#buy-now").attr("disabled", "disabled");
-			$("#overlay").css("visibility", "visible");
-			$("#overlay-background").css("visibility", "visible");
-			Stripe.createToken({
-			   number: cardNumber,
-			   cvc: cardCVC,
-			   exp_month: $('#emonth').val(),
-			   exp_year: $('#eyear').val(),
-			   name: (fName+ " " + lName).trim()
-			}, stripeResponseHandler);
-		    mixpanel.track('Clicked Purchase', {'postID': postID });
-			ga('send', 'event', 'button', 'click', 'buy-now', 1);
-			// Prevent the default submit action on the form
-			return false;
-
-		});*/
 
 		jQuery('#share-submit').click(function(){
 			var input_data = jQuery('#share-this-date').serialize();
 			jQuery.ajax({
 				type: "POST",
-				url: "/dev/wp-admin/admin-ajax.php",
+				url: "/wp-admin/admin-ajax.php",
 				data: "action=sharedate&" + input_data +"&pid="+postID,
 				success: function(msg){
 					jQuery('#share-date').trigger('close');
@@ -353,7 +176,7 @@ jQuery(document).ready(function($) {
 			var input_data = jQuery('#wp_login_form').serialize();
 			jQuery.ajax({
 				type: "POST",
-				url:  "/dev/wp-admin/admin-ajax.php",
+				url:  "/wp-admin/admin-ajax.php",
 				data: "action=logmein&" + input_data,
 				success: function(msg) {
 					if(msg=='Success'){
@@ -371,7 +194,7 @@ jQuery(document).ready(function($) {
 			var input_data = jQuery('#wp_reg_form').serialize();
 			jQuery.ajax({
 				type: "POST",
-				url:  "/dev/wp-admin/admin-ajax.php",
+				url:  "/wp-admin/admin-ajax.php",
 				data: "action=newuserreg&" + input_data,
 				success: function(msg) {
 					if(msg=='Success') {
@@ -427,10 +250,10 @@ jQuery(document).ready(function($) {
 		searchIndex = 1;
 		jQuery("#results2").html("");
 		jQuery("#ur-date-ideas2").html("");
-		jQuery("#results").html("<img id='loadImage' src='/dev/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
+		jQuery("#results").html("<img id='loadImage' src='/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
 		jQuery.ajax({
 			type: "POST",
-			url:  "/dev/wp-admin/admin-ajax.php",
+			url:  "/wp-admin/admin-ajax.php",
 			dataType: 'json',
 			data: input_date,
 			success: function(msg) {

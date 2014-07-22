@@ -22,8 +22,8 @@ get_header(); ?>
 		<h1 style="margin: -17px auto 20px auto; text-align:center; text-transform:uppercase; color: #f07422; background-color:white; width: 730px;"><?php echo single_cat_title(); ?> Date Ideas Around Vancouver</h1>
 	<?php }?>
 	<?php
-	if ( have_posts() ) : 
-		while ( have_posts() ) : the_post(); 
+	if ( have_posts() ) :
+		while ( have_posts() ) : the_post();
 			$itemPermalink = get_permalink($id);
 			$datetypes = get_the_term_list( $id, 'date-type', '', ', ', '' );
 			echo "<div id='";
@@ -32,8 +32,8 @@ get_header(); ?>
 			echo get_field('thumbnail',$id);
 			echo");height:235px;width:330px; float:left;margin: 0 8px 30px 8px;box-shadow:2px 2px 5px #888;position:relative;'>";
 			if(stristr(strip_tags($datetypes),'Packages') !== FALSE) {
-				// echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/dev/wp-content/themes/images/get-it-here.png"></div>';
-				echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/dev/wp-content/themes/images/get-it-here.png"></div>';
+				// echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/wp-content/themes/images/get-it-here.png"></div>';
+				echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/wp-content/themes/images/get-it-here.png"></div>';
 			}
 			echo "<div style='height:200px;width:330px;'>";
 			echo "<div id='searchtest' class='testsearch2'>";
@@ -51,7 +51,7 @@ get_header(); ?>
 			if (!empty($terms_as_text)) echo '<p style="color:#FFF;"><a style="color:#FFF;text-decoration:none;" href="'. $itemPermalink .'">', strip_tags($terms_as_text) ,'</a></p>';
 			echo "<br/><p style='color:white;width:300px;'><a style='color:#FFF;text-decoration:none;' href='";
 			echo $itemPermalink."'>";
-			echo showBrief(get_field('short_description',$id),20 ); 
+			echo showBrief(get_field('short_description',$id),20 );
 			echo "...</a></p><a style='float:right;margin-right:10px;text-decoration:none;' href='";
 			echo $itemPermalink;
 			echo "'>Read More...</a></div></div></div>";

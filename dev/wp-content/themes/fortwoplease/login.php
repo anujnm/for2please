@@ -11,7 +11,7 @@ Template Name: login
 <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 <style type="text/css">
 body { margin: 0; font-family: 'Ubuntu' !important; }
-div.center_box { position:relative; width: 514px; height: 445px; background: url('/dev/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
+div.center_box { position:relative; width: 514px; height: 445px; background: url('/wp-content/themes/images/join_box.png') no-repeat top left; color: white; text-align: center;}
 div.center_box p { margin: 0; font-size: 122%; }
 div.center_box div.top { padding: 25px 0 0 0; text-align: center; }
 div.center_box div.top h1 { color: #ea5f1a; padding: 15px 0 10px 0; font-size: 266%; }
@@ -40,9 +40,9 @@ div.center_box div.bottom p label { color: white; }
 	<div class="top">
 		<h1>WELCOME BACK!</h1>
 	</div>
-		
+
 	<div class="inputs">
-		<div class="fb_connect"><img id="fb_login_btn2" src="/dev/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/></div>
+		<div class="fb_connect"><img id="fb_login_btn2" src="/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/></div>
 		<p>or sign in with your email and password</p>
 		<form id="sign_in_form" action="" method="post">
 			<p>
@@ -58,7 +58,7 @@ div.center_box div.bottom p label { color: white; }
 			</p>
 		</form>
 	</div>
-	
+
 	<div class="bottom">
 		<p><a href="#" id="password_link">Forgot your password?</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Not a member?</label> <a href="#" id="join_link">Join Now!</a></p>
 	</div>
@@ -66,19 +66,19 @@ div.center_box div.bottom p label { color: white; }
 
 <script type="text/javascript">
 	jQuery('#password_link').click(function() {
-		jQuery("#sign_in_block").load("/dev/forgot-password", function() {
+		jQuery("#sign_in_block").load("/forgot-password", function() {
 			// Don't need Google Analytics on Dev
-			//window.setTimeout("GoogleTracking('/dev/forgot-password/');", 100);
+			//window.setTimeout("GoogleTracking('/forgot-password/');", 100);
 		});
 	});
-	
+
 	jQuery('#join_link').click(function() {
-		jQuery("#sign_in_block").load("/dev/join", function() {
+		jQuery("#sign_in_block").load("/join", function() {
 			//Don't need Google Analytics on Dev
-			//window.setTimeout("GoogleTracking('/dev/join/');", 100);
+			//window.setTimeout("GoogleTracking('/join/');", 100);
 		});
 	});
-	
+
 	function onBlur(el) {
 		if (el.value == '') {
 			el.value = el.defaultValue;
@@ -95,7 +95,7 @@ div.center_box div.bottom p label { color: white; }
 		jQuery('#password-password<?php echo $randVal ?>').show();
 		jQuery('#password-password<?php echo $randVal ?>').focus();
 	});
-	
+
 	jQuery('#password-password<?php echo $randVal ?>').blur(function() {
 		if(jQuery('#password-password<?php echo $randVal ?>').val() == '') {
 			jQuery('#password-clear<?php echo $randVal ?>').show();
@@ -109,12 +109,12 @@ div.center_box div.bottom p label { color: white; }
 		$('.lightboxMessage').hide();
 		jQuery.ajax({
 			type: "POST",
-			url:  "/dev/wp-admin/admin-ajax.php",
+			url:  "/wp-admin/admin-ajax.php",
 			data: "action=logmein&" + input_data,
 			success: function(msg){
 				if(msg == 'Success'){
 					if (window.location.pathname.indexOf("subscribe") > 0) {
-						mixpanel.track('Successful Login', { 'url': 'Subscribe' }, function() { 
+						mixpanel.track('Successful Login', { 'url': 'Subscribe' }, function() {
 							setTimeout("location.assign('<?php echo home_url(); ?>');");
 						});
 					} else if (window.location.pathname.indexOf('login') > 0) {
@@ -127,7 +127,7 @@ div.center_box div.bottom p label { color: white; }
 							setTimeout("location.reload(true);");
 						});
 					}
-				} else { 
+				} else {
 					$('.lightboxMessage').html(msg).show();
 				};
 			}

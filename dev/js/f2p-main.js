@@ -86,10 +86,10 @@ function searchDate(iData, isLandingPage){
 	searchIndex = 1;
 	jQuery("#results2").html("");
 	jQuery("#ur-date-ideas2").html("");
-	jQuery("#results").html("<img id='loadImage' src='/dev/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
+	jQuery("#results").html("<img id='loadImage' src='/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
 	jQuery.ajax({
 		type: "POST",
-		url:  "/dev/wp-admin/admin-ajax.php",
+		url:  "/wp-admin/admin-ajax.php",
 		dataType: 'json',
 		data: input_date,
 		success: function(msg) {
@@ -122,7 +122,7 @@ jQuery(document).ready(function($) {
 
 	jQuery("#searchsubmit").click( function() {
 		jQuery("#ur-date-ideas-title").html("YOUR DATE IDEAS");
-		//jQuery("#results").html("<img src='/dev/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
+		//jQuery("#results").html("<img src='/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
 		var date = jQuery("#datepicker").datepicker('getDate');
 		if(date == null) {
 			alert("please choose a date");
@@ -178,7 +178,7 @@ jQuery(document).ready(function($) {
 		input_data = "action=searchbykeyword&key="+querySearch;
 		jQuery.ajax({
 			type: "POST",
-			url:  "/dev/wp-admin/admin-ajax.php",
+			url:  "/wp-admin/admin-ajax.php",
 			data: input_data,
 			dataType: 'json',
 			success: function(msg) {
@@ -188,7 +188,7 @@ jQuery(document).ready(function($) {
 			}
 		});
 	} else {
-		//jQuery("#results").html("<img src='/dev/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
+		//jQuery("#results").html("<img src='/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
 		//if(sessionStorage.length < 1) {
 			var day = new Date().getUTCDay();
 			var type = "alltypes";
