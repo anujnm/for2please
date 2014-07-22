@@ -23,16 +23,16 @@ function reporting_system() {
 }
 
 function package_report_page() {
-	
+
 	echo "<h1>Package Redemption Report</h1>";
-	
+
 	$data = get_data_for_redemption_report();
 
 	foreach ($data as $month_name => $month_data) {
 		echo "<h2>" . $month_name . "</h2>";
 		echo "<table border='1'>";
 		echo "<tr><th>Package ID</th><th>Business</th><th>Date Package</th><th>Number Redeemed</th><th>Price per Package</th><th>Merchant Payout %</th><th>Total Payout</th></tr>";
-		
+
 		foreach ($month_data as $package_id => $package_data) {
 			echo '<tr>';
 			echo '<td>' . $package_id . '</td>';
@@ -48,13 +48,13 @@ function package_report_page() {
 
 		echo "</table>";
 	}
-	
+
 }
 
 function get_data_for_redemption_report() {
 	$args['role'] = 'merchant';
 	$users = get_users( $args );
-	
+
 	$data = array();
 	$month_arr = array (
 	    1 => 'Jan',
@@ -83,12 +83,12 @@ function get_data_for_redemption_report() {
 			$price_per_package = $post_info['price'][0];
 			$commission = $post_info['commission'][0];
 			$merchant_payout_percent = 0;
-			if ($commission != '') { 
+			if ($commission != '') {
 				$merchant_payout_percent = 100 - intval($post_info['commission'][0]);
 			}
-			
 
-			// Here pid is the voucher ID. Not sure how voucher ID is retrieved from this query, but it is. 
+
+			// Here pid is the voucher ID. Not sure how voucher ID is retrieved from this query, but it is.
 			$p_ids = get_user_meta($user->ID, $package, false);
 			foreach ($p_ids as $p_id) {
 				foreach(get_user_meta($user->ID, $p_id.'_redeemded_date', false) as $redeemded_date) {
@@ -99,7 +99,7 @@ function get_data_for_redemption_report() {
 						if ($data[$current_month]) {
 							$month_data = $data[$current_month];
 							if (array_key_exists($package, $month_data)) {
-								// There is data about this date in this month already. Modify it. 
+								// There is data about this date in this month already. Modify it.
 								$package_data = $month_data[$package];
 								$package_data['number_vouchers_redeemed'] += 1;
 								$month_data[$package] = $package_data;
@@ -111,7 +111,7 @@ function get_data_for_redemption_report() {
 								$month_data[$package] = $package_data;
 								$data[$current_month] = $month_data;
 							}
-							
+
 						} else {
 							// Each month has data about a set of packages
 							$month_data = array();
@@ -130,16 +130,16 @@ function get_data_for_redemption_report() {
 }
 
 
-// Add inventory report to show total number of date packages sold and available. 
+// Add inventory report to show total number of date packages sold and available.
 add_action('admin_menu', 'inventory_report');
 function inventory_report() {
 	add_submenu_page( 'salereport', 'Inventory Report', 'Inventory Report', 'administrator', 'inventory-report', 'inventory_report_page');
 }
 
 function inventory_report_page() {
-	
+
 	echo "<h1>Inventory Report</h1>";
-	
+
 	$data = get_data_for_inventory_report();
 
 	echo "<table border='1'>";
@@ -159,7 +159,7 @@ function inventory_report_page() {
 		echo '</tr>';
 	}
 	echo "</table>";
-	
+
 }
 
 function get_data_for_inventory_report() {
@@ -182,11 +182,11 @@ function get_data_for_inventory_report() {
 			$commission = $post_info['commission'][0];
 			$expiry_date = $post_info['expiration_date_package'][0];
 			$merchant_payout_percent = 0;
-			if ($commission != '') { 
+			if ($commission != '') {
 				$merchant_payout_percent = 100 - intval($post_info['commission'][0]);
 			}
 
-			// Here pid is the voucher ID. Not sure how voucher ID is retrieved from this query, but it is. 
+			// Here pid is the voucher ID. Not sure how voucher ID is retrieved from this query, but it is.
 			$p_ids = get_user_meta($user->ID, $package, false);
 			foreach ($p_ids as $p_id) {
 				$number_vouchers_sold ++;
@@ -209,7 +209,7 @@ function get_data_for_inventory_report() {
 
 // Add new post type for Dates
 add_action('init', 'dates_init');
-function dates_init() 
+function dates_init()
 {
 	$date_labels = array(
 		'name' => _x('Dates', 'post type general name'),
@@ -222,14 +222,14 @@ function dates_init()
 		'view_item' => __('View Date'),
 		'search_items' => __('Search in Dates'),
 		'not_found' =>  __('No Dates found'),
-		'not_found_in_trash' => __('No Dates found in trash'), 
+		'not_found_in_trash' => __('No Dates found in trash'),
 		'parent_item_colon' => ''
 	);
 	$args = array(
 		'labels' => $date_labels,
 		'public' => true,
 		'publicly_queryable' => true,
-		'show_ui' => true, 
+		'show_ui' => true,
 		'query_var' => true,
 		'rewrite' => true,
 		'capability_type' => 'post',
@@ -237,12 +237,12 @@ function dates_init()
 		'menu_position' => 5,
 		'supports' => array('title','editor','author','thumbnail','excerpt','comments','custom-fields'),
 		'has_archive' => 'dates'
-	); 
+	);
 	register_post_type('dates',$args);
 }
 
 ?>
-<?php 
+<?php
 // Add new Custom Post Type icons
 
 add_action( 'admin_head', 'cooking_icons' );
@@ -264,7 +264,7 @@ function cooking_icons() {
 
 add_action( 'init', 'type_create_taxonomies', 0 );
 
-function type_create_taxonomies() 
+function type_create_taxonomies()
 {
 	// Date type
 	$type_labels = array(
@@ -275,12 +275,12 @@ function type_create_taxonomies()
 		'most_used_items' => null,
 		'parent_item' => null,
 		'parent_item_colon' => null,
-		'edit_item' => __( 'Edit date type' ), 
+		'edit_item' => __( 'Edit date type' ),
 		'update_item' => __( 'Update date type' ),
 		'add_new_item' => __( 'Add new date type' ),
 		'new_item_name' => __( 'New date type' ),
 		'menu_name' => __( 'Date Type' ),
-	);	
+	);
 		register_taxonomy('date-type',array('dates'),array(
 		'hierarchical' => true,
 		'labels' => $type_labels,
@@ -292,7 +292,7 @@ function type_create_taxonomies()
 
 add_action( 'init', 'location_create_taxonomies', 0 );
 
-function location_create_taxonomies() 
+function location_create_taxonomies()
 {
 	// Date Location
 	$location_labels = array(
@@ -303,12 +303,12 @@ function location_create_taxonomies()
 		'most_used_items' => null,
 		'parent_item' => null,
 		'parent_item_colon' => null,
-		'edit_item' => __( 'Edit Location' ), 
+		'edit_item' => __( 'Edit Location' ),
 		'update_item' => __( 'Update Location' ),
 		'add_new_item' => __( 'Add new Location' ),
 		'new_item_name' => __( 'New Location' ),
 		'menu_name' => __( 'Location' ),
-	);	
+	);
 		register_taxonomy('location',array('dates'),array(
 		'hierarchical' => true,
 		'labels' => $location_labels,
@@ -318,9 +318,40 @@ function location_create_taxonomies()
 	));
 }
 
+
+add_action( 'init', 'city_create_taxonomies', 0 );
+
+function city_create_taxonomies()
+{
+	// Date Location
+	$city_labels = array(
+		'name' => _x( 'Cities', 'taxonomy general name' ),
+		'singular_name' => _x( 'City', 'taxonomy singular name' ),
+		'search_items' =>  __( 'Search by City' ),
+		'all_items' => __( 'All Cities' ),
+		'most_used_items' => null,
+		'parent_item' => null,
+		'parent_item_colon' => null,
+		'edit_item' => __( 'Edit City' ),
+		'update_item' => __( 'Update City' ),
+		'add_new_item' => __( 'Add new City' ),
+		'new_item_name' => __( 'New City' ),
+		'menu_name' => __( 'City' ),
+	);
+		register_taxonomy('city',array('dates'),array(
+		'hierarchical' => true,
+		'labels' => $city_labels,
+		'show_ui' => true,
+		'query_var' => true,
+		'rewrite' => array('slug' => 'city' )
+	));
+}
+
+
+
 add_action( 'init', 'time_create_taxonomies', 0 );
 
-function time_create_taxonomies() 
+function time_create_taxonomies()
 {
 	// Date Time
 	$time_labels = array(
@@ -331,12 +362,12 @@ function time_create_taxonomies()
 		'most_used_items' => null,
 		'parent_item' => null,
 		'parent_item_colon' => null,
-		'edit_item' => __( 'Edit Time' ), 
+		'edit_item' => __( 'Edit Time' ),
 		'update_item' => __( 'Update Time' ),
 		'add_new_item' => __( 'Add new Time' ),
 		'new_item_name' => __( 'New Time' ),
 		'menu_name' => __( 'Time' ),
-	);	
+	);
 		register_taxonomy('time',array('dates'),array(
 		'hierarchical' => true,
 		'labels' => $time_labels,
@@ -348,7 +379,7 @@ function time_create_taxonomies()
 
 add_action( 'init', 'price_create_taxonomies', 0 );
 
-function price_create_taxonomies() 
+function price_create_taxonomies()
 {
 	// Price Range
 	$price_labels = array(
@@ -359,12 +390,12 @@ function price_create_taxonomies()
 		'most_used_items' => null,
 		'parent_item' => null,
 		'parent_item_colon' => null,
-		'edit_item' => __( 'Edit Price Range' ), 
+		'edit_item' => __( 'Edit Price Range' ),
 		'update_item' => __( 'Update Price Range' ),
 		'add_new_item' => __( 'Add new Price Range' ),
 		'new_item_name' => __( 'New Price Range' ),
 		'menu_name' => __( 'Price Range' ),
-	);	
+	);
 		register_taxonomy('price',array('dates'),array(
 		'hierarchical' => true,
 		'labels' => $price_labels,
@@ -373,4 +404,3 @@ function price_create_taxonomies()
 		'rewrite' => array('slug' => 'price' )
 	));
 }
-
