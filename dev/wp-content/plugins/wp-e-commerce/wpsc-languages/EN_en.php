@@ -138,7 +138,7 @@ define("TXT_WPSC_AT_A_GLANCE", "At a Glance");
 define("TXT_WPSC_CHECKOUT", "Checkout");
 define("TXT_WPSC_RECIEPT_EMAIL_ADDRESS", "This will be the Email address that the Purchase Reciept is sent to.");
 
-define("TXT_WPSC_OVER_UPS_WEIGHT", "Because your order is over 150lbs, the SIte Owner will contact you directly about shipping rates.");
+define("TXT_WPSC_OVER_UPS_WEIGHT", "Because your order is over 150lbs, the Site Owner will contact you directly about shipping rates.");
 define("TXT_WPSC_ADD_TO_CART_PHP", "Add to Cart PHP");
 define("TXT_WPSC_BUY_NOW_PHP", "Buy Now PHP");
 
@@ -567,7 +567,7 @@ define('TXT_WPSC_SELECTACATEGORY', 'Select a Product Group');
 define('TXT_WPSC_SELECTABRAND', 'Select a Brand');
 define('TXT_WPSC_ADDITIONALDESCRIPTION', 'Additional Description');
 define('TXT_WPSC_PRICE', 'Price');
-define('TXT_WPSC_TAXALREADYINCLUDED', 'Do not include tax (tax is set in <a href="'. get_option('siteurl').'/wp-admin/admin.php?page=wpsc-settings">shop config</a>)'); // this text has changed and needs updating
+define('TXT_WPSC_TAXALREADYINCLUDED', 'Do not include tax (tax is set in <a href="' . admin_url( 'admin.php?page=wpsc-settings' ) . '">shop config</a>)'); // this text has changed and needs updating
 define('TXT_WPSC_SPECIAL', 'Sale Price :'); // this text has changed and needs updating
 define('TXT_WPSC_PRODUCT_DISPLAY', 'Product Display');
 

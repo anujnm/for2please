@@ -8,12 +8,19 @@
  *
  * @package wp-e-commerce
  * @since 3.7
+ *
+ * @uses wp_die()                               Kill WordPress execution and display HTML message with error message.
+ * @uses $wpdb                                  WordPress database variable for queries
+ * @uses admin_url()                            Gets URL to the admin of the current site
+ * @uses wp_nonce_url()                         Retrieve URL with nonce added to URL query.
+ * @uses wpsc_convert_products_to_posts()       Converts legacy data format to post_types
+ * @todo docs
  */
 function wpsc_debug_page() {
 	if ( !current_user_can('manage_options') )
 		wp_die("You don't look like an administrator.");
-	global $wpdb;
-	$fixpage = get_option( 'siteurl' ) . '/wp-admin/admin.php?page=wpsc-sales-logs&amp;subpage=upgrade-purchase-logs';
+
+	$fixpage = admin_url( 'admin.php?page=wpsc-sales-logs&amp;subpage=upgrade-purchase-logs' );
 ?>
 	<div class="wrap">
 		<h2>Debugging Page</h2>
@@ -39,11 +46,11 @@ function wpsc_debug_page() {
 				<a href='<?php echo $fixpage; ?>'>Fix Purchaselogs</a>
 			</li>
 			<li>
-				<a href='<?php echo wp_nonce_url("?wpsc_admin_action=update_page_urls"); ?>' ><?php _e('Update Page URLs', 'wpsc'); ?></a> 
+				<a href='<?php echo wp_nonce_url("?wpsc_admin_action=update_page_urls"); ?>' ><?php _e('Update Page URLs', 'wpsc'); ?></a>
 			</li>
 			<li>
 					<a href='<?php echo wp_nonce_url("?wpsc_admin_action=clean_categories"); ?>'><?php _e('Fix Product Group Permalinks', 'wpsc'); ?></a>
-			</li>		
+			</li>
 	</ul>
 	<?php
 		if ( defined( 'WPSC_ADD_DEBUG_PAGE' ) && (constant( 'WPSC_ADD_DEBUG_PAGE' ) == true) ) {
@@ -344,5 +351,3 @@ function wpsc_mass_resize_thumbnails_and_clean_images() {
 	}
 	$wpdb->query( "DELETE FROM `" . WPSC_TABLE_PRODUCT_IMAGES . "` WHERE `product_id` IN('0')" );
 }
-
-?>

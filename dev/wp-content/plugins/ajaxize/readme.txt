@@ -2,8 +2,8 @@
 Contributors: yoav.aner
 Tags: ajax, AJAX, javascript, cache, dynamic, plugins, functions, post, posts, page, pages, comment, comments, sidebar, widget, widgets
 Requires at least: 3.1
-Tested up to: 3.2.1
-Stable tag: 1.3.1
+Tested up to: 3.6
+Stable tag: 1.3.2
     
 Ajaxize will allow you to ajaxize almost any php function on your site.
 

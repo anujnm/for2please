@@ -1,63 +1,56 @@
 === Special Recent Posts ===
 Contributors: lgrandicelli
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PZD4ACBRFR9GS
 Tags: recent, post, wordpress, plugin, thumbnails, widget, recent posts
 Requires at least: 3.0
-Tested up to: 3.2.1
-Stable tag: 1.9.4
+Tested up to: 3.8
+Stable tag: 1.9.9
 License: GPLv3 or later
 
-
-Special Recent Posts (SRP) is a very powerful plugin/widget for WordPress which displays your recent posts with thumbnails.
+The most beautiful and powerful way to display your recent posts with thumbnails.
 
 == Description ==
-
-<p>Special Recent Posts (SRP) is a very powerful plugin/widget for WordPress which displays your recent posts with thumbnails.
-You can drag multiple widget instances and configure each one with different settings.
-You can also use custom PHP code to insert the widget in any part of your theme.</p>
-
-<p>Special Recent Posts is fully configurable and lets you administrate almost everything about your blog’s recent posts.</p>
+<p>Special Recent Posts PRO is a very powerful sidebar widget for WordPress which displays your recent posts with thumbnails. It’s the perfect solution for online magazines or simple blogs and it comes with more than 30+ customization options available. You can dynamically re-size thumbnails to any desired dimension, drag multiple widget instances and configure each one with its specific settings.</p>
 
 <strong>Special features</strong>:
 <ul>
-	<li>Thumbnails automatic selection and generation</li>
-	<li>Thumbnails adaptive resize with GD libraries support</li>
-	<li>Thumbnails Rotation</li>
-	<li>Thumbnails custom sizes option for every widget instance</li>
-	<li>Posts/Pages display option</li>
-	<li>Posts/Pages inclusion/exclusion</li>
-	<li>Custom Post Types filtering</li>
-	<li>Post Status Filtering</li>
-	<li>Title and content trimming</li>
-	<li>Custom Image StringBreak</li>
-	<li>Random mode visualization</li>
-	<li>Posts date visualization</li>
-	<li>Category filtering</li>
-	<li>Current post filtering</li>
-	<li>Configurable custom CSS</li>
-	<li>Multiple widgets configurations</li>
-	<li>Specific PHP function call for theme customization</li>
-	<li>Shortcodes Support</li>
+	<li>Wonderful Dynamic Widget Interface</li>
+	<li>Thumbnail Adaptive Resize</li>
+	<li>More than 30 Customization Options</li>
+	<li>Advanced Post Filtering Techniques</li>
+	<li>Advanced Post Content Display</li>
+	<li>Multiple Widget Configurations</li>
+	<li>Thumbnail cache support</li>
+	<li>PHP Code/Shortcodes support</li>
 </ul>
 
+<p>
+The complete list of features is available at the following links.
+</p>
+
+<p>
 <strong>Plugin Homepage</strong><br />
-http://www.lucagrandicelli.com/special-recent-posts-plugin-for-wordpress/
+http://www.specialrecentposts.com
+</p>
 
-<strong>Plugin Forum</strong><br />
-http://www.lucagrandicelli.com/forum/
+<p>
+<strong>Plugin Help Desk</strong><br />
+http://www.specialrecentposts.com/support
+</p>
 
-<strong>Credits</strong>
-Thumbnail generation is handled by the brilliant PHP Thumb Class
-http://phpthumb.gxdlabs.com/
+<p>
+<strong>Plugin online docs</strong><br />
+http://www.specialrecentposts.com/docs
+</p>
 
 == Installation ==
-
+<p>
+<strong>Warning: This plugin (FREE Edition) will no longer be updated and soon removed. If you need support please refer to the SRP Help Desk at http://www.specialrecentposts.com/support</strong></p>
 The automatic plugin installer should work for most people. Manual installation is easy and takes fewer than five minutes.
 
 1. Download the plugin, unpack it and upload the '<em>special-recent-posts</em>' folder to your wp-content/plugins directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Go to Settings -&gt; Special Recent Posts to configure the basic options.
-4. On the widgets panel, drag the Special Recent Posts widget onto one of your sidebars and configure its specific settings.
+3. Go to Settings -&gt; Special Recent Posts FREE page to configure the global options.
+4. In the widgets panel, drag the Special Recent Posts FREE Edition widget onto one of your sidebars and configure its specific settings.
 5. You're done. Enjoy.
 
 If you wish to use the Special Recent Posts in another part of your theme which is not widget-handled, you can put the following snippet:
@@ -72,89 +65,121 @@ If you wish to use the Special Recent Posts in another part of your theme which 
 where $args is an array of the following options:
 
 `
-// Post Type (default: 'posts')
-srp_post_type => post/page
+// Enter the text for the main widget title.
+'widget_title' => text
 
-// Post Status ('publish|private|inherit|pending|future|draft|trash)
-srp_post_status_option => text
+// Select if thumbnails should be displayed or not. (default: 'yes')
+'display_thumbnail' => yes|no
 
-// Custom Post Type (text)
-srp_custom_post_type_option => text
+// Hide widget title? (default 'no')
+'widget_title_hide' => yes|no
 
-// The Widget Title (default: 'Special Recent Posts')
-srp_widget_title  => text
+// Select the type of HTML header to be used to enclose the widget title. (default: 'H3')
+widget_title_header => H1|H2|H3|H4|H5|H6
 
-// Hide Widget Title?
-'srp_widget_title_hide_option' => no|yes
+// Enter a space separated list of additional css classes for this widget title header.
+widget_title_header_classes => ''
 
-// Display thumbnails? (default: yes)
-srp_thumbnail_option => yes|no
+// Set thumbnail width (default 100)
+'thumbnail_width' => digit
 
-// Thumbnail Width
-srp_thumbnail_wdg_width => numeric
+// Set thumbnail height (default 100)
+'thumbnail_height' => digit
 
-// Thumbnail Height
-srp_thumbnail_wdg_height => numeric
+// Link thumbnails to post? (default: 'yes')
+'thumbnail_link' => yes|no
 
-// Thumbnail Rotation
-srp_thumbnail_rotation => 'no|cw|ccw',
+// Set thumbnail rotation mode (default 'no')
+'thumbnail_rotation' => no|cw|ccw
 
-// How many posts to display. (default: 5)
-srp_number_post_option => numeric
+// Set default displayed post types (default: 'post')
+'post_type' => post|page
 
-// Set the max size of title text
-srp_wdg_title_length => numeric
+// Set default displayed post status (default: 'publish')
+'post_status' => publish|private|inherit|pending|future|draft|trash
 
-// Set the title text cut mode
-srp_wdg_title_length_mode => chars|words|fulltitle
+ // Set max number of posts to display (default: 5)
+'post_limit' => digit
 
-// Set the max size of post text
-srp_wdg_excerpt_length => numeric
+// Set displayed post content type (default: 'content')
+'post_content_type' => 'content' | 'excerpt'
 
-// Set the post text cut mode
-srp_wdg_excerpt_length_mode   => chars|words|fullexcerpt
+// Set displayed post content length (default: 100)
+'post_content_length' => digit
 
-// Select display order. (default: DESC)
-srp_order_post_option => ASC|DESC
+// Set displayed post content length mode (default: 'chars')
+'post_content_length_mode' => chars|words|fullcontent
 
-// Want to randomize posts order? (default: no)
-srp_orderby_post_option => rand|no
+// Set displayed post title length (default 100)
+'post_title_length' => digit
 
-// Post Offset (to skip current displayed post from visualization)
-srp_post_offset_option => yes|no
+// Set displayed post title length mode (default: 'chars')
+'post_title_length_mode' => chars|words|fulltitle
 
-// Global Post Offset ( to skip an arbitrary number of posts from the beginning)
-srp_post_global_offset_option => numeric
+// Set post order (default: 'DESC')
+'post_order' => 'DESC' | 'ASC
 
-// Insert the category ID to filter result posts. (default: -1|'' = none)
-srp_filter_cat_option => numeric
+// Set post offset (default: 0)
+'post_offset' => digit
 
-// Choose wheter to display only title or both title and excerpt. (default: titleexcerpt = displays both title and text 5)
-srp_content_post_option => titleonly|titleexcerpt
+// Set random mode (default: 'no')
+'post_random' => 'no' | 'yes'
 
-// Show post date? (default: yes)
-srp_post_date_option => yes|no
+// Hide current post from visualization when in single post view? (default: 'yes')
+'post_current_hide' => 'yes' | 'no'
 
-// Posts/pages to include?
-srp_include_option => numeric
+// Set layout content mode (default: 'titleexcerpt')
+'post_content_mode' => thumbonly|titleexcerpt|titleonly
 
-// Posts/pages to exclude?
-srp_exclude_option => numeric
+// Display post date? (default: 'yes')
+'post_date' => yes|no
 
-// Add nofollow option. (the no-follow attribute is a SEO trick to prevent bots from indexing that link)
-srp_add_nofollow_option => yes|no
+// Filter posts by including post IDs (default: none)
+'post_include' => comma separated list of digits
 
+// Exclude posts from visualization by IDs (default: none)
+'post_exclude' => comma separated list of digits
+
+// Filter post by Custom Post Type (default: none)
+'custom_post_type' => comma separated list of custom post types
+
+// Set the default 'No posts available' text (default: 'No posts available')
+'noposts_text' => text
+
+// Set allowed tags to display in the excerpt visualization.
+'allowed_tags' => blankspace separated list of html tags
+
+// Set string break text (default: [...])
+'string_break' => text
+
+// Set path to optional image string break.
+'image_string_break' => text
+
+// Link (image)string break to post?
+'string_break_link'  => yes|no
+
+// Set post date format. (default: 'F jS, Y')
+'date_format' => text
+
+// Filter posts by including categories IDs. (default: none)
+'category_include' => comma separated list of digits
+
+// When filtering by caqtegories, switch the widget title to a linked category title (default: 'no')
+'category_title' => no|yes
+
+// Add the 'no-follow' attribute to all widget links.
+'nofollow_links' => no|yes
 `
 
 Example:
-Show last 5 posts in random order without thumbnail. (PHP mode)
+Show last 5 posts in random order filtering by category IDs 3 and 7. (PHP mode)
 `
 <?php
 // Defining widget options.
 $args = array(
-	'srp_number_post_option'  => 5,
-	'srp_orderby_post_option' => 'rand',
-	'srp_thumbnail_option'    => 'no'
+	'post_limit'       => 5,
+	'post_random'      => 'yes',
+	'category_include' => 3, 7
 );
 
 
@@ -170,9 +195,51 @@ Shortcodes parameters names are the same of direct PHP call ones, but you have t
 String values must be enclosed within single/double quotes.
 
 Example:
-`[srp srp_number_post_option='5' srp_orderby_post_option='rand' srp_thumbnail_option='no']`
+`[srp post_limit='5' post_random='yes' category_include=3,7]`
 
 == Changelog ==
+<p>
+<strong>Warning: This plugin (FREE Edition) will no longer be updated and soon removed. If you need support please refer to the SRP Help Desk at http://www.specialrecentposts.com/support</strong></p>
+= 1.9.9 =
+* Added new option to define the widget title HTML header.
+* Added new option to define additional classes for the widget title.
+* Fixed broken settings link in the plugin description.
+* Fixed wrong count of post items when in random mode.
+* Some CSS fixes.
+
+= 1.9.8 =
+* Fixed not valid XHTML <img> tag.
+* Fixed bug that prevented category title to be displayed on pages.
+* Fixed bug that prevented tag <br> to be displayed when filtered by the "allowed tags" option in shortcodes.
+
+= 1.9.7 =
+* Added al missing image attributes of width and height. This should solve some browser rendering problem.
+* Removed the !important attribute from css-front.css
+* Fixed wrong image path in wp multi site.
+* Fixed wrong words count when cutting strings.
+
+= 1.9.6 =
+* Fixed a bug that prevented thumbnails from being displayed correctly.
+
+= 1.9.5 =
+* Rewritten Engine (PRO clone)
+* Added a new opttion to switch between post content or post excerpt in visualization mode.
+* Crucial fixes in the jquery handling.
+* Better handling of stylesheets and scripts loading within the admin pages. This should solve many theme incompatibility issues.
+* Fixed bug that prevented visualization on static front pages.
+* Fixed wrong method call that leaded to some syntax error while activating the plugin.
+* Added support for NextGen Gallery. Now if you set a post featured image by using the NextGen panel, it will show up instead of the no-image placeholder.
+* Fixed Bug that prevented correct visualization when using PHP external calls or Shortcodes.
+* Fixes for Wordpress 3.4
+* Fixed a bug that prevented correct thumbnails visualization on Chrome and Safari.
+* All SRP warnings and notices have now been moved within the SRP Control Panel.
+* Fixed characters encoding bug.
+* Added WP Multi-Site Support. (experimental)
+* Improved tag rebuilding when allowed tags option is on.
+* XAMPP compatibility issue fixed.
+* Improved image retrievement process.
+* Brand new dynamic widget interface.
+* Many bugs fixed.
 
 = 1.9.4 =
 * Fixed Widget class name notation.
@@ -263,26 +330,72 @@ When using PHP call, the title is styled the old way, inside the plugin options 
 = 1.0 = 
 * Initial release
 
+== Upgrade Notice ==
+<p>
+<strong>Warning: This plugin (FREE Edition) will no longer be updated and soon removed. If you need support please refer to the SRP Help Desk at http://www.specialrecentposts.com/support</strong></p>
+If you're upgrading from a version prior to 1.9.5, many of your old settings might be overwritten.
+SO PLEASE MAKE SURE YOU MAKE A BACKUP OF YOUR OLD CUSTOM CSS AND WIDGET SETTINGS. 
+If the upgrade process fails or if you're experiencing troubles with the plugin behaviour, please consider to completely uninstall the previous version and then re-install Special Recent Posts FREE Edition from scratch.
+<br />
+<strong>NOTES FOR MANUAL UPGRADE</strong>
+If you wish to do a manual upgrade, please read the following steps:
+
+1. Deactivate the old version in the Wordpress Plugin panel
+2. Delete the special-recent-posts folder on your server, under wp-content/plugins/
+3. Upload the new special-recent-posts folder to wp-content/plugins/
+4. Refresh the Wordpress plugin page
+5. Activate the plugin.
+
 == Frequently Asked Questions ==
 
-= Plugin works but i see no thumbnails =
+<p>
+Please refer to the online Help Desk available at <a href="http://www.specialrecentposts.com/support">http://www.specialrecentposts.com/support</a> for a complete support and knowledge base.
+</p>
+
+= How do i edit the CSS? =
+
+The stylesheet is located at wp-content/plugins/special-recent-posts/assets/css/css-front.css
+
+= Everything works but i see no thumbnails. Only the "no image" placeholder =
 
 This issue might be caused by several problems. Check the following list.
 <ol>
+<li>First of all, make sure the relative post has at least one image inserted in its text content or a featured image assigned. Posts with no images are displayed with the default "no image" placeholder.</li>
+<li>Set the correct permissions on the cache folder. In order to generate the thumbnails, the plugin needs to write in the cache folder, located under special-recent-posts/cache/
+Be sure this folder is set to 0775 or 0777. Please ask to your system administrator if you're not sure what you are doing.</li>
 <li>Thumbnails are rendered using the PHP GD libraries. These should be enabled on your server. Do a phpinfo() on your host to check if they're installed properly. Contact your hosting support to know how to enable them.</li>
-<li>Another problem could be that you're hosting the plugin on a MS Windows based machine. This will probably change the encoding data inside the files and could lead to several malfunctions. Better to host on a Unix/Linux based enviroment.</li>
-<li>External images are not allowed. This means that if you're trying to generate a thumbnail from an image hosted on a different domain, it won't work.</li>
+<li>Another problem could be that you're hosting the plugin on a MS Windows based machine. This will probably change the encoding data inside the files and could lead to several malfunctions. Better to host your site on a Unix/Linux based environment.</li>
+<li>External images are not allowed. This means that if you're trying to generate a thumbnail from an image hosted on a different domain, it just won't work. This is usually not allowed for security reasons.</li>
 </ol>
+
+= Category/Post filtering isn't working =
+
+In order to properly filter posts by categories, you must provide a numeric value which is the Category ID.
+Every Wordpress category has an unique Identification number, and this can be found doing the following steps:
+<ol>
+<li>Go in the  Posts->Categories panel</li>
+<li>Mouse over a category name.</li>
+<li>Look at the status bar at the very bottom of your browser window. There you will find a long string containing a parameter called <strong>tag_ID</strong> and its following value.</li>
+<li>Take note of that number, which is the relative Category ID to insert in the SRP PRO filtering panel.</li>
+</ol>
+
+NOTE: Please remember that this procedure is also valid for post filtering.
 
 == Screenshots ==
 
 1. The Post List
-2. The Widget admin panel 1
-3. The Widget admin panel 2
+2. The Widget admin panel: Basic Options
+3. The Widget admin panel: Thumbnails Options
+4. The Widget admin panel: Posts Options
+5. The Widget admin panel: Advanced Posts Options 1
+6. The Widget admin panel: Advanced Posts Options 2
+7. The Widget admin panel: Filtering Options
+8. The Widget admin panel: Layout Options
 
 == Requirements ==
 
-In order to work, Special Recent Posts plugin needs the following settings:
+In order to work, Special Recent Posts FREE Edition plugin needs the following settings:
 
 1. PHP version 5+
 2. GD libraries installed and enabled on your server.
+3. Correct permissions (0775 or 0777) on cache folder under special-recent-posts/cache

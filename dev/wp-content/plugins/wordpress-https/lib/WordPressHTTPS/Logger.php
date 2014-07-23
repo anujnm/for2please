@@ -7,8 +7,6 @@
  *
  */
 
-require_once('Mvied/Logger/Interface.php');
-
 class WordPressHTTPS_Logger implements Mvied_Logger_Interface {
 
 	/**
@@ -51,7 +49,7 @@ class WordPressHTTPS_Logger implements Mvied_Logger_Interface {
 	/**
 	 * Adds a string to an array of log entries
 	 *
-	 * @param none
+	 * @param string $string
 	 * @return $this
 	 */
 	public function log( $string ) {

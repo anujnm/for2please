@@ -2,132 +2,90 @@
 /*
 | --------------------------------------------------------
 | File        : lib-admin.php
-| Version     : 1.9.4
-| Description : This file contains various functions
-|               for plugin initialization and
-|               admin panel building.
-| Project     : Special Recent Posts plugin for Wordpress
+| Project     : Special Recent Posts FREE Edition plugin for Wordpress
+| Version     : 1.9.9
+| Description : This file contains several functions
+|               for SRP initialization and admin panel building.
 | Author      : Luca Grandicelli
 | Author URL  : http://www.lucagrandicelli.com
-| Plugin URL  : http://www.lucagrandicelli.com/special-recent-posts-plugin-for-wordpress/
+| Plugin URL  : http://www.specialrecentposts.com
+| Copyright (C) 2011-2012  Luca Grandicelli
 | --------------------------------------------------------
 */
 
 /*
-| ---------------------------------------------
-| PLUGIN INIT FUNCTIONS
-| ---------------------------------------------
+| -------------------------------------------------------
+| This function handles the plugin widget registration.
+| -------------------------------------------------------
 */
-
-// Main initializing function.
-function srp_admin_init() {
-	
-	// Registering Plugin admin stylesheet.
-	wp_register_style('srp-admin-stylesheet' , SRP_PLUGIN_URL . SRP_ADMIN_CSS);
-	
-	// Registering Plugin widget stylesheet.
-	wp_register_style('srp-widget-stylesheet', SRP_PLUGIN_URL . SRP_WIDGET_CSS);
-	
-	// Registering Custom Js Init Script.
-	wp_register_script('srp-custom-js-init'  , SRP_PLUGIN_URL . SRP_JS_INIT);
-	
-	// Forcing Loading jQuery.
-	wp_enqueue_script('jquery');
-	
-	// Enqueuing plugin admin widget stylesheet.
-	wp_enqueue_style('srp-widget-stylesheet');
-	
-	// Enqueuing Custom Js Init Script.
-	wp_enqueue_script('srp-custom-js-init');
-	
-	// Adding a new action link.
-	add_filter('plugin_action_links', 'srp_plugin_action_links', 10, 2);
-}
-
-// Function for adding new action links on plugin's page.
-function srp_plugin_action_links($links, $file) {
-
-	// Check if we're on the correct plugin file.
-	if ($file == SRP_PLUGIN_MAINFILE) {
-		$links[] = '<a href="options-general.php?page=special-recent-posts/lib/lib-admin.php">'.__('Settings').'</a>';
-	}
-
-	// Return new embedded link.
-	return $links;
-}
-
-// Function for plugin widget registration.
 function srp_install_widgets() {
 
-	// Register widget.
-	register_widget("WDG_SpecialRecentPosts");
-}
-
-// This function checks whether the plugin has been updated.
-// If it's so, it performs several checks before updating the plugin db options.
-function srp_plugin_init() {
-
-	// Importing global default options array.
-	global $srp_default_plugin_values;
-	
-	// Checking if plugin db options exist.
-	if (get_option('srp_plugin_options')) {
-	
-		// Setting current db options.
-		$srp_current_options = get_option('srp_plugin_options');		
-		
-		// Checking if plugin has a db version option or if this is minor than the current version declared through the updated code.
-		if ( (!isset($srp_current_options["srp_version"]) && isset($srp_default_plugin_values["srp_version"]) ) || ( version_compare($srp_current_options["srp_version"], $srp_default_plugin_values["srp_version"], '<')) ) {
-		
-			// Plugin version is prior to 1.5 or is lower to the current updated files.
-			// For first, let's check for new array keys and eventually put them in the current array option.
-			$srp_diff_array = array_diff_key($srp_default_plugin_values, $srp_current_options);
-			
-			// Check if there are no new array keys. In this case, we need to update only the version option.
-			if (!empty($srp_diff_array)) {
-				
-				// Merge current option array with new values.
-				$srp_result_array = array_merge($srp_current_options, $srp_diff_array);
-				
-				// Update current plugin option version.
-				$srp_result_array["srp_version"] = $srp_default_plugin_values["srp_version"];
-				
-				// Update db options.
-				update_option('srp_plugin_options', $srp_result_array);
-				
-			} else {
-			
-				// Update current plugin option version.
-				$srp_current_options["srp_version"] = $srp_default_plugin_values["srp_version"];
-				
-				// Update db options.
-				update_option('srp_plugin_options', $srp_current_options);
-			}
-
-		} else {
-			// Current bulk is updated. Do Nothing.
-		}
-	} else {
-		// First Install. Do nothing.
-	}
+	// Registering widget.
+	register_widget("WDG_SpecialRecentPostsFree");
 }
 
 /*
-| ---------------------------------------------
-| PLUGIN COMPATIBILITY CHECK
-| ---------------------------------------------
+| -----------------------------------------------------------
+| These functions display several error messages from the
+| compatibility check process.
+| -----------------------------------------------------------
 */
+function srpcheck_phpver_error() {
 
-function check_plugin_compatibility() {
+	// Setting up new Error.
+	$error = new WP_Error('broke', __("<strong>Special Recent Posts FREE Edition Error!</strong> You're running an old version of PHP. In order for this plugin to work, you must enable your server with PHP support version 5.0.0+. Please contact your hosting/housing company support, and check how to enable it.</a>", SRP_TRANSLATION_ID));
+	if (is_wp_error($error)) {
+		echo "<div id=\"message\" class=\"error\"><p>" . $error->get_error_message() . "</p></div>";
+	}
+}
+
+function srpcheck_gd_error() {
 	
+	// Setting up new Error.
+	$error = new WP_Error('broke', __("<strong>Special Recent Posts FREE Edition Error!</strong> GD libraries are not supported by your server. Please contact your hosting/housing company support, and check how to enable it. Without these libraries, thumbnails can't be properly resized and displayed.", SRP_TRANSLATION_ID));
+	if (is_wp_error($error)) {
+	   echo "<div id=\"message\" class=\"error\"><p>" . $error->get_error_message() . "</p></div>";
+	}
+}
+
+function srpcheck_thumbnailsupport_error() {
+
+	// Setting up new Error.
+	$error = new WP_Error('broke', __("<strong>Special Recent Posts FREE Edition Warning!</strong> Your theme doesn't support post thumbnail. The plugin will keep on working with first post images only. To enable post thumbnail support, please check the <a href='http://codex.wordpress.org/Post_Thumbnails'> Wordpress Documentation</a>", SRP_TRANSLATION_ID));
+	if (is_wp_error($error)) {
+	   echo "<div id=\"message\" class=\"updated\"><p>" . $error->get_error_message() . "</p></div>";
+	}
+}
+
+function srpcheck_cache_exists_error() {
+	
+	// Setting up new Error.
+	$error = new WP_Error('broke', __("<strong>Special Recent Posts FREE Edition Warning!</strong> The Cache folder does not exist!. In order to use caching functionality you have to manually create a folder names 'cache' under the special-recent-posts/ folder.", SRP_TRANSLATION_ID));
+	if (is_wp_error($error)) echo "<div id=\"message\" class=\"error\"><p>" . $error->get_error_message() . "</p></div>";
+}
+
+function srpcheck_cache_writable_error() {
+	
+	// Setting up new Error.
+	$error = new WP_Error('broke', __("<strong>Special Recent Posts FREE Edition Warning!</strong> The Cache folder is not writable. In order to use caching functionality you have to set the correct writing permissions on special-recent-posts/cache/ folder. E.G: 0755 or 0775", SRP_TRANSLATION_ID));
+	if (is_wp_error($error)) echo "<div id=\"message\" class=\"error\"><p>" . $error->get_error_message() . "</p></div>";
+}
+
+
+/*
+| ------------------------------------------------------------------
+| This is the main function that performs the compatibility check.
+| ------------------------------------------------------------------
+*/
+function check_plugin_compatibility() {
+
 	// Checking for PHP version.
 	$current_ver = phpversion();
+	
+	// Switching through version compare results.
     switch(version_compare($current_ver, SRP_REQUIRED_PHPVER)) {
 		case -1:
-			$error = new WP_Error('broke', __("<strong>Error!</strong> You're running an old version of PHP. In order for this plugin to work, you must enable your server with PHP support version 5.0.0+. Please contact your hosting/housing company support, and check how to enable it.</a>"));
-			if (is_wp_error($error)) {
-				echo "<div id=\"message\" class=\"error\"><p>" . $error->get_error_message() . "</p></div>";
-			}
+			add_action('admin_notices', 'srpcheck_phpver_error'); 
 		break;
 			
         case 0:
@@ -135,57 +93,111 @@ function check_plugin_compatibility() {
 		break;
     }
 	
-	// Check for GD support.
+	// Checking for GD support. (required for the PHP Thumbnailer Class to work)
 	if (!function_exists("gd_info")) {
-		$error = new WP_Error('broke', __("<strong>Error!</strong> GD libraries are not supported by your server. Please contact your hosting/housing company support, and check how to enable it. Without these libraries, thumbnails can't be properly resized and displayed."));
-		if (is_wp_error($error)) {
-		   echo "<div id=\"message\" class=\"error\"><p>" . $error->get_error_message() . "</p></div>";
-		}
+		srpcheck_gd_error();
 	}
 	
-	// Check for thumbnail option enabled theme.
+	// Checking if the current wordpress theme support featured thumbnails.
 	if (!current_theme_supports('post-thumbnails')) {
-		$error = new WP_Error('broke', __("Warning! Your theme doesn't support post thumbnail. The plugin will keep on working with first post images only. To enable post thumbnail support, please check the <a href='http://codex.wordpress.org/Post_Thumbnails'> Wordpress Documentation</a>"));
-		if (is_wp_error($error)) {
-		   echo "<div id=\"message\" class=\"warning\"><p>" . $error->get_error_message() . "</p></div>";
-		}
+		srpcheck_thumbnailsupport_error(); 
+	}
+	
+	// Checking if cache folder exixts and it's writable.
+	if (!file_exists(SRP_PLUGIN_DIR . SRP_CACHE_DIR)) {
+		srpcheck_cache_exists_error();
+		
+	} else if (!is_writable(SRP_PLUGIN_DIR . SRP_CACHE_DIR)) {
+		srpcheck_cache_writable_error();
 	}
 }
 
 /*
-| ---------------------------------------------
-| AMIN MENUS PAGE AND STYLESHEETS
-| ---------------------------------------------
+| -----------------------------------------
+| This is the main Admin setup function.
+| -----------------------------------------
 */
-
-// Main Admin setup function.
 function srp_admin_setup() {
 	
 	// Adding SubMenu Page.
-	$page = add_submenu_page('options-general.php', __('Special Recent Posts - Settings Page', 'Special Recent Posts - Settings Page'), __('Special Recent Posts', 'Special Recent Posts'), 'administrator', __FILE__, 'srp_admin_menu_options');
+	$srp_settings_page = add_submenu_page('options-general.php', __('Special Recent Posts FREE Edition - Settings Page', 'Special Recent Posts FREE Edition - Settings Page'), __('Special Recent Posts FREE', 'Special Recent Posts FREE'), 'administrator', __FILE__, 'srp_admin_menu_options');
 	
     // Using registered $page handle to hook stylesheet loading.
-    add_action('admin_print_styles-' . $page, 'srp_admin_plugin_add_style');
+    add_action('admin_print_styles-' . $srp_settings_page, 'srp_admin_plugin_add_style');
+	
+	// Using registered $page handle to hook javascript loading.
+    add_action('admin_print_scripts-' . $srp_settings_page, 'srp_admin_plugin_add_scripts');
+	
 }
 
-// Main function to add admin stylesheet.
+/*
+| -----------------------------------------
+| This function re-register styles
+| and scripts in the widget page only.
+| -----------------------------------------
+*/
+function widget_enqueue_scripts($hook) {
+    
+	if( ('widgets.php' != $hook) ) return;
+	
+	// Enqueuing plugin admin widget stylesheet.
+	wp_enqueue_style('srp-admin-stylesheet', SRP_PLUGIN_URL . SRP_ADMIN_CSS);
+	
+	// Enqueuing Custom Js Init Script.
+	wp_enqueue_script('srp-custom-js-init'  , SRP_PLUGIN_URL . SRP_JS_INIT,  array('jquery'), SRP_PLUGIN_VERSION, true);
+}
+
+/*
+| ----------------------------------------------------
+| This is the main function to add admin stylesheet.
+| ----------------------------------------------------
+*/
 function srp_admin_plugin_add_style() {
 	
-	// Enqueuing plugin admin stylesheet.
-	wp_enqueue_style('srp-admin-stylesheet');
+	// Enqueuing plugin admin widget stylesheet.
+	wp_enqueue_style('srp-admin-stylesheet', SRP_PLUGIN_URL . SRP_ADMIN_CSS);
 }
 
-// Main function to add widget stylesheet into current theme.
-function srp_theme_css() {
+/*
+| ----------------------------------------------------
+| This is the main function to add admin javascript.
+| ----------------------------------------------------
+*/
+function srp_admin_plugin_add_scripts() {
 	
-	// Printing spcific stylesheet for widgets in current theme.
-	$theme_css =  get_option('srp_plugin_options');
-	echo "<style type=\"text/css\" media=\"screen\">" . stripslashes($theme_css['srp_themecss']) . "</style>";
+	// Enqueuing Custom Js Init Script.
+	wp_enqueue_script('srp-custom-js-init'  , SRP_PLUGIN_URL . SRP_JS_INIT,  array('jquery'), SRP_PLUGIN_VERSION, true);
+}
+
+
+/*
+| ----------------------------------------------------
+| This is the main function to add widget stylesheet
+| into the current theme.
+| ----------------------------------------------------
+*/
+function srp_front_head() {
 	
-	// Adding IE7 Fix.
-	echo "<!--[if IE 7]>";
-	echo "<link rel='stylesheet' id='css-ie-fix' href='" . SRP_PLUGIN_URL . SRP_IEFIX_CSS . "' type='text/css' media='all' /> ";
-	echo "<![endif]-->";
+	// Doing a global database options check.
+	SpecialRecentPostsFree::srp_dboptions_check();
+	
+	// Importing global default options array.
+	$srp_current_options = get_option('srp_plugin_options');
+	
+	// Checking for SRP Stylesheet enabled.
+	if ($srp_current_options["srp_disable_theme_css"] != "yes") {
+		
+		// Registering Front End CSS.
+		wp_register_style('srp-front-stylesheet' , SRP_PLUGIN_URL . SRP_FRONT_CSS);
+		
+		// Enqueuing Front End CSS.
+		wp_enqueue_style('srp-front-stylesheet');
+	
+		// Adding IE7 Fix.
+		echo "<!--[if IE 7]>";
+		echo "<link rel='stylesheet' id='css-ie-fix' href='" . SRP_PLUGIN_URL . SRP_IEFIX_CSS . "' type='text/css' media='all' /> ";
+		echo "<![endif]-->";
+	}
 }
 
 /*
@@ -194,22 +206,26 @@ function srp_theme_css() {
 | ---------------------------------------------
 */
 
-// Main function that builds the plugin admin page.
+/*
+| --------------------------------------------------------------
+| This is the main function that builds the plugin admin page.
+| --------------------------------------------------------------
+*/
 function srp_admin_menu_options() {
 
 	// Checking if we have the manage option permission enabled.
 	if (!current_user_can('manage_options'))  {
-		wp_die( __('You do not have sufficient permissions to access this page.') );
+		wp_die(__('You do not have sufficient permissions to access this page.', SRP_TRANSLATION_ID));
 	}
+	
+	// For first, let's check if there is some kind of compatibility error.
+	check_plugin_compatibility();
 ?>
 	<!-- Generating Option Page HTML. -->
 	<div class="wrap">
 		<div id="srp-admin-container">
 			<?php
 			
-				// For first, let's check if there is some kind of compatibility error.
-				check_plugin_compatibility();
-				
 				// Updating and validating data/POST Check.
 				srp_update_data($_POST, get_option('srp_plugin_options'));
 				
@@ -218,294 +234,235 @@ function srp_admin_menu_options() {
 			?>
 			
 			<!-- BOF Title and Description section. -->
-			<h2><?php _e('Special Recent Posts v' . SRP_PLUGIN_VERSION . '- Settings Page', SRP_TRANSLATION_ID); ?></h2>
-			<div class="error" style="text-align: center; font-size: 16px; padding: 10px; font-weight: bold;"><a href="http://codecanyon.net/item/special-recent-posts-pro/552356?ref=LukasKaine">UPGRADE NOW TO SPECIAL RECENT POSTS PRO!</a><br />Special Recent Posts PRO has been finally released with new incredible features, improved performance and a brand new re-designed plugin.<br /> Dicover it now on CodeCanyon.com</div>
+			<h2 class="srp_admin_headertitle"><?php _e('Special Recent Posts FREE Edition (version ' . SRP_PLUGIN_VERSION . ') - Settings Page', SRP_TRANSLATION_ID); ?></h2>
 			<div class="srp_option_header_l1">
-			<?php _e('In this page you can configure the main settings for the Special Recent Posts plugin. 
-				Keep in mind that these are basic options provided for any plugin instance. 
-				Special options apply for each widget instance or PHP function call, to ensure maximum customization. 
-				Go to Widget Page and drag the Special Recent Posts widget to see additional options available.<p><strong>(*) Required Field</strong></p>', SRP_TRANSLATION_ID); ?>
+				<?php _e('<strong>Welcome to the Special Recent Posts FREE Edition Admin Panel.</strong><br /> In this page you can configure the main settings for the Special Recent Posts FREE Edition plugin. Keep in mind that these are basic options. 
+				Special options apply for each widget instance, shortcode or PHP code to ensure an high level of customization. Go to Widget Page and drag the Special Recent Posts FREE Edition widget to see additional options available.', SRP_TRANSLATION_ID); ?>
+				<div class="error">
+					<h3>Want to go PRO? Special Recent Posts PRO Edition is now available. <a href="http://codecanyon.net/item/special-recent-posts-pro/552356" title="Upgrade now to Special Recent Posts PRO Edition" target="_blank">Upgrade Now!</a></h3>
+				</div>
 			</div>
-			<div class="srp_option_header_l2">
-				<a class="donate-logo" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PZD4ACBRFR9GS" title="Feel free to donate for this plugin. I'll be grateful if you will :)">
-					<img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" alt="" />
-				</a>
-			</div>
-			<br style="clear:both;" />
 			<!-- EOF Title and Description section. -->
+				
+			<!-- BOF Admin Tabs -->
+			<ul id="srp_widget_tabs">
+				<li>
+					<a onClick="javascript:srpTabsSwitcher(1);" class="srp_tab_1 active" title="<?php _e('General Settings', SRP_TRANSLATION_ID); ?>" href="#"><?php _e('General Settings', SRP_TRANSLATION_ID); ?></a>
+				</li>
+				
+				<li>
+					<a onClick="javascript:srpTabsSwitcher(2);" class="srp_tab_2" title="<?php _e('Cache Settings', SRP_TRANSLATION_ID); ?>" href="#"><?php _e('Cache Settings', SRP_TRANSLATION_ID); ?></a>
+				</li>
+			</ul>
+			<!-- EOF Admin Tabs -->
+				
 			
+			<div class="metabox-holder" id="srp_tab1">
 				<!--  Open Form. -->
 				<form id="srp_admin_form" name="srp_admin_form" action="" method="POST">
-				
-					<!-- BOF Thumbnail Section. -->
-					<div class="metabox-holder">
-						<div class="postbox">
-							
-							<h3><?php _e('Thumbnails Section', SRP_TRANSLATION_ID);?></h3>
-							
-							<!-- BOF Left Box. -->
-							<div id="srp-admin-leftcontent">
-								<p>
-									<?php  _e('<p>Thumbnails are generated through an automatic process which tries to retrieve each post featured image;
-										in case this step fails or the thumbnail is unavailable, the plugin will try to fetch the first image from the post content. 
-										Adaptive resize is applied to display images at their best quality without stretching.
-										If no images are available, a default thumbnail is displayed.
-										Here are the basic options for this section:</p>
-										<dl><dt><strong>Thumbnail Width</strong>:</dt>
-											<dd>Set the preferred thumbnail width.<br /><i>Note: This setting could be overrided by a specific widget value.</i></dd>
-											<dt><strong>Thumbnail Height</strong>:</dt>
-											<dd>Set the preferred thumbnail height.<br /><i>Note: This setting could be overrided by a specific widget value.</i></dd>
-											<dt><strong>Link to Post</strong>:</dt>
-											<dd>Check this option if you want the thumbnails to be linked to post pages.</dd>
-											<dt><strong>Default Thumbnail URL</strong>:</dt>
-											<dd>Paste here the full URL of a custom image for the thumbnail placeholder. This will be displayed when no post images are available.
-										</dd></dl>', SRP_TRANSLATION_ID); ?>
-								</p>
-							</div>
-							<!-- EOF Left Box. -->
-							
-							<!-- BOF Right Box. -->
-							<div id="srp-admin-rightcontent">
-								<ul>
-									
-									<!--BOF Thumbnail Size -->
-									<li>
-										<label for="srp_thumbnail_width"><?php _e('Set thumbnail width (*)', SRP_TRANSLATION_ID); ?></label>
-										<input type="text" id="srp_thumbnail_width" name="srp_thumbnail_width" value="<?php echo stripslashes($srp_current_options['srp_thumbnail_width']); ?>" size="8" /> px
-										
-										<label for="srp-thumbnail-height"><?php _e('Set thumbnail height (*)', SRP_TRANSLATION_ID); ?></label>
-										<input type="text" id="srp_thumbnail_height" name="srp_thumbnail_height" value="<?php echo stripslashes($srp_current_options['srp_thumbnail_height']); ?>" size="8" /> px
-									</li>
-									<!--EOF Thumbnail Size -->
-									
-									<!--BOF Thumbnail Link Mode -->
-									<li>
-										<input type="checkbox" id="srp_thumbnail_link" name="srp_thumbnail_link" value="yes" <?php checked($srp_current_options['srp_thumbnail_link'], 'yes'); ?> />
-										<span class="srp-smalltext"><?php _e('Link thumbnail to post', SRP_TRANSLATION_ID); ?></span>
-									</li>
-									<!--EOF Thumbnail Link Mode -->
-									
-									<!--BOF Thumbnail Custom URL -->
-									<li>
-										<label for="srp_thumbnail_url"><?php _e('Insert here your default thumbnail image URL (leave the default value for SRP placeholder) Default size: 100px x 100px', SRP_TRANSLATION_ID); ?></label>
-										<input type="text" id="srp_thumbnail_url" name="srp_thumbnail_url" value="<?php echo stripslashes($srp_current_options['srp_thumbnail_url']); ?>" size="120" />
-									</li>
-									<!--EOF Thumbnail Custom URL -->
-								</ul>
-							</div>
-							<!-- EOF Right Box. -->
-							
-							<div class="clearer"></div>
-							
-						</div><!-- EOF postbox. -->
-					</div><!-- EOF metabox-holder. -->
-					<!-- EOF Thumbnail section. -->
-					
-					<!-- BOF Posts Content Section. -->
-					<div class="metabox-holder">
-						<div class="postbox">
-
-						<h3><?php _e('Posts Content Section', SRP_TRANSLATION_ID); ?></h3>
+					<input type="hidden" value="yes" name="srp_dataform">
+					<input type="hidden" value="<?php echo $srp_current_options["srp_version"]; ?>" name="srp_version">
+					<input type="hidden" value="<?php echo $srp_current_options["srp_global_post_limit"]; ?>" name="srp_global_post_limit">
+					<div class="postbox">
 						
+						<h3><?php _e('General Settings', SRP_TRANSLATION_ID);?></h3>
+
 						<!-- BOF Left Box. -->
 						<div id="srp-admin-leftcontent">
 							<p>
-							<?php _e('By default every post is displayed with its excerpt. If this is unavaiable, the plugin will try to generate an excerpt from the plain post content data.
-								Here are the basic options:
-								<dl>
-									<dt><strong>Max Text Size to Display</strong>:</dt>
-									<dd>Insert here after how many characters/words the post excerpt should be \'cut\'.</dd>
-									<dt><strong>Excerpt Allowed Tags</strong>:</dt>
-									<dd>Insert here a list of tags you\'d like to keep displayed inside the generated text output. The list must be written without quotes, dots or commas.<br />Example: &lt;a&gt;&lt;img&gt;&lt;i&gt;</dd>
-									<dt><strong>Max Title Size to Display</strong>:</dt>
-									<dd>Insert here after how many characters/words the post title should be \'cut\'.</dd>
-									<dt><strong>Set String Break</strong>:</dt>
-									<dd>Insert here the suffix string to be appended after the post excerpt and if it should be linked to the post page.</dd>
-									<dt><strong>Set Image String Break</strong>:</dt>
-									<dd>Insert here the absolute URL of a custom image to use as graphic stringbreak. This will override the textual one.</dd>
-									<dt><strong>Format Post Date.</strong>:</dt>
-									<dd>Insert here how to format the post date field. Check the legend for each parameter. For further options see the <a href=\'http://php.net/manual/en/function.date.php\'>PHP documentation</a> online.</dd>
-									<dt><strong>Post Offset</strong></dt>
-									<dd>Check this field if you want to hide from the recent posts the current post displayed (usually on single post view).</dd>
-									<dt><strong>Use Category Title</strong></dt>
-									<dd>Check this field if you want to display the category name as widget title instead of the custom one. It will be linked to the category archive page.</dd>
-									<dt><strong>No Posts Available Text</strong></dt>
-									<dd>This is the text that will be displayed when no posts are available.</dd>
-								</dl>', SRP_TRANSLATION_ID); ?>
+							<?php _e('This is the General Settings page. Here you can customize all of the settings that globally apply to the plugin.', SRP_TRANSLATION_ID); ?>
 							</p>
+							
+							<dl>
+								<dt>
+									<strong><?php _e('Enable Compatibility Mode', SRP_TRANSLATION_ID); ?></strong>
+								</dt>
+								<dd>
+									<?php _e('This option enables some compatibility features that change the behaviour of the SRP plugin, in order to work seamlessly with other plugins.
+									If you are experiencing problems with Special Recent Posts PRO and other plugins, you might want to disable this option.', SRP_TRANSLATION_ID); ?>
+								</dd>
+								
+								<dt>
+									<strong><?php _e('Log Errors on Screen', SRP_TRANSLATION_ID); ?></strong>
+								</dt>
+								<dd>
+									<?php _e('This option enables the error logging on screen. It\'s useful to understand where something has gone wrong during the image generation process.', SRP_TRANSLATION_ID); ?>
+								</dd>
+								
+								<dt>
+									<strong><?php _e('No-Posts Image Placeholder', SRP_TRANSLATION_ID); ?></strong>
+								</dt>
+								<dd>
+									<?php _e('This is the default image that appears when no other images are available inside a post. 
+									You can use the one you prefer, by simply typing in the full URL of the image. 
+									If you leave this field empty, the default no-image placeholder will be loaded.', SRP_TRANSLATION_ID); ?>
+								</dd>
+								
+								<dt>
+									<strong><?php _e('Disable Plugin CSS?', SRP_TRANSLATION_ID); ?></strong>
+								</dt>
+								<dd>
+									<?php _e('This option enables/disables the built-in widget stylesheet. Set this option to "Yes" if you wish to use your own style.', SRP_TRANSLATION_ID); ?>
+								</dd>
+								
+								<dt>
+									<strong><?php _e('Theme CSS', SRP_TRANSLATION_ID); ?></strong>
+								</dt>
+								<dd>
+									<?php _e('This is the global Stylesheet. All layout changements must be done here. 
+									Consider that in some cases, your custom theme CSS might override these settings. 
+									In this case, edit this stylesheet using the <i>"<strong>!important"</strong></i> attribute beside each rule to override your theme css rules.', SRP_TRANSLATION_ID); ?>
+								</dd>
+							</dl>
 						</div>
 						<!-- EOF Left Box. -->
 						
-						<!-- BOF Right Box -->
+						<!-- BOF Right Box. -->
 						<div id="srp-admin-rightcontent">
 							<ul>
-								<!-- BOF Excerpt length option. -->
 								<li>
-									<label for="srp_excerpt_length"><?php _e('Max text size to display (*)', SRP_TRANSLATION_ID); ?></label>
-									<span class="srp-smalltext"><?php _e('Cut post text after: ', SRP_TRANSLATION_ID); ?></span>
-									<input type="text" name="srp_excerpt_length" id="srp_excerpt_length" value="<?php echo stripslashes($srp_current_options['srp_excerpt_length']); ?>" size="10" />
-									<input type="radio" name="srp_excerpt_length_mode" id="srp_excerpt_length_mode" value="words" <?php checked($srp_current_options['srp_excerpt_length_mode'], 'words'); ?> /> <span class="srp-smalltext radiotext"><?php _e('Words', SRP_TRANSLATION_ID); ?></span>
-									<input type="radio" name="srp_excerpt_length_mode" id="srp_excerpt_length_mode" value="chars" <?php checked($srp_current_options['srp_excerpt_length_mode'], 'chars'); ?> /> <span class="srp-smalltext radiotext"><?php _e('Characters', SRP_TRANSLATION_ID); ?></span>
-									<input type="radio" name="srp_excerpt_length_mode" id="srp_excerpt_length_mode" value="fullexcerpt" <?php checked($srp_current_options['srp_excerpt_length_mode'], 'fullexcerpt'); ?> /> <span class="srp-smalltext radiotext"><?php _e('Use full excerpt', SRP_TRANSLATION_ID); ?></span>
+									<!--BOF Compatibility Mode -->
+									<label for="srp_compatibility_mode"><?php _e('Enable Compatibility Mode', SRP_TRANSLATION_ID); ?></label>
+									<span class="srp-smalltext"><?php _e('Switch this to No if you\'re experiencing visualization problems or other kind of incompatibility with other plugins.', SRP_TRANSLATION_ID); ?></span><br />
+									<select id="srp_compatibility_mode" name="srp_compatibility_mode">
+										<option value="yes" <?php selected($srp_current_options["srp_compatibility_mode"], 'yes'); ?>><?php _e('Yes', SRP_TRANSLATION_ID); ?></option>
+										<option value="no" <?php selected($srp_current_options["srp_compatibility_mode"], 'no'); ?>><?php _e('No', SRP_TRANSLATION_ID); ?></option>
+									</select>
+									<!--EOF Compatibility Mode -->
 								</li>
-								<!-- EOF Excerpt length option. -->
 								
-								<!-- BOF Excerpt allowed tags. -->
 								<li>
-									<label for="srp_excerpt_allowed_tags"><?php _e('Excerpt Allowed Tags? (Leave blank for clean text without any markup)', SRP_TRANSLATION_ID); ?></label>
-									<input type="text" name="srp_excerpt_allowed_tags" id="srp_excerpt_allowed_tags" value="<?php echo htmlspecialchars_decode(stripslashes($srp_current_options['srp_excerpt_allowed_tags'])); ?>" size="40" />
+									<!--BOF Log Errors on Screen -->
+									<label for="srp_log_errors_screen"><?php _e('Log Errors on Screen?', SRP_TRANSLATION_ID); ?></label>
+									<span class="srp-smalltext"><?php _e('Switch this to Yes if you want to log potential errors or warnings on screen.', SRP_TRANSLATION_ID); ?></span><br />
+									<select id="srp_log_errors_screen" name="srp_log_errors_screen">
+										<option value="yes" <?php selected($srp_current_options["srp_log_errors_screen"], 'yes'); ?>><?php _e('Yes', SRP_TRANSLATION_ID); ?></option>
+										<option value="no" <?php selected($srp_current_options["srp_log_errors_screen"], 'no'); ?>><?php _e('No', SRP_TRANSLATION_ID); ?></option>
+									</select>
+									<!--EOF Log Errors on Screen -->
 								</li>
-								<!-- EOF Excerpt allowed tags. -->
 								
-								<!-- BOF Title length option. -->
-								<li>
-									<label for="srp_title_length"><?php _e('Max title size to display (*)', SRP_TRANSLATION_ID); ?></label>
-									<span class="srp-smalltext"><?php _e('Cut title text after: ', SRP_TRANSLATION_ID); ?></span>
-									<input type="text" name="srp_title_length" id="srp_title_length" value="<?php echo stripslashes($srp_current_options['srp_title_length']); ?>" size="10" />
-									<input type="radio" name="srp_title_length_mode" id="srp_title_length_mode" value="words" <?php checked($srp_current_options['srp_title_length_mode'], 'words'); ?> /> <span class="srp-smalltext radiotext"><?php _e('Words', SRP_TRANSLATION_ID); ?></span>
-									<input type="radio" name="srp_title_length_mode" id="srp_title_length_mode" value="chars" <?php checked($srp_current_options['srp_title_length_mode'], 'chars'); ?> /> <span class="srp-smalltext radiotext"><?php _e('Characters', SRP_TRANSLATION_ID); ?></span>
-									<input type="radio" name="srp_title_length_mode" id="srp_title_length_mode" value="fulltitle" <?php checked($srp_current_options['srp_title_length_mode'], 'fulltitle'); ?> /> <span class="srp-smalltext radiotext"><?php _e('Use full title', SRP_TRANSLATION_ID); ?></span>
-								</li>
-								<!-- EOF Title length option. -->
 								
-								<!-- BOF String Break Option. -->
+								<!--BOF Thumbnail Custom URL -->
 								<li>
-									<label for="srp_string_break"><?php _e('Set String Break', SRP_TRANSLATION_ID); ?></label>
-									<input type="text" name="srp_string_break" id="srp_string_break" value="<?php echo stripslashes($srp_current_options['srp_string_break']); ?>" size="40" />
-									<input type="checkbox" id="srp_string_break_link" name="srp_string_break_link" value="yes" <?php checked($srp_current_options['srp_string_break_link'], 'yes'); ?> />
-									<span class="srp-smalltext"><?php _e('Link to post', SRP_TRANSLATION_ID); ?></span>
+									<label for="srp_noimage_url"><?php _e('No-Posts Image Placeholder', SRP_TRANSLATION_ID); ?></label>
+									<input type="text" id="srp_noimage_url" name="srp_noimage_url" value="<?php echo stripslashes($srp_current_options['srp_noimage_url']); ?>" size="90" /><br />
+									<span class="srp-smalltext"><?php _e('Enter the absolute url of the image placeholder. Default size: 100px x 100px.', SRP_TRANSLATION_ID); ?></span>
 								</li>
-								<!-- EOF String Break Option. -->
+								<!--EOF Thumbnail Custom URL -->
 								
-								<!-- BOF Image String Break. -->
+								<!--BOF Disable Theme CSS -->
 								<li>
-									<label for="srp_image_string_break"><?php _e('Set Image String Break (Fill in with the absolute URL of your button image)', SRP_TRANSLATION_ID); ?></label>
-									<input type="text" name="srp_image_string_break" id="srp_image_string_break" value="<?php echo stripslashes($srp_current_options['srp_image_string_break']); ?>" size="120" />
+									<label for="srp_disable_theme_css"><?php _e('Disable Plugin CSS?', SRP_TRANSLATION_ID); ?></label>
+									<select id="srp_disable_theme_css" name="srp_disable_theme_css">
+										<option value="yes" <?php selected($srp_current_options["srp_disable_theme_css"], 'yes'); ?>><?php _e('Yes', SRP_TRANSLATION_ID); ?></option>
+										<option value="no" <?php selected($srp_current_options["srp_disable_theme_css"], 'no'); ?>><?php _e('No', SRP_TRANSLATION_ID); ?></option>
+									</select>
 								</li>
-								<!-- EOF Image String Break. -->
-								
-								<!-- BOF Date Content option. --->
-								<li>
-									<label for="srp_date_content"><?php _e('Format post date (*)', SRP_TRANSLATION_ID); ?></label>
-									<input type="text" name="srp_date_content" id="srp_date_content" value="<?php echo stripslashes($srp_current_options['srp_date_content']); ?>" size="30" />
-									<span class="srp-smalltext"><?php _e('(F = Month name | j = Day of the month | S = ordinal suffix for the day of the month | Y = Year)', SRP_TRANSLATION_ID); ?></span>
-								</li>
-								<!-- EOF Date Content option. -->
-								
-								<!-- BOF Post Offset option. --->
-								<li>
-									<label for="srp_post_offset"><?php _e('Post Offset', SRP_TRANSLATION_ID); ?></label>
-									<input type="checkbox" id="srp_post_offset" name="srp_post_offset" value="yes" <?php checked($srp_current_options['srp_post_offset'], 'yes'); ?> />
-									<span class="srp-smalltext"><?php _e('Check this box if you want to hide the current post from SRP list when in single post view.', SRP_TRANSLATION_ID); ?></span>
-								</li>
-								<!-- EOF Post Offset option. --->
-								
-								<!-- BOF Category Title option. --->
-								<li>
-									<label for="srp_category_title"><?php _e('Use Category Title?', SRP_TRANSLATION_ID); ?></label>
-									<input type="checkbox" id="srp_category_title" name="srp_category_title" value="yes" <?php checked($srp_current_options['srp_category_title'], 'yes'); ?> />
-									<span class="srp-smalltext"><?php _e('Check this box if you want to use the category title instead of the custom one when category filter is on.', SRP_TRANSLATION_ID); ?></span>
-								</li>
-								<!-- EOF Category Title option. --->
-								
-								<!-- BOF No posts message. --->
-								<li>
-									<label for="srp_noposts_message"><?php _e('No posts available text', SRP_TRANSLATION_ID); ?></label>
-									<input type="text" name="srp_noposts_message" id="srp_noposts_message" value="<?php echo stripslashes($srp_current_options['srp_noposts_message']); ?>" size="40" />
-								</li>
-								<!-- EOF No posts message. --->
+								<!--EOF Disable Theme CSS -->								
 							</ul>
 						</div>
 						<!-- EOF Right Box. -->
 						
 						<div class="clearer"></div>
-					</div> <!-- EOF postbox. -->
-				</div> <!--EOF metabox-holder. -->
-				<!-- BOF Posts Content Section. -->
-				
-				<!-- BOF Thumbnail Section. -->
-					<div class="metabox-holder">
-						<div class="postbox">
+						
+					</div><!-- EOF postbox. -->
+					<input type="submit" name="submit" class="button-primary" value="<?php _e('Save Options', SRP_TRANSLATION_ID); ?>" />
+				</form> <!--EOF Form. -->
+			</div><!-- EOF metabox-holder. -->
+		
+			<div class="metabox-holder" id="srp_tab2">
+				<form id="srp-cache-flush-form" action="" method="POST">
+					<div class="postbox">
+						
+						<h3><?php _e('Cache Settings', SRP_TRANSLATION_ID);?></h3>
+						<!-- BOF Left Box. -->
+						<div id="srp-admin-leftcontent">
+							<dl>
+								<dt>
+									<strong><?php _e('Empty Cache Folder', SRP_TRANSLATION_ID); ?></strong>
+								</dt>
+								<dd>
+									<?php _e('Click this button to empty the thumbnails cache folder.', SRP_TRANSLATION_ID); ?>
+								</dd>
+						</div>
+						<!-- EOF Left Box. -->
+						
+						<!-- BOF Right Box. -->
+						<div id="srp-admin-rightcontent">
 							
-							<h3><?php _e('Appearance Section', SRP_TRANSLATION_ID);?></h3>
+							<input type="hidden" value="yes" name="cache_flush">
+							<input type="submit" value="<?php _e('Empty Cache Folder', SRP_TRANSLATION_ID); ?>" class="button-primary">
 							
-							<!-- BOF Left Box. -->
-							<div id="srp-admin-leftcontent">
-								<p><?php  _e('This is the stylesheet that handles the widget visualization on your theme. Basic properties are applied. Feel free to modify it to suite your needs.', SRP_TRANSLATION_ID); ?></p>
-							</div>"
-							<!-- EOF Left Box. -->
-							
-							<!-- BOF Right Box. -->
-							<div id="srp-admin-rightcontent">
-								<ul>
-									
-									<!--BOF Thumbnail Size -->
-									<li>
-										<label for="srp_themecss"><?php _e('Theme CSS', SRP_TRANSLATION_ID); ?></label>
-										<textarea id="srp_themecss" name="srp_themecss" rows="20" cols="80" /><?php echo stripslashes($srp_current_options['srp_themecss']); ?></textarea>
-									</li>
-									<!--EOF Thumbnail Size -->
-								</ul>
-							</div>
-							<!-- EOF Right Box. -->
-							
-							<div class="clearer"></div>
-							
-						</div><!-- EOF postbox. -->
-					</div><!-- EOF metabox-holder. -->
-					<!-- EOF Thumbnail section. -->
-				
-				<input type="submit" name="submit" class="button-primary" value="<?php _e('Save Options', SRP_TRANSLATION_ID); ?>" />
-			</form> <!--EOF Form. -->
+							<!-- EOF Cache Flush Section -->
+						</div>
+
+						<div class="clearer"></div>		
+					</div><!-- EOF postbox. -->
+				</form>
+			</div><!-- EOF metabox-holder. -->
 		</div> <!-- EOF srp_adm_container -->
 	</div> <!-- EOF Wrap. -->
 <?php
 }
 
-// Main function to update form option data.
+/*
+| -------------------------------------------------------
+| This is the main function to update form option data.
+| -------------------------------------------------------
+*/
 function srp_update_data($data, $srp_current_options) {
 
 	// Checking if form has been submitted.
-	if (isset($_POST['submit'])) {
+	if (isset($_POST['srp_dataform'])) {
+	
+		// Loading global default plugin values.
+		global $srp_default_plugin_values;
+	
+		// Removing the "submit" $_POST entry.
+		unset($data['srp_dataform']);
 		
-		// Remove the "submit" $_POST entry.
+		// Removing the "submit" $_POST entry.
 		unset($data['submit']);
-		
-		// Handling null values for checkboxes - 1
-		if (!isset($data['srp_thumbnail_link'])) {
-			$data['srp_thumbnail_link'] = 'no';
-		}
-		
-		// Handling null values for checkboxes - 2
-		if (!isset($data['srp_string_break_link'])) {
-			$data['srp_string_break_link'] = 'no';
-		}
-		
-		// Handling null values for checkboxes - 3
-		if (!isset($data['srp_post_offset'])) {
-			$data['srp_post_offset'] = 'no';
-		}
-		
-		if (!isset($data["srp_category_title"])) {
-			$data['srp_category_title'] = 'no';
-		}
 		
 		// Validating text fields.		
 		foreach ($data as $k => $v) {
 			
-			// Assigning previous default value if field is empty. String break field excluded.
-			if ((empty($v)) && ( ($k != "srp_string_break") && ($k != "srp_noposts_message") && ($k != "srp_excerpt_allowed_tags") && ($k != "srp_image_string_break"))) {
-				$data[$k] = $srp_current_options[$k];
-			}
+			// Assigning global default value to noimage placeholder field, if this is empty.
+			if ((empty($v)) && ($k == "srp_noimage_url")) $data[$k] = $srp_default_plugin_values[$k];
 		}
-		
-		// Handling special html tags in "srp_excerpt_allowed_tags".
-		$data['srp_excerpt_allowed_tags'] = htmlspecialchars($data['srp_excerpt_allowed_tags'], ENT_QUOTES);
 		
 		// Updating WP Option with new $_POST data.
 		update_option('srp_plugin_options', $data);
-		
+
 		// Displaying "save settings" message.
 		echo "<div id=\"message\" class=\"updated\"><p><strong>" . __('Settings Saved', SRP_TRANSLATION_ID) . "</strong></p></div>";
+	}
+	
+	// Checking for Cache Flush Option.
+	if (isset($_POST["cache_flush"]) && $_POST["cache_flush"] == "yes") {
+		
+		// Setting up cache folder path.
+		$mydir = SRP_PLUGIN_DIR . SRP_CACHE_DIR;
+		
+		// Initializing directory class.
+		$d = dir($mydir); 
+		
+		// Reading cache folder content.
+		while($entry = $d->read()) { 
+			
+			// Checking if the directory is empty.
+			if ($entry!= "." && $entry!= "..") { 
+				
+				// Deleting files.
+				unlink(SRP_PLUGIN_DIR  . SRP_CACHE_DIR . $entry);
+			} 
+		}
+		
+		// Closing fodler class connection.
+		$d->close();
+		
+		// Displaying status message.
+		echo "<div id=\"message\" class=\"updated\"><p><strong>" . __('Cache Folder Cleaned', SRP_TRANSLATION_ID) . "</strong></p></div>";
 	}
 }

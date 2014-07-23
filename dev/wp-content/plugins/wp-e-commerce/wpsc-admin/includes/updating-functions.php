@@ -6,8 +6,7 @@
  * @since 3.8
  */
 
-class WPSC_Update
-{
+class WPSC_Update {
 	private static $instance;
 	private $timeout;
 	private $script_start;
@@ -69,8 +68,7 @@ class WPSC_Update
 	}
 }
 
-class WPSC_Update_Progress
-{
+class WPSC_Update_Progress {
 	private $milestone;
 	private $start;
 	private $count;
@@ -118,11 +116,11 @@ class WPSC_Update_Progress
 
 	private function print_eta() {
 		echo '<div class="eta">';
-		echo __( 'Estimated time left:', 'wpsc' ) . ' ';
+		_e( 'Estimated time left:', 'wpsc' ) . ' ';
 		if ( $this->eta == 0 )
-			echo __( 'Under a minute', 'wpsc' );
+			_e( 'Under a minute', 'wpsc' );
 		else
-			printf( _n( '%d minute', '%d minutes', $this->eta ), $this->eta );
+			printf( _n( '%d minute', '%d minutes', $this->eta, 'wpsc' ), $this->eta );
 		echo '</div>';
 	}
 
@@ -150,7 +148,7 @@ class WPSC_Update_Progress
 
 		if ( $percent == 100 ) {
 			remove_filter( 'wpsc_update_terminate_location', array( $this, 'filter_terminate_location' ) );
-			echo '<div class="eta">Done!</div>';
+			echo '<div class="eta">' . _x( 'Done!', 'Update routine completed', 'wpsc' ) . '</div>';
 			echo '</div>';
 		}
 	}
@@ -182,11 +180,11 @@ function wpsc_update_step( $i, $total ) {
 		$processed = $i - $count + 1;
 		$eta = floor( ( $total - $i ) * ( $now - $start ) / ( $processed * 60 ) );
 		echo '<div class="eta">';
-		echo __( 'Estimated time left:', 'wpsc' ) . ' ';
+		_e( 'Estimated time left:', 'wpsc' ) . ' ';
 		if ( $eta == 0 )
-			echo __( 'Under a minute', 'wpsc' );
+			_e( 'Under a minute', 'wpsc' );
 		else
-			printf( _n( '%d minute', '%d minutes', $eta ), $eta );
+			printf( _n( '%d minute', '%d minutes', $eta, 'wpsc' ), $eta );
 		echo '</div>';
 		$milestone = $now;
 	}
@@ -257,9 +255,9 @@ function wpsc_convert_categories($new_parent_category, $group_id, $old_parent_ca
 	global $wpdb, $user_ID;
 
 	if($old_parent_category > 0) {
-		$categorisation = $wpdb->get_results("SELECT * FROM `".WPSC_TABLE_PRODUCT_CATEGORIES."` WHERE `active` IN ('1') AND `group_id` IN ('{$group_id}') AND `category_parent` IN ('{$old_parent_category}')");
+		$categorisation = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM `".WPSC_TABLE_PRODUCT_CATEGORIES."` WHERE `active` IN ('1') AND `group_id` IN (%d) AND `category_parent` IN (%d)", $group_id, $old_parent_category ) );
 	} else {
-		$categorisation = $wpdb->get_results("SELECT * FROM `".WPSC_TABLE_PRODUCT_CATEGORIES."` WHERE `active` IN ('1') AND `group_id` IN ('{$group_id}') AND `category_parent` IN (0)");
+		$categorisation = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM `".WPSC_TABLE_PRODUCT_CATEGORIES."` WHERE `active` IN ('1') AND `group_id` IN (%d) AND `category_parent` IN (0)", $group_id ) );
 	}
 	$wpsc_update = WPSC_Update::get_instance();
 
@@ -423,7 +421,7 @@ function wpsc_convert_products_to_posts() {
 				$product['order'] = $wpdb->get_var( $wpdb->prepare( "
 					SELECT order FROM " . WPSC_TABLE_PRODUCT_ORDER . "
 					WHERE product_id = %d
-				" ), $product['id'] );
+				", $product['id'] ) );
 
 				$product_post_values['menu_order'] = $product['order'];
 
@@ -444,7 +442,7 @@ function wpsc_convert_products_to_posts() {
 				WHERE `product_id` = %d
 				AND `meta_value` != ''", $product['id'] );
 
-			$product_meta = $wpdb->get_results( $product_meta_sql, ARRAY_A);
+			$product_meta = $wpdb->get_results( $product_meta_sql, ARRAY_A );
 
 			$post_data = array();
 
@@ -484,6 +482,7 @@ function wpsc_convert_products_to_posts() {
 			$post_data['_wpsc_product_metadata']['quantity_limited'] = (int)(bool)$product['quantity_limited'];
 			$post_data['_wpsc_product_metadata']['special'] = (int)(bool)$product['special'];
 			if(isset($post_data['meta'])) {
+				$post_data['_wpsc_product_metadata']['notify_when_none_left'] = (int)(bool)$post_data['meta']['_wpsc_product_metadata']['notify_when_none_left'];
 				$post_data['_wpsc_product_metadata']['unpublish_when_none_left'] = (int)(bool)$post_data['meta']['_wpsc_product_metadata']['unpublish_when_none_left'];
 			}
 			$post_data['_wpsc_product_metadata']['no_shipping'] = (int)(bool)$product['no_shipping'];
@@ -729,6 +728,10 @@ function wpsc_convert_variation_combinations() {
 					$post_data['_wpsc_product_metadata']['display_weight_as'] = $variation_item->weight_unit;
 					$post_data['_wpsc_product_metadata']['weight_unit'] = $variation_item->weight_unit;
 
+					// Parts of the code (eg wpsc_product_variation_price_from() make the assumption that these meta keys exist
+ 					$post_data['_wpsc_special_price'] = 0;
+ 					$post_data['_wpsc_sku'] = '';
+
 					$already_exists = true;
 
 					if ( ! empty( $selected_post ) && $selected_post->ID != $child_product_id ) {
@@ -858,8 +861,8 @@ function wpsc_update_database() {
 		$has_taxes = ($value["Field"] == "wpec_taxes_total" || $value["Field"] == "wpec_taxes_rate") ? true: false;
 	}
 	if (!$has_taxes) {
-		$add_fields = $wpdb->query($wpdb->prepare("ALTER TABLE ".WPSC_TABLE_PURCHASE_LOGS." ADD wpec_taxes_total decimal(11,2)"));
-		$add_fields = $wpdb->query($wpdb->prepare("ALTER TABLE ".WPSC_TABLE_PURCHASE_LOGS." ADD wpec_taxes_rate decimal(11,2)"));
+		$add_fields = $wpdb->query( "ALTER TABLE ".WPSC_TABLE_PURCHASE_LOGS." ADD wpec_taxes_total decimal(11,2)" );
+		$add_fields = $wpdb->query( "ALTER TABLE ".WPSC_TABLE_PURCHASE_LOGS." ADD wpec_taxes_rate decimal(11,2)" );
 	}
 }
 /*
@@ -871,13 +874,13 @@ function old_get_product_meta($product_id, $key, $single = false) {
 	$product_id = (int)$product_id;
 	$meta_values = false;
 	if($product_id > 0) {
-		$meta_id = $wpdb->get_var("SELECT `id` FROM `".WPSC_TABLE_PRODUCTMETA."` WHERE `meta_key` IN('$key') AND `product_id` = '$product_id' LIMIT 1");
+		$meta_id = $wpdb->get_var( $wpdb->prepare( "SELECT `id` FROM `".WPSC_TABLE_PRODUCTMETA."` WHERE `meta_key` IN(%s) AND `product_id` = %d LIMIT 1", $key, $product_id ) );
 		//exit($meta_id);
 		if(is_numeric($meta_id) && ($meta_id > 0)) {
 			if($single != false) {
 				$meta_values = maybe_unserialize($wpdb->get_var("SELECT `meta_value` FROM `".WPSC_TABLE_PRODUCTMETA."` WHERE `meta_key` IN('$key') AND `product_id` = '$product_id' LIMIT 1"));
 			} else {
-				$meta_values = $wpdb->get_col("SELECT `meta_value` FROM `".WPSC_TABLE_PRODUCTMETA."` WHERE `meta_key` IN('$key') AND `product_id` = '$product_id'");
+				$meta_values = $wpdb->get_col( $wpdb->prepare( "SELECT `meta_value` FROM `".WPSC_TABLE_PRODUCTMETA."` WHERE `meta_key` IN(%s) AND `product_id` = %d", $key, $product_id ) );
 				$meta_values = array_map('maybe_unserialize', $meta_values);
 			}
 		}

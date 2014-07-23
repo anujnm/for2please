@@ -1,5 +1,3 @@
-# AuthName "Project Kaizen "
-# AuthUserFile "/home/fortwo9/.htpasswds/public_html/dev/passwd"
 
 ErrorDocument 401 ./onerror.html
 ErrorDocument 403 ./onerror.html
@@ -7,15 +5,13 @@ ErrorDocument 403 ./onerror.html
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-RewriteBase /dev/
+RewriteBase /
 RewriteRule ^index\.php$ - [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /dev/index.php [L]
+RewriteRule . /index.php [L]
 
 </IfModule>
 
@@ -30,8 +26,6 @@ Header set Cache-Control "max-age=604800, public"
 </FilesMatch>
 
 # END WordPress
-# AuthType Basic
-# require valid-user
 
 # compress text, html, javascript, css and xml
 AddOutputFilterByType DEFLATE text/plain

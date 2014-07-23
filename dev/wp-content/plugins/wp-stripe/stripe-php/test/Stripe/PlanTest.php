@@ -1,14 +1,19 @@
 <?php
 
-class Stripe_PlanTest extends UnitTestCase
+class Stripe_PlanTest extends StripeTestCase
 {
   public function testDeletion()
   {
     authorizeFromEnv();
-    $p = Stripe_Plan::create(array('amount' => 2000,
-				       'currency' => 'usd',
-				       'name' => 'Plan',
-				       'id' => 'gold'));
+    $p = Stripe_Plan::create(
+        array(
+            'amount' => 2000,
+            'interval' => 'month',
+            'currency' => 'usd',
+            'name' => 'Plan',
+            'id' => 'gold-' . self::randomString()
+        )
+    );
     $p->delete();
     $this->assertTrue($p->deleted);
   }
@@ -16,17 +21,21 @@ class Stripe_PlanTest extends UnitTestCase
   public function testSave()
   {
     authorizeFromEnv();
-    $p = Stripe_Plan::create(array('amount' => 2000,
-				       'currency' => 'usd',
-				       'name' => 'Plan',
-				       'id' => 'gold'));
+    $planID = 'gold-' . self::randomString();
+    $p = Stripe_Plan::create(
+        array(
+            'amount' => 2000,
+            'interval' => 'month',
+            'currency' => 'usd',
+            'name' => 'Plan',
+            'id' => $planID
+        )
+    );
     $p->name = 'A new plan name';
-    $p->bogus = 'bogus';
     $p->save();
     $this->assertEqual($p->name, 'A new plan name');
-    $this->assertNull($p['bogus']);
 
-    $p2 = Stripe_Plan::retrieve($p->'gold');
-    $this->assertEqual($c->name, $c2->name);
+    $stripePlan = Stripe_Plan::retrieve($planID);
+    $this->assertEqual($p->name, $stripePlan->name);
   }
 }

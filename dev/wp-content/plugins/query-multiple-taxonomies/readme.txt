@@ -1,9 +1,11 @@
 === Query Multiple Taxonomies ===
-Contributors: scribu
-Tags: drill-down, query, widget, navigation, taxonomy
-Requires at least: 3.1
-Tested up to: 3.2
-Stable tag: 1.5.1
+Contributors: scribu  
+Tags: drill-down, query, widget, navigation, taxonomy  
+Requires at least: 3.2  
+Tested up to: 3.5  
+Stable tag: 1.6.2  
+License: GPLv2 or later  
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Filter posts through multiple taxonomies.
 
@@ -19,23 +21,23 @@ Said widget is easily customizable via template files (no PHP knowledge required
 * [Bill Nanson](http://burgundy-report.com)
 * [Matthew Porter](http://porterinnovative.com)
 
-= Support =
-I do not offer any support for this plugin (free or paid). If it works for you, great. If it doesn't, send in a patch or find another plugin.
+= No Support =
+I do not offer any support for this plugin (free or paid).
+
+Please consider using an [alternative plugin](https://github.com/scribu/wp-query-multiple-taxonomies/wiki/Similar-plugins).
 
 Links: [**Documentation**](http://github.com/scribu/wp-query-multiple-taxonomies/wiki) | [Plugin News](http://scribu.net/wordpress/query-multiple-taxonomies) | [Author's Site](http://scribu.net)
 
 == Screenshots ==
 
-1. Drill-down navigation widgets
-2. Drill-down widgets in the admin
+1. Lists mode
+2. Checkboxes mode
+3. Dropdowns mode
+4. Widget configuration
 
-== Frequently Asked Questions ==
+= How can I order the taxonomies in the widget? =
 
-= Error on activation: "Parse error: syntax error, unexpected T_CLASS..." =
-
-Make sure your host is running PHP 5. Add this line to wp-config.php to check:
-
-`var_dump(PHP_VERSION);`
+Just drag them around.
 
 = How do I define a custom taxonomy? =
 
@@ -61,14 +63,48 @@ The template hierarchy for multitax queries is taxonomy.php -> archive.php -> in
 
 If you need to get specific, you can use the `is_multitax()` conditional tag, which works similarly to `is_tax()`:
 
-`is_multitax()` -> true if more than one taxonomy was queried
+`is_multitax()` -> true if more than one taxonomy was queried.
 
-`is_multitax( array('tax_a', 'tax_b') )` -> true if both tax_a and tax_b were queried
+`is_multitax( array('tax_a', 'tax_b') )` -> true if both tax_a and tax_b were
+queried.
+
+= How can I customize the display even further? =
+
+Copy any file from the `templates` directory into a directory called `qmt` in
+your theme and modify it at will.
+
+For example to change the checkbox mode display,
+
+copy
+
+`wp-content/plugins/query-multiple-taxonomies/templates/checkboxes.html`
+
+to
+
+`wp-content/themes/YOUR-THEME/qmt-templates/checkboxes.html`
+
+and change it however you want.
 
 == Changelog ==
 
+= 1.6.3 =
+* fixed parent term post count. props wxyjp
+* fixed term name enconding issue
+
+= 1.6.2 =
+* {{count}} tag improvements. props tiagoalves83 and jprberlin
+* added {{any-text}} tag. props jprberlin
+* updated to Mustache 1.0.0
+
+= 1.6.1 =
+* fixed activation error
+* fixed error in PHP 5.4
+
 = 1.6 =
-* added {{count}} tag
+* added checkbox mode
+* added {{count}} tag. props khakulov
+* added Ukranian translation. props Jurko Chervony
+* [more info](http://scribu.net/wordpress/query-multiple-taxonomies/qmt-1-6.html)
 
 = 1.5.1 =
 * fixed issue with custom post types

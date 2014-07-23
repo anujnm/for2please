@@ -11,15 +11,15 @@ function wpsc_auto_update() {
 	wpsc_check_and_copy_files();
 
 	$wpsc_version = get_option( 'wpsc_version' );
-	$wpsc_minor_version = get_option( 'wspc_minor_version' );
+	$wpsc_minor_version = get_option( 'wpsc_minor_version' );
 
 	if ( $wpsc_version === false )
-		add_option( 'wpsc_version', WPSC_VERSION, '', 'yes' );
+		add_option( 'wpsc_version', WPSC_VERSION, '', 'no' );
 	else
 		update_option( 'wpsc_version', WPSC_VERSION );
 
 	if ( $wpsc_minor_version === false )
-		add_option( 'wpsc_minor_version', WPSC_MINOR_VERSION, '', 'yes' );
+		add_option( 'wpsc_minor_version', WPSC_MINOR_VERSION, '', 'no' );
 	else
 		update_option( 'wpsc_minor_version', WPSC_MINOR_VERSION );
 
@@ -33,29 +33,34 @@ function wpsc_install() {
 	global $wpdb, $user_level, $wp_rewrite, $wp_version, $wpsc_page_titles;
 
 	$table_name    = $wpdb->prefix . "wpsc_product_list";
-	$first_install = false;
 
 	if( $wpdb->get_var("SHOW TABLES LIKE '$table_name'") !== $table_name ) {
 		// Table doesn't exist
-		$first_install = true;
 		add_option( 'wpsc_purchaselogs_fixed', true );
 	}
+
+	// the only consistent and reliable way to detect whether this is a fresh install is by checking
+	// whether WPSC_TABLE_CART_CONTENTS exists. This is an unfortunate hack, but we can do away with
+	// it in 3.9 as we'll drop support for 3.7.x then
+	if ( $wpdb->get_var( "SHOW TABLES LIKE '" . WPSC_TABLE_CART_CONTENTS . "'" ) != WPSC_TABLE_CART_CONTENTS )
+		add_option( 'wpsc_db_version', WPSC_DB_VERSION, '', 'no' );
 
 	// run the create or update code here.
 	wpsc_create_or_update_tables();
 	wpsc_create_upload_directories();
 
 	// All code to add new database tables and columns must be above here
-	$wpsc_version = get_option( 'wpsc_version', 0 );
-	$wpsc_minor_version = get_option( 'wspc_minor_version', 0 );
+	$wpsc_version       = get_option( 'wpsc_version', 0 );
+	$wpsc_minor_version = get_option( 'wpsc_minor_version', 0 );
 
-	if ( $wpsc_version === false )
-		add_option( 'wpsc_version', WPSC_VERSION, '', 'yes' );
-	else
+	if ( $wpsc_version === false ) {
+		add_option( 'wpsc_version', WPSC_VERSION, '', 'no' );
+	} else {
 		update_option( 'wpsc_version', WPSC_VERSION );
+	}
 
 	if ( $wpsc_minor_version === false )
-		add_option( 'wpsc_minor_version', WPSC_MINOR_VERSION, '', 'yes' );
+		add_option( 'wpsc_minor_version', WPSC_MINOR_VERSION, '', 'no' );
 	else
 		update_option( 'wpsc_minor_version', WPSC_MINOR_VERSION );
 
@@ -89,7 +94,7 @@ function wpsc_install() {
 		update_option('wpsc_enable_comments',0);
 
 	if('' == get_option('multi_add'))
-		update_option('multi_add',0);
+		update_option('multi_add',1);
 
 	if('' == get_option('hide_addtocart_button'))
 		update_option('hide_addtocart_button',0);
@@ -98,18 +103,17 @@ function wpsc_install() {
 		update_option('wpsc_addtocart_or_buynow',0);
 
 
-	add_option( 'show_thumbnails', 1, '', "yes" );
-	add_option( 'show_thumbnails_thickbox', 1, '', "yes" );
+	add_option( 'show_thumbnails', 1, '', 'no' );
+	add_option( 'show_thumbnails_thickbox', 1, '', 'no' );
 
-	add_option( 'product_list_url', '', '', 'yes' );
-	add_option( 'shopping_cart_url', '', '', 'yes' );
-	add_option( 'checkout_url', '', '', 'yes' );
-	add_option( 'transact_url', '', '', 'yes' );
-	add_option( 'payment_gateway', '','', 'yes' );
+	add_option( 'product_list_url', '', '', 'no' );
+	add_option( 'shopping_cart_url', '', '', 'no' );
+	add_option( 'checkout_url', '', '', 'no' );
+	add_option( 'transact_url', '', '', 'no' );
+	add_option( 'payment_gateway', '','', 'no' );
 
 	$default_payment_gateways_names = array(
 		'chronopay'						=> '',
-		'google'						=> '',
 		'wpsc_merchant_paypal_express'	=> '',
 		'wpsc_merchant_paypal_pro'		=> '',
 		'wpsc_merchant_paypal_standard'	=> ''
@@ -120,60 +124,58 @@ function wpsc_install() {
 
 
 	if ( function_exists( 'register_sidebar' ) )
-		add_option( 'cart_location', '4','', 'yes' );
+		add_option( 'cart_location', '4','', 'no' );
 	else
-		add_option( 'cart_location', '1', '', 'yes' );
+		add_option( 'cart_location', '1', '', 'no' );
 
-	add_option( 'currency_type', '156','', 'yes' );
-	add_option( 'currency_sign_location', '3', '', 'yes' );
+	add_option( 'currency_type', '156','', 'no' );
+	add_option( 'currency_sign_location', '3', '', 'no' );
 
-	add_option( 'gst_rate', '1','', 'yes' );
+	add_option( 'gst_rate', '1','', 'no' );
 
-	add_option( 'max_downloads', '1','', 'yes' );
+	add_option( 'max_downloads', '1','', 'no' );
 
-	add_option( 'display_pnp', '1', '', 'yes' );
+	add_option( 'display_pnp', '1', '', 'no' );
 
-	add_option( 'display_specials', '1', '', 'yes' );
-	add_option( 'do_not_use_shipping', '1', '', 'yes' );
+	add_option( 'display_specials', '1', '', 'no' );
+	add_option( 'do_not_use_shipping', '1', '', 'no' );
 
-	add_option( 'postage_and_packaging', '0','', 'yes' );
+	add_option( 'postage_and_packaging', '0','', 'no' );
+    add_option( 'shipwire', '0', '', 'no' );
+    add_option( 'shipwire_test_server', '0', '', 'no' );
 
-	add_option( 'purch_log_email', '', '', 'yes' );
-	add_option( 'return_email', '', '', 'yes' );
-	add_option( 'terms_and_conditions', '', '', 'yes' );
+	add_option( 'purch_log_email', '', '', 'no' );
+	add_option( 'return_email', '', '', 'no' );
+	add_option( 'terms_and_conditions', '', '', 'no' );
 
-	add_option( 'google_key', 'none', '', 'yes' );
-	add_option( 'google_id', 'none', '', 'yes' );
+	add_option( 'default_brand', 'none', '', 'no' );
+	add_option( 'wpsc_default_category', 'all', '', 'no' );
 
-	add_option( 'default_brand', 'none', '', 'yes' );
-	add_option( 'wpsc_default_category', 'all', '', 'yes' );
-
-	add_option( 'product_view', 'default', "", 'yes' );
+	add_option( 'product_view', 'default', "", 'no' );
 	add_option( 'add_plustax', 'default', "", '1' );
 
-
-	add_option( 'nzshpcrt_first_load', '0', "", 'yes' );
 
 	if ( !((get_option( 'show_categorybrands' ) > 0) && (get_option( 'show_categorybrands' ) < 3)) )
 		update_option( 'show_categorybrands', 2 );
 
 	// PayPal options
-	add_option( 'paypal_business', '', '', 'yes' );
-	add_option( 'paypal_url', '', '', 'yes' );
-	add_option( 'paypal_ipn', '1', '', 'yes' );
+	add_option( 'paypal_business', '', '', 'no' );
+	add_option( 'paypal_url', '', '', 'no' );
+	add_option( 'paypal_ipn', '1', '', 'no' );
 
 
-	add_option( 'paypal_multiple_business', '', '', 'yes' );
+	add_option( 'paypal_multiple_business', '', '', 'no' );
 
 	add_option( 'paypal_multiple_url', "https://www.paypal.com/cgi-bin/webscr" );
 
-	add_option( 'product_ratings', '0', '', 'yes' );
-	add_option( 'wpsc_email_receipt', __( 'Thank you for purchasing with %shop_name%, any items to be shipped will be processed as soon as possible, any items that can be downloaded can be downloaded using the links on this page.All prices include tax and postage and packaging where applicable.
-	You ordered these items:
-	%product_list%%total_shipping%%total_price%', 'wpsc' ), '', 'yes' );
-	add_option( 'wpsc_email_admin', __( '%product_list%%total_shipping%%total_price%', 'wpsc' ), '','yes' );
+	add_option( 'product_ratings', '0', '', 'no' );
+	add_option( 'wpsc_email_receipt', __( 'Thank you for purchasing with %shop_name%, any items to be shipped will be processed as soon as possible, any items that can be downloaded can be downloaded using the links on this page. All prices include tax and postage and packaging where applicable.
+You ordered these items:
+%product_list%%total_shipping%%total_price%', 'wpsc' ), '', 'no' );
 
-	add_option( 'wpsc_selected_theme', 'default', '', 'yes' );
+	add_option( 'wpsc_email_admin', __( '%product_list%%total_shipping%%total_price%', 'wpsc' ), '','no' );
+
+	add_option( 'wpsc_selected_theme', 'default', '', 'no' );
 
 	add_option( 'product_image_height', 148);
 	add_option( 'product_image_width', 148);
@@ -190,9 +192,9 @@ function wpsc_install() {
 	add_option( 'wpsc_thousands_separator', ',' );
 	add_option( 'wpsc_decimal_separator', '.' );
 
-	add_option( 'custom_gateway_options', array('wpsc_merchant_testmode'), '', 'yes' );
+	add_option( 'custom_gateway_options', array('wpsc_merchant_testmode'), '', 'no' );
 
-	add_option( 'wpsc_category_url_cache', array(), '', 'yes' );
+	add_option( 'wpsc_category_url_cache', array(), '', 'no' );
 
 	// add in some default tax settings
 	add_option( 'wpec_taxes_inprice', 'exclusive' );
@@ -262,6 +264,8 @@ function wpsc_install() {
 	//unset products page
 	unset($pages['products-page']);
 
+	require_once( WPSC_FILE_PATH . '/wpsc-core/wpsc-functions.php' );
+
 	//create other pages
 	foreach( (array)$pages as $page ){
 		//check if page exists and get it's ID
@@ -292,11 +296,11 @@ function wpsc_install() {
 	//if we have created any new pages, then flush... do we need to do this? probably should be removed
 	if ( $newpages ) {
 		wp_cache_delete( 'all_page_ids', 'pages' );
-		$wp_rewrite->flush_rules();
+		wpsc_update_permalink_slugs();
 	}
 	// Product categories, temporarily register them to create first default category if none exist
 	// @todo: investigate those require once lines and move them to right place (not from here, but from their original location, which seems to be wrong, since i cant access wpsc_register_post_types and wpsc_update_categorymeta here) - Vales <v.bakaitis@gmail.com>
-	require_once( WPSC_FILE_PATH . '/wpsc-core/wpsc-functions.php' );
+	wpsc_core_load_page_titles();
 	wpsc_register_post_types();
 	$category_list = get_terms( 'wpsc_product_category', 'hide_empty=0&parent=0' );
 	if ( count( $category_list ) == 0 ) {
@@ -307,7 +311,6 @@ function wpsc_install() {
 		$term = get_term_by( 'id', $new_category['term_id'], 'wpsc_product_category' );
 		$url_name = $term->slug;
 
-		$wp_rewrite->flush_rules();
 		wpsc_update_categorymeta( $category_id, 'nice-name', $url_name );
 		wpsc_update_categorymeta( $category_id, 'description', __( "This is a description", 'wpsc' ) );
 		wpsc_update_categorymeta( $category_id, 'image', '' );
@@ -315,6 +318,7 @@ function wpsc_install() {
 		wpsc_update_categorymeta( $category_id, 'active', '1' );
 		wpsc_update_categorymeta( $category_id, 'order', '0' );
 	}
+	flush_rewrite_rules( false );
 }
 
 function wpsc_product_files_htaccess() {
@@ -388,7 +392,7 @@ function wpsc_create_upload_directories() {
 		WPSC_USER_UPLOADS_DIR,
 		WPSC_CACHE_DIR,
 		WPSC_UPGRADES_DIR,
-		WPSC_THEMES_PATH
+		// WPSC_THEMES_PATH
 	);
 	foreach ( $folders as $folder ) {
 		wp_mkdir_p( $folder );
@@ -578,7 +582,7 @@ function wpsc_create_or_update_tables( $debug = false ) {
 		update_option( 'wpsc_database_check', $template_hash );
 		return true;
 	} else {
-		return false;
+		return $failure_reasons;
 	}
 }
 
@@ -610,19 +614,19 @@ function wpsc_add_region_list() {
 	global $wpdb;
 	$add_regions = $wpdb->get_var( "SELECT COUNT(*) AS `count` FROM `" . WPSC_TABLE_REGION_TAX . "`" );
 	if ( $add_regions < 1 ) {
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Alberta', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'British Columbia', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Manitoba', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'New Brunswick', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Newfoundland', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Northwest Territories', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Nova Scotia', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Nunavut', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Ontario', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Prince Edward Island', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Quebec', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Saskatchewan', '', '0')" );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Yukon', '', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Alberta', 'AB', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'British Columbia', 'BC', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Manitoba', 'MB', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'New Brunswick', 'NB', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Newfoundland and Labrador', 'NL', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Northwest Territories', 'NT', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Nova Scotia', 'NS', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Nunavut', 'NU', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Ontario', 'ON', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Prince Edward Island', 'PE', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Quebec', 'QC', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Saskatchewan', 'SK', '0')" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '100', 'Yukon', 'YK', '0')" );
 		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '136', 'Alabama', 'AL', '0')" );
 		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '136', 'Alaska', 'AK', '0')" );
 		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_REGION_TAX . "` ( `country_id` , `name` ,`code`, `tax` ) VALUES ( '136', 'Arizona', 'AZ', '0')" );
@@ -703,26 +707,26 @@ function wpsc_add_checkout_fields() {
 
 	if ( isset( $data_forms[0] ) && $data_forms[0]['count'] == 0 ) {
 
-		$sql = " INSERT INTO `" . WPSC_TABLE_CHECKOUT_FORMS . "` ( `name`, `type`, `mandatory`, `display_log`, `default`, `active`, `checkout_order`, `unique_name`) VALUES ( '" . __( 'Your billing/contact details', 'wpsc' ) . "', 'heading', '0', '0', '', '1', 1,''),
-	( '" . __( 'First Name', 'wpsc' ) . "', 'text', '1', '1', '', '1', 2,'billingfirstname'),
-	( '" . __( 'Last Name', 'wpsc' ) . "', 'text', '1', '1', '', '1', 3,'billinglastname'),
-	( '" . __( 'Address', 'wpsc' ) . "', 'address', '1', '0', '', '1', 4,'billingaddress'),
-	( '" . __( 'City', 'wpsc' ) . "', 'city', '1', '0', '', '1', 5,'billingcity'),
-	( '" . __( 'State', 'wpsc' ) . "', 'text', '0', '0', '', '1', 6,'billingstate'),
-	( '" . __( 'Country', 'wpsc' ) . "', 'country', '1', '0', '', '1', 7,'billingcountry'),
-	( '" . __( 'Postal Code', 'wpsc' ) . "', 'text', '0', '0', '', '1', 8,'billingpostcode'),
-	( '" . __( 'Email', 'wpsc' ) . "', 'email', '1', '1', '', '1', 9,'billingemail'),
-	( '" . __( 'Shipping Address', 'wpsc' ) . "', 'heading', '0', '0', '', '1', 10,'delivertoafriend'),
-	( '" . __( 'First Name', 'wpsc' ) . "', 'text', '0', '0', '', '1', 11,'shippingfirstname'),
-	( '" . __( 'Last Name', 'wpsc' ) . "', 'text', '0', '0', '', '1', 12,'shippinglastname'),
-	( '" . __( 'Address', 'wpsc' ) . "', 'address', '0', '0', '', '1', 13,'shippingaddress'),
-	( '" . __( 'City', 'wpsc' ) . "', 'city', '0', '0', '', '1', 14,'shippingcity'),
-	( '" . __( 'State', 'wpsc' ) . "', 'text', '0', '0', '', '1', 15,'shippingstate'),
-	( '" . __( 'Country', 'wpsc' ) . "', 'delivery_country', '0', '0', '', '1', 16,'shippingcountry'),
-	( '" . __( 'Postal Code', 'wpsc' ) . "', 'text', '0', '0', '', '1', 17,'shippingpostcode');";
+		$sql = " INSERT INTO `" . WPSC_TABLE_CHECKOUT_FORMS . "` ( `name`, `type`, `mandatory`, `display_log`, `default`, `active`, `checkout_order`, `unique_name`) VALUES ( '" . __( 'Your billing/contact details', 'wpsc' ) . "', 'heading', '0', '0', '1', '1', 1,''),
+	( '" . __( 'First Name', 'wpsc' ) . "', 'text', '1', '1', '1', '1', 2,'billingfirstname'),
+	( '" . __( 'Last Name', 'wpsc' ) . "', 'text', '1', '1', '1', '1', 3,'billinglastname'),
+	( '" . __( 'Address', 'wpsc' ) . "', 'address', '1', '0', '1', '1', 4,'billingaddress'),
+	( '" . __( 'City', 'wpsc' ) . "', 'city', '1', '0', '1', '1', 5,'billingcity'),
+	( '" . __( 'State', 'wpsc' ) . "', 'text', '0', '0', '1', '1', 6,'billingstate'),
+	( '" . __( 'Country', 'wpsc' ) . "', 'country', '1', '0', '1', '1', 7,'billingcountry'),
+	( '" . __( 'Postal Code', 'wpsc' ) . "', 'text', '0', '0', '1', '1', 8,'billingpostcode'),
+	( '" . __( 'Email', 'wpsc' ) . "', 'email', '1', '1', '1', '1', 9,'billingemail'),
+	( '" . __( 'Shipping Address', 'wpsc' ) . "', 'heading', '0', '0', '1', '1', 10,'delivertoafriend'),
+	( '" . __( 'First Name', 'wpsc' ) . "', 'text', '0', '0', '1', '1', 11,'shippingfirstname'),
+	( '" . __( 'Last Name', 'wpsc' ) . "', 'text', '0', '0', '1', '1', 12,'shippinglastname'),
+	( '" . __( 'Address', 'wpsc' ) . "', 'address', '0', '0', '1', '1', 13,'shippingaddress'),
+	( '" . __( 'City', 'wpsc' ) . "', 'city', '0', '0', '1', '1', 14,'shippingcity'),
+	( '" . __( 'State', 'wpsc' ) . "', 'text', '0', '0', '1', '1', 15,'shippingstate'),
+	( '" . __( 'Country', 'wpsc' ) . "', 'delivery_country', '0', '0', '1', '1', 16,'shippingcountry'),
+	( '" . __( 'Postal Code', 'wpsc' ) . "', 'text', '0', '0', '1', '1', 17,'shippingpostcode');";
 
 		$wpdb->query( $sql );
-		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_CHECKOUT_FORMS . "` ( `name`, `type`, `mandatory`, `display_log`, `default`, `active`, `checkout_order`, `unique_name` ) VALUES ( '" . __( 'Phone', 'wpsc' ) . "', 'text', '1', '0', '', '1', '8','billingphone');" );
+		$wpdb->query( "INSERT INTO `" . WPSC_TABLE_CHECKOUT_FORMS . "` ( `name`, `type`, `mandatory`, `display_log`, `default`, `active`, `checkout_order`, `unique_name` ) VALUES ( '" . __( 'Phone', 'wpsc' ) . "', 'text', '0', '0', '', '1', '8','billingphone');" );
 	}
 }
 function wpsc_rename_checkout_column(){
@@ -735,4 +739,72 @@ function wpsc_rename_checkout_column(){
 	}
 
 }
-?>
+
+/**
+ * In 3.8.8, we removed the ability for the user to delete or add core checkout fields (things like billingfirstname, billinglastname etc.) in order to reduce user error.
+ * Mistakenly deleting or duplicating those fields could cause unexpected bugs with checkout form validation.
+ *
+ * Some users have encountered an issue where, if they had previously deleted a core checkout field, now they can't add it back again.
+ * With this function, we should check to see whether any core fields are missing (by checking the uniquenames)
+ * If there are some missing, we automatically generate those with the intended uniquename.
+ *
+ * We set the 'active' field to 0, so as to mitigate any unintended consequences of adding additional fields.
+ *
+ * @since 3.8.8.2
+ * @return none
+ */
+function wpsc_3882_database_updates() {
+	global $wpdb;
+
+	// Check if we have done this before
+	if ( version_compare( get_option( 'wpsc_version' ), '3.8.8.2', '>=' ) )
+		return;
+
+	$unique_names = array(
+						'billingfirstname'  => __( 'First Name', 'wpsc' ),
+						'billinglastname'   => __( 'Last Name', 'wpsc' ),
+						'billingaddress'    => __( 'Address', 'wpsc' ),
+						'billingcity'       => __( 'City', 'wpsc' ),
+						'billingstate'      => __( 'State', 'wpsc' ),
+						'billingcountry'    => __( 'Country', 'wpsc' ),
+						'billingemail'      => __( 'Email', 'wpsc' ),
+						'billingphone'      => __( 'Phone', 'wpsc' ),
+						'billingpostcode'   => __( 'Postal Code', 'wpsc' ),
+						'delivertoafriend'  => __( 'Shipping Address', 'wpsc' ),
+						'shippingfirstname' => __( 'First Name', 'wpsc' ),
+						'shippinglastname'  => __( 'Last Name', 'wpsc' ),
+						'shippingaddress'   => __( 'Address', 'wpsc' ),
+						'shippingcity'      => __( 'City', 'wpsc' ),
+						'shippingstate'     => __( 'State', 'wpsc' ),
+						'shippingcountry'   => __( 'Country', 'wpsc' ),
+						'shippingpostcode'  => __( 'Postal Code', 'wpsc' ),
+					);
+
+	// Check if any uniquenames are missing
+	$current_columns = array_filter( $wpdb->get_col( $wpdb->prepare( 'SELECT unique_name FROM ' . WPSC_TABLE_CHECKOUT_FORMS ) ) );
+
+	$columns_to_add = array_diff_key( $unique_names, array_flip( $current_columns ) );
+
+	if ( empty( $columns_to_add ) )
+		return update_option( 'wpsc_version', '3.8.8.2' );
+
+	foreach ( $columns_to_add as $unique_name => $name ) {
+
+			// We need to add the row.  A few cases to check for type.  Quick and procedural felt like less overkill than a switch statement
+			$type = 'text';
+			$type = stristr( $unique_name, 'address' ) ? 'address'         : $type;
+			$type = stristr( $unique_name, 'city' )    ? 'city'            : $type;
+			$type = 'billingcountry'  == $unique_name  ? 'country'         : $type;
+			$type = 'billingemail'    == $unique_name  ? 'email'           : $type;
+			$type = 'shippingcountry' == $unique_name  ? 'deliverycountry' : $type;
+
+			$wpdb->insert( WPSC_TABLE_CHECKOUT_FORMS,
+				array( 'unique_name' => $unique_name, 'active' => '0', 'type' => $type, 'name' => $name, 'checkout_set' => '0' ),
+				array( '%s', '%d', '%s', '%s', '%d' )
+			);
+	}
+
+	// Update option to database to indicate that we have patched this.
+	update_option( 'wpsc_version', '3.8.8.2' );
+
+}
