@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 <?php if ( !is_user_logged_in() ) { ?>
-if (document.referrer == "" || document.referrer.indexOf("fortwoplease") < 0) {
+if (document.referrer == "" || document.referrer.indexOf("fortwodev.com") < 0) {
 	window.location.assign('/subscribe');
 }
 <?php } ?>
