@@ -24,8 +24,8 @@ define('DB_PASSWORD', 'for2fun2');
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
 
-define('WP_HOME','http://192.241.212.121/');
-define('WP_SITEURL','http://192.241.212.121/');
+define('WP_HOME','http://www.fortwodev.com/');
+define('WP_SITEURL','http://www.fortwodev.com/');
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
 
