@@ -127,4 +127,6 @@ crawlers/yelp/data.txt
 
 *.png
 
+dev/wp-content/debug.log
+
 *.sql
