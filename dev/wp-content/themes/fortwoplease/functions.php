@@ -408,32 +408,6 @@ function log_me_in(){
 add_action('wp_ajax_nopriv_logmein', 'log_me_in');
 add_action('wp_ajax_logmein', 'log_me_in');//for users that are not logged in.
 
-/*
-function send_confirmation_email(){
-	$theID = $_POST['theID'];
-	$totalPrice = $_POST['totalPrice'];
-	$transID = $_POST['transID'];
-	$phone = get_field('phone_number',$theID);
-	$bname = get_field('business_name',$theID);
-	$pname = get_field('package_name',$theID);
-	$uid = wp_get_current_user();
-	$userID = $uid->ID;
-	$name = $uid->user_login;
-	$user_email = $uid->user_email;
-
-	$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-	add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-	wp_mail($user_email, 'Your Next Great Date!', '<strong>Congratulations '.$name.'</strong><p>Your purchase of ['.$bname.'-'.$pname.'] was successful.</p><p><b>TO USE: Phone '.$phone.' to reserve a time for your date.</b> Just say your name and ForTwoPlease ID, which is <b>'.$userID.'</b>, and the business will take care of the rest. (You can call to reserve anytime, however you have to reserve before you can use your date.)</p><p>When you show up, say your name and ForTwoPlease ID -  it’s that easy!</p><p>The details of your Date Package are also in your account, which you can access at anytime: <a href="http://fortwoplease.com/myaccount/">Your Account</a>. But please don’t print anything. Dating is a classy affair!</p><BR /><strong>Date Package Payment Summary</strong><p>Total: $'.$totalPrice.'</p><p>Transaction ID:'.$transID.'</p><BR /><p>And, if you want to really WOW your date, we can help you with flowers, babysitters or even hair dos with our <a href="http://fortwoplease.com/date-enhancer/">Date Enhancers.</a></p><p>Enjoy!</p><p>-The ForTwoPlease Team</p><p>p.s. As always, if you have any questions shoot us an email and we’ll get back to you within one business day - support@ForTwoPlease.com</p>',$headers);
-
-
-
-}
-add_action('wp_ajax_nopriv_sendconfmail', 'send_confirmation_email');
-add_action('wp_ajax_sendconfmail', 'send_confirmation_email');//for users that are not logged in.
-*/
-
-
-
 
 function login_with_email_address($username) {
 	$user = get_user_by_email($username);
@@ -442,24 +416,6 @@ function login_with_email_address($username) {
 	return $username;
 }
 add_action('wp_authenticate','login_with_email_address');
-
-/* Don't need Google Analytics on Dev
-function add_googleanalytics() {
-	echo "<script type='text/javascript'>";
-	echo "var _gaq = _gaq || [];";
-	echo "_gaq.push(['_setAccount', 'UA-22573395-1']);";
-	echo "_gaq.push(['_setDomainName', 'fortwoplease.com']);";
-	echo "_gaq.push(['_trackPageview']);";
-
-	echo "(function() {";
-	echo "var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;";
-	echo "ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';";
-	echo "var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);";
-	echo "})();";
-	echo "</script>";
-}
-add_action('wp_footer', 'add_googleanalytics');
-*/
 
 
 function email_subscription() {
@@ -489,12 +445,6 @@ function email_subscription() {
 			$login_data['remember'] = "true";
 			$user_verify = wp_signon( $login_data, true );
 			if ( !is_wp_error($user_verify) ) {
-			/*
-				$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-				add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-				wp_mail($user_email, 'Your Dates Just Got Better ', '<strong>You are in!</strong><p>We’re excited that you’ve joined our ForTwoPlease community. Now that you’re a member, we can start recommending better dates that we think you’ll enjoy.</p><p><b>It’s easy to get started.</b> Find local date ideas based on what you want to do and we’ll help you with the rest – like cabs, babysitters and even private airplanes!</p><a href="http://fortwoplease.com">Your next great date awaits</a><p>If you have any questions, we’d love to hear from you. Shoot us a line on <a href="http://www.facebook.com/fortwoplease/">Facebook</a>
-				or email us at support@ForTwoPlease.</p><p>Best of Luck!</p><p>The ForTwoPlease Team</p>',$headers);
-			*/
 
 				//Call the method that adds the email to the MailChimp subscriber list
 				add_email_to_mail_chimp($user_email, null, null);
@@ -564,7 +514,7 @@ function add_email_to_mail_chimp ($email, $fname, $lname) {
 
 function send_welcome_email($user_email, $first_name) {
 	$to = array(array('email'=>$user_email, 'type'=>'to'));
-    $message = array('from_email'=>'jesse@fortwoplease.com', 'from_name'=> 'Jesse from ForTwoPlease', 'to'=> $to);
+    $message = array('from_email'=>'jesse@<?php echo DOMAIN_NAME;?>', 'from_name'=> 'Jesse from ForTwoPlease', 'to'=> $to);
     if ($first_name	) {
     	$greeting = "Hey " . $first_name . ",";
     } else {
@@ -696,10 +646,6 @@ function new_user_reg(){
 		$login_data['remember'] = "true";
 		$user_verify = wp_signon( $login_data, true );
 		if (!is_wp_error($user_verify)) {
-			// $headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-			// add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-			// wp_mail($user_email, 'Your Dates Just Got Better ', '<strong>You are in!</strong><p>We’re excited that you’ve joined our ForTwoPlease community. Now that you’re a member, we can start recommending better dates that we think you’ll enjoy.</p><p><b>It’s easy to get started.</b> Find local date ideas based on what you want to do and we’ll help you with the rest – like cabs, babysitters and even private airplanes!</p><a href="http://fortwoplease.com">Your next great date awaits</a><p>If you have any questions, we’d love to hear from you. Shoot us a line on <a href="http://www.facebook.com/fortwoplease/">Facebook</a>
-			// or email us at support@ForTwoPlease.</p><p>Best of Luck!</p><p>The ForTwoPlease Team</p>',$headers);
 			add_email_to_mail_chimp($user_login, null, null);
 			send_welcome_email($user_login, $firstname);
 			echo 'Success';
@@ -711,29 +657,6 @@ add_action('wp_ajax_nopriv_newuserreg', 'new_user_reg');
 add_action('wp_ajax_newuserreg', 'new_user_reg');//for users that are not logged in.
 
 
-/*
-function done_date(){
-	date_default_timezone_set('Canada/Pacific');
-	$uval = $_POST['uniqueval'];
-	$checked = $_POST['checked'];
-	$uid = wp_get_current_user();
-	$package_uid = substr($uval, 0,strrpos($uval, "_"));
-	error_log("package_uid: $package_uid");
-	$timestamp = date(DATE_RFC822);
-	error_log($timestamp);
-	if($checked=='notchecked') {
-		update_user_meta($uid->ID,$uval,'notdone');
-		update_user_meta($uid->ID, $package_uid.'_redeemded_date', '' );
-	} elseif($checked == 'checked') {
-		update_user_meta($uid->ID,$uval,'done');
-		update_user_meta($uid->ID, $package_uid.'_redeemded_date', $timestamp );
-	}
-}
-
-add_action('wp_ajax_nopriv_donedate', 'done_date');
-add_action('wp_ajax_donedate', 'done_date');//for users that are not logged in.
-*/
-
 function share_date(){
 
 	$toemail = $_POST['recipient-email'];
@@ -744,7 +667,7 @@ function share_date(){
 	$postobject = wp_get_single_post($postid);
 	$permalink = get_permalink($postid);
 
-	$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
+	$headers = 'From: ForTwoPlease <info@<?php echo DOMAIN_NAME;?>>' . "\r\n";
 	$contents = '<p>Lucky You!</p><p>'.$fromname.' thought you would like this great date idea:</p><b><a href="'.$permalink.'">'.$postobject->post_title .'</a></b><p>Check it out and let '.$fromname.' know what you think.</p><p>Have Fun<br/>-The ForTwoPlease Team</p>';
 
 	if (strlen($message) > 0) {
@@ -1016,14 +939,14 @@ function create_date_idea() {
   $date_times = array_unique($date_times);
   wp_set_object_terms($result1, $date_times, 'time');
 
-  $preview_link = 'http://fortwoplease.com/dev/?post_type=dates&p=' . $result1 . '&preview=true';
+  $preview_link = '<?php echo BASE_URL?>/?post_type=dates&p=' . $result1 . '&preview=true';
   $csv_contents = array($result1, $preview_link, $business_name, $user_name, '', $user_email, $business_phone, $website, $street_address1, '', $city, $province, $country, $postal_code, '', '', $form_city);
   #$csv_contents = array('Post ID', 'Preview Link', 'Business Name', 'Contact Name', 'Title', 'Email', 'Phone', 'Website', 'Street 1', 'Street 2', 'City', 'Province', 'Country', 'Postal Code', 'Best contact time', 'Neighbourhood');
 
   $file = fopen('business_info2.csv', 'a');
   fputcsv($file, $csv_contents, ',');
   fclose($file);
-  $redirect_url = "http://fortwoplease.com/dev/upload?uploaded=True&city=". $form_city;
+  $redirect_url = "<?php echo BASE_URL?>/upload?uploaded=True&city=". $form_city;
   header('Location: '. $redirect_url);
   die();
 }

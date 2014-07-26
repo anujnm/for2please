@@ -4,7 +4,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-22573395-3', 'fortwoplease.com');
+  ga('create', 'UA-22573395-3', '<?php echo DOMAIN_NAME;?>');
   ga('require', 'linkid', 'linkid.js');
   ga('require', 'ecommerce', 'ecommerce.js');
   ga('send', 'pageview');

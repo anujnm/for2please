@@ -163,7 +163,7 @@ if(is_user_logged_in())
 			?>
 			<div style="float:left; wdith:640px; padding: 20px 0 20px 20px;" id="date-holder">
 				<b style='font-size:155%;'>Need help with a Date Package you purchased?</b>
-				<p>Email us anytime at <a href="mailto:support@fortwoplease.com">support@fortwoplease.com</a>.</p>
+				<p>Email us anytime at <a href="mailto:support@<?php echo BASE_URL;?>">support@<?php echo BASE_URL;?></a>.</p>
 				<br/>
 				<h1 style='color:#1596d0; font-weight: normal;'>MY PURCHASED DATE PACKAGES</h1><br/>
 				<?php

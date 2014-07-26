@@ -78,8 +78,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 						$uri = $_SERVER["REQUEST_URI"];
 						$uri = substr($uri, 13);
 						#get_permalink( $post->ID );
-						//$uri = "http://fortwoplease.com".$uri;
-						$uri = "http://fortwoplease.com/vancouver".$uri;
+						$uri = "<?php echo BASE_URL;?>".$uri;
 						// echo $uri."<br/>";
 						echo '<div class="fb-like" data-href="'.$uri.'" data-send="false" data-layout="button_count" data-show-faces="false" data-action="recommend" data-font="verdana"></div>';
 					?>

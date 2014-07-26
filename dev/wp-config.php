@@ -26,6 +26,8 @@ define('DB_HOST', 'localhost');
 
 define('WP_HOME','http://www.fortwodev.com/');
 define('WP_SITEURL','http://www.fortwodev.com/');
+define('BASE_URL', 'http://fortwodev.com');
+define('DOMAIN_NAME', 'fortwodev.com');
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
 

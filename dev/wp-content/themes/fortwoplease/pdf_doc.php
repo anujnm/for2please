@@ -11,7 +11,7 @@ class PDF extends FPDF {
 	var $I;
 	var $U;
 	var $HREF;
-	
+
 	// Page header
 	function Header() {
 	    // Logo
@@ -39,7 +39,7 @@ class PDF extends FPDF {
 		$this->SetY(-15);
 		$this->Cell(0,10, date("d/m/Y"),0,0,'R');
 	}
-	
+
 	function WriteHTML($html) {
 	    // HTML parser
 	    $html = str_replace("\n",' ',$html);
@@ -69,7 +69,7 @@ class PDF extends FPDF {
 	        }
 	    }
 	}
-	
+
 	function OpenTag($tag, $attr) {
 	    // Opening tag
 	    if($tag=='B' || $tag=='I' || $tag=='U')
@@ -94,7 +94,7 @@ class PDF extends FPDF {
 			$this->Ln(2);
 		}
 	}
-	
+
 	function PutLink($URL, $txt) {
 	    // Put a hyperlink
 	    $this->SetTextColor(0,0,255);
@@ -103,7 +103,7 @@ class PDF extends FPDF {
 	    $this->SetStyle('U',false);
 	    $this->SetTextColor(0);
 	}
-	
+
 	function SetStyle($tag, $enable) {
 	    // Modify style and select corresponding font
 	    $this->$tag += ($enable ? 1 : -1);
@@ -114,7 +114,7 @@ class PDF extends FPDF {
 	    }
 	    $this->SetFont('',$style);
 	}
-	
+
 	function CloseTag($tag) {
 	    // Closing tag
 	    if($tag=='B' || $tag=='I' || $tag=='U')
@@ -200,8 +200,8 @@ $pdf->Cell(0, 5, $data['mailing_address'][0], 0, 1);
 $pdf->Cell(0, 5, $data['city'][0], 0, 1);
 //$link = $pdf->AddLink();
 //$pdf->Link(0,6, $link, 0, 1);
-// $link = $pdf->AddLink();  
-// $pdf->SetLink($link, 0, 2);  
+// $link = $pdf->AddLink();
+// $pdf->SetLink($link, 0, 2);
 // $pdf->Cell(0, 6, "http://www.tokofoods.com/nav_restaurant.asp", 0, 0, "", 0, $link);
 // $pdf->Ln(5);
 $url = $data['web_address'][0];
@@ -214,10 +214,8 @@ $pdf->Ln(2);
 $pdf->SetFont('Helvetica','BI',12);
 $pdf->WriteHTML("Need some help?");
 $pdf->SetFont('Helvetica','',10);
-$pdf->WriteHTML("  Email us at support@fortwoplease.com.");
-// $pdf->Cell(0,6,'Need some help?',0,1);
-// $pdf->SetFont('Helvetica','',10);
-// $pdf->Cell(0,6,'Email us at support@fortwoplease.com.',0,1);
+$pdf->WriteHTML("  Email us at support@<?php echo DOMAIN_NAME;?>.");
+
 
 
 $pdf->Ln(8);
@@ -247,7 +245,7 @@ $pdf->Output();
 $json_url = 'http://opentable.heroku.com/api/restaurants/81169';
 // jSON String for request
 // $json_string = '[:city=>"Vancouver"]';
- 
+
 // Initializing curl
 $ch = curl_init( $json_url );
 
@@ -257,14 +255,13 @@ CURLOPT_RETURNTRANSFER => true,
 CURLOPT_HTTPHEADER => array('Content-type: application/json')
 //CURLOPT_POSTFIELDS => $json_string
 );
- 
+
 // Setting curl options
 curl_setopt_array( $ch, $options );
- 
+
 // Getting results
 $result =  curl_exec($ch); // Getting jSON result string
 
 echo print_r($result);
 */
 ?>
-

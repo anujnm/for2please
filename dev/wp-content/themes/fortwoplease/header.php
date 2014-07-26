@@ -88,7 +88,7 @@
 	<script src="/js/sessionstorage.1.4.js" type="text/javascript"></script>
 	<script src="/js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
 	<script src="/js/jquery.lightbox_me.js" type="text/javascript"></script>
-	<script src="https://fortwoplease.com/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
+	<script src="<?php echo BASE_URL?>/wp-content/themes/fortwoplease/facebook_login.js" type="text/javascript"></script>
 	<!-- start Mixpanel -->
 	<script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
 		typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
@@ -309,7 +309,7 @@
 
 	<div id="suggest-date" style="background:url(/wp-content/themes/images/addons/add-on-bckg.png);color:white;padding:20px;display:none;width:500px;">
 		<strong>Suggest a Date</strong>
-		<p>Do you have a great date idea that we've missed? Let us know on our <a href="https://facebook.com/fortwoplease/" target="_blank">Facebook Page</a> or send us an email (dateideas@fortwoplease.com) - we're always looking for hidden gems!</p> <br/>
+		<p>Do you have a great date idea that we've missed? Let us know on our <a href="https://facebook.com/fortwoplease/" target="_blank">Facebook Page</a> or send us an email (dateideas@<?php echo DOMAIN_NAME;?>) - we're always looking for hidden gems!</p> <br/>
 		<strong>Not sure if it's a good idea?</strong>
 		<p>We love everything from skinny dipping on Wreck Beach to 5 Course Dining at Divino Wine Bar to renting kayaks on False Creek. Be bold and suggest it, chances are someone will love it too!</p>
 	</div>
