@@ -150,7 +150,8 @@
 
 		jQuery(document).ready(function() {
 			<?php if ( !is_user_logged_in() ) { ?>
-				if (window.location.href === "<?php echo get_home_url() ?>/") {
+				if ((window.location.href === "<?php echo get_home_url() ?>/") ||
+							(window.location.href.indexOf('upload') >= 0)) {
 					// do nothing...
 				} else {
 					var squeeze_show_cookie = $.cookie('squeeze_popup');
