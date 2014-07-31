@@ -56,8 +56,11 @@ Template Name: upload
 
         <?php
         if (isset($_GET['uploaded']) && $_GET['uploaded'] == 'True') {
+          $database_city_list = get_terms('city');
           if (isset($_GET['city']) && array_key_exists(strtolower($_GET['city']), $city_list)) {
+
             $current_city = $city_list[strtolower($_GET['city'])];
+
           } elseif (isset($_GET['city']) && trim($_GET['city']) != '') {
             $current_city = $_GET['city'];
           }
@@ -76,8 +79,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of <?php echo $current_city; ?>'s best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by June 30, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</b></p><br/>
-          <p>Final selections will be made by July 4, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by August 8, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</b></p><br/>
+          <p>Final selections will be made by August 15, 2014.</p><br/><br/>
         <?php
       } else {
         if (isset($_GET['city']) && trim($_GET['city']) != '') {
@@ -89,8 +92,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of your city's best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by June 30, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
-          <p>Final selections will be made by July 4, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by August 8, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
+          <p>Final selections will be made by August 15, 2014.</p><br/><br/>
         <?php
       }
         ?>
