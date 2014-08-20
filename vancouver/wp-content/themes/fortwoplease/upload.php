@@ -76,8 +76,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of <?php echo $current_city; ?>'s best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by August 8, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</b></p><br/>
-          <p>Final selections will be made by August 15, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by August 29, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</b></p><br/>
+          <p>Final selections will be made by September 5, 2014.</p><br/><br/>
         <?php
       } else {
         if (isset($_GET['city']) && trim($_GET['city']) != '') {
@@ -89,8 +89,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of your city's best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by August 8, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
-          <p>Final selections will be made by August 15, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by August 29, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
+          <p>Final selections will be made by September 5, 2014.</p><br/><br/>
         <?php
       }
         ?>
