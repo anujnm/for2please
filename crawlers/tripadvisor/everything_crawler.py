@@ -106,18 +106,22 @@ def get_hotel_data(url):
 
     name = sanitize(soup.find(id='HEADING').get_text(strip=True))
     heading_group = soup.find(id='HEADING_GROUP')
-    rating_element = heading_group.address.find_all('span', class_='star')
-    if (rating_element):
-      rating = sanitize(rating_element[0].img['alt'])
+    if heading_group:
+      rating_element = heading_group.address.find_all('span', class_='star')
+      if (rating_element):
+        rating = sanitize(rating_element[0].img['alt'])
+      else:
+        rating = ''
     else:
       rating = ''
     if (soup.find(id='HDPR_V1')):
       additional_info = soup.find(id='HDPR_V1')
       address = sanitize(soup.find(id='HDPR_V1').find('div', class_='address').address.get_text(strip=True))
 
-    else:
+    elif heading_group:
       address= sanitize(heading_group.address.find_all('span', class_='format_address')[0].get_text(strip=True))
-
+    else:
+      address = ''
     result['name'] = name
     result['url'] = url
     result['rating'] = rating
@@ -239,17 +243,22 @@ def get_rhotel_data(url):
 
     name = sanitize(soup.find(id='HEADING').get_text(strip=True))
     heading_group = soup.find(id='HEADING_GROUP')
-    rating_element = heading_group.address.find_all('span', class_='star')
-    if (rating_element):
-      rating = sanitize(rating_element[0].img['alt'])
+    if heading_group:
+      rating_element = heading_group.address.find_all('span', class_='star')
+      if (rating_element):
+        rating = sanitize(rating_element[0].img['alt'])
+      else:
+        rating = ''
     else:
       rating = ''
     if (soup.find(id='HDPR_V1')):
       additional_info = soup.find(id='HDPR_V1')
       address = sanitize(soup.find(id='HDPR_V1').find('div', class_='address').address.get_text(strip=True))
 
-    else:
+    elif heading_group:
       address= sanitize(heading_group.address.find_all('span', class_='format_address')[0].get_text(strip=True))
+    else:
+      address = ''
 
     result['name'] = name
     result['url'] = url
@@ -372,18 +381,22 @@ def get_bb_data(url):
 
     name = sanitize(soup.find(id='HEADING').get_text(strip=True))
     heading_group = soup.find(id='HEADING_GROUP')
-    rating_element = heading_group.address.find_all('span', class_='star')
-    if (rating_element):
-      rating = sanitize(rating_element[0].img['alt'])
+    if heading_group:
+      rating_element = heading_group.address.find_all('span', class_='star')
+      if (rating_element):
+        rating = sanitize(rating_element[0].img['alt'])
+      else:
+        rating = ''
     else:
       rating = ''
     if (soup.find(id='HDPR_V1')):
       additional_info = soup.find(id='HDPR_V1')
       address = sanitize(soup.find(id='HDPR_V1').find('div', class_='address').address.get_text(strip=True))
 
+    elif heading_group:
+      address = sanitize(heading_group.address.find_all('span', class_='format_address')[0].get_text(strip=True))
     else:
-      address= sanitize(heading_group.address.find_all('span', class_='format_address')[0].get_text(strip=True))
-
+      address = ''
     result['name'] = name
     result['url'] = url
     result['rating'] = rating
