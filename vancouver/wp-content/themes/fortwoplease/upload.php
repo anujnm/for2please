@@ -17,12 +17,12 @@ div.header-content {background:#FFF;color:black;overflow:hidden; border-bottom: 
 Template Name: upload
 */
   get_header();
-  $city_list = array(
+      $city_list = array(
     'vancouver' => 'Vancouver',
-    'sf' => 'San Francisco',
+    'sanfrancisco' => 'San Francisco',
     'seattle' => 'Seattle',
     'portland' => 'Portland',
-    'la' => 'Los Angeles',
+    'losangeles' => 'Los Angeles',
     'toronto' => 'Toronto',
     'victoria' => 'Victoria',
     'abbotsford' => 'Abbotsford',
@@ -48,7 +48,65 @@ Template Name: upload
     'stjohns' => 'St. Johns',
     'sudbury' => 'Sudbury',
     'windsor' => 'Windsor',
-    'winnipeg' => 'Winnipeg');
+    'winnipeg' => 'Winnipeg',
+    'newyorkcity' => 'New York City',
+    'chicago' => 'Chicago',
+    'houston' => 'Houston',
+    'philadelphia' => 'Philadelphia',
+    'phoenix' => 'Phoenix',
+    'sanantonio' => 'San Antonio',
+    'sandiego' => 'San Diego',
+    'dallas' => 'Dallas',
+    'sanjose' => 'San Jose',
+    'austin' => 'Austin',
+    'indianapolis' => 'Indianapolis',
+    'jacksonville' => 'Jacksonville',
+    'columbus' => 'Columbus',
+    'charlotte' => 'Charlotte',
+    'fortworth' => 'Fort Worth',
+    'detroit' => 'Detroit',
+    'elpaso' => 'El Paso',
+    'memphis' => 'Memphis',
+    'denver' => 'Denver',
+    'washington' => 'Washington',
+    'boston' => 'Boston',
+    'nashville' => 'Nashville',
+    'baltimore' => 'Baltimore',
+    'oklahomacity' => 'Oklahoma City',
+    'louisville' => 'Louisville',
+    'lasvegas' => 'Las Vegas',
+    'milwaukee' => 'Milwaukee',
+    'albuquerque' => 'Albuquerque',
+    'tucson' => 'Tucson',
+    'fresno' => 'Fresno',
+    'sacramento' => 'Sacramento',
+    'longbeach' => 'Long Beach',
+    'kansascity' => 'Kansas City',
+    'mesa' => 'Mesa',
+    'virginiabeach' => 'Virginia Beach',
+    'atlanta' => 'Atlanta',
+    'coloradosprings' => 'Colorado Springs',
+    'omaha' => 'Omaha',
+    'raleigh' => 'Raleigh',
+    'miami' => 'Miami',
+    'oakland' => 'Oakland',
+    'minneapolis' => 'Minneapolis',
+    'tulsa' => 'Tulsa',
+    'cleveland' => 'Cleveland',
+    'wichita' => 'Wichita',
+    'neworleans' => 'New Orleans',
+    'bakersfield' => 'Bakersfield',
+    'tampa' => 'Tampa',
+    'honolulu' => 'Honolulu',
+    'aurora' => 'Aurora',
+    'anaheim' => 'Anaheim',
+    'santaana' => 'Santa Ana',
+    'stlouis' => 'St. Louis',
+    'riverside' => 'Riverside',
+    'corpuschristi' => 'Corpus Christi',
+    'lexington' => 'Lexington',
+    'pittsburgh' => 'Pittsburgh',
+    );
 ?>
 
   <div id='header-content' class="header-content" style='color:black;'>
@@ -71,13 +129,13 @@ Template Name: upload
         } elseif (isset($_GET['city']) && array_key_exists(strtolower($_GET['city']), $city_list)) {
           $current_city = $city_list[strtolower($_GET['city'])];
           ?>
-          <h1 style='margin:10px 0; color:#1596d0;'>FORTWOPLEASE GUIDE TO <?php echo strtoupper($current_city); ?>'S BEST SUMMER DATE SPOTS</h1>
+          <h1 style='margin:10px 0; color:#1596d0;'>FORTWOPLEASE GUIDE TO <?php echo strtoupper($current_city); ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 'S';}?> BEST SUMMER DATE SPOTS</h1>
           <div class="separation_line"></div><br/>
           <br/>
           <p>Hey there! </p><br/>
-          <p>Are you one of <?php echo $current_city; ?>'s best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by August 29, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</b></p><br/>
-          <p>Final selections will be made by September 5, 2014.</p><br/><br/>
+          <p>Are you one of <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> best date spots for summer?</p><br/>
+          <p><b>Please fill out the form below by September 8, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> Best Summer Date Spots".</b></p><br/>
+          <p>Final selections will be made by September 15, 2014.</p><br/><br/>
         <?php
       } else {
         if (isset($_GET['city']) && trim($_GET['city']) != '') {
@@ -89,8 +147,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of your city's best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by August 29, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
-          <p>Final selections will be made by September 5, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by September 8, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
+          <p>Final selections will be made by September 15, 2014.</p><br/><br/>
         <?php
       }
         ?>
@@ -168,12 +226,13 @@ Template Name: upload
             </div>
             <p style='font-size: 12px;'>Maximum Allowed: 50 characters</p><br/>
             <div class="upload_fields">
-              <label>Date Idea Short Description: </label>
+              <label>Describe this Date Idea in one sentence: </label>
               <textarea name="short_desc" class="text login_text" value="" maxlength="180" rows="10" cols="50"></textarea>
             </div>
             <p style='font-size: 12px;'>Maximum Allowed: 180 characters</p><br/><br/>
-            <p style='padding-bottom:10px;'>Date Idea Full Description and Tips:</p>
-            <p>This is where you can tell us exactly why its great place for a date, what to expect, and any other related information.</p>
+            <div style='padding-top:20px;font-weight:bold;'>
+              <p>Provide more information about what a couple can expect and why this is a great date idea that they should experience. The more detailed information the better.</p><br/>
+            </div>
             <div class="upload_fields">
               <textarea id='full_desc' name="full_desc" class="text login_text" value="" rows="10" cols="50"></textarea>
             </div>

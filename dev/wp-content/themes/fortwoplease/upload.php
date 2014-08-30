@@ -19,10 +19,10 @@ Template Name: upload
   get_header();
     $city_list = array(
     'vancouver' => 'Vancouver',
-    'sf' => 'San Francisco',
+    'sanfrancisco' => 'San Francisco',
     'seattle' => 'Seattle',
     'portland' => 'Portland',
-    'la' => 'Los Angeles',
+    'losangeles' => 'Los Angeles',
     'toronto' => 'Toronto',
     'victoria' => 'Victoria',
     'abbotsford' => 'Abbotsford',
@@ -49,7 +49,7 @@ Template Name: upload
     'sudbury' => 'Sudbury',
     'windsor' => 'Windsor',
     'winnipeg' => 'Winnipeg',
-    'nyc' => 'New York City',
+    'newyorkcity' => 'New York City',
     'chicago' => 'Chicago',
     'houston' => 'Houston',
     'philadelphia' => 'Philadelphia',
@@ -132,13 +132,13 @@ Template Name: upload
         } elseif (isset($_GET['city']) && array_key_exists(strtolower($_GET['city']), $city_list)) {
           $current_city = $city_list[strtolower($_GET['city'])];
           ?>
-          <h1 style='margin:10px 0; color:#1596d0;'>FORTWOPLEASE GUIDE TO <?php echo strtoupper($current_city); ?>'S BEST SUMMER DATE SPOTS</h1>
+          <h1 style='margin:10px 0; color:#1596d0;'>FORTWOPLEASE GUIDE TO <?php echo strtoupper($current_city); ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 'S';}?> BEST SUMMER DATE SPOTS</h1>
           <div class="separation_line"></div><br/>
           <br/>
           <p>Hey there! </p><br/>
-          <p>Are you one of <?php echo $current_city; ?>'s best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by August 8, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'s Best Summer Date Spots".</b></p><br/>
-          <p>Final selections will be made by August 15, 2014.</p><br/><br/>
+          <p>Are you one of <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> best date spots for summer?</p><br/>
+          <p><b>Please fill out the form below by September 8, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> Best Summer Date Spots".</b></p><br/>
+          <p>Final selections will be made by September 15, 2014.</p><br/><br/>
         <?php
       } else {
         if (isset($_GET['city']) && trim($_GET['city']) != '') {
@@ -150,8 +150,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of your city's best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by August 8, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
-          <p>Final selections will be made by August 15, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by September 8, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
+          <p>Final selections will be made by September 15, 2014.</p><br/><br/>
         <?php
       }
         ?>
