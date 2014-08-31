@@ -7,9 +7,10 @@ function limit_terms($val) {
 
 add_filter( "term_links-location", 'limit_terms');
 
+/*
 function save_Rdata($s) {
 	global $post;
-	 $setflag = true;
+  $setflag = true;
 	$postID = $post->ID;
 	if(get_field('merchant_username',$postID)){
 	$merchantID = get_field('merchant_username',$postID);
@@ -29,7 +30,7 @@ function save_Rdata($s) {
 }
 
 add_filter( "content_save_pre", 'save_Rdata');
-
+*/
 function get_permalink_now(){
 	$id = $_POST['id'];
 	echo get_permalink($id);
@@ -837,14 +838,15 @@ function array2json($arr) {
 }
 
 function create_date_idea() {
-  $form_city = $_POST['form_city'];
+  $city_name = $_POST['city'];
+  $city_id = $_POST['city_id'];
   $business_name = $_POST['business_name'];
   $user_name = $_POST['user_name'];
   $user_email = $_POST['user_email'];
   $business_phone = $_POST['business_phone'];
   $website = $_POST['website'];
   $street_address1 = $_POST['street_address1'];
-  $city = $_POST['city'];
+  $address_city = $_POST['address_city'];
   $province = $_POST['province'];
   $country = $_POST['country'];
   $postal_code = $_POST['postal_code'];
@@ -869,8 +871,6 @@ function create_date_idea() {
     'post_status' => 'draft',
     'post_type' => 'dates',
     'post_author' => 727,
-    'post_date' => time(),
-    'post_date_gmt' => time()
   );
 
   $testimonials = $testimonial1 . '<p>' . $testimonial2 . '<p>' . $testimonial3;
@@ -883,12 +883,12 @@ function create_date_idea() {
   add_post_meta($result1, 'short_description', $short_desc, true);
   add_post_meta($result1, 'word_on_the_street', $testimonials, true);
   add_post_meta($result1, 'mailing_address', $street_address1, true);
-  add_post_meta($result1, 'city', $city, true);
+  add_post_meta($result1, 'address_city', $address_city, true);
   add_post_meta($result1, 'postal_code', $postal_code, true);
   add_post_meta($result1, 'phone_number', $business_phone, true);
   add_post_meta($result1, 'web_address', $website, true);
   add_post_meta($result1, 'business_name', $business_name, true);
-  add_post_meta($result1, 'form_city', $form_city, true);
+  add_post_meta($result1, 'city', $city_name, true);
 
   if (isset($_FILES['attach1'])) {
     $attachment1 = media_handle_upload('attach1', $result1);
@@ -931,22 +931,22 @@ function create_date_idea() {
     }
   }
 
-
   $date_idea_types = array_map('intval', $date_idea_types);
   $date_idea_types = array_unique($date_idea_types);
   wp_set_object_terms($result1, $date_idea_types, 'date-type');
   $date_times = array_map('intval', $date_times);
   $date_times = array_unique($date_times);
   wp_set_object_terms($result1, $date_times, 'time');
+  wp_set_object_terms($result1, $city_name, 'city');
 
   $preview_link = '<?php echo BASE_URL?>/?post_type=dates&p=' . $result1 . '&preview=true';
-  $csv_contents = array($result1, $preview_link, $business_name, $user_name, '', $user_email, $business_phone, $website, $street_address1, '', $city, $province, $country, $postal_code, '', '', $form_city);
+  $csv_contents = array($result1, $preview_link, $business_name, $user_name, '', $user_email, $business_phone, $website, $street_address1, '', $address_city, $province, $country, $postal_code, '', '', $city_name);
   #$csv_contents = array('Post ID', 'Preview Link', 'Business Name', 'Contact Name', 'Title', 'Email', 'Phone', 'Website', 'Street 1', 'Street 2', 'City', 'Province', 'Country', 'Postal Code', 'Best contact time', 'Neighbourhood');
-
+  $city = get_term_by('id', $city_id, 'city');
   $file = fopen('business_info2.csv', 'a');
   fputcsv($file, $csv_contents, ',');
   fclose($file);
-  $redirect_url = "<?php echo BASE_URL?>/upload?uploaded=True&city=". $form_city;
+  $redirect_url = BASE_URL . '/upload?uploaded=True&city=' . $city->slug;
   header('Location: '. $redirect_url);
   die();
 }

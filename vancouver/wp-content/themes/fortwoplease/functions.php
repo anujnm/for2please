@@ -6,7 +6,7 @@ function limit_terms($val) {
 }
 
 add_filter( "term_links-location", 'limit_terms');
-
+/*
 function save_Rdata($s) {
 	global $post;
 	 $setflag = true;
@@ -29,7 +29,7 @@ function save_Rdata($s) {
 }
 
 add_filter( "content_save_pre", 'save_Rdata');
-
+*/
 function get_permalink_now(){
 	$id = $_POST['id'];
 	echo get_permalink($id);
@@ -257,338 +257,6 @@ add_action('wp_ajax_searchbykeyword', 'search_by_keyword');//for users that are 
 
 
 
-
-/**
- * Send HTTP POST Request
- *
- * @param	string	The API method name
- * @param	string	The POST Message fields in &name=value pair format
- * @return	array	Parsed HTTP Response body
- */
- /*
-function pp_action() {
-	/*
-	$environment = 'live';	// or 'beta-sandbox' or 'live'
-	global $environment;
-
-	// Set up your API credentials, PayPal end point, and API version.
-	$API_UserName = urlencode('admin_api1.fortwoplease.com');
-	$API_Password = urlencode('CXFGR3NZBH5BPJL6');
-	$API_Signature = urlencode('AFcWxV21C7fd0v3bYYYRCpSSRl31AP0MHJ3Cg3PUZuxPFpgs7cWNMGgc');
-	$API_Endpoint = "https://api-3t.paypal.com/nvp";
-	if("sandbox" === $environment || "beta-sandbox" === $environment) {
-		$API_Endpoint = "https://api-3t.$environment.paypal.com/nvp";
-	}
-	$version = urlencode('51.0');
-
-	/*
-	error_log("first_name: ".$_POST['first_name']);
-	error_log("last_name: ".$_POST['last_name']);
-	error_log("quantity: " . $_POST['quantity']);
-	error_log("cardholder first name: " . $_POST['cardholder_fname']);
-	error_log("cardholder last name: " . $_POST['cardholder_lname']);
-	error_log("card number: " . $_POST['card_number']);
-	error_log("exp year: " . $_POST['exp_year']);
-	error_log("exp month: " . $_POST['exp_month']);
-	error_log("csv: " . $_POST['csv']);
-	error_log("street: " . $_POST['street']);
-	error_log("city: " . $_POST['city']);
-	error_log("province: " . $_POST['province']);
-	error_log("country code: " . $_POST['country_code']);
-	error_log("postal code: " . $_POST['postal_code']);
-	error_log("amount: " . $_POST['amount']);
-	*/
-	/*
-	$theID = $_POST['theID'];
-	$totalPrice = $amount;
-	$phone = get_field('phone_number',$theID);
-	$bname = get_field('business_name',$theID);
-	$pname = get_field('package_name',$theID);
-	$postid = $_POST['postid'];
-	$numberp = $_POST['quantity'];
-
-	// Set request-specific fields.
-	$paymentType = urlencode('Sale');				// or 'Sale'
-	$firstName = urlencode($_POST['cardholder_fname']);
-	$lastName = urlencode($_POST['cardholder_lname']);
-	// $creditCardType = urlencode('customer_credit_card_type');
-	$creditCardNumber = urlencode($_POST['card_number']);
-	$expDateMonth = $_POST['exp_month'];
-	// Month must be padded with leading zero
-	$padDateMonth = urlencode(str_pad($expDateMonth, 2, '0', STR_PAD_LEFT));
-
-	$expDateYear = urlencode($_POST['exp_year']);
-	$cvv2Number = urlencode($_POST['csv']);
-	$address1 = urlencode($_POST['street']);
-	// $address2 = urlencode('customer_address2');
-	$city = urlencode($_POST['city']);
-	$state = urlencode($_POST['province']);
-	$zip = urlencode($_POST['postal_code']);
-	$country = urlencode($_POST['country_code']);				// US or other valid country code
-	$amount = urlencode($_POST['amount']);
-	$currencyID = urlencode('CAD');							// or other currency ('GBP', 'EUR', 'JPY', 'CAD', 'AUD')
-
-
-	// Add request-specific fields to the request string.
-	$nvpStr =	"&PAYMENTACTION=$paymentType&AMT=$amount&ACCT=$creditCardNumber".
-				"&EXPDATE=$padDateMonth$expDateYear&CVV2=$cvv2Number&FIRSTNAME=$firstName&LASTNAME=$lastName".
-				"&STREET=$address1&CITY=$city&STATE=$state&ZIP=$zip&COUNTRYCODE=$country&CURRENCYCODE=$currencyID";
-
-
-	// Set the curl parameters.
-	$ch = curl_init();
-	//curl_setopt($ch, CURLOPT_URL, $API_Endpoint);
-	//curl_setopt($ch, CURLOPT_VERBOSE, 1);
-
-	// Turn off the server and peer verification (TrustManager Concept).
-	//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-	//curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-
-	//curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	//curl_setopt($ch, CURLOPT_POST, 1);
-
-	// Set the API operation, version, and API signature in the request.
-	$nvpreq = "METHOD=DoDirectPayment&VERSION=$version&PWD=$API_Password&USER=$API_UserName&SIGNATURE=$API_Signature$nvpStr";
-
-	// Set the request as a POST FIELD for curl.
-	//curl_setopt($ch, CURLOPT_POSTFIELDS, $nvpreq);
-
-	/*
-	if(curl_errno($ch)) {
-	  $err = print_r(curl_getinfo($ch),1);
-	  $err .= "\nError No.:".curl_errno($ch);
-	  $err .= "\nError Description:".curl_error($ch);
-		error_log($err);
-	}
-	*/
-
-	// Get response from the server.
-	//$httpResponse = curl_exec($ch);
-
-	/*
-	if(!$httpResponse) {
-		exit("$methodName_ failed: ".curl_error($ch).'('.curl_errno($ch).')');
-	}
-	*/
-
-	// Extract the response details.
-	/*
-	$httpResponseAr = explode("&", $httpResponse);
-
-	$httpParsedResponseAr = array();
-	foreach ($httpResponseAr as $i => $value) {
-		$tmpAr = explode("=", $value);
-		if(sizeof($tmpAr) > 1) {
-			$httpParsedResponseAr[$tmpAr[0]] = $tmpAr[1];
-		}
-	}
-
-	if((0 == sizeof($httpParsedResponseAr)) || !array_key_exists('ACK', $httpParsedResponseAr)) {
-		exit("Invalid HTTP Response for POST request($nvpreq) to $API_Endpoint.");
-	}
-	*/
-	/*
-	//if("SUCCESS" == strtoupper($httpParsedResponseAr["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($httpParsedResponseAr["ACK"])) {
-		//$transID = $httpParsedResponseAr['TRANSACTIONID'];
-
-		$transID = 0;
-		$uid = wp_get_current_user();
-		$userID = $uid->ID;
-		$name = $uid->user_login;
-		$user_email = $uid->user_email;
-
-		$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-		add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-		wp_mail($user_email, 'Purchase Successful!', '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$pname.' from '.$bname.' was successful.</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$amount.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/date-ideas/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p>
-<br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/date-ideas/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>',$headers);
-
-		$uid = wp_get_current_user();
-		$merchantuname = get_field('merchant_username',$postid);
-		$datename = get_field('sub_title',$postid);
-		date_default_timezone_set('Canada/Pacific');
-		$timestamp =  date("Y-m-d H:i:s");
-		$price = get_field('price');
-		$merchantname = intval($merchantuname);
-		for ($i = $numberp; $i > 0; $i--) {
-			$unique = uniqid();
-			add_user_meta($uid->ID,'purchased',$unique);
-			add_user_meta($uid->ID,$unique.'_item',$datename);
-			add_user_meta($uid->ID,$unique.'_id',$postid);
-			add_user_meta($uid->ID,$unique.'_np',$numberp);
-			add_user_meta($uid->ID,$unique.'_time',$timestamp);
-			add_user_meta($uid->ID,$unique.'_stat','notdone');
-			add_user_meta($uid->ID,$unique.'_for_fname', $_POST['first_name']);
-			add_user_meta($uid->ID,$unique.'_for_lname', $_POST['last_name']);
-			add_user_meta($merchantuname,$postid,$unique);
-			add_user_meta($merchantuname,$unique,$uid->ID);
-			add_user_meta($merchantuname,$unique.'_d','notdone');
-			$summary = $timestamp. ' '. $price . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
-			add_user_meta(1,'sold',$summary);
-		}
-
-		echo "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/date-ideas/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$amount.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/date-ideas/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/date-ideas/myaccount'>Your Account</a><br/><a href='/date-ideas/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
-
-		//echo "Success";
-		error_log ('Direct Payment Completed Successfully: '.print_r($httpParsedResponseAr, true));
-
-	/*} else {
-		echo "Your payment did not go through. Please review all required fields to ensure accuracy. If you need help purchasing, email ForTwoPlease at support@fortwoplease.com." ;
-
-		error_log ($httpParsedResponseAr['TIMESTAMP']);
-		error_log ('DoDirectPayment failed: ' . print_r($httpParsedResponseAr, true));
-	}
-	require_once('stripe-php-1.10.1/lib/Stripe.php');
-	$trialAPIKey = "sk_live_Wj7Sz9u8BB2o8p69HAdF5rv7"; // These are the SECRET keys!
-	$token = $_POST['stripeToken'];
-	$theID = $_POST['theID'];
-	$email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-	$firstName = filter_var($_POST['firstName'], FILTER_SANITIZE_STRING);
-	$lastName = filter_var($_POST['lastName'], FILTER_SANITIZE_STRING);
-	$redemptionFirstName = filter_var($_POST['redemptionFirstName'], FILTER_SANITIZE_STRING);
-	$redemptionLastName = filter_var($_POST['redemptionLastName'], FILTER_SANITIZE_STRING);
-	$numberp = filter_var($_POST['quantity'], FILTER_SANITIZE_NUMBER_INT);
-	$post_info = get_post_meta($theID);
-	$price_per_package = $post_info['price'][0];
-	$taxes = $post_info['taxes'][0];
-	$fees = $post_info['fees'][0];
-	$total_per_package = $price_per_package + $taxes + $fees;
-	$total = number_format((float)($numberp * $total_per_package), 2, '.', '');;
-	$total_cents = $total * 100;
-	Stripe::setApiKey($trialAPIKey);
-    try
-    {
-        $phone = get_field('phone_number',$theID);
-        $bname = get_field('business_name',$theID);
-        $pname = get_field('package_name',$theID);
-        $uid = wp_get_current_user();
-
-        if (!isset($_POST['checkout']) || !wp_verify_nonce($_POST['checkout'], 'payment_csrf')) {
-        	throw new Exception("Server Error: Seems like we couldn't verify your request. Please try again later. ");
-        }
-        if (!isset($token)) {
-            throw new Exception("Server Error: Could not complete payment with payment provider Stripe. Please try again later.");
-        }
-        if (!isset($email) && !filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
-            throw new Exception("Server Error: Please ensure you have a valid email address to process this transaction. Your card was not charged. ");
-        }
-        if (!isset($firstName)) {
-            throw new Exception("Server Error: Invalid first name, your credit card was NOT charged. Please try again later.");
-        }
-        if (!isset($lastName)) {
-            throw new Exception("Server Error: Invalid last name, your credit card was NOT charged. Please try again later.");
-        }
-        if (!isset($total_cents)) {
-            throw new Exception("Server Error: Your credit card was NOT charged. Please try again later.");
-        }
-        if (!isset($redemptionFirstName) && !isset($redemptionLastName)) {
-            throw new Exception("Please enter a valid name for the person who will be using the date package. Your card was not charged.");
-        }
-        if (!isset($numberp) || $numberp<0 || $numberp > 4) {
-            throw new Exception("Transaction failed, your card was not charged. Please select a valid quantity.");
-        }
-        try {
-            // Create charge on Stripe using token that was created on the client. Ensure the right meta data is sent to Stripe's server.
-            $charge = Stripe_Charge::create(array(
-             "amount" => $total_cents,
-             "currency" => "cad",
-             "card" => $token,
-             "description" => "Purchase of ".$pname." from ".$bname." by ".$email,
-             "metadata" => array("user id"=> $uid->ID,
-                                 "email"=>$email,
-                                 "purchase name"=> $pname,
-                                 "merchant name"=> $bname,
-                                 "merchant id"=> $theID
-                                )
-
-            ));
-            if ($charge->paid != true) {
-                throw new Exception("Error while processing charge. Please try again later. ");
-            }
-            $voucherIDs = array();
-            $voucherString = "";
-            for ($i = $numberp; $i>0; $i--) {
-                $unique = uniqid();
-                $index = $numberp-$i;
-                $voucherIDs[$index] = $unique;
-                $voucherString = $voucherString.'<p style="margin:0;">'.($index+1).'. '.$unique.'</p>';
-            }
-            $transID = $charge->id;
-            $merchantuname = get_field('merchant_username',$theID);
-            $datename = get_field('sub_title',$theID);
-            $headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-            add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-            $numberVouchers = "";
-            $voucherQuantityString = "";
-            if ($numberp == 1) {
-                $numberVouchers = $numberp." voucher";
-                $voucherQuantityString = 'Voucher Code';
-            } else {
-                $numberVouchers = $numberp." vouchers";
-                $voucherQuantityString = 'Vouchers Codes';
-            }
-
-            // Send email using Mandrill API.
-            //$html = '<p style="margin:0;"><strong>Congratulations,</strong></p><p style="margin:0;">Your purchase of '.$numberVouchers.' of '.$pname.' from '.$bname.' was successful!</p><br/><p style="margin:0;"><b>Payment Summary</b></p><p style="margin:0;">Total: $'.$total.'</p><p style="margin:0;">Confirmation Number: '.$transID.'</p><br/><p style="margin:0;"><b>Voucher IDs:</b></p><p style="margin:0;">'.$voucherString.'</p><br/><p style="margin:0;"><b>How-To-Use This Date Package:</b></p><p style="margin:0;">1. Make your reservation now by calling '.$bname.' at '.$phone.'.</p><p style="margin:0;">2. Print & bring your ForTwoPlease Voucher, which is available on <a href="http://www.fortwoplease.com/date-ideas/myaccount">your account page</a>.</p><br/><p style="margin:0;">(Reservations are required for all ForTwoPlease Date Packages)</p><br/><p style="margin:0;">Enjoy!</p><br/><p style="margin:0;">The ForTwoPlease Team</p><br/><p style="margin:0;">p.s. Have any questions or need some help? Email us at <b>support@fortwoplease.com</b> and we\'ll get back to you as soon as we can!</p><br/><p style="margin:0;"><a href="http://www.fortwoplease.com/date-ideas/myaccount">Take me to my account page</a></p><p style="margin:0;"><a href="http://www.fortwoplease.com/">Discover more date ideas!</a></p>';
-            $to = array(array('email'=>$email, 'type'=>'to'));
-            $message = array('subject' => 'Purchase Successful!', 'from_email'=>'info@fortwoplease.com', 'from_name'=> 'ForTwoPlease', 'to'=> $to);
-            $template_content = array(array('name'=>'numberVouchers', 'content'=>$numberVouchers), array('name'=>'packageName', 'content'=>$pname), array('name'=>'businessName', 'content'=>$bname), array('name'=>'total', 'content'=>$total), array('name'=>'transID', 'content'=>$transID), array('name'=>'voucherString', 'content'=>$voucherString), array('name'=>'phone', 'content'=>$phone), array('name'=>'customerName', 'content'=>$redemptionFirstName), array('name'=>'voucherQuantityString', 'content'=>$voucherQuantityString));
-            $data = json_encode(array('key'=>'OybeEIWO9N2oDsURJI3qmg', 'template_name'=>'Purchase Successful', 'message' => $message, 'template_content'=>$template_content));
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-            curl_setopt($curl, CURLOPT_URL, 'https://mandrillapp.com/api/1.0/messages/send-template.json');
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-            $response = curl_exec($curl);
-            // Add transaction meta data to usermeta table.
-            date_default_timezone_set('Canada/Pacific');
-            $timestamp =  date("Y-m-d H:i:s");
-            $merchantname = intval($merchantuname);
-            for ($i = $numberp; $i > 0; $i--) {
-                    $unique = $voucherIDs[$numberp-$i];
-                    add_user_meta($uid->ID,'purchased',$unique);
-                    add_user_meta($uid->ID,$unique.'_item',$datename);
-                    add_user_meta($uid->ID,$unique.'_id',$theID);
-                    add_user_meta($uid->ID,$unique.'_np',$numberp);
-                    add_user_meta($uid->ID,$unique.'_time',$timestamp);
-                    add_user_meta($uid->ID,$unique.'_stat','notdone');
-                    add_user_meta($uid->ID,$unique.'_for_fname', $redemptionFirstName);
-                    add_user_meta($uid->ID,$unique.'_for_lname', $redemptionLastName);
-                    add_user_meta($uid->ID, $unique.'_transID', $transID);
-                    add_user_meta($uid->ID, $unique.'_amount', $price_per_package);
-                    add_user_meta($merchantuname,$theID,$unique);
-                    add_user_meta($merchantuname,$unique,$uid->ID);
-                    add_user_meta($merchantuname,$unique.'_d','notdone');
-                    $summary = $timestamp. ' '. $total . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
-                    add_user_meta(1,'sold',$summary);
-            }
-
-            // Display confirmation to user.
-            $message = "<div style='min-height:300px;background:#231f20;color:#FFF;padding-left:15px;'><div style='color:white;width:320px;height:40px;'><h1 style='float:left;margin-left:0px;'>SUCCESS!</h1><img style='float:right;margin-top:5px;margin-right:20px;' src='/date-ideas/wp-content/themes/images/step3.png' /></div><div style='float:left;clear:both;'><p><b>Your card has been charged $".$total.".</b></p><br/><p>Make your reservation now by calling <b>".$bname."</b> at <b>".$phone."</b>.</p><br/><p>Just remember to take your ForTwoPlease Voucher, which is located on <a href='/date-ideas/myaccount'>your account page</a>.</p><br/><p>We've also sent you an email for reference, with your confirmation code, <b>".$transID."</b>.</p><br/><p>Have a great date!</p><br/><a href='/date-ideas/myaccount'>Your Account</a><br/><a href='/date-ideas/date-idea-type/packages'>< Browse More Date Packages!</a></div></div>";
-            $tax = $taxes * $numberp;
-            $ga_data = array('transID' => $transID, 'merchantName' => $bname, 'total' => $total, 'tax' => $tax, 'price_per_item' => $price_per_package, 'category' => '', 'productName' => $pname, 'quantity' => $numberp);
-            $array = array('result' => 0, 'email' => "anuj.nm@gmail.com", 'price' => $total, 'message' => $message, 'ga_data' => $ga_data);
-            echo json_encode($array);
-        }
-        catch (Stripe_Error $e) {
-            $message = $e->getMessage();
-            $array = array('result' => 1, 'message' => $message);
-            echo json_encode($array);
-        }
-    }
-    catch (Exception $e)
-    {
-        $message = $e->getMessage();
-        $array = array('result' => 1, 'message' => $message);
-        echo json_encode($array);
-    }
-
-	die();
-}
-add_action('wp_ajax_nopriv_pp_action', 'pp_action');
-add_action('wp_ajax_pp_action', 'pp_action');//for users that are not logged in.
-*/
-
 function implement_ajax() {
 			//set POST variables
 	$postid = $_POST['postid'];
@@ -740,33 +408,6 @@ function log_me_in(){
 
 add_action('wp_ajax_nopriv_logmein', 'log_me_in');
 add_action('wp_ajax_logmein', 'log_me_in');//for users that are not logged in.
-
-/*
-function send_confirmation_email(){
-	$theID = $_POST['theID'];
-	$totalPrice = $_POST['totalPrice'];
-	$transID = $_POST['transID'];
-	$phone = get_field('phone_number',$theID);
-	$bname = get_field('business_name',$theID);
-	$pname = get_field('package_name',$theID);
-	$uid = wp_get_current_user();
-	$userID = $uid->ID;
-	$name = $uid->user_login;
-	$user_email = $uid->user_email;
-
-	$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-	add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-	wp_mail($user_email, 'Your Next Great Date!', '<strong>Congratulations '.$name.'</strong><p>Your purchase of ['.$bname.'-'.$pname.'] was successful.</p><p><b>TO USE: Phone '.$phone.' to reserve a time for your date.</b> Just say your name and ForTwoPlease ID, which is <b>'.$userID.'</b>, and the business will take care of the rest. (You can call to reserve anytime, however you have to reserve before you can use your date.)</p><p>When you show up, say your name and ForTwoPlease ID -  it’s that easy!</p><p>The details of your Date Package are also in your account, which you can access at anytime: <a href="http://fortwoplease.com/myaccount/">Your Account</a>. But please don’t print anything. Dating is a classy affair!</p><BR /><strong>Date Package Payment Summary</strong><p>Total: $'.$totalPrice.'</p><p>Transaction ID:'.$transID.'</p><BR /><p>And, if you want to really WOW your date, we can help you with flowers, babysitters or even hair dos with our <a href="http://fortwoplease.com/date-enhancer/">Date Enhancers.</a></p><p>Enjoy!</p><p>-The ForTwoPlease Team</p><p>p.s. As always, if you have any questions shoot us an email and we’ll get back to you within one business day - support@ForTwoPlease.com</p>',$headers);
-
-
-
-}
-add_action('wp_ajax_nopriv_sendconfmail', 'send_confirmation_email');
-add_action('wp_ajax_sendconfmail', 'send_confirmation_email');//for users that are not logged in.
-*/
-
-
-
 
 
 function login_with_email_address($username) {
@@ -1045,29 +686,6 @@ add_action('wp_ajax_nopriv_newuserreg', 'new_user_reg');
 add_action('wp_ajax_newuserreg', 'new_user_reg');//for users that are not logged in.
 
 
-/*
-function done_date(){
-	date_default_timezone_set('Canada/Pacific');
-	$uval = $_POST['uniqueval'];
-	$checked = $_POST['checked'];
-	$uid = wp_get_current_user();
-	$package_uid = substr($uval, 0,strrpos($uval, "_"));
-	error_log("package_uid: $package_uid");
-	$timestamp = date(DATE_RFC822);
-	error_log($timestamp);
-	if($checked=='notchecked') {
-		update_user_meta($uid->ID,$uval,'notdone');
-		update_user_meta($uid->ID, $package_uid.'_redeemded_date', '' );
-	} elseif($checked == 'checked') {
-		update_user_meta($uid->ID,$uval,'done');
-		update_user_meta($uid->ID, $package_uid.'_redeemded_date', $timestamp );
-	}
-}
-
-add_action('wp_ajax_nopriv_donedate', 'done_date');
-add_action('wp_ajax_donedate', 'done_date');//for users that are not logged in.
-*/
-
 function share_date(){
 
 	$toemail = $_POST['recipient-email'];
@@ -1249,14 +867,15 @@ function array2json($arr) {
 
 
 function create_date_idea() {
-  $form_city = $_POST['form_city'];
+  $city_name = $_POST['city'];
+  $city_id = $_POST['city_id'];
   $business_name = $_POST['business_name'];
   $user_name = $_POST['user_name'];
   $user_email = $_POST['user_email'];
   $business_phone = $_POST['business_phone'];
   $website = $_POST['website'];
   $street_address1 = $_POST['street_address1'];
-  $city = $_POST['city'];
+  $address_city = $_POST['address_city'];
   $province = $_POST['province'];
   $country = $_POST['country'];
   $postal_code = $_POST['postal_code'];
@@ -1295,12 +914,12 @@ function create_date_idea() {
   add_post_meta($result1, 'short_description', $short_desc, true);
   add_post_meta($result1, 'word_on_the_street', $testimonials, true);
   add_post_meta($result1, 'mailing_address', $street_address1, true);
-  add_post_meta($result1, 'city', $city, true);
+  add_post_meta($result1, 'address_city', $address_city, true);
   add_post_meta($result1, 'postal_code', $postal_code, true);
   add_post_meta($result1, 'phone_number', $business_phone, true);
   add_post_meta($result1, 'web_address', $website, true);
   add_post_meta($result1, 'business_name', $business_name, true);
-  add_post_meta($result1, 'form_city', $form_city, true);
+  add_post_meta($result1, 'city', $city_name, true);
 
   if (isset($_FILES['attach1'])) {
     $attachment1 = media_handle_upload('attach1', $result1);
@@ -1350,16 +969,18 @@ function create_date_idea() {
   $date_times = array_map('intval', $date_times);
   $date_times = array_unique($date_times);
   wp_set_object_terms($result1, $date_times, 'time');
+  wp_set_object_terms($result1, $city_name, 'city');
 
   $preview_link = 'http://fortwoplease.com/dev/?post_type=dates&p=' . $result1 . '&preview=true';
   #$csv_contents = array($result1, $preview_link, $business_name, $user_name, $user_title, $user_email, $business_phone, $website, $street_address1, $street_address2, $city, $province, $country, $postal_code, $contact_time, $neighbourhood);
   #$csv_contents = array('Post ID', 'Preview Link', 'Business Name', 'Contact Name', 'Title', 'Email', 'Phone', 'Website', 'Street 1', 'Street 2', 'City', 'Province', 'Country', 'Postal Code', 'Best contact time', 'Neighbourhood');
-  $csv_contents = array($result1, $preview_link, $business_name, $user_name, '', $user_email, $business_phone, $website, $street_address1, '', $city, $province, $country, $postal_code, '', '', $form_city);
+  $csv_contents = array($result1, $preview_link, $business_name, $user_name, '', $user_email, $business_phone, $website, $street_address1, '', $city, $province, $country, $postal_code, '', '', $city_name);
+  $city = get_term_by('id', $city_id, 'city');
   $file = fopen('business_info.csv', 'a');
   fputcsv($file, $csv_contents, ',');
   #fputcsv($file, $csv_contents2, ',');
   fclose($file);
-  $redirect_url = "http://fortwoplease.com/date-ideas/upload?uploaded=True&city=". $form_city;
+  $redirect_url = "http://fortwoplease.com/date-ideas/upload?uploaded=True&city=". $city->slug;
   header('Location: '. $redirect_url);
   die();
 }

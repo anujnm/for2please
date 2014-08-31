@@ -28,6 +28,7 @@ Template Name: upload
           if (isset($_GET['city']) && get_term_by('slug', strtolower($_GET['city']), 'city')) {
             $city = get_term_by('slug', strtolower($_GET['city']), 'city');
             $current_city = $city->name;
+            $current_city_id = $city->term_id;
           } elseif (isset($_GET['city']) && trim($_GET['city']) != '') {
             $current_city = $_GET['city'];
           }
@@ -41,6 +42,7 @@ Template Name: upload
         } elseif (isset($_GET['city']) && get_term_by('slug', strtolower($_GET['city']), 'city')) {
           $city = get_term_by('slug', strtolower($_GET['city']), 'city');
           $current_city = $city->name;
+          $current_city_id = $city->term_id;
           ?>
           <h1 style='margin:10px 0; color:#1596d0;'>FORTWOPLEASE GUIDE TO <?php echo strtoupper($current_city); ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 'S';}?> BEST SUMMER DATE SPOTS</h1>
           <div class="separation_line"></div><br/>
@@ -76,13 +78,15 @@ Template Name: upload
           <form id="create_date_idea_form" action="/date-ideas/wp-admin/admin-ajax.php" method="post" enctype="multipart/form-data" data-remote="true">
             <input type='hidden' name='action' id='action' value='create_date_idea' />
             <?php
-            if (isset($current_city)) {
+            if (isset($current_city) && isset($current_city_id)) {
               ?>
-              <input type='hidden' name='form_city' value='<?php echo $current_city; ?>'>
+              <input type='hidden' name='city' value='<?php echo $current_city; ?>'>
+              <input type='hidden' name='city_id' value='<?php echo $current_city_id; ?>'>
             <?php
             } else {
             ?>
-              <input type='hidden' name='form_city' value=''>
+              <input type='hidden' name='city' value=''>
+              <input type='hidden' name='city_id' value=''>
             <?php
             }
             ?>
@@ -113,7 +117,7 @@ Template Name: upload
             </div>
             <div class="upload_fields">
               <label>City: </label>
-              <input type="text" name="city" class="text login_text" value="" />
+              <input type="text" name="address_city" class="text login_text" value="" />
             </div>
             <div class="upload_fields">
               <label>State/Province: </label>
