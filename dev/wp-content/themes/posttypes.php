@@ -111,7 +111,6 @@ function location_create_taxonomies()
 	));
 }
 
-
 add_action( 'init', 'city_create_taxonomies', 0 );
 
 function city_create_taxonomies()
@@ -139,8 +138,6 @@ function city_create_taxonomies()
 		'rewrite' => array('slug' => 'city' )
 	));
 }
-
-
 
 add_action( 'init', 'time_create_taxonomies', 0 );
 

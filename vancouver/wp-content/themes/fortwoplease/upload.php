@@ -17,96 +17,7 @@ div.header-content {background:#FFF;color:black;overflow:hidden; border-bottom: 
 Template Name: upload
 */
   get_header();
-      $city_list = array(
-    'vancouver' => 'Vancouver',
-    'sanfrancisco' => 'San Francisco',
-    'seattle' => 'Seattle',
-    'portland' => 'Portland',
-    'losangeles' => 'Los Angeles',
-    'toronto' => 'Toronto',
-    'victoria' => 'Victoria',
-    'abbotsford' => 'Abbotsford',
-    'barrie' => 'Barrie',
-    'calgary' => 'Calgary',
-    'edmonton' => 'Edmonton',
-    'guelph' => 'Guelph',
-    'halifax' => 'Halifax',
-    'hamilton' => 'Hamilton',
-    'kelowna' => 'Kelowna',
-    'kingston' => 'Kingston',
-    'kitchener' => 'Kitchener',
-    'london' => 'London',
-    'mississauga' => 'Mississauga',
-    'montreal' => 'Montreal',
-    'oshawa' => 'Oshawa',
-    'ottawa' => 'Ottawa',
-    'quebec' => 'Quebec City',
-    'regina' => 'Regina',
-    'richmond' => 'Richmond',
-    'saskatoon' => 'Saskatoon',
-    'sherbrooke' => 'Sherbrooke',
-    'stjohns' => 'St. Johns',
-    'sudbury' => 'Sudbury',
-    'windsor' => 'Windsor',
-    'winnipeg' => 'Winnipeg',
-    'newyorkcity' => 'New York City',
-    'chicago' => 'Chicago',
-    'houston' => 'Houston',
-    'philadelphia' => 'Philadelphia',
-    'phoenix' => 'Phoenix',
-    'sanantonio' => 'San Antonio',
-    'sandiego' => 'San Diego',
-    'dallas' => 'Dallas',
-    'sanjose' => 'San Jose',
-    'austin' => 'Austin',
-    'indianapolis' => 'Indianapolis',
-    'jacksonville' => 'Jacksonville',
-    'columbus' => 'Columbus',
-    'charlotte' => 'Charlotte',
-    'fortworth' => 'Fort Worth',
-    'detroit' => 'Detroit',
-    'elpaso' => 'El Paso',
-    'memphis' => 'Memphis',
-    'denver' => 'Denver',
-    'washington' => 'Washington',
-    'boston' => 'Boston',
-    'nashville' => 'Nashville',
-    'baltimore' => 'Baltimore',
-    'oklahomacity' => 'Oklahoma City',
-    'louisville' => 'Louisville',
-    'lasvegas' => 'Las Vegas',
-    'milwaukee' => 'Milwaukee',
-    'albuquerque' => 'Albuquerque',
-    'tucson' => 'Tucson',
-    'fresno' => 'Fresno',
-    'sacramento' => 'Sacramento',
-    'longbeach' => 'Long Beach',
-    'kansascity' => 'Kansas City',
-    'mesa' => 'Mesa',
-    'virginiabeach' => 'Virginia Beach',
-    'atlanta' => 'Atlanta',
-    'coloradosprings' => 'Colorado Springs',
-    'omaha' => 'Omaha',
-    'raleigh' => 'Raleigh',
-    'miami' => 'Miami',
-    'oakland' => 'Oakland',
-    'minneapolis' => 'Minneapolis',
-    'tulsa' => 'Tulsa',
-    'cleveland' => 'Cleveland',
-    'wichita' => 'Wichita',
-    'neworleans' => 'New Orleans',
-    'bakersfield' => 'Bakersfield',
-    'tampa' => 'Tampa',
-    'honolulu' => 'Honolulu',
-    'aurora' => 'Aurora',
-    'anaheim' => 'Anaheim',
-    'santaana' => 'Santa Ana',
-    'stlouis' => 'St. Louis',
-    'riverside' => 'Riverside',
-    'corpuschristi' => 'Corpus Christi',
-    'lexington' => 'Lexington',
-    'pittsburgh' => 'Pittsburgh',
-    );
+  $args = array('hide_empty' => 0, 'fields' => 'id=>slug');
 ?>
 
   <div id='header-content' class="header-content" style='color:black;'>
@@ -114,8 +25,9 @@ Template Name: upload
 
         <?php
         if (isset($_GET['uploaded']) && $_GET['uploaded'] == 'True') {
-          if (isset($_GET['city']) && array_key_exists(strtolower($_GET['city']), $city_list)) {
-            $current_city = $city_list[strtolower($_GET['city'])];
+          if (isset($_GET['city']) && get_term_by('slug', strtolower($_GET['city']), 'city')) {
+            $city = get_term_by('slug', strtolower($_GET['city']), 'city');
+            $current_city = $city->name;
           } elseif (isset($_GET['city']) && trim($_GET['city']) != '') {
             $current_city = $_GET['city'];
           }
@@ -126,8 +38,9 @@ Template Name: upload
           <p>We'll review your date idea and get back to you as soon as we can!</p><br/>
           <p>Till then, feel free to make another entry.</p><br/>
           <?php
-        } elseif (isset($_GET['city']) && array_key_exists(strtolower($_GET['city']), $city_list)) {
-          $current_city = $city_list[strtolower($_GET['city'])];
+        } elseif (isset($_GET['city']) && get_term_by('slug', strtolower($_GET['city']), 'city')) {
+          $city = get_term_by('slug', strtolower($_GET['city']), 'city');
+          $current_city = $city->name;
           ?>
           <h1 style='margin:10px 0; color:#1596d0;'>FORTWOPLEASE GUIDE TO <?php echo strtoupper($current_city); ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 'S';}?> BEST SUMMER DATE SPOTS</h1>
           <div class="separation_line"></div><br/>
