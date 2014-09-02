@@ -15,11 +15,12 @@
 get_header(); ?>
 
 <div style="margin: 0 auto; width:1040px; background-color:white; over-flow:hidden; padding:10px; text-align:left; text-align:center; box-shadow: 1px 40px 30px 4px #333; border-bottom: 30px solid black;">
+	<div class='date-list-content'>
 	<div style="border-bottom: 2px dashed #F07323; width: 1020px; margin: 0 auto;"></div>
 	<?php if (strcmp(single_cat_title("", false), "Packages") == 0) {?>
-		<h1 style="margin: -17px auto 20px auto; text-align:center; text-transform:uppercase; color: #f07422; background-color:white; width: 645px;">Date <?php echo single_cat_title(); ?> Around Your City</h1>
+		<h1 class='date-list-title'>Date <?php echo single_cat_title(); ?> Around Your City</h1>
 	<?php } else {?>
-		<h1 style="margin: -17px auto 20px auto; text-align:center; text-transform:uppercase; color: #f07422; background-color:white; width: 730px;"><?php echo single_cat_title(); ?> Date Ideas Around Your City</h1>
+		<h1 class='date-list-title'><?php echo single_cat_title(); ?> Date Ideas Around Your City</h1>
 	<?php }?>
 	<?php
 	if ( have_posts() ) :
@@ -63,6 +64,7 @@ get_header(); ?>
 		endwhile;
 	endif;
 	?>
+	</div>
 	<div style="clear: both;"></div>
 </div><!-- #content -->
 

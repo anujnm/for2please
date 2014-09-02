@@ -15,11 +15,11 @@ get_header(); ?>
 
 		<div id="primary">
 			<div id="content" role="main">
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:728px;height:90px;padding-bottom:50px;padding-left:150px;"
-                     data-ad-client="ca-pub-4081693765901599"
-                     data-ad-slot="6672957644"></ins>
-				<?php while ( have_posts() ) : the_post(); ?>		
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px;padding-left:150px;"
+             data-ad-client="ca-pub-4081693765901599"
+             data-ad-slot="6672957644"></ins>
+				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php get_template_part( 'content', get_post_type() ); ?>
 

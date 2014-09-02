@@ -29,7 +29,6 @@ if (document.referrer == "" || document.referrer == "http://fortwoplease.com/" |
 		<div style="clear: both;"></div>
 	</div>
 </div>
- <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="/date-ideas/js/f2p-main.js" type="text/javascript" charset="utf-8"></script>
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});

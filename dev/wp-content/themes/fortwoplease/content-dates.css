@@ -5,7 +5,7 @@ div#share-date form#share-this-date div.info div.label { float: left; width: 120
 div#share-date form#share-this-date div.info div.input { float: left; }
 div#share-date form#share-this-date div.message {  }
 
-div.date-content { position: relative; }
+div.date-content { position: relative; margin-top: 20px; }
 div.date-content a:hover { color: #f07423; }
 div.date-content a { color: #29A8E0; }
 
