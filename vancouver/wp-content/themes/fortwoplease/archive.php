@@ -23,9 +23,9 @@ get_header(); ?>
      data-ad-slot="6672957644"></ins>
 	<div style="border-bottom: 2px dashed #F07323; width: 1020px; margin: 0 auto;"></div>
 	<?php if (strcmp(single_cat_title("", false), "Packages") == 0) {?>
-		<h1 style="margin: -17px auto 20px auto; text-align:center; text-transform:uppercase; color: #f07422; background-color:white; width: 645px;">Date <?php echo single_cat_title(); ?> Around Vancouver</h1>
+		<h1 style="margin: -17px auto 20px auto; text-align:center; text-transform:uppercase; color: #f07422; background-color:white; width: 645px;">Date <?php echo single_cat_title(); ?> Around Your City</h1>
 	<?php } else {?>
-		<h1 style="margin: -17px auto 20px auto; text-align:center; text-transform:uppercase; color: #f07422; background-color:white; width: 730px;"><?php echo single_cat_title(); ?> Date Ideas Around Vancouver</h1>
+		<h1 style="margin: -17px auto 20px auto; text-align:center; text-transform:uppercase; color: #f07422; background-color:white; width: 730px;"><?php echo single_cat_title(); ?> Date Ideas Around Your City</h1>
 	<?php }?>
 	<?php
 	if ( have_posts() ) :
