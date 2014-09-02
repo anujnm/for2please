@@ -125,7 +125,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 				</div>
 
 				<div class="title">
-						THE DATE IDEA...
+						Another Great Date Idea...
 				</div>
 				<?php if(get_field('short_description')){ ?>
 					<p class="short_desc"><?php the_field('short_description'); ?></p>
