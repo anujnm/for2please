@@ -27,7 +27,6 @@
 
 <?php
 	echo '<meta property="og:title" content="'.get_field('sub_title').'" />';
-	// echo '<meta property="og:description" content="description" />';
 	if(get_field('image_1')) {
 		echo '<meta property="og:image" content="'.get_field('image_1').'" />';
 		echo '<link rel="image_src" href="'.get_field('image_1').'" />';
@@ -36,11 +35,12 @@
 		echo '<link rel="image_src" href="'.the_post_thumbnail('full').'" />';
 	}
 	echo '<meta property="og:site_name" content="For Two Please" />';
-	if (get_field('short_description')) {
-		echo '<meta name="description" content="'.get_field('short_description').'" />';
-		echo '<meta property="og:description" content="'.get_field('short_description').'" />';
+	if (get_field('why_is_this_a_great_date')) {
+		echo '<meta name="description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
+		echo '<meta property="og:description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
 	} else {
 		echo '<meta name="description" content="Find the best date ideas in Vancouver, and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights."/>';
+		echo '<meta property="og:description" content="Find the best date ideas in Vancouver, and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights." />';
 	}
 	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 	echo '<meta property="og:url" content="'.$protocol.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" />';
@@ -52,6 +52,11 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title><?php
+	if (is_single()) {
+		bloginfo('name');
+		echo ' Date Idea | ';
+		the_field('business_name');
+	} else {
 		/*
 		 * Print the <title> tag based on what is being viewed.
 		 */
@@ -64,13 +69,15 @@
 
 		// Add the blog description for the home/front page.
 		$site_description = "Go on your next great date";
-		if ( $site_description && ( is_home() || is_front_page() ) )
+		if ( is_home() || is_front_page() ) {
 			echo " | $site_description";
+		}
 
 		// Add a page number if necessary:
-		if ( $paged >= 2 || $page >= 2 )
+		if ( $paged >= 2 || $page >= 2 ) {
 			echo ' | ' . sprintf( __( 'Page %s', 'twentyeleven' ), max( $paged, $page ) );
-
+		}
+	}
 		?>
 	</title>
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
