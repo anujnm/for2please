@@ -1,5 +1,6 @@
 <?php
 
+
 // Add new post type for Dates
 add_action('init', 'dates_init');
 function dates_init()
@@ -193,4 +194,67 @@ function price_create_taxonomies()
 		'query_var' => true,
 		'rewrite' => array('slug' => 'price' )
 	));
+}
+
+
+// Add idea submission report
+ add_action('admin_menu', 'idea_submission_init');
+
+ function idea_submission_init() {
+ 	add_menu_page('Idea Submission Report', 'Idea Submission Report', 'administrator', 'idea_submission_report', 'idea_report', '/wp-content/themes/images/datesmalle.png', 10);
+ }
+
+ function idea_report() {
+	echo '<div class="wrap"><h2>Date Idea Submission Report</h2>';
+ 	$history_options = array('day' => 1, 'week' => 7, 'month' => 31, 'year' => 365);
+ 	$history_choice = 7;
+ 	if (isset($_GET['history'])) {
+ 		$history_choice = $history_options[$_GET['history']];
+ 	}
+	$args = array('hide_empty' => false);
+ 	$city_list = get_terms('city', $args);
+ 	if (isset($_GET['city'])) {
+ 		$city_choice = $_GET['city'];
+ 	}
+	if (sizeof($city_list) == 0) {
+		echo 'Sorry, there are no new Date Idea Submissions pending. ';
+		return;
+	}
+	echo '<table class="wp-list-table widefat fixed posts" cellspacing="0">';
+	echo '<thead><tr><th class="manage-column column-columnname" scope="col">City</th><th class="manage-column column-columnname" scope="col">Business</th><th class="manage-column column-columnname" scope="col">Date Title</th><th class="manage-column column-columnname" scope="col">Date Added</th></tr></thead>';
+	echo '<tbody>';
+	$date_list = array();
+	$counter = 1;
+  foreach ($city_list as $city) {
+		$args = array('post_status' => 'draft',
+							'post_type' => 'dates',
+							'posts_per_page' => 10,
+							'tax_query' => array(
+								array(
+									'taxonomy' => 'city',
+									'field' => 'slug',
+									'terms' => $city->name
+								))
+							);
+		$city_dates = get_posts($args);
+		if (sizeof($city_dates) > 0) {
+			foreach ($city_dates as $date) {
+				if ($counter % 2 == 1) {
+					echo '<tr class="alternate">';
+				} else {
+					echo '<tr>';
+				}
+				echo '<td class="column-columnname">' . $city->name .'</td>';
+				echo '<td class="column-columnname"><a href=\'http://www.fortwodev.com/wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . $date->post_title . '</a></td>';
+				echo '<td class="column-columnname"><a href=\'http://www.fortwodev.com/wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . get_post_custom_values('sub_title', $date->ID)[0] . '</a></td>';
+				echo '<td class="column-columnname">' . $date->post_date . '</td>';
+				echo '</tr>';
+				$counter++;
+			}
+			$date_list[$city] = $city_dates;
+		}
+	}
+	echo '</tbody>';
+	echo '<tfoot><tr><th class="manage-column column-columnname" scope="col">City</th><th class="manage-column column-columnname" scope="col">Business</th><th class="manage-column column-columnname" scope="col">Date Title</th><th class="manage-column column-columnname" scope="col">Date Added</th></tr></tfoot>';
+	echo '</table></div>';
 }
