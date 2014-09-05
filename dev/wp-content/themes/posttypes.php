@@ -223,7 +223,6 @@ function price_create_taxonomies()
 	echo '<table class="wp-list-table widefat fixed posts" cellspacing="0">';
 	echo '<thead><tr><th class="manage-column column-columnname" scope="col">City</th><th class="manage-column column-columnname" scope="col">Business</th><th class="manage-column column-columnname" scope="col">Date Title</th><th class="manage-column column-columnname" scope="col">Date Added</th></tr></thead>';
 	echo '<tbody>';
-	$date_list = array();
 	$counter = 1;
   foreach ($city_list as $city) {
 		$args = array('post_status' => 'draft',
@@ -251,7 +250,6 @@ function price_create_taxonomies()
 				echo '</tr>';
 				$counter++;
 			}
-			$date_list[$city] = $city_dates;
 		}
 	}
 	echo '</tbody>';
