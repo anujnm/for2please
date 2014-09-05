@@ -44,26 +44,26 @@ Template Name: upload
             $current_city = $city->name;
             $current_city_id = $city->term_id;
           ?>
-          <h1 style='margin:10px 0; color:#1596d0;'>FORTWOPLEASE GUIDE TO <?php echo strtoupper($current_city); ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 'S';}?> BEST SUMMER DATE SPOTS</h1>
+          <h1 style='margin:10px 0; color:#1596d0;'>FORTWOPLEASE GUIDE TO <?php echo strtoupper($current_city); ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 'S';}?> BEST FALL DATE SPOTS</h1>
           <div class="separation_line"></div><br/>
           <br/>
           <p>Hey there! </p><br/>
-          <p>Are you one of <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by September 8, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> Best Summer Date Spots".</b></p><br/>
-          <p>Final selections will be made by September 15, 2014.</p><br/><br/>
+          <p>Are you one of <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> best date spots for the fall?</p><br/>
+          <p><b>Please fill out the form below by September 12, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> Best Fall Date Spots".</b></p><br/>
+          <p>Final selections will be made by September 19, 2014.</p><br/><br/>
         <?php
       } else {
         if (isset($_GET['city']) && trim($_GET['city']) != '') {
           $current_city = trim($_GET['city']);
         }
         ?>
-          <h1 style='margin:10px 0; color:#1596d0;'>TOP SUMMER DATE SPOTS GUIDE</h1>
+          <h1 style='margin:10px 0; color:#1596d0;'>TOP FALL DATE SPOTS GUIDE</h1>
           <div class="separation_line"></div><br/>
           <br/>
           <p>Hey there! </p><br/>
-          <p>Are you one of your city's best date spots for summer?</p><br/>
-          <p><b>Please fill out the form below by September 8, 2014, to be nominated for the "ForTwoPlease Summer Date Spot".</b></p><br/>
-          <p>Final selections will be made by September 15, 2014.</p><br/><br/>
+          <p>Are you one of your city's best date spots for the fall?</p><br/>
+          <p><b>Please fill out the form below by September 12, 2014, to be nominated for the "ForTwoPlease Fall Date Spot".</b></p><br/>
+          <p>Final selections will be made by September 19, 2014.</p><br/><br/>
         <?php
       }
         ?>
