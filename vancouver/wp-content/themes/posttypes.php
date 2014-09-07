@@ -204,16 +204,8 @@ function idea_submission_init() {
 
 function idea_report() {
 	echo '<div class="wrap"><h2>Date Idea Submission Report</h2>';
-	$history_options = array('day' => 1, 'week' => 7, 'month' => 31, 'year' => 365);
-	$history_choice = 7;
-	if (isset($_GET['history'])) {
-		$history_choice = $history_options[$_GET['history']];
-	}
 	$args = array('hide_empty' => false);
 	$city_list = get_terms('city', $args);
-	if (isset($_GET['city'])) {
-		$city_choice = $_GET['city'];
-	}
 	if (sizeof($city_list) == 0) {
 		echo 'Sorry, there are no new Date Idea Submissions pending. ';
 		return;
