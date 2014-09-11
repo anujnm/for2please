@@ -8,7 +8,7 @@ function store() {
 }
 
 //************************************LOAD SINGLE RESULT CONTAINER *******************************************//
-function loadResults(start,end, is_idea_page) {
+function loadResults(start, end, is_idea_page) {
     if (!sessionStorage) {
         return;
     }
@@ -104,4 +104,20 @@ function get_cookies_array() {
     }
 
     return cookies;
+}
+
+function store_city() {
+  // If page is a single, store
+  // <?php
+  // $args = array('hide_empty' => true);
+  // $city_list = get_terms('city', $args);
+  // if (is_single()) {
+  //   $current_city = wp_get_post_terms(get_the_ID(), 'city')[0];
+  //   echo 'var current_city = ' . $current_city;
+  // } else {
+  //   echo 'var current_city = Vancouver';
+  // }
+  // ?>
+  //
+  // $.cookie('f2p-city', current_city);
 }

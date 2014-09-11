@@ -24,61 +24,61 @@ function clearAllSelected() {
 }
 
 //****************************************************CATEGORIES*********************************************//
-jQuery("#dinning-link").click(function() {
-	clearAllSelected();
-	jQuery(this).addClass("selected");
-	//input_date = "action=searchdates&datetype=restaurants&location=alllocations&price=allprice&time=alltime";
-	input_date = "action=searchdates&datetype=restaurants&location=alllocations&price=allprice&time=alltime";
-	searchDate(input_date);
-});
-
-jQuery("#active-link").click(function(){
-	clearAllSelected();
-	jQuery(this).addClass("selected");
-	input_date = "action=searchdates&datetype=active&location=alllocations&price=allprice&time=alltime";
-
-	searchDate(input_date);
-});
-
-jQuery("#adven-link").click(function(){
-	clearAllSelected();
-	jQuery(this).addClass("selected");
-	input_date = "action=searchdates&datetype=adventurous&location=alllocations&price=allprice&time=alltime";
-
-	searchDate(input_date);
-});
-
-jQuery("#getaway-link").click(function(){
-	clearAllSelected();
-	jQuery(this).addClass("selected");
-	input_date = "action=searchdates&datetype=getaways&location=alllocations&price=allprice&time=alltime";
-
-	searchDate(input_date);
-});
-
-jQuery("#anniver-link").click(function(){
-	clearAllSelected();
-	jQuery(this).addClass("selected");
-	input_date = "action=searchdates&datetype=anniversary&location=alllocations&price=allprice&time=alltime";
-
-	searchDate(input_date);
-});
-
-jQuery("#enter-link").click(function(){
-	clearAllSelected();
-	jQuery(this).addClass("selected");
-	input_date = "action=searchdates&datetype=entertainment&location=alllocations&price=allprice&time=alltime";
-
-	searchDate(input_date);
-});
-
-jQuery("#packg-link").click(function(){
-	clearAllSelected();
-	jQuery(this).addClass("selected");
-	input_date = "action=searchdates&datetype=packages&location=alllocations&price=allprice&time=alltime";
-
-	searchDate(input_date);
-});
+// jQuery("#dinning-link").click(function() {
+// 	clearAllSelected();
+// 	jQuery(this).addClass("selected");
+// 	//input_date = "action=searchdates&datetype=restaurants&location=alllocations&price=allprice&time=alltime";
+// 	input_date = "action=searchdates&datetype=restaurants&location=alllocations&price=allprice&time=alltime";
+// 	searchDate(input_date);
+// });
+//
+// jQuery("#active-link").click(function(){
+// 	clearAllSelected();
+// 	jQuery(this).addClass("selected");
+// 	input_date = "action=searchdates&datetype=active&location=alllocations&price=allprice&time=alltime";
+//
+// 	searchDate(input_date);
+// });
+//
+// jQuery("#adven-link").click(function(){
+// 	clearAllSelected();
+// 	jQuery(this).addClass("selected");
+// 	input_date = "action=searchdates&datetype=adventurous&location=alllocations&price=allprice&time=alltime";
+//
+// 	searchDate(input_date);
+// });
+//
+// jQuery("#getaway-link").click(function(){
+// 	clearAllSelected();
+// 	jQuery(this).addClass("selected");
+// 	input_date = "action=searchdates&datetype=getaways&location=alllocations&price=allprice&time=alltime";
+//
+// 	searchDate(input_date);
+// });
+//
+// jQuery("#anniver-link").click(function(){
+// 	clearAllSelected();
+// 	jQuery(this).addClass("selected");
+// 	input_date = "action=searchdates&datetype=anniversary&location=alllocations&price=allprice&time=alltime";
+//
+// 	searchDate(input_date);
+// });
+//
+// jQuery("#enter-link").click(function(){
+// 	clearAllSelected();
+// 	jQuery(this).addClass("selected");
+// 	input_date = "action=searchdates&datetype=entertainment&location=alllocations&price=allprice&time=alltime";
+//
+// 	searchDate(input_date);
+// });
+//
+// jQuery("#packg-link").click(function(){
+// 	clearAllSelected();
+// 	jQuery(this).addClass("selected");
+// 	input_date = "action=searchdates&datetype=packages&location=alllocations&price=allprice&time=alltime";
+//
+// 	searchDate(input_date);
+// });
 
 
 //************************************DO A SEARCH*******************************************//
@@ -135,8 +135,9 @@ jQuery(document).ready(function($) {
 		var location = jQuery("#location").val();
 		var price = jQuery("#price").val();
 		var time = "alltime";
+		var city = $.cookie('f2p-city');
 
-		input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day=" + day;
+		input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day="+day+"&city="+city;
 
 		searchDate(input_date);
 	});
@@ -195,9 +196,8 @@ jQuery(document).ready(function($) {
 			var location = "alllocations";
 			var price = "allprice";
 			var time = "alltime";
-			input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day=" + day;
-
-			console.log("searchDate");
+			var city = $.cookie('f2p-city');
+			input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day="+day+"&city="+city;
 			searchDate(input_date, true);
 			//loadResults(1,9);
 		//} else {

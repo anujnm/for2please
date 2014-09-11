@@ -19,6 +19,7 @@
 <html id="ie8" <?php language_attributes(); ?>>
 <![endif]-->
 <!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+
 <html <?php language_attributes(); ?> xmlns="https://www.w3.org/1999/xhtml" xmlns:og="https://opengraphprotocol.org/schema/" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:fb="http://ogp.me/ns/fb#">
 <!--<![endif]-->
 <head>
@@ -182,6 +183,29 @@
 					}
 				}
 			<?php } ?>
+			// <?php
+			// 	$args = array('hide_empty' => true);
+			// 	$city_list = get_terms('city', $args);
+			// 	if (is_single()) {
+			// 		$current_city = wp_get_post_terms(get_the_ID(), 'city')[0];
+			// 		$GLOBALS['current_city'] = $current_city->name;
+			// 		error_log('This is a single for ' . $GLOBALS['current_city']);
+			// 		echo 'var current_city = "' . $GLOBALS['current_city'] . '";';
+			// 		setcookie('f2p-city', $GLOBALS['current_city']);
+			// 	} else {
+			// 		if (isset($_COOKIE['f2p-city'])) {
+			// 			error_log('Cookie received in request' . $_COOKIE['f2p-city']);
+			// 			$GLOBALS['current_city'] = $_COOKIE['f2p-city'];
+			// 			echo 'var current_city = "' . $GLOBALS['current_city'] . '";';
+			// 			setcookie('f2p-city', $GLOBALS['current_city']);
+			// 		} else {
+			// 			setcookie('f2p-city', 'None');
+			// 			error_log('Cookie not received in request');
+			// 		}
+			// 	}
+			//
+			// ?>
+
 
 			<?php
 				$uri = parse_url(current_page_url());
@@ -265,23 +289,21 @@
 				<a class="header-logo-link" href="/">
 					<img src="/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
 				</a>
-				<span style='font-size:18px'>The best date ideas in your city</span>
+				<span style='font-size:18px'>The best date ideas in <?php echo $GLOBALS['current_city']; ?></span>
 			</div>
 		</div>
-
-
 		<div id="header-about" style="float:right;margin-top:30px;">
 			<ul id="nav-one" class="nav m-t-m m-l-xl" style="float:left;">
 				<li>
-					<a id="downarrow" style="float:left;" href="#item1">Vancouver<img src="/wp-content/themes/images/down-arrow.png" /></a>
+					<a id="downarrow" style="float:left;" href="#item1"><?php if (isset($GLOBALS['current_city'])) {echo $GLOBALS['current_city']; }?><img src="/wp-content/themes/images/down-arrow.png" /></a>
 					<ul style="display: block; border-top: 3px solid #6f6f6f;">
-						<li><a class="about" id="suggestadate"href="#">Toronto</a></li>
-						<li><a class="about" id="faq" href="/faq/">Victoria</a></li>
-						<li><a class="about" id="contactus" href="/contact-us/">Seattle</a></li>
-						<li><a class="about" id="aboutus" href="/about-us-fortwoplease/">Portland</a></li>
-						<li><a class="about" id="careers" href="/careers/">San Francisco</a></li>
-						<li><a class="about" id="policies" href="/policies/">Los Angeles</a></li>
-						<li><a class="about" id="policies" href="/policies/">San Diego</a></li>
+						<?php
+						foreach ($city_list as $city) {
+							if (isset($GLOBALS['current_city']) && ($city->name != $GLOBALS['current_city'])) {
+								echo '<li><a class="about" href="#">' . $city->name . '</a></li>';
+							}
+						}
+						?>
 					</ul>
 				</li>
 			</ul>
@@ -328,25 +350,25 @@
 		<div class="category_box">
 			<ul class="categories">
         <?php if ($category == "restaurants") {?>
-          <li><a href="/date-type/restaurants/" class="selected">Dining</a></li>
+          <li><a href="/date-ideas/date-type/restaurants/" class="selected">Dining</a></li>
         <?php } else { ?>
-          <li><a href="/date-type/restaurants/">Dining</a></li>
+          <li><a href="/date-ideas/date-type/restaurants/">Dining</a></li>
         <?php } if ($category == "active") {?>
-          <li><a href="/date-type/active/" class="selected">Active</a></li>
+          <li><a href="/date-ideas/date-type/active/" class="selected">Active</a></li>
         <?php } else { ?>
-          <li><a href="/date-type/active/">Active</a></li>
+          <li><a href="/date-ideas/date-type/active/">Active</a></li>
         <?php } if ($category == "adventurous") {?>
-          <li><a href="/date-type/adventurous/" class="selected">Adventurous</a></li>
+          <li><a href="/date-ideas/date-type/adventurous/" class="selected">Adventurous</a></li>
         <?php } else { ?>
-          <li><a href="/date-type/adventurous/">Adventurous</a></li>
+          <li><a href="/date-ideas/date-type/adventurous/">Adventurous</a></li>
         <?php } if ($category == "getaways") {?>
-          <li><a href="/date-type/getaways/" class="selected">Getaways</a></li>
+          <li><a href="/date-ideas/date-type/getaways/" class="selected">Getaways</a></li>
         <?php } else { ?>
-          <li><a href="/date-type/getaways/">Getaways</a></li>
+          <li><a href="/date-ideas/date-type/getaways/">Getaways</a></li>
         <?php } if ($category == "entertainment") {?>
-          <li><a href="/date-type/entertainment/" class="selected">Entertainment</a></li>
+          <li><a href="/date-ideas/date-type/entertainment/" class="selected">Entertainment</a></li>
         <?php } else { ?>
-          <li><a href="/date-type/entertainment/">Entertainment</a></li>
+          <li><a href="/date-ideas/date-type/entertainment/">Entertainment</a></li>
         <?php } ?>
 				<div style="clear: both;"></div>
 			</ul>
