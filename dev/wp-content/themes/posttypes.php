@@ -236,8 +236,8 @@ function price_create_taxonomies()
 					echo '<tr>';
 				}
 				echo '<td class="column-columnname">' . $city->name .'</td>';
-				echo '<td class="column-columnname"><a href=\'http://www.fortwodev.com/wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . $date->post_title . '</a></td>';
-				echo '<td class="column-columnname"><a href=\'http://www.fortwodev.com/wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . get_post_custom_values('sub_title', $date->ID)[0] . '</a></td>';
+				echo '<td class="column-columnname"><a href=\'' . BASE_URL . 'wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . $date->post_title . '</a></td>';
+				echo '<td class="column-columnname"><a href=\'' . BASE_URL . 'wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . get_post_custom_values('sub_title', $date->ID)[0] . '</a></td>';
 				echo '<td class="column-columnname">' . $date->post_date . '</td>';
 				echo '</tr>';
 				$counter++;

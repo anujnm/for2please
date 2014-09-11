@@ -234,9 +234,9 @@ function idea_report() {
 					echo '<tr>';
 				}
 				echo '<td class="column-columnname">' . $city->name .'</td>';
-				echo '<td class="column-columnname"><a href=\'http://www.fortwodev.com/wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . $date->post_title . '</a></td>';
+				echo '<td class="column-columnname"><a href=\'' . BASE_URL . 'wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . $date->post_title . '</a></td>';
 				$subtitle = get_post_custom_values('sub_title', $date->ID);
-				echo '<td class="column-columnname"><a href=\'http://www.fortwodev.com/wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . $subtitle[0] . '</a></td>';
+				echo '<td class="column-columnname"><a href=\'' . BASE_URL . 'wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . $subtitle[0] . '</a></td>';
 				echo '<td class="column-columnname">' . $date->post_date . '</td>';
 				echo '</tr>';
 				$counter++;
