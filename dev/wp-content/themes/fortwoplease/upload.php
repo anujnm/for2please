@@ -139,14 +139,14 @@ Template Name: upload
 
             <div class="upload_fields">
               <label>Date Idea Title: </label>
-              <input type="text" name="date_title" class="text login_text" value="" />
+              <input id='date-idea-title' type="text" name="date_title" class="text login_text" value="" />
             </div>
-            <p style='font-size: 12px;'>Maximum Allowed: 50 characters</p><br/>
+            <p style='font-size: 12px;'><span id='title-chars'>50</span> characters remaining</p><br/>
             <div class="upload_fields">
               <label>Describe this Date Idea in one sentence: </label>
-              <textarea name="short_desc" class="text login_text" value="" maxlength="180" rows="10" cols="50"></textarea>
+              <textarea id="date-idea-short-desc" name="short_desc" class="text login_text" value="" rows="10" cols="50"></textarea>
             </div>
-            <p style='font-size: 12px;'>Maximum Allowed: 180 characters</p><br/><br/>
+            <p style='font-size: 12px;'><span id="short-desc-chars">180</span> characters remaining</p><br/><br/>
             <div style='padding-top:20px;font-weight:bold;'>
               <p>Provide more information about what a couple can expect and why this is a great date idea that they should experience. The more detailed information the better.</p><br/>
             </div>
@@ -316,4 +316,27 @@ jQuery(document).ready(function(jQuery) {
   });
 
 });
+
+(function($) {
+  $.fn.extend( {
+    limiter: function(limit, elem) {
+      $(this).on("keyup focus", function() {
+        setCount(this, elem);
+      });
+      function setCount(src, elem) {
+        var chars = src.value.length;
+        if (chars > limit) {
+          src.value = src.value.substr(0, limit);
+          chars = limit;
+        }
+        elem.html( limit - chars );
+      }
+      setCount($(this)[0], elem);
+    }
+  });
+})(jQuery);
+var elem = $("#short-desc-chars");
+$("#date-idea-short-desc").limiter(180, elem);
+var elem = $("#title-chars");
+$("#date-idea-title").limiter(50, elem);
 </script>
