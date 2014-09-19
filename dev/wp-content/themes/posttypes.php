@@ -213,13 +213,13 @@ function price_create_taxonomies()
 		return;
 	}
 	echo '<table class="wp-list-table widefat fixed posts" cellspacing="0">';
-	echo '<thead><tr><th class="manage-column column-columnname" scope="col">City</th><th class="manage-column column-columnname" scope="col">Business</th><th class="manage-column column-columnname" scope="col">Date Title</th><th class="manage-column column-columnname" scope="col">Date Added</th></tr></thead>';
+	echo '<thead><tr><th class="manage-column column-columnname" scope="col">#</th><th class="manage-column column-columnname" scope="col">City</th><th class="manage-column column-columnname" scope="col">Business</th><th class="manage-column column-columnname" scope="col">Date Title</th><th class="manage-column column-columnname" scope="col">Date Added</th></tr></thead>';
 	echo '<tbody>';
 	$counter = 1;
   foreach ($city_list as $city) {
 		$args = array('post_status' => 'draft',
 							'post_type' => 'dates',
-							'posts_per_page' => 10,
+							'posts_per_page' => 50,
 							'tax_query' => array(
 								array(
 									'taxonomy' => 'city',
@@ -235,6 +235,7 @@ function price_create_taxonomies()
 				} else {
 					echo '<tr>';
 				}
+				echo '<td class="column-columnname">' . $counter . '</td>';
 				echo '<td class="column-columnname">' . $city->name .'</td>';
 				echo '<td class="column-columnname"><a href=\'' . BASE_URL . 'wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . $date->post_title . '</a></td>';
 				echo '<td class="column-columnname"><a href=\'' . BASE_URL . 'wp-admin/post.php?post=' . $date->ID . '&action=edit\'>' . get_post_custom_values('sub_title', $date->ID)[0] . '</a></td>';
