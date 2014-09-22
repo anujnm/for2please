@@ -473,7 +473,7 @@ function email_subscription() {
 
 				//Call the method that adds the email to the MailChimp subscriber list
 				add_email_to_mail_chimp($user_email, null, null);
-				send_welcome_email($user_email);
+				send_welcome_email($user_email, null);
 				echo 'Success';
 			} else {
 				echo 'Invalid Email. Please try again.';
@@ -539,15 +539,15 @@ function add_email_to_mail_chimp ($email, $fname, $lname) {
 
 function send_welcome_email($user_email, $first_name) {
 	$to = array(array('email'=>$user_email, 'type'=>'to'));
-    $message = array('from_email'=>'jesse@fortwoplease.com', 'from_name'=> 'Jesse from ForTwoPlease', 'to'=> $to);
-    if ($first_name	) {
-    	$greeting = "Hey " . $first_name . ",";
-    } else {
-    	$greeting  = "Hey, ";
-    }
-    $template_content = array(array('name'=>'greeting', 'content'=>$greeting));
-    $data = json_encode(array('key'=>'OybeEIWO9N2oDsURJI3qmg', 'template_name'=>'Welcome', 'message' => $message, 'template_content'=>$template_content));
-    $curl = curl_init();
+  $message = array('from_email'=>'jesse@fortwoplease.com', 'from_name'=> 'Jesse from ForTwoPlease', 'to'=> $to);
+  if (isset($first_name)) {
+  	$greeting = "Hey " . $first_name . ",";
+  } else {
+  	$greeting  = "Hey, ";
+  }
+  $template_content = array(array('name'=>'greeting', 'content'=>$greeting));
+  $data = json_encode(array('key'=>MANDRILL_KEY, 'template_name'=>'Welcome', 'message' => $message, 'template_content'=>$template_content));
+  $curl = curl_init();
 	curl_setopt($curl, CURLOPT_POST, 1);
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 	curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);

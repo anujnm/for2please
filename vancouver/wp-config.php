@@ -87,6 +87,13 @@ define('WP_DEBUG', false);
 define('WP_DEBUG_DISPLAY', false);
 define('WP_DEBUG_LOG', true);
 
+
+/** Third Party API keys */
+define('MANDRILL_KEY', 'I-wNYWKNZKx5vVVDEk46Nw');
+
+/** End Third Party keys */
+
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
