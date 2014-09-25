@@ -441,6 +441,7 @@ function email_subscription() {
 	//We shall SQL escape all inputs
 	$user_email = $_POST['email'];
 	$user_pass = $_POST['password'];
+  $city = $_POST['city'];
 
 	$already_exists = email_exists($user_email);
 
@@ -472,8 +473,8 @@ function email_subscription() {
 			*/
 
 				//Call the method that adds the email to the MailChimp subscriber list
-				add_email_to_mail_chimp($user_email, null, null);
-				send_welcome_email($user_email, null);
+				add_email_to_mail_chimp($user_email, null, null, 'vancouver');
+				send_welcome_email($user_email, null, 'vancouver');
 				echo 'Success';
 			} else {
 				echo 'Invalid Email. Please try again.';
@@ -501,16 +502,16 @@ add_action('wp_ajax_nopriv_location_subscribe', 'location_subscribe');
 add_action('wp_ajax_location_subscribe', 'location_subscribe');
 
 
-function add_email_to_mail_chimp ($email, $fname, $lname) {
+function add_email_to_mail_chimp ($email, $fname, $lname, $city) {
 	//MailChimp API Files
 	require_once 'inc/MCAPI.class.php';
 	require_once 'inc/config.inc.php'; //contains apikey
 
 	$api = new MCAPI($apikey);
 	if ($fname == null)
-		$merge_vars = array('FNAME'=>'', 'LNAME'=>'', 'INTERESTS'=>'');
+		$merge_vars = array('FNAME'=>'', 'LNAME'=>'', 'INTERESTS'=>'', 'MMERGE1'=>$city);
 	else
-		$merge_vars = array('FNAME'=>$fname, 'LNAME'=>$lname, 'INTERESTS'=>'');
+		$merge_vars = array('FNAME'=>$fname, 'LNAME'=>$lname, 'INTERESTS'=>'', 'MMERGE1'=>$city);
 	// By default this sends a confirmation email - you will not see new members
 	// until the link contained in it is clicked!
 	$retval = $api->listSubscribe( $listId, $email, $merge_vars, 'html', false );
@@ -537,7 +538,8 @@ function add_email_to_mail_chimp ($email, $fname, $lname) {
 }
 
 
-function send_welcome_email($user_email, $first_name) {
+function send_welcome_email($user_email, $first_name, $city_slug) {
+  $city = get_term_by('slug', $city_slug, 'city');
 	$to = array(array('email'=>$user_email, 'type'=>'to'));
   $message = array('from_email'=>'jesse@fortwoplease.com', 'from_name'=> 'Jesse from ForTwoPlease', 'to'=> $to);
   if (isset($first_name)) {
@@ -545,7 +547,7 @@ function send_welcome_email($user_email, $first_name) {
   } else {
   	$greeting  = "Hey, ";
   }
-  $template_content = array(array('name'=>'greeting', 'content'=>$greeting));
+  $template_content = array(array('name'=>'greeting', 'content'=>$greeting), array('name'=>'city', 'content'=>$city->name));
   $data = json_encode(array('key'=>MANDRILL_KEY, 'template_name'=>'Welcome', 'message' => $message, 'template_content'=>$template_content));
   $curl = curl_init();
 	curl_setopt($curl, CURLOPT_POST, 1);
