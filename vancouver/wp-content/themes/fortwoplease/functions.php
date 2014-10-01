@@ -927,6 +927,7 @@ function create_date_idea() {
     $attachment1 = media_handle_upload('attach1', $result1);
     if (!is_wp_error($attachment1)) {
       $result14 = add_post_meta($result1, 'image_1', $attachment1, true);
+      add_post_meta($result1, 'thumbnail', $attachment1, true);
     } else {
       $result14 = $attachment1->get_error_message();
     }
