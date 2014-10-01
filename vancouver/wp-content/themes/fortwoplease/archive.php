@@ -37,7 +37,7 @@ get_header(); ?>
 				echo $id;
 				echo "' onclick='location.href=\"$itemPermalink\";' class='testsearch date-container' style='background:url(";
 				echo get_field('thumbnail',$id);
-				echo");height:235px;width:330px; float:left;margin: 0 8px 30px 8px;box-shadow:2px 2px 5px #888;position:relative;'>";
+				echo");background-size:contain;height:235px;width:330px; float:left;margin: 0 8px 30px 8px;box-shadow:2px 2px 5px #888;position:relative;'>";
 				if(stristr(strip_tags($datetypes),'Packages') !== FALSE) {
 					// echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/date-ideas/wp-content/themes/images/get-it-here.png"></div>';
 					echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/date-ideas/wp-content/themes/images/get-it-here.png"></div>';
