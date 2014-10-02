@@ -210,7 +210,7 @@ jQuery(document).ready(function($) {
 				position: results[0].geometry.location
 			});
 		} else {
-			alert("Geocode was not successful for the following reason: " + status);
+			console.log("Geocode was not successful for the following reason: " + status);
 		}
 	});
 
@@ -339,7 +339,7 @@ jQuery(document).ready(function($) {
 					return unescape(pair[1]);
 				}
 			}
-			alert('Query Variable ' + variable + ' not found');
+			console.log('Query Variable ' + variable + ' not found');
 		}
 
 		function isLoggedIn(){

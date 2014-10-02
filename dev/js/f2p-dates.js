@@ -15,7 +15,7 @@ window.fbAsyncInit = function() {
 	});
 };
 
-(function(d){
+(function(d) {
 var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
 if (d.getElementById(id)) {return;}
 js = d.createElement('script'); js.id = id; js.async = true;
@@ -118,14 +118,14 @@ jQuery(document).ready(function($) {
 
 	var geocoder;
 	var map;
-		geocoder = new google.maps.Geocoder();
-		var latlng = new google.maps.LatLng(-34.397, 150.644);
-		var myOptions = {
-			zoom: 15,
-			center: latlng,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		}
-		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	geocoder = new google.maps.Geocoder();
+	var latlng = new google.maps.LatLng(-34.397, 150.644);
+	var myOptions = {
+		zoom: 15,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	}
+	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
 	geocoder.geocode( { 'address': address}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
@@ -135,7 +135,7 @@ jQuery(document).ready(function($) {
 				position: results[0].geometry.location
 			});
 		} else {
-			alert("Geocode was not successful for the following reason: " + status);
+			console.log("Geocode was not successful for the following reason: " + status);
 		}
 	});
 
@@ -241,7 +241,7 @@ jQuery(document).ready(function($) {
 		var prices = "allprice";
 		var time = "alltime";
 		input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+prices+"&time="+time+"&day=" + day;
-		populateDatePackages(input_date);
+		//populateDatePackages(input_date);
 
 		mixpanel.track('Loaded Date Idea', {'postID': postID });
 	}
