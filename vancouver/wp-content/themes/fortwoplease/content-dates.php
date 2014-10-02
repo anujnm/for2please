@@ -80,31 +80,9 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 			</div>
 			<div class="date_info">
 				<div class="links">
-					<div style="width: 140px;">
-					<?php
-						$uri = $_SERVER["REQUEST_URI"];
-						$uri = substr($uri, 13);
-						#get_permalink( $post->ID );
-						//$uri = "http://fortwoplease.com/dev".$uri;
-						$uri = "http://fortwoplease.com/date-ideas".$uri;
-						// echo $uri."<br/>";
-						echo '<div class="fb-like" data-href="'.$uri.'" data-send="false" data-layout="button_count" data-show-faces="false" data-action="recommend" data-font="verdana"></div>';
-					?>
-					</div>
-
-					<div style="width: 90px;">
-					<a href="<?php echo $uri ?>" class="twitter-share-button" url="http://twitter.com/share?url=<?php echo $uri ?>" data-counturl="<?php echo $uri ?>">Tweet</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-					</div>
-					<div style="width: 70px;"><img src="/dev/wp-content/themes/images/email_btn.png" width="60" height="22" style="cursor:pointer;" onclick="jQuery('#share-date').lightbox_me({centered: true,});"/></div>
-					<div style="width: 65px;"><a href="http://pinterest.com/pin/create/button/?url=<?php echo current_page_url(); ?>&media=<?php the_field('image_1'); ?>&description=this%20is%20the%20description" class="pin-it-button" count-layout="vertical"><img border="0" src="/dev/wp-content/themes/images/pinit.png" title="Pin It" /></a></div>
-
+					<?php echo really_simple_share_publish($link='', $title=''); ?>
 				</div>
 				<div style="clear: both;"></div>
-				<?#php dd_fblike_generate('Recommend Button Count') ?>
-				<?#php dd_pinterest_generate('Compact') ?>
-				<?#php dd_twitter_generate('Compact','twitter_username') ?>
-
 				<div id="share-date">
 					<form id="share-this-date">
 						<div class="info">
