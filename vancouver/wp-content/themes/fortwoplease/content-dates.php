@@ -38,7 +38,13 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 <div class="center_content">
 	<div class="content_block">
 		<div class="content_header">
-			<div class="title"><?php the_field('sub_title'); ?></div>
+			<?php
+			if (strlen(get_field('sub_title')) > 45) {
+				$title_class = 'title-small';
+			} else {
+				$title_class = 'title';
+			}?>
+			<div class="<?php echo $title_class;?>"><?php the_field('sub_title'); ?></div>
 				<div class="package_title">DATE IDEA</div>
 		</div>
 

@@ -141,7 +141,7 @@ Template Name: upload
               <label>Date Idea Title: </label>
               <input id='date-idea-title' type="text" name="date_title" class="text login_text" value="" />
             </div>
-            <p style='font-size: 12px;'><span id='title-chars'>50</span> characters remaining</p><br/>
+            <p style='font-size: 12px;'><span id='title-chars'>45</span> characters remaining</p><br/>
             <div class="upload_fields">
               <label>Describe this Date Idea in one sentence: </label>
               <textarea id='date-idea-short-desc' name="short_desc" class="text login_text" value="" rows="10" cols="50"></textarea>
@@ -338,6 +338,6 @@ jQuery(document).ready(function(jQuery) {
 var elem = $("#short-desc-chars");
 $("#date-idea-short-desc").limiter(180, elem);
 var elem = $("#title-chars");
-$("#date-idea-title").limiter(50, elem);
+$("#date-idea-title").limiter(45, elem);
 
 </script>

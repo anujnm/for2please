@@ -20,6 +20,7 @@ div.center_content { text-align: center; }
 div.content_block { margin:0 auto; width:1020px; text-align:left; }
 div.content_block div.content_header { background-color:#4d4d4d; border-radius:15px 15px 0px 0px; height:44px; }
 div.content_header div.title { float: left; color: white; font-size: 24px; font-weight: 700; padding:6px 0; text-align:center; width: 685px; line-height: 30px; text-transform:uppercase; }
+div.content_header div.title-small { float: left; color: white; font-size: 16px; font-weight: 700; padding:6px 0; text-align:center; width: 685px; line-height: 30px; text-transform:uppercase; }
 div.content_header div.package_title { background-color: #EC2079; border-radius:0px 15px 0px 0px; float: left; width: 335px; color: white; font-size: 24px; text-align:center; text-transform:uppercase; line-height: 30px; padding:7px 0; font-weight: bold; }
 div.content_header div.date_title { background-color: #60AD46; border-radius:0px 15px 0px 0px; float: left; width: 335px; color: white; font-size: 24px; text-align:center; text-transform:uppercase; line-height: 30px; padding:7px 0; font-weight: bold; }
 div.content_header div.links { float: right; padding: 15px 0 0 0; }
