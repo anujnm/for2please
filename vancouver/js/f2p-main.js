@@ -96,10 +96,11 @@ function searchDate(iData, isLandingPage){
 			jQuery('#loadImage').remove();
 			searchResults = msg;
 			store();
+			var max = msg.length > 15 ? 15 : msg.length;
 			if (typeof isLandingPage === "undefined") {
-				loadResults(1,15);
+				loadResults(1, max);
 			} else if (typeof isLandingPage == "boolean" && isLandingPage == true) {
-				loadResults(1,15);
+				loadResults(1, max);
 			} else {
 				loadResults(1, msg.length);
 			}
@@ -134,9 +135,10 @@ jQuery(document).ready(function($) {
 		var type = jQuery("#type").val();
 		var location = jQuery("#location").val();
 		var price = jQuery("#price").val();
+		var city = (jQuery('#downarrow')[0].href).substring(44);
 		var time = "alltime";
 
-		input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day=" + day;
+		input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day="+day+"&city="+city;
 
 		searchDate(input_date);
 	});
@@ -188,23 +190,14 @@ jQuery(document).ready(function($) {
 			}
 		});
 	} else {
-		//jQuery("#results").html("<img src='/date-ideas/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif' />");
-		//if(sessionStorage.length < 1) {
 			var day = new Date().getUTCDay();
 			var type = "alltypes";
 			var location = "alllocations";
 			var price = "allprice";
 			var time = "alltime";
-
-			input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day=" + day;
-
-			console.log("searchDate");
+			var city = (jQuery('#downarrow')[0].href).substring(44);
+			input_date = "action=searchdates&datetype="+type+"&location="+location+"&price="+price+"&time="+time+"&day="+day+"&city="+city;
 			searchDate(input_date, true);
-			//loadResults(1,9);
-		//} else {
-			//console.log("loadResults");
-		//	loadResults(1,15);
-		//}
 	}
 
 	jQuery(window).scroll(function () {

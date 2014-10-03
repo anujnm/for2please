@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_directory'); ?>/content-dates.css" />
-<script src="<?php echo home_url(); ?>/slider/galleria-1.2.6.js" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo home_url(); ?>/slider/galleria-1.2.6.js" type="text/javascript" charset="utf-8-without-bom"></script>
 <script type="text/javascript">
 <?php if(is_user_logged_in()) { ?>
 	var isUserLoggedIn = 0;
@@ -19,9 +19,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 	var orderID = <?php echo get_current_user_id(); }?>;
 </script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script src="https://js.stripe.com/v1/?ver=3.4.1" type="text/javascript" charset="utf-8"></script>
-<script src="/date-ideas/js/f2p-dates.js" type="text/javascript" charset="utf-8"></script>
-<!-- <script src="https://maps.google.com/maps?file=api&v=2&key=AIzaSyDLEOimOjJBjY5kPHxkRcSAfihslNNOUAI&sensor=false" type="text/javascript"></script> -->
+<script src="/date-ideas/js/f2p-dates.js" type="text/javascript" charset="utf-8-without-bom"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
 <div id="nav-links" class="nav_links">
@@ -31,7 +29,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 
 <div style="display:none;"><img src="/date-ideas/wp-content/themes/images/get-it-normal.png" /><img src="/date-ideas/wp-content/themes/images/get-t-hover.png"  /><img src="/date-ideas/wp-content/themes/images/get-it-pressed.png"  /></div>
 <div class="date-content">
-
 
 <article id="date-<?php the_ID(); ?>">
 
@@ -47,9 +44,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 			<div class="<?php echo $title_class;?>"><?php the_field('sub_title'); ?></div>
 				<div class="package_title">DATE IDEA</div>
 		</div>
-
-
-
 		<div class="header_info">
 			<div class="pictures" style="overflow:hidden;">
 				<div class="galleria-info sub_title">
@@ -59,15 +53,23 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					<?php
 					if(get_field('image_1')){ ?>
 						<div id="galleria">
-							<img src=<?php the_field('image_1'); ?>>
-							<?php if(get_field('image_2')){?>
-								<img src=<?php the_field('image_2'); ?>>
-							<?php } if(get_field('image_3')){?>
-								<img src=<?php the_field('image_3'); ?>>
-							<?php } if(get_field('image_4')){?>
-								<img src=<?php the_field('image_4'); ?>>
-							<?php } if(get_field('image_5')){?>
-								<img src=<?php the_field('image_5'); ?>>
+							<img src=<?php $image_1 = get_field('image_1');
+							echo $image_1;?>>
+							<?php $image_2 = get_field('image_2');
+							if (isset($image_2)){?>
+								<img src=<?php echo $image_2; ?>>
+							<?php }
+							$image_3 = get_field('image_3');
+							if(isset($image_3['url'])){?>
+								<img src=<?php echo $image_3; ?>>
+							<?php }
+							$image_4 = get_field('image_4');
+							if(isset($image_4['url'])){?>
+								<img src=<?php echo $image_4; ?>>
+							<?php }
+							$image_5 = get_field('image_5');
+							if(isset($image_4['url'])){?>
+								<img src=<?php echo $image_5; ?>>
 							<?php }  ?>
 						</div>
 
@@ -83,31 +85,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					<?php echo really_simple_share_publish($link='', $title=''); ?>
 				</div>
 				<div style="clear: both;"></div>
-				<div id="share-date">
-					<form id="share-this-date">
-						<div class="info">
-							<div class="label">Recipient's Email:</div>
-							<div class="input"><input type='text' name="recipient-email" class="text_field" /></div>
-							<div style="clear: both;"></div>
-						</div>
-						<div class="info">
-							<div class="label">Recipient's Name:</div>
-							<div class="input"><input type='text' name="recipient-name" class="text_field" /></div>
-							<div style="clear: both;"></div>
-						</div>
-						<div class="info">
-							<div class="label">Your Name:</div>
-							<div class="input"><input type="text" name="sender-name" class="text_field" /></div>
-							<div style="clear: both;"></div>
-						</div>
-						<br/>
-						<div class="message">Message(optional): <br/> <textarea rows="5" name="message" cols="40"> </textarea></div>
-
-						<br/>
-						<input type="submit" id="share-submit" value="send" class="f2p-button" />
-					</form>
-				</div>
-
 				<div class="title">
 						Another Great Date Idea...
 				</div>

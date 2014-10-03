@@ -29,7 +29,7 @@ define('WP_SITEURL','http://www.fortwodev.com/');
 define('BASE_URL', 'http://www.fortwodev.com/');
 define('DOMAIN_NAME', 'fortwodev.com');
 /** Database Charset to use in creating database tables. */
-define('DB_CHARSET', 'utf8');
+define('DB_CHARSET', 'utf8-without-bom');
 
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
@@ -49,6 +49,11 @@ define('WP_DEBUG_LOG', true);
  */
 
 /**#@-*/
+
+/** Third Party API keys */
+define('MANDRILL_KEY', 'OybeEIWO9N2oDsURJI3qmg');
+
+/** End Third Party keys */
 
 /**
  * WordPress Database Table prefix.

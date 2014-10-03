@@ -8,24 +8,51 @@
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */
+$wp_session = WP_Session::get_instance();
+add_filter( 'wp_session_expiration', function() { return 60 * 60 * 24 * 30; } );
+if (!isset($wp_session['f2p-city'])) {
+	// Check if page is a single or a city-archive
+	if (is_single()) {
+		// If this is a single date idea, get city of that date and assign the cookie to be the name of that city.
+		$term = get_the_terms(get_the_ID(), 'city');
+		$term_vals = array_values($term);
+		$req_term_val = $term_vals[0];
+		$wp_session['f2p-city'] = $req_term_val->name;
+	} elseif (is_archive()) {
+		$request_url = $_SERVER["REQUEST_URI"];
+		if (substr($request_url, 12, 4) == 'city') {
+			$wp_session['f2p-city'] = single_cat_title('', false);
+		} else {
+			$wp_session['f2p-city'] = 'Vancouver';
+		}
+	} else {
+		$wp_session['f2p-city'] = 'Vancouver';
+	}
+} else {
+	if (is_single()) {
+		// If this is a single date idea, get city of that date and assign the cookie to be the name of that city.
+		$term = get_the_terms(get_the_ID(), 'city');
+		$term_vals = array_values($term);
+		$req_term_val = $term_vals[0];
+		$wp_session['f2p-city'] = $req_term_val->name;
+	} elseif (is_archive()) {
+		$request_url = $_SERVER["REQUEST_URI"];
+		// If this is a city archive, update cookie to be the name of that city.
+		if (substr($request_url, 12, 4) == 'city') {
+			$wp_session['f2p-city'] = single_cat_title('', false);
+		}
+	} // Else no change
+}
+$args = array('hide_empty' => true);
+$city_list = get_terms('city', $args);
+$current_city = get_term_by('name', $wp_session['f2p-city'], 'city');
 ?><!DOCTYPE html>
-<!--[if IE 6]>
-<html id="ie6" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if IE 7]>
-<html id="ie7" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if IE 8]>
-<html id="ie8" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
 <html xmlns="https://www.w3.org/1999/xhtml" xmlns:og="https://opengraphprotocol.org/schema/" xmlns:fb="https://www.facebook.com/2008/fbml" <?php language_attributes(); ?>>
-<!--<![endif]-->
 <head>
 	<?php include_once("analyticstracking.php") ?>
 	<link rel="icon" type="image/png" href="/date-ideas/wp-content/themes/images/favicon2c.png">
 
-<?php
+	<?php
 	echo '<meta property="og:title" content="'.get_field('sub_title').'" />';
 	if(get_field('image_1')) {
 		echo '<meta property="og:image" content="'.get_field('image_1').'" />';
@@ -35,18 +62,22 @@
 		echo '<link rel="image_src" href="'.the_post_thumbnail('full').'" />';
 	}
 	echo '<meta property="og:site_name" content="For Two Please" />';
-	if (get_field('why_is_this_a_great_date')) {
-		echo '<meta name="description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
-		echo '<meta property="og:description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
+	if (is_single()) {
+		if (get_field('why_is_this_a_great_date')) {
+			echo '<meta name="description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
+			echo '<meta property="og:description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
+		} else {
+			echo '<meta name="description" content="Find the best date ideas in ' . $current_city->name . ', and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights."/>';
+			echo '<meta property="og:description" content="Find the best date ideas in ' . $current_city->name . ', and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights." />';
+		}
 	} else {
-		echo '<meta name="description" content="Find the best date ideas in Vancouver, and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights."/>';
-		echo '<meta property="og:description" content="Find the best date ideas in Vancouver, and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights." />';
+		echo '<meta name="description" content="Find the best date ideas in ' . $current_city->name . ', and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights."/>';
+		echo '<meta property="og:description" content="Find the best date ideas in ' . $current_city->name . ', and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights." />';
 	}
 	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 	echo '<meta property="og:url" content="'.$protocol.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" />';
 	echo '<meta property="fb:app_id" content="185259828274700" />';
 	echo '<meta property="og:type" content="article">';
-	//echo '<meta property="og:type" content="Web Site" />';
 ?>
 
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
@@ -78,14 +109,11 @@
 			echo ' | ' . sprintf( __( 'Page %s', 'twentyeleven' ), max( $paged, $page ) );
 		}
 	}
-		?>
+	?>
 	</title>
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
 	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-	<!--[if lt IE 9]>
-	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
-	<![endif]-->
 
 	<?php wp_head(); ?>
 
@@ -164,7 +192,6 @@
 					var squeeze_show_cookie = $.cookie('squeeze_popup');
 					if (squeeze_show_cookie == null) {
 						setTimeout(function() {
-							//window.setTimeout("GoogleTracking('/date-ideas/join/');", 100);
 							jQuery("#join_div").load('/date-ideas/join', function() {
 								jQuery("#join_div").lightbox_me({
 									centered: true,
@@ -250,28 +277,42 @@
 </head>
 
 <body>
-<div id="overlay-background">
-</div>
-<div id="overlay">
-     <div>
-          <img src="/date-ideas/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
-     </div>
-</div>
-<div id="brandingfortwo">
-<img class="source-image" src="/date-ideas/wp-content/themes/images/main-bckg2.jpg" alt="" />
-<div id="header-content">
-
-<div id="header-left" style="float:left;">
-	<div style='margin-top:20px;'>
-		<a class="header-logo-link" href="/date-ideas/">
-			<img src="/date-ideas/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
-		</a>
-		<span style='font-size:18px'>The best date ideas in your city</span>
+	<div id="overlay-background">
 	</div>
-</div>
+	<div id="overlay">
+   <div>
+    <img src="/date-ideas/wp-content/themes/images/FTP-Logo-Loader-Icon-Animation-2.gif" />
+   </div>
+	</div>
+	<div id="brandingfortwo">
+	<img class="source-image" src="/date-ideas/wp-content/themes/images/main-bckg2.jpg" alt="" />
+	<div id="header-content">
 
+		<div id="header-left" style="float:left;">
+			<div style='margin-top:20px;'>
+				<a class="header-logo-link" href="/date-ideas/">
+					<img src="/date-ideas/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
+				</a>
+				<span style='font-size:18px'>The best date ideas in <?php echo $current_city->name;?></span>
+			</div>
+		</div>
 
 		<div id="header-about" style="float:right;margin-top:30px;">
+			<ul id="nav-one" class="nav m-t-m m-l-xl" style="float:left;">
+				<li>
+					<?php
+					echo '<a id="downarrow" style="float:left;" href="' . BASE_URL . 'city/' . $current_city->slug . '">';
+					echo $current_city->name; ?><img src="/date-ideas/wp-content/themes/images/down-arrow.png" /></a>
+					<ul style="display: block; border-top: 3px solid #6f6f6f;">
+						<?php
+						foreach ($city_list as $city) {
+							if ($city->name != $wp_session['f2p-city']) {
+								echo '<li><a class="about" href="' . BASE_URL . 'city/' . $city->slug . '">' . $city->name . '</a></li>';
+							}
+						}?>
+					</ul>
+				</li>
+			</ul>
 			<ul id="nav-one" class="nav m-t-m m-l-xl" style="float:left;">
 				<li>
 					<a id="downarrow" style="float:left;" href="#item1">About&nbsp;&nbsp;<img src="/date-ideas/wp-content/themes/images/down-arrow.png" /></a>
@@ -292,14 +333,6 @@
 				<a href="http://www.twitter.com/fortwoplease" target="_blank"><img src="/date-ideas/wp-content/themes/images/twitter_page_btn.png" /></a>&nbsp;&nbsp;
 				<a href="http://www.facebook.com/fortwoplease" target="_blank"><img src="/date-ideas/wp-content/themes/images/fb_page_btn.png" /></a>
 			</div>
-			<div class="account_links">
-			<?php if ( !is_user_logged_in() ) { ?>
-				<!--<a class="logmein" href="#">Login</a> | <a class="registerme" href="#">Register</a>-->
-				<a id="sign_in" class="header-signin-link" href="#">Login</a> | <a class="header-join-link" id="join_now" href="#">Join</a>
-			<?php } else{ ?>
-				<a class="header-account-link" href="/date-ideas/myaccount/">My Account</a> | <a class="header-signout-link" href="<?php echo wp_logout_url(current_page_url()); ?>" title="Logout">Logout</a>
-			<?php } ?>
-			</div>
 		</div>
 	</div>
 
@@ -309,46 +342,45 @@
 		<strong>Not sure if it's a good idea?</strong>
 		<p>We love everything from skinny dipping on Wreck Beach to 5 Course Dining at Divino Wine Bar to renting kayaks on False Creek. Be bold and suggest it, chances are someone will love it too!</p>
 	</div>
-</div>
-
-<div class="search_background">
-	<div class="search_area">
-		<div class="category_box">
-			<ul class="categories">
-        <?php if ($category == "restaurants") { ?>
-          <li><a href="/date-ideas/date-type/restaurants/" class="selected">Dining</a></li>
-        <?php } else { ?>
-          <li><a href="/date-ideas/date-type/restaurants/">Dining</a></li>
-        <?php } if ($category == "active") { ?>
-          <li><a href="/date-ideas/date-type/active/" class="selected">Active</a></li>
-        <?php } else { ?>
-          <li><a href="/date-ideas/date-type/active/">Active</a></li>
-        <?php } if ($category == "adventurous") { ?>
-          <li><a href="/date-ideas/date-type/adventurous/" class="selected">Adventurous</a></li>
-        <?php } else { ?>
-          <li><a href="/date-ideas/date-type/adventurous/">Adventurous</a></li>
-        <?php } if ($category == "getaways") { ?>
-          <li><a href="/date-ideas/date-type/getaways/" class="selected">Getaways</a></li>
-        <?php } else { ?>
-          <li><a href="/date-ideas/date-type/getaways/">Getaways</a></li>
-        <?php } if ($category == "entertainment") { ?>
-          <li><a href="/date-ideas/date-type/entertainment/" class="selected">Entertainment</a></li>
-        <?php } else { ?>
-          <li><a href="/date-ideas/date-type/entertainment/">Entertainment</a></li>
-        <?php } ?>
-				<div style="clear: both;"></div>
-			</ul>
-		</div>
-		<div class="search_box">
-			<form id="text-form">
-				<input id="input-text-search" type="text" class="search_field"/>
-				<img id="text-search" src="/date-ideas/wp-content/themes/images/search-mag.png" />
-			</form>
-		</div>
-		<div style="clear: both;"></div>
 	</div>
-</div>
+	<div class="search_background">
+		<div class="search_area">
+			<div class="category_box">
+				<ul class="categories">
+	        <?php if ($category == "restaurants") { ?>
+	          <li><a href="/date-ideas/date-type/restaurants/" class="selected">Dining</a></li>
+	        <?php } else { ?>
+	          <li><a href="/date-ideas/date-type/restaurants/">Dining</a></li>
+	        <?php } if ($category == "active") { ?>
+	          <li><a href="/date-ideas/date-type/active/" class="selected">Active</a></li>
+	        <?php } else { ?>
+	          <li><a href="/date-ideas/date-type/active/">Active</a></li>
+	        <?php } if ($category == "adventurous") { ?>
+	          <li><a href="/date-ideas/date-type/adventurous/" class="selected">Adventurous</a></li>
+	        <?php } else { ?>
+	          <li><a href="/date-ideas/date-type/adventurous/">Adventurous</a></li>
+	        <?php } if ($category == "getaways") { ?>
+	          <li><a href="/date-ideas/date-type/getaways/" class="selected">Getaways</a></li>
+	        <?php } else { ?>
+	          <li><a href="/date-ideas/date-type/getaways/">Getaways</a></li>
+	        <?php } if ($category == "entertainment") { ?>
+	          <li><a href="/date-ideas/date-type/entertainment/" class="selected">Entertainment</a></li>
+	        <?php } else { ?>
+	          <li><a href="/date-ideas/date-type/entertainment/">Entertainment</a></li>
+	        <?php } ?>
+					<div style="clear: both;"></div>
+				</ul>
+			</div>
+			<div class="search_box">
+				<form id="text-form">
+					<input id="input-text-search" type="text" class="search_field"/>
+					<img id="text-search" src="/date-ideas/wp-content/themes/images/search-mag.png" />
+				</form>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+	</div>
 
-<div id="page" class="hfeed">
+	<div id="page" class="hfeed">
 
-	<div id="main">
+		<div id="main">

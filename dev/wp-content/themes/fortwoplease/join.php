@@ -50,8 +50,19 @@ div.center_box div.bottom p label { color: white; }
 				<input type="text" id='email' name="email" value="Email" class="text" onblur="onBlur(this);" onfocus="onFocus(this);" />
 			</p>
 			<p>
-				<input id="password-clear<?php echo $randVal ?>" type="text" value="Password" autocomplete="off" class="text" />
-				<input id="password-password<?php echo $randVal ?>" type="password" name="password" class="text" style="display:none;" />
+				<select name='city' style='width: 200px'>
+				<?php
+				$args = array('hide_empty' => true);
+				$city_list = get_terms('city', $args);
+				foreach ($city_list as $city) {
+					if ($city->name == 'Vancouver') {
+						echo '<option selected value="' . $city->slug . '">' . $city->name . '</option>';
+					} else {
+						echo '<option value="' . $city->slug . '">' . $city->name . '</option>';
+					}
+				}
+				?>
+				</select>
 			</p>
 			<p class="lightboxMessage hide"></p>
 			<p>
@@ -62,9 +73,6 @@ div.center_box div.bottom p label { color: white; }
 		<div class="fb_connect"><img id="fb_login_btn" src="/wp-content/themes/images/fb_connect.png" width="167" height="22" style="cursor:pointer;" onclick="fb_login();"/></div>
 	</div>
 
-	<div class="bottom">
-		<p><label>Already a member?</label> <a href="#" id="login_link" style="font-weight: bold;">Login here</a></p>
-	</div>
 </div>
 
 <script type="text/javascript">

@@ -67,7 +67,7 @@ border-bottom:solid 3px #777;
 div.search_background {
 box-shadow: 1px 14px 30px 4px #333;
 /* box-shadow: 2px 1px 20px #333, -2px 1px 20px #333; */
- width: 1060px; margin: 0 auto; background-color: white; padding-bottom: 30px; }
+ width: 1060px; margin: 0 auto; background-color: white; padding-bottom: 15px; }
 div.search_background div.search_area { margin: 0 auto; padding-bottom:10px; width: 1044px; background-color: #bfbfbf; border-radius: 0px 0px 15px 15px; }
 div.search_background div.search_area div.category_box { float:left; width: 770px; height: 40px; margin: 0 12px; background-color: #0c0c0c; border-radius: 0px 0px 15px 15px; }
 div.search_background div.search_area div.category_box ul.categories { list-style: none; padding-top: 10px; margin: 0 auto; width: 700px; }

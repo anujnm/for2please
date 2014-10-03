@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_directory'); ?>/content-dates.css" />
-<script src="<?php echo home_url(); ?>/slider/galleria-1.2.6.js" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo home_url(); ?>/slider/galleria-1.2.6.js" type="text/javascript" charset="utf-8-without-bom"></script>
 <script type="text/javascript">
 <?php if(is_user_logged_in()) { ?>
 	var isUserLoggedIn = 0;
@@ -18,9 +18,7 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 	var total = price + taxes + fees;
 	var orderID = <?php echo get_current_user_id(); }?>;
 </script>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script src="/js/f2p-dates.js" type="text/javascript" charset="utf-8"></script>
-<!-- <script src="https://maps.google.com/maps?file=api&v=2&key=AIzaSyDLEOimOjJBjY5kPHxkRcSAfihslNNOUAI&sensor=false" type="text/javascript"></script> -->
+<script src="/js/f2p-dates.js" type="text/javascript" charset="utf-8-without-bom"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
 <div id="nav-links" class="nav_links">
@@ -37,12 +35,15 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 <div class="center_content">
 	<div class="content_block">
 		<div class="content_header">
-			<div class="title"><?php the_field('sub_title'); ?></div>
+			<?php
+			if (strlen(get_field('sub_title')) > 45) {
+				$title_class = 'title-small';
+			} else {
+				$title_class = 'title';
+			}?>
+			<div class="<?php echo $title_class;?>"><?php the_field('sub_title'); ?></div>
 				<div class="package_title">DATE IDEA</div>
 		</div>
-
-
-
 		<div class="header_info">
 			<div class="pictures" style="overflow:hidden;">
 				<div class="galleria-info sub_title">
@@ -52,15 +53,23 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					<?php
 					if(get_field('image_1')){ ?>
 						<div id="galleria">
-							<img src=<?php the_field('image_1'); ?>>
-							<?php if(get_field('image_2')){?>
-								<img src=<?php the_field('image_2'); ?>>
-							<?php } if(get_field('image_3')){?>
-								<img src=<?php the_field('image_3'); ?>>
-							<?php } if(get_field('image_4')){?>
-								<img src=<?php the_field('image_4'); ?>>
-							<?php } if(get_field('image_5')){?>
-								<img src=<?php the_field('image_5'); ?>>
+							<img src=<?php $image_1 = get_field('image_1');
+							echo $image_1['url'];?>>
+							<?php $image_2 = get_field('image_2');
+							if (isset($image_2)){?>
+								<img src=<?php echo $image_2['url']; ?>>
+							<?php }
+							$image_3 = get_field('image_3');
+							if(isset($image_3['url'])){?>
+								<img src=<?php echo $image_3['url']; ?>>
+							<?php }
+							$image_4 = get_field('image_4');
+							if(isset($image_4['url'])){?>
+								<img src=<?php echo $image_4['url']; ?>>
+							<?php }
+							$image_5 = get_field('image_5');
+							if(isset($image_4['url'])){?>
+								<img src=<?php echo $image_5['url']; ?>>
 							<?php }  ?>
 						</div>
 
@@ -73,55 +82,9 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 			</div>
 			<div class="date_info">
 				<div class="links">
-					<div style="width: 140px;">
-					<?php
-						$uri = $_SERVER["REQUEST_URI"];
-						$uri = substr($uri, 13);
-						#get_permalink( $post->ID );
-						$uri = "<?php echo BASE_URL;?>".$uri;
-						// echo $uri."<br/>";
-						echo '<div class="fb-like" data-href="'.$uri.'" data-send="false" data-layout="button_count" data-show-faces="false" data-action="recommend" data-font="verdana"></div>';
-					?>
-					</div>
-
-					<div style="width: 90px;">
-					<a href="<?php echo $uri ?>" class="twitter-share-button" url="http://twitter.com/share?url=<?php echo $uri ?>" data-counturl="<?php echo $uri ?>">Tweet</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-					</div>
-					<div style="width: 70px;"><img src="/wp-content/themes/images/email_btn.png" width="60" height="22" style="cursor:pointer;" onclick="jQuery('#share-date').lightbox_me({centered: true,});"/></div>
-					<div style="width: 65px;"><a href="http://pinterest.com/pin/create/button/?url=<?php echo current_page_url(); ?>&media=<?php the_field('image_1'); ?>&description=this%20is%20the%20description" class="pin-it-button" count-layout="vertical"><img border="0" src="/wp-content/themes/images/pinit.png" title="Pin It" /></a></div>
-
+					<?php echo really_simple_share_publish($link='', $title=''); ?>
 				</div>
 				<div style="clear: both;"></div>
-				<?#php dd_fblike_generate('Recommend Button Count') ?>
-				<?#php dd_pinterest_generate('Compact') ?>
-				<?#php dd_twitter_generate('Compact','twitter_username') ?>
-
-				<div id="share-date">
-					<form id="share-this-date">
-						<div class="info">
-							<div class="label">Recipient's Email:</div>
-							<div class="input"><input type='text' name="recipient-email" class="text_field" /></div>
-							<div style="clear: both;"></div>
-						</div>
-						<div class="info">
-							<div class="label">Recipient's Name:</div>
-							<div class="input"><input type='text' name="recipient-name" class="text_field" /></div>
-							<div style="clear: both;"></div>
-						</div>
-						<div class="info">
-							<div class="label">Your Name:</div>
-							<div class="input"><input type="text" name="sender-name" class="text_field" /></div>
-							<div style="clear: both;"></div>
-						</div>
-						<br/>
-						<div class="message">Message(optional): <br/> <textarea rows="5" name="message" cols="40"> </textarea></div>
-
-						<br/>
-						<input type="submit" id="share-submit" value="send" class="f2p-button" />
-					</form>
-				</div>
-
 				<div class="title">
 						Another Great Date Idea...
 				</div>
@@ -136,11 +99,6 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 		<div class="date_content">
 			<div class="date_package">
 				<!-- FTP Sidebar Ads 2 -->
-				<ins class="adsbygoogle"
-				     style="display:inline-block;width:300px;height:250px;padding-top:50px;padding-bottom:110px;padding-left:18px;"
-				     data-ad-client="ca-pub-4081693765901599"
-				     data-ad-slot="7853482845"></ins>
-
 				<div style="clear: both;"></div>
 			</div>
 			<div class="date_details">
@@ -189,6 +147,3 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 </div>
 
 </article>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>

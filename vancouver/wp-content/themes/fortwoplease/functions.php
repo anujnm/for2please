@@ -4,32 +4,9 @@ show_admin_bar( false );
 function limit_terms($val) {
     return array_splice($val, 0, 3);
 }
-
 add_filter( "term_links-location", 'limit_terms');
-/*
-function save_Rdata($s) {
-	global $post;
-	 $setflag = true;
-	$postID = $post->ID;
-	if(get_field('merchant_username',$postID)){
-	$merchantID = get_field('merchant_username',$postID);
-	if(get_user_meta($merchantID,'pckg',false)){
-		$livePackages = get_user_meta($merchantID,'pckg',false);
-		foreach($livePackages as $value) {
-		if($value == $postID){
-		  $setflag = false;
-		}
-		}
-	if($setflag == true){
-		add_user_meta($merchantID,'pckg',$postID);
-	}
-	}
-	}
-    return $s;
-}
 
-add_filter( "content_save_pre", 'save_Rdata');
-*/
+
 function get_permalink_now(){
 	$id = $_POST['id'];
 	echo get_permalink($id);
@@ -39,24 +16,21 @@ add_action('wp_ajax_nopriv_getpermalink', 'get_permalink_now');
 add_action('wp_ajax_getpermalink', 'get_permalink_now');//for users that are not logged in.
 
 
-
 function load_single_date(){
-	if($_POST['dateID1']!='rand')
-	{
+	if($_POST['dateID1']!='rand')	{
 		$id[1] = $_POST['dateID1'];
 		$id[2] = $_POST['dateID2'];
 		$id[3] = $_POST['dateID3'];
-	}
-	else{
-		$id[1]= get_random_date();
+	}	else {
+		$id[1] = get_random_date();
 		$id[2] = get_random_date();
-	    $id[3] = get_random_date();
+    $id[3] = get_random_date();
 	}
 	$cflag = 1;
-	if($id[2] != "empt"){
+	if($id[2] != "empt") {
 		$cflag = 2;
 	}
-	if($id[3] != "empt"){
+	if($id[3] != "empt") {
 		$cflag = 3;
 	}
 
@@ -67,7 +41,7 @@ function load_single_date(){
 		echo $id[$iz];
 		echo "' class='testsearch' style='background:url(";
 		echo get_field('thumbnail',$id[$iz]);
-		echo");height:235px;width:330px;margin-bottom:30px;float:left;margin-right:10px;box-shadow:2px 2px 5px #888;position:relative;'>";
+		echo");background-size:contain;height:235px;width:330px;margin-bottom:30px;float:left;margin-right:10px;box-shadow:2px 2px 5px #888;position:relative;'>";
 		if(stristr(strip_tags($datetypes),'Packages') !== FALSE) {
 			echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/date-ideas/wp-content/themes/images/get-it-here.png"></div>';
 		}
@@ -181,54 +155,47 @@ function recommend_dates(){
 	$ID[1] = $_POST['id2'];
 	$ID[2] = $_POST['id3'];
 
+	for ($i=0;$i<3;$i++) {
+  	if($ID[$i]==0){
+  		$ID[$i] = get_random_date();
+  	}
+  	$itemPermalink = get_permalink($ID[$i]);
+  	if($i==0)
+  	{
+  		echo "<p style='font-size:16px;font-weight:700;color:#666;margin-left:90px;padding-top:10px;'>More Great Date Ideas</p>";
+  	}
+  	echo "<div id='";
 
-	//$POST = wp_get_single_post($ID1);
-
-	for ($i=0;$i<3;$i++)
-{
-	if($ID[$i]==0){
-		$ID[$i] = get_random_date();
-	}
-	$itemPermalink = get_permalink($ID[$i]);
-	if($i==0)
-	{
-		echo "<p style='font-size:16px;font-weight:700;color:#666;margin-left:90px;padding-top:10px;'>More Great Date Ideas</p>";
-	}
-	echo "<div id='";
-
-	echo $ID[$i];
-	echo "' class='testsearch' style='background:url(";
-	echo get_field('thumbnail',$ID[$i]);
-	echo");height:188px;width:264px;margin-bottom:30px;float:left;margin-right:10px;box-shadow:2px 2px 5px #888;margin-top:10px;margin-left:35px;color:#FFF;'>";
-	if(stristr(strip_tags(get_the_term_list( $ID[$i], 'date-type', '', ', ', '' )),'Packages') !== FALSE)
-	{
-	echo '<div style="z-index:2;position:absolute;"><img src="/date-ideas/wp-content/themes/images/get-it-here.png"></div>';
-	}
-	echo "<div style='height:180px;width:264px'>";
-	echo "<div id='searchtest' class='testsearch2' style='height:180px;width:264px;'>";
-	echo "<div class='result-type' style='margin-top:5px;margin-right:5px;height:18px;overflow:hidden;color:#f07323;width:180px;'>";
-	echo strip_tags(get_the_term_list( $ID[$i], 'date-type', '', ', ', '' ));
-	echo "</div><div style='position: relative;  text-align: left; left: 20px; overflow: hidden; width: 244px; height: 150px;clear:both;top:40px;'><a style='color:#FFF;font-weight:700;font-size:18px;' href='";
-    echo $itemPermalink;
-	echo "'>";
-	echo showBrief(get_the_title($ID[$i]),5);
-	echo "</a><br/>";
-	echo strip_tags(get_the_term_list( $ID[$i], 'location', '', ', ', '' ));
-	echo "<br/><p style='color:white;width:240px;margin-top:10px;'>";
-	echo showBrief(get_field('short_description',$ID[$i]),20 );
-	echo "...</p>";
-	echo "</div></div></div>";
-	echo "<div class='overlay' style='width:264px;height:20px;text-align:center;'><p style='font-size:14px;font-weight:700;'><a href='";
-	echo $itemPermalink;
-	echo "'>";
-	echo the_field('sub_title',$ID[$i]);
-	echo "</a></p></div></div><div style='clear:both;'></div>";
-}
+  	echo $ID[$i];
+  	echo "' class='testsearch' style='background:url(";
+  	echo get_field('thumbnail',$ID[$i]);
+  	echo");height:188px;width:264px;margin-bottom:30px;float:left;margin-right:10px;box-shadow:2px 2px 5px #888;margin-top:10px;margin-left:35px;color:#FFF;'>";
+  	echo "<div style='height:180px;width:264px'>";
+  	echo "<div id='searchtest' class='testsearch2' style='height:180px;width:264px;'>";
+  	echo "<div class='result-type' style='margin-top:5px;margin-right:5px;height:18px;overflow:hidden;color:#f07323;width:180px;'>";
+  	echo strip_tags(get_the_term_list( $ID[$i], 'date-type', '', ', ', '' ));
+  	echo "</div><div style='position: relative;  text-align: left; left: 20px; overflow: hidden; width: 244px; height: 150px;clear:both;top:40px;'><a style='color:#FFF;font-weight:700;font-size:18px;' href='";
+      echo $itemPermalink;
+  	echo "'>";
+  	echo showBrief(get_the_title($ID[$i]),5);
+  	echo "</a><br/>";
+  	echo strip_tags(get_the_term_list( $ID[$i], 'location', '', ', ', '' ));
+  	echo "<br/><p style='color:white;width:240px;margin-top:10px;'>";
+  	echo showBrief(get_field('short_description',$ID[$i]),20 );
+  	echo "...</p>";
+  	echo "</div></div></div>";
+  	echo "<div class='overlay' style='width:264px;height:20px;text-align:center;'><p style='font-size:14px;font-weight:700;'><a href='";
+  	echo $itemPermalink;
+  	echo "'>";
+  	echo the_field('sub_title',$ID[$i]);
+  	echo "</a></p></div></div><div style='clear:both;'></div>";
+  }
 	exit();
 
 }
 add_action('wp_ajax_nopriv_recommenddates', 'recommend_dates');
 add_action('wp_ajax_recommenddates', 'recommend_dates');//for users that are not logged in.
+
 
 function search_by_keyword(){
 	$myquery['post_type'] = 'dates';
@@ -254,7 +221,6 @@ function search_by_keyword(){
 }
 add_action('wp_ajax_nopriv_searchbykeyword', 'search_by_keyword');
 add_action('wp_ajax_searchbykeyword', 'search_by_keyword');//for users that are not logged in.
-
 
 
 function implement_ajax() {
@@ -283,42 +249,36 @@ function implement_ajax() {
 	$result = curl_exec($ch);
 	//close connection
 	parse_str($result,$parsedresults);
-	if($parsedresults['trnApproved'] == 0)
-	{
+	if($parsedresults['trnApproved'] == 0) {
 		echo $result;
 	}
-	if($parsedresults['trnApproved'] == 1)
-	{
-	echo $result;
-
-	$uid = wp_get_current_user();
-	$merchantuname = get_field('merchant_username',$postid);
-	$datename = get_field('sub_title',$postid);
-	$timestamp =  date("Y-m-d H:i:s");
-	$price = get_field('price');
-	$merchantname = intval($merchantuname);
-	for ($i = $numberp; $i > 0; $i--) {
-	$unique = uniqid();
-	add_user_meta($uid->ID,'purchased',$unique);
-	add_user_meta($uid->ID,$unique.'_item',$datename);
-	add_user_meta($uid->ID,$unique.'_id',$postid);
-	add_user_meta($uid->ID,$unique.'_np',$numberp);
-	add_user_meta($uid->ID,$unique.'_time',$timestamp);
-	add_user_meta($uid->ID,$unique.'_stat','notdone');
-	add_user_meta($merchantuname,$postid,$unique);
-	add_user_meta($merchantuname,$unique,$uid->ID);
-	add_user_meta($merchantuname,$unique.'_d','notdone');
-	$summary = $timestamp. ' '. $price . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
-	add_user_meta(1,'sold',$summary);
+	if($parsedresults['trnApproved'] == 1) {
+  	echo $result;
+  	$uid = wp_get_current_user();
+  	$merchantuname = get_field('merchant_username',$postid);
+  	$datename = get_field('sub_title',$postid);
+  	$timestamp =  date("Y-m-d H:i:s");
+  	$price = get_field('price');
+  	$merchantname = intval($merchantuname);
+  	for ($i = $numberp; $i > 0; $i--) {
+  	$unique = uniqid();
+  	add_user_meta($uid->ID,'purchased',$unique);
+  	add_user_meta($uid->ID,$unique.'_item',$datename);
+  	add_user_meta($uid->ID,$unique.'_id',$postid);
+  	add_user_meta($uid->ID,$unique.'_np',$numberp);
+  	add_user_meta($uid->ID,$unique.'_time',$timestamp);
+  	add_user_meta($uid->ID,$unique.'_stat','notdone');
+  	add_user_meta($merchantuname,$postid,$unique);
+  	add_user_meta($merchantuname,$unique,$uid->ID);
+  	add_user_meta($merchantuname,$unique.'_d','notdone');
+  	$summary = $timestamp. ' '. $price . ' ' . $datename . ' ' .$uid->user_login . ' ' . $uid->user_email . ' '  . $uid->user_firstname . ' ' . $uid->user_lastname ;
+  	add_user_meta(1,'sold',$summary);
+  	}
 	}
-
-	}
-
 
 	curl_close($ch);
 
-
-	exit;
+	exit();
 }// end if
 
 add_action('wp_ajax_nopriv_my_special_action', 'implement_ajax');
@@ -373,6 +333,7 @@ function pass_change() {
 	}
 add_action('wp_ajax_nopriv_passchange', 'pass_change');
 add_action('wp_ajax_passchange', 'pass_change');//for users that are not logged in.
+
 
 function log_me_in(){
 	//We shall SQL escape all inputs
@@ -440,46 +401,25 @@ add_action('wp_footer', 'add_googleanalytics');
 function email_subscription() {
 	//We shall SQL escape all inputs
 	$user_email = $_POST['email'];
-	$user_pass = $_POST['password'];
-  $city = $_POST['city'];
-
+  $city_slug = $_POST['city'];
 	$already_exists = email_exists($user_email);
-
-	//If not exist, then we add a new user first
-	if (!$already_exists) {
-
-		//$userdata = compact('user_email', 'user_pass') ;
-		$status = wp_insert_user(array ('user_login' => $user_email, 'user_email' => $user_email, 'user_pass' => $user_pass));
-	}
+  $wp_session = WP_Session::get_instance();
+  $city = get_term_by('slug', $city_slug, 'city');
+  $wp_session['f2p-city'] = $city->name;
 
 	if ($already_exists) {
 		echo 'Email already exists. Please try another one';
 	} else {
+    $status = wp_insert_user(array ('user_login' => $user_email, 'user_email' => $user_email));
 		if (is_wp_error($status)) {
-			echo 'This username is already registered.';
-		} else {
-			//Add User email to mailChimp
-			$login_data = array();
-			$login_data['user_login'] = $user_email;
-			$login_data['user_password'] = $user_pass;
-			$login_data['remember'] = "true";
-			$user_verify = wp_signon( $login_data, true );
-			if ( !is_wp_error($user_verify) ) {
-			/*
-				$headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-				add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-				wp_mail($user_email, 'Your Dates Just Got Better ', '<strong>You are in!</strong><p>We’re excited that you’ve joined our ForTwoPlease community. Now that you’re a member, we can start recommending better dates that we think you’ll enjoy.</p><p><b>It’s easy to get started.</b> Find local date ideas based on what you want to do and we’ll help you with the rest – like cabs, babysitters and even private airplanes!</p><a href="http://fortwoplease.com">Your next great date awaits</a><p>If you have any questions, we’d love to hear from you. Shoot us a line on <a href="http://www.facebook.com/fortwoplease/">Facebook</a>
-				or email us at support@ForTwoPlease.</p><p>Best of Luck!</p><p>The ForTwoPlease Team</p>',$headers);
-			*/
-
-				//Call the method that adds the email to the MailChimp subscriber list
-				add_email_to_mail_chimp($user_email, null, null, 'vancouver');
-				send_welcome_email($user_email, null, 'vancouver');
-				echo 'Success';
-			} else {
-				echo 'Invalid Email. Please try again.';
-			}
-		}
+      echo 'This username is already registered.';
+    } else {
+      //Add User email to mailChimp
+      //Call the method that adds the email to the MailChimp subscriber list
+      add_email_to_mail_chimp($user_email, null, null, $city_slug);
+      send_welcome_email($user_email, null, $city->name);
+      echo 'Success';
+    }
 	}
 
 	exit();
@@ -492,7 +432,7 @@ add_action('wp_ajax_email_subscribe', 'email_subscription');//for users that are
 function location_subscribe() {
 	$user_email = $_POST['email'];
 	$location = $_POST['location'];
-	$data = $location . ','. $user_email . "\n";
+	$data = $location . ',' . $user_email . "\n";
 	file_put_contents('/home/fortwo9/public_html/date-ideas/subscriptions/location_subscribers.txt', $data, FILE_APPEND);
 	echo 'Success';
 	exit();
@@ -509,9 +449,9 @@ function add_email_to_mail_chimp ($email, $fname, $lname, $city) {
 
 	$api = new MCAPI($apikey);
 	if ($fname == null)
-		$merge_vars = array('FNAME'=>'', 'LNAME'=>'', 'INTERESTS'=>'', 'MMERGE1'=>$city);
+		$merge_vars = array('FNAME'=>'', 'LNAME'=>'', 'INTERESTS'=>'', 'CITY'=>$city);
 	else
-		$merge_vars = array('FNAME'=>$fname, 'LNAME'=>$lname, 'INTERESTS'=>'', 'MMERGE1'=>$city);
+		$merge_vars = array('FNAME'=>$fname, 'LNAME'=>$lname, 'INTERESTS'=>'', 'CITY'=>$city);
 	// By default this sends a confirmation email - you will not see new members
 	// until the link contained in it is clicked!
 	$retval = $api->listSubscribe( $listId, $email, $merge_vars, 'html', false );
@@ -520,26 +460,11 @@ function add_email_to_mail_chimp ($email, $fname, $lname, $city) {
 		error_log("Unable to load listSubscribe()!", 0);
 		error_log("\tCode=".$api->errorCode."\n", 0);
 		error_log("\tMsg=".$api->errorMessage."\n", 0);
-	} else {
-		error_log("Returned: ". $retval ."\n", 0);
-		$retval = $api->listMembers($listId, 'subscribed', null, 0, 5000 );
-		if ($api->errorCode) {
-			error_log("Unable to load listMembers()!", 0);
-			error_log("\n\tCode=".$api->errorCode, 0);
-			error_log("\n\tMsg=".$api->errorMessage."\n", 0);
-		} else {
-			error_log("Members matched: ". $retval['total']. "\n", 0);
-			error_log("Members returned: ". sizeof($retval['data']). "\n", 0);
-			foreach($retval['data'] as $member) {
-				error_log($member['email']." - ".$member['timestamp']."\n", 0);
-			}
-		}
 	}
 }
 
 
-function send_welcome_email($user_email, $first_name, $city_slug) {
-  $city = get_term_by('slug', $city_slug, 'city');
+function send_welcome_email($user_email, $first_name, $city) {
 	$to = array(array('email'=>$user_email, 'type'=>'to'));
   $message = array('from_email'=>'jesse@fortwoplease.com', 'from_name'=> 'Jesse from ForTwoPlease', 'to'=> $to);
   if (isset($first_name)) {
@@ -547,7 +472,7 @@ function send_welcome_email($user_email, $first_name, $city_slug) {
   } else {
   	$greeting  = "Hey, ";
   }
-  $template_content = array(array('name'=>'greeting', 'content'=>$greeting), array('name'=>'city', 'content'=>$city->name));
+  $template_content = array(array('name'=>'greeting', 'content'=>$greeting), array('name'=>'city', 'content'=>$city));
   $data = json_encode(array('key'=>MANDRILL_KEY, 'template_name'=>'Welcome', 'message' => $message, 'template_content'=>$template_content));
   $curl = curl_init();
 	curl_setopt($curl, CURLOPT_POST, 1);
@@ -673,10 +598,6 @@ function new_user_reg(){
 		$login_data['remember'] = "true";
 		$user_verify = wp_signon( $login_data, true );
 		if (!is_wp_error($user_verify)) {
-			// $headers = 'From: ForTwoPlease <info@fortwoplease.com>' . "\r\n";
-			// add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-			// wp_mail($user_email, 'Your Dates Just Got Better ', '<strong>You are in!</strong><p>We’re excited that you’ve joined our ForTwoPlease community. Now that you’re a member, we can start recommending better dates that we think you’ll enjoy.</p><p><b>It’s easy to get started.</b> Find local date ideas based on what you want to do and we’ll help you with the rest – like cabs, babysitters and even private airplanes!</p><a href="http://fortwoplease.com">Your next great date awaits</a><p>If you have any questions, we’d love to hear from you. Shoot us a line on <a href="http://www.facebook.com/fortwoplease/">Facebook</a>
-			// or email us at support@ForTwoPlease.</p><p>Best of Luck!</p><p>The ForTwoPlease Team</p>',$headers);
 			add_email_to_mail_chimp($user_login, null, null);
 			send_welcome_email($user_login, $firstname);
 			echo 'Success';
@@ -719,95 +640,57 @@ function search_dates() {
 	$location = $_POST['location'];
 	$price = $_POST['price'];
 	$time = $_POST['time'];
-	$day = 1;
+  $city = $_POST['city'];
 
-	if($time == 'alltime')
-	{
+	if($time == 'alltime') {
 		$time = array('morning','day','night');
 	}
-	if($price == 'allprice')
-	{
+	if($price == 'allprice') {
 		$price = array('0-25','100-150','150','25-50','25-50','50-100','free-3');
 	}
-	if($location == 'alllocations')
-	{
-		$location = array('bc','everything-else');
-	}
-	if($datetype == 'alltypes')
-	{
+	if($datetype == 'alltypes') {
 		$datetype = array('restaurants','entertainment','active','adventurous','getaways','anniversary','packages');
 	}
 
 	$myquery['tax_query'] = array(
-	    array(
-	        'taxonomy' => 'date-type',
-	        'terms' => $datetype,
-	        'field' => 'slug',
-	    ),
-	    array(
-	        'taxonomy' => 'location',
-	        'terms' => $location,
-	        'field' => 'slug',
-	    ),
+    array(
+        'taxonomy' => 'date-type',
+        'terms' => $datetype,
+        'field' => 'slug',
+    ),
+		// array(
+    //     'taxonomy' => 'price',
+    //     'terms' => $price,
+    //     'field' => 'slug',
+    // ),
 		array(
-	        'taxonomy' => 'price',
-	        'terms' => $price,
-	        'field' => 'slug',
-	    ),
-		array(
-	        'taxonomy' => 'time',
-	        'terms' => $time,
-	        'field' => 'slug'
-	    )
+        'taxonomy' => 'time',
+        'terms' => $time,
+        'field' => 'slug'
+    ),
+    array(
+        'taxonomy' => 'city',
+        'terms' => $city,
+        'field' => 'slug',
+    )
 	);
 
+  if ($location != 'alllocations') {
+    array_push($myquery['tax_query'], $location);
+  }
 
 	$myquery['orderby'] = 'rand';
 	$myquery['post_type'] = 'dates';
 	$myquery['posts_per_page'] = '300';
 	$myquery['post_status'] = 'publish';
 
-
-	/*if($day == 0){$day = 'Sunday';}
-	else if($day == 1){$day = 'Monday';}
-	else if($day == 2){$day = 'Tuesday';}
-	else if($day == 3){$day = 'Wednesday';}
-	else if($day == 4){$day = 'Thursday';}
-	else if($day == 5){$day = 'Friday';}
-	else if($day == 6){$day = 'Saturday';}*/
-
 	query_posts($myquery);
 	$result_array = array ();
-	$index = 2;
-	$index_s = 1;
+	$index = 0;
 	while ( have_posts() ) : the_post();
-	//	if(get_the_ID()){
-		//foreach (get_field('days_availible') as $values){
-		//if($values=='All Days'){
 		$id = get_the_ID();
-		$datetypes = get_the_term_list( $id, 'date-type', '', ', ', '' );
-		if(stristr(strip_tags($datetypes),'Packages') !== FALSE && $index_s<2)
-		{
-		$result_array[$index_s] = $id;
-		$index_s++;
-		}
-		else{
 		$result_array[$index] = $id;
-	//	echo $result[$index].'';
-		$index++;}
-	//	break;
-
-		//}
-		//else if($values == $day)
-		//{
-	//	$result_array[$index] = get_the_ID();
-	//	echo $result[$index].'';
-		//$index++;
-		//break;
-		//}
-		//}
-	//}
-
+		$index++;
 	endwhile;
 	$result_array["length"] = $index;
 	wp_reset_query();
@@ -902,8 +785,6 @@ function create_date_idea() {
     'post_status' => 'draft',
     'post_type' => 'dates',
     'post_author' => 2177,
-    'post_date' => time(),
-    'post_date_gmt' => time()
   );
 
   $testimonials = $testimonial1 . '<p>' . $testimonial2 . '<p>' . $testimonial3;
@@ -964,7 +845,6 @@ function create_date_idea() {
       $result18 = $attachment5->get_error_message();
     }
   }
-
 
   $date_idea_types = array_map('intval', $date_idea_types);
   $date_idea_types = array_unique($date_idea_types);

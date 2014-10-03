@@ -8,44 +8,71 @@
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */
+$wp_session = WP_Session::get_instance();
+add_filter( 'wp_session_expiration', function() { return 60 * 60 * 24 * 30; } );
+if (!isset($wp_session['f2p-city'])) {
+	// Check if page is a single or a city-archive
+	if (is_single()) {
+		// If this is a single date idea, get city of that date and assign the cookie to be the name of that city.
+		$term = get_the_terms(get_the_ID(), 'city');
+		$wp_session['f2p-city'] = array_values($term)[0]->name;
+	} elseif (is_archive()) {
+		$request_url = $_SERVER["REQUEST_URI"];
+		if (substr($request_url, 1, 4) == 'city') {
+			$wp_session['f2p-city'] = single_cat_title('', false);
+		} else {
+			$wp_session['f2p-city'] = 'Vancouver';
+		}
+	} else {
+		$wp_session['f2p-city'] = 'Vancouver';
+	}
+} else {
+	if (is_single()) {
+		// If this is a single date idea, get city of that date and assign the cookie to be the name of that city.
+		$term = get_the_terms(get_the_ID(), 'city');
+		$wp_session['f2p-city'] = array_values($term)[0]->name;
+	} elseif (is_archive()) {
+		$request_url = $_SERVER["REQUEST_URI"];
+		// If this is a city archive, update cookie to be the name of that city.
+		if (substr($request_url, 1, 4) == 'city') {
+			$wp_session['f2p-city'] = single_cat_title('', false);
+		}
+	} // Else no change
+}
+$args = array('hide_empty' => true);
+$city_list = get_terms('city', $args);
+$current_city = get_term_by('name', $wp_session['f2p-city'], 'city');
 ?><!DOCTYPE html>
-<!--[if IE 6]>
-<html id="ie6" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if IE 7]>
-<html id="ie7" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if IE 8]>
-<html id="ie8" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
 <html <?php language_attributes(); ?> xmlns="https://www.w3.org/1999/xhtml" xmlns:og="https://opengraphprotocol.org/schema/" xmlns:fb="https://www.facebook.com/2008/fbml" xmlns:fb="http://ogp.me/ns/fb#">
-<!--<![endif]-->
 <head>
 	<?php include_once("analyticstracking.php") ?>
 	<link rel="icon" type="image/png" href="/wp-content/themes/images/favicon2c.png">
 
 	<?php
-		echo '<meta property="og:title" content="'.get_field('sub_title').'" />';
-	if(get_field('image_1')) {
-		echo '<meta property="og:image" content="'.get_field('image_1').'" />';
-		echo '<link rel="image_src" href="'.get_field('image_1').'" />';
+	echo '<meta property="og:title" content="'.get_field('sub_title').'" />';
+	if(isset(get_field('image_1')['url'])) {
+		echo '<meta property="og:image" content="'.get_field('image_1')['url'].'" />';
+		echo '<link rel="image_src" href="'.get_field('image_1')['url'].'" />';
 	} else if (has_post_thumbnail()) {
 		echo '<meta property="og:image" content="'.the_post_thumbnail('full').'" />';
 		echo '<link rel="image_src" href="'.the_post_thumbnail('full').'" />';
 	}
 	echo '<meta property="og:site_name" content="For Two Please" />';
-	if (get_field('why_is_this_a_great_date')) {
-		echo '<meta name="description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
-		echo '<meta property="og:description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
+	if (is_single()) {
+		if (get_field('why_is_this_a_great_date')) {
+			echo '<meta name="description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
+			echo '<meta property="og:description" content="'.substr(get_field('why_is_this_a_great_date'), 0, 153).'..." />';
+		} else {
+			echo '<meta name="description" content="Find the best date ideas in ' . $current_city->name . ', and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights."/>';
+			echo '<meta property="og:description" content="Find the best date ideas in ' . $current_city->name . ', and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights." />';
+		}
 	} else {
-		echo '<meta name="description" content="Find the best date ideas in Vancouver, and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights."/>';
-		echo '<meta property="og:description" content="Find the best date ideas in Vancouver, and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights." />';
+		echo '<meta name="description" content="Find the best date ideas in ' . $current_city->name . ', and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights."/>';
+		echo '<meta property="og:description" content="Find the best date ideas in ' . $current_city->name . ', and go on better dates more often. We\'ll help you discover local date ideas based on your interests and give you exclusive member discounts on amazing date nights." />';
 	}
 	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 	echo '<meta property="og:url" content="'.$protocol.$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"].'" />';
 	echo '<meta property="og:type" content="article">';
-	//echo '<meta property="og:type" content="Web Site" />';
 ?>
 
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
@@ -77,15 +104,11 @@
 				echo ' | ' . sprintf( __( 'Page %s', 'twentyeleven' ), max( $paged, $page ) );
 			}
 		}
-
 		?>
 	</title>
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
 	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-	<!--[if lt IE 9]>
-	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
-	<![endif]-->
 
 	<?php wp_head(); ?>
 
@@ -165,7 +188,6 @@
 					if (squeeze_show_cookie == null) {
 						setTimeout(function() {
 							jQuery("#join_div").load('/join', function() {
-
 								jQuery("#join_div").lightbox_me({
 									centered: true,
 								});
@@ -265,7 +287,7 @@
 				<a class="header-logo-link" href="/">
 					<img src="/wp-content/themes/images/ftp_logo_header.png" style="border:none;"/>
 				</a>
-				<span style='font-size:18px'>The best date ideas in your city</span>
+				<span style='font-size:18px'>The best date ideas in <?php echo $current_city->name;?></span>
 			</div>
 		</div>
 
@@ -273,15 +295,16 @@
 		<div id="header-about" style="float:right;margin-top:30px;">
 			<ul id="nav-one" class="nav m-t-m m-l-xl" style="float:left;">
 				<li>
-					<a id="downarrow" style="float:left;" href="#item1">Vancouver<img src="/wp-content/themes/images/down-arrow.png" /></a>
+					<?php
+					echo '<a id="downarrow" style="float:left;" href="' . BASE_URL . 'city/' . $current_city->slug . '">';
+					echo $current_city->name; ?><img src="/wp-content/themes/images/down-arrow.png" /></a>
 					<ul style="display: block; border-top: 3px solid #6f6f6f;">
-						<li><a class="about" id="suggestadate"href="#">Toronto</a></li>
-						<li><a class="about" id="faq" href="/faq/">Victoria</a></li>
-						<li><a class="about" id="contactus" href="/contact-us/">Seattle</a></li>
-						<li><a class="about" id="aboutus" href="/about-us-fortwoplease/">Portland</a></li>
-						<li><a class="about" id="careers" href="/careers/">San Francisco</a></li>
-						<li><a class="about" id="policies" href="/policies/">Los Angeles</a></li>
-						<li><a class="about" id="policies" href="/policies/">San Diego</a></li>
+						<?php
+						foreach ($city_list as $city) {
+							if ($city->name != $wp_session['f2p-city']) {
+								echo '<li><a class="about" href="' . BASE_URL . 'city/' . $city->slug . '">' . $city->name . '</a></li>';
+							}
+						}?>
 					</ul>
 				</li>
 			</ul>
@@ -304,14 +327,6 @@
 			<div style="margin: 0 0 6px 16px;">
 				<a href="http://www.twitter.com/fortwoplease" target="_blank"><img src="/wp-content/themes/images/twitter_page_btn.png" /></a>&nbsp;&nbsp;
 				<a href="http://www.facebook.com/fortwoplease" target="_blank"><img src="/wp-content/themes/images/fb_page_btn.png" /></a>
-			</div>
-			<div class="account_links">
-			<?php if ( !is_user_logged_in() ) { ?>
-				<!--<a class="logmein" href="#">Login</a> | <a class="registerme" href="#">Register</a>-->
-				<a id="sign_in" class="header-signin-link" href="#">Login</a> | <a class="header-join-link" id="join_now" href="#">Join</a>
-			<?php } else{ ?>
-				<a class="header-account-link" href="/myaccount/">My Account</a> | <a class="header-signout-link" href="<?php echo wp_logout_url(current_page_url()); ?>" title="Logout">Logout</a>
-			<?php } ?>
 			</div>
 		</div>
 	</div>
