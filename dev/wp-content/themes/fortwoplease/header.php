@@ -354,10 +354,10 @@ $current_city = get_term_by('name', $wp_session['f2p-city'], 'city');
           <li><a href="/date-type/adventurous/" class="selected">Adventurous</a></li>
         <?php } else { ?>
           <li><a href="/date-type/adventurous/">Adventurous</a></li>
-        <?php } if ($category == "getaways") {?>
-          <li><a href="/date-type/getaways/" class="selected">Getaways</a></li>
+        <?php } if ($category == "anniversary") {?>
+          <li><a href="/date-type/anniversary/" class="selected">Anniversary</a></li>
         <?php } else { ?>
-          <li><a href="/date-type/getaways/">Getaways</a></li>
+          <li><a href="/date-type/anniversary/">Anniversary</a></li>
         <?php } if ($category == "entertainment") {?>
           <li><a href="/date-type/entertainment/" class="selected">Entertainment</a></li>
         <?php } else { ?>
