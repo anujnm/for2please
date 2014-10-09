@@ -761,13 +761,12 @@ function create_date_idea() {
 
   $post = array(
     'post_content' => '',
-    'post_name' => $date_title,
+    'post_name' => $business_name,
     'post_title' => $business_name,
     'post_status' => 'draft',
     'post_type' => 'dates',
     'post_author' => 727,
   );
-
   $testimonials = $testimonial1 . '<p>' . $testimonial2 . '<p>' . $testimonial3;
 
   $result1 = wp_insert_post($post, true);

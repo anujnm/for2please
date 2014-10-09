@@ -780,7 +780,7 @@ function create_date_idea() {
 
   $post = array(
     'post_content' => '',
-    'post_name' => $date_title,
+    'post_name' => $business_name,
     'post_title' => $business_name,
     'post_status' => 'draft',
     'post_type' => 'dates',
