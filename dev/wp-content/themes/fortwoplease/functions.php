@@ -40,7 +40,7 @@ function load_single_date(){
 		echo "<div id='";
 		echo $id[$iz];
 		echo "' class='testsearch' style='background:url(";
-		echo get_field('thumbnail',$id[$iz])['url'];
+		echo get_field('thumbnail',$id[$iz]);
 		echo");height:235px;width:330px;margin-bottom:30px;float:left;margin-right:10px;box-shadow:2px 2px 5px #888;position:relative;'>";
 		if(stristr(strip_tags($datetypes),'Packages') !== FALSE) {
 			echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/wp-content/themes/images/get-it-here.png"></div>';
@@ -104,7 +104,7 @@ function load_date_for_idea_page(){
 		echo "<div id='";
 		echo $id[$iz];
 		echo "' class='testsearch-content date-container' style='background:url(";
-		echo get_field('thumbnail',$id[$iz])['url'];
+		echo get_field('thumbnail',$id[$iz]);
 		echo");height:235px;width:320px; float:left;margin: 0 8px 30px 0;box-shadow:2px 2px 5px #888;position:relative;'>";
 		echo '<div style="position:relative;left:-125px;top:5px;z-index:2;position:absolute;top:0;left:0;"><img src="/wp-content/themes/images/get-it-here.png"></div>';
 		echo "<div style='height:200px;width:320px;'>";
@@ -168,7 +168,7 @@ function recommend_dates(){
 
   	echo $ID[$i];
   	echo "' class='testsearch' style='background:url(";
-  	echo get_field('thumbnail',$ID[$i])['url'];
+  	echo get_field('thumbnail',$ID[$i]);
   	echo");height:188px;width:264px;margin-bottom:30px;float:left;margin-right:10px;box-shadow:2px 2px 5px #888;margin-top:10px;margin-left:35px;color:#FFF;'>";
   	echo "<div style='height:180px;width:264px'>";
   	echo "<div id='searchtest' class='testsearch2' style='height:180px;width:264px;'>";
@@ -687,6 +687,15 @@ function showBrief($str, $length) {
   $str = strip_tags($str);
   $str = explode(" ", $str);
   return implode(" " , array_slice($str, 0, $length));
+}
+
+
+function showBrief_characters($str, $length) {
+  $str = strip_tags($str);
+  $str = substr($str, 0, $length);
+  $exploded_str = explode(" ", $str);
+  array_pop($exploded_str);
+  return implode(" " , array_slice($exploded_str, 0, $length));
 }
 
 

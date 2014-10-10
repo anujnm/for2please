@@ -708,6 +708,15 @@ function showBrief($str, $length) {
 }
 
 
+function showBrief_characters($str, $length) {
+  $str = strip_tags($str);
+  $str = substr($str, 0, $length);
+  $exploded_str = explode(" ", $str);
+  array_pop($exploded_str);
+  return implode(" " , array_slice($exploded_str, 0, $length));
+}
+
+
 function array2json($arr) {
     if(function_exists('json_encode')) return json_encode($arr); //Lastest versions of PHP already has this functionality.
     $parts = array();

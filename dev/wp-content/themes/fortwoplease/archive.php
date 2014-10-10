@@ -35,7 +35,7 @@ $current_city = get_term_by('name', $wp_session['f2p-city'], 'city');
 					echo "<div id='";
 					echo $id;
 					echo "' onclick='location.href=\"$itemPermalink\";' class='testsearch date-container' style='background:url(";
-					echo get_field('thumbnail', $id)['url'];
+					echo get_field('thumbnail', $id);
 					echo");background-size:contain;height:235px;width:330px; float:left;margin: 0 8px 30px 8px;box-shadow:2px 2px 5px #888;position:relative;'>";
 					echo "<div style='height:200px;width:330px;'>";
 					echo "<div id='searchtest' class='testsearch2'>";
@@ -53,14 +53,19 @@ $current_city = get_term_by('name', $wp_session['f2p-city'], 'city');
 					if (!empty($terms_as_text)) echo '<p style="color:#FFF;"><a style="color:#FFF;text-decoration:none;" href="'. $itemPermalink .'">', strip_tags($terms_as_text) ,'</a></p>';
 					echo "<br/><p style='color:white;width:300px;'><a style='color:#FFF;text-decoration:none;' href='";
 					echo $itemPermalink."'>";
-					echo showBrief(get_field('short_description',$id),20 );
+					echo showBrief(get_field('short_description',$id), 20);
 					echo "...</a></p><a style='float:right;margin-right:10px;text-decoration:none;' href='";
 					echo $itemPermalink;
 					echo "'>Read More...</a></div></div></div>";
 					echo "<div class='overlay'><h3><a href='";
 					echo $itemPermalink;
 					echo "'>";
-					echo the_field('sub_title',$id);
+					if (strlen(get_field('sub_title', $id)) > 35) {
+						error_log('Subtitle bigger than 35');
+						echo showBrief_characters(get_field('sub_title', $id), 35) . '...';
+					} else {
+						echo the_field('sub_title',$id);
+					}
 					echo "</a></h3></div></div>";
 				}
 			endwhile;

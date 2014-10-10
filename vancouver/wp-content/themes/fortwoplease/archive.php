@@ -67,7 +67,12 @@ $current_city = get_term_by('name', $wp_session['f2p-city'], 'city');
 					echo "<div class='overlay'><h3><a href='";
 					echo $itemPermalink;
 					echo "'>";
-					echo the_field('sub_title',$id);
+					if (strlen(get_field('sub_title', $id)) > 35) {
+						error_log('Subtitle bigger than 35');
+						echo showBrief_characters(get_field('sub_title', $id), 35) . '...';
+					} else {
+						echo the_field('sub_title',$id);
+					}
 					echo "</a></h3></div></div>";
 				}
 			endwhile;

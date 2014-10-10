@@ -54,22 +54,22 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					if(get_field('image_1')){ ?>
 						<div id="galleria">
 							<img src=<?php $image_1 = get_field('image_1');
-							echo $image_1['url'];?>>
+							echo $image_1;?>>
 							<?php $image_2 = get_field('image_2');
 							if (isset($image_2)){?>
-								<img src=<?php echo $image_2['url']; ?>>
+								<img src=<?php echo $image_2; ?>>
 							<?php }
 							$image_3 = get_field('image_3');
-							if(isset($image_3['url'])){?>
-								<img src=<?php echo $image_3['url']; ?>>
+							if(isset($image_3)){?>
+								<img src=<?php echo $image_3; ?>>
 							<?php }
 							$image_4 = get_field('image_4');
-							if(isset($image_4['url'])){?>
-								<img src=<?php echo $image_4['url']; ?>>
+							if(isset($image_4)){?>
+								<img src=<?php echo $image_4; ?>>
 							<?php }
 							$image_5 = get_field('image_5');
-							if(isset($image_4['url'])){?>
-								<img src=<?php echo $image_5['url']; ?>>
+							if(isset($image_4)){?>
+								<img src=<?php echo $image_5; ?>>
 							<?php }  ?>
 						</div>
 
