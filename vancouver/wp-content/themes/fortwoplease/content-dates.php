@@ -92,8 +92,9 @@ var address =  "<?php the_field("mailing_address"); ?>, <?php the_field("city");
 					<p class="short_desc"><?php the_field('short_description'); ?></p>
 				<?php } ?>
 				<div class="why"><?php the_field('why_is_this_a_great_date'); ?></div>
-
-				<div id="word-on-street" class="quotes"><?php the_field('word_on_the_street'); ?></div>
+				<?php if(get_field('word_on_the_street') && trim(get_field('word_on_the_street') != '')) { ?>
+					<div id="word-on-street" class="quotes"><?php the_field('word_on_the_street'); ?></div>
+				<?php } ?>
 			</div>
 		</div>
 		<div class="date_content">
