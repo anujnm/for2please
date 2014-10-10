@@ -228,7 +228,7 @@ Template Name: upload
               <label>Testimonials and Awards 3: </label>
               <textarea name="testimonial3" class="text login_text testimonial" value="" rows="5" cols="50" /></textarea>
             </div>
-            <div style='font-weight:bold;padding-top:20px;'>Upload up to 5 images of resolutions 700x350 pixels or greater: </div>
+            <div style='font-weight:bold;padding-top:20px;'>Upload up to 5 images of resolutions 505x295 pixels or greater. Please ensure that the aspect ratio of your images is as close to this as possible. </div>
             <div class="upload_fields">
               <label>Image 1: </label>
               <input type='file' name='attach1' id='attach1'>
