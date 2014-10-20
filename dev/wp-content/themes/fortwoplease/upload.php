@@ -49,8 +49,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> best date spots for the fall?</p><br/>
-          <p><b>Please fill out the form below by October 17, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> Best Fall Date Spots".</b></p><br/>
-          <p>Final selections will be made by October 24, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by October 24, 2014, to be nominated for the "ForTwoPlease Guide to <?php echo $current_city; ?>'<?php if (substr($current_city, strlen($current_city)-1) != 's') { echo 's';}?> Best Fall Date Spots".</b></p><br/>
+          <p>Final selections will be made by October 31, 2014.</p><br/><br/>
         <?php
       } else {
         if (isset($_GET['city']) && trim($_GET['city']) != '') {
@@ -62,8 +62,8 @@ Template Name: upload
           <br/>
           <p>Hey there! </p><br/>
           <p>Are you one of your city's best date spots for the fall?</p><br/>
-          <p><b>Please fill out the form below by October 17, 2014, to be nominated for the "ForTwoPlease Fall Date Spot".</b></p><br/>
-          <p>Final selections will be made by October 24, 2014.</p><br/><br/>
+          <p><b>Please fill out the form below by October 24, 2014, to be nominated for the "ForTwoPlease Fall Date Spot".</b></p><br/>
+          <p>Final selections will be made by October 31, 2014.</p><br/><br/>
         <?php
       }
         ?>
