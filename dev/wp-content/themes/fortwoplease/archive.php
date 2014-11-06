@@ -28,7 +28,7 @@ $current_city = get_term_by('name', $wp_session['f2p-city'], 'city');
 		<?php
 		if ( have_posts() ) :
 			while ( have_posts() ) : the_post();
-				$itemPermalink = get_permalink($id);
+				$itemPermalink = get_date_idea_permalink($id);
 				$datetypes = get_the_term_list( $id, 'date-type', '', ', ', '' );
 				$city = wp_get_post_terms($id, 'city')[0];
 				if ($city->term_id == $current_city->term_id) {

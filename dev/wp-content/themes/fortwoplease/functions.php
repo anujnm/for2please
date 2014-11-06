@@ -7,6 +7,18 @@ function limit_terms($val) {
 add_filter( "term_links-location", 'limit_terms');
 
 
+function get_date_idea_permalink($id) {
+  $permalink = get_permalink($id);
+  if (get_post_type($id) == 'date-ideas') {
+    $matches = [];
+    $result = preg_match('%http:\/\/www\.fortwodev.com\/(date-ideas)/(.+?)/([^/]+)(/[0-9]+)?/?$%', $permalink, $matches);
+    if ($result == 1) {
+      $permalink = BASE_URL . $matches[2] . '/' . $matches[1] . '/' . $matches[3] . '/';
+    }
+  }
+  return $permalink;
+}
+
 function get_permalink_now(){
 	$id = $_POST['id'];
 	echo get_permalink($id);
@@ -35,7 +47,7 @@ function load_single_date(){
 	}
 
 	for($iz=1;$iz<=$cflag;$iz++) {
-		$itemPermalink = get_permalink($id[$iz]);
+		$itemPermalink = get_date_idea_permalink($id[$iz]);
 		$datetypes = get_the_term_list( $id[$iz], 'date-type', '', ', ', '' );
 		echo "<div id='";
 		echo $id[$iz];
@@ -93,7 +105,7 @@ function load_date_for_idea_page(){
 	}
 
 	for($iz=1;$iz<=$cflag;$iz++) {
-		$itemPermalink = get_permalink($id[$iz]);
+		$itemPermalink = get_date_idea_permalink($id[$iz]);
 		$datetypes = get_the_term_list( $id[$iz], 'date-type', '', ', ', '' );
 		echo '<div style="height: 2px;"></div>';
 		if ($iz == 1) {
@@ -143,7 +155,7 @@ add_action('wp_ajax_loaddateforideapage', 'load_date_for_idea_page');//for users
 
 
 function get_random_date(){
-	$args = array('showposts' => 1, 'orderby' => 'rand', 'post_type' => 'dates', 'post_status' => 'publish');
+	$args = array('showposts' => 1, 'orderby' => 'rand', 'post_type' => 'date-ideas', 'post_status' => 'publish');
 	$rand_posts = get_posts($args);
 	if($rand_posts){
 		return $rand_posts[0]->ID;
@@ -159,7 +171,7 @@ function recommend_dates(){
   	if($ID[$i]==0){
   		$ID[$i] = get_random_date();
   	}
-  	$itemPermalink = get_permalink($ID[$i]);
+  	$itemPermalink = get_date_idea_permalink($ID[$i]);
   	if($i==0)
   	{
   		echo "<p style='font-size:16px;font-weight:700;color:#666;margin-left:90px;padding-top:10px;'>More Great Date Ideas</p>";
@@ -198,7 +210,7 @@ add_action('wp_ajax_recommenddates', 'recommend_dates');//for users that are not
 
 
 function search_by_keyword(){
-	$myquery['post_type'] = 'dates';
+	$myquery['post_type'] = 'date-ideas';
 	$myquery['posts_per_page'] = '500';
 	$myquery['post_status'] = 'publish';
 	query_posts($myquery);
@@ -599,7 +611,7 @@ function share_date(){
 	$message = $_POST['message'];
 	$postid = $_POST['pid'];
 	$postobject = wp_get_single_post($postid);
-	$permalink = get_permalink($postid);
+	$permalink = get_date_idea_permalink($postid);
 
 	$headers = 'From: ForTwoPlease <info@<?php echo DOMAIN_NAME;?>>' . "\r\n";
 	$contents = '<p>Lucky You!</p><p>'.$fromname.' thought you would like this great date idea:</p><b><a href="'.$permalink.'">'.$postobject->post_title .'</a></b><p>Check it out and let '.$fromname.' know what you think.</p><p>Have Fun<br/>-The ForTwoPlease Team</p>';
@@ -662,7 +674,7 @@ function search_dates() {
   }
 
 	$myquery['orderby'] = 'rand';
-	$myquery['post_type'] = 'dates';
+	$myquery['post_type'] = 'date-ideas';
 	$myquery['posts_per_page'] = '300';
 	$myquery['post_status'] = 'publish';
 
@@ -773,7 +785,7 @@ function create_date_idea() {
     'post_name' => $business_name,
     'post_title' => $business_name,
     'post_status' => 'draft',
-    'post_type' => 'dates',
+    'post_type' => 'date-ideas',
     'post_author' => 727,
   );
   $testimonials = $testimonial1 . '<p>' . $testimonial2 . '<p>' . $testimonial3;
@@ -843,7 +855,7 @@ function create_date_idea() {
   wp_set_object_terms($result1, $date_times, 'time');
   wp_set_object_terms($result1, $city_name, 'city');
 
-  $preview_link = '<?php echo BASE_URL?>/?post_type=dates&p=' . $result1 . '&preview=true';
+  $preview_link = '<?php echo BASE_URL?>/?post_type=date-ideas&p=' . $result1 . '&preview=true';
   $csv_contents = array($result1, $preview_link, $business_name, $user_name, '', $user_email, $business_phone, $website, $street_address1, '', $address_city, $province, $country, $postal_code, '', '', $city_name);
   #$csv_contents = array('Post ID', 'Preview Link', 'Business Name', 'Contact Name', 'Title', 'Email', 'Phone', 'Website', 'Street 1', 'Street 2', 'City', 'Province', 'Country', 'Postal Code', 'Best contact time', 'Neighbourhood');
   $city = get_term_by('id', $city_id, 'city');

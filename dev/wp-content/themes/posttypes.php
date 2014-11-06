@@ -6,17 +6,17 @@ add_action('init', 'dates_init');
 function dates_init()
 {
 	$date_labels = array(
-		'name' => _x('Dates', 'post type general name'),
-		'singular_name' => _x('Date', 'post type singular name'),
-		'all_items' => __('All Dates'),
-		'add_new' => _x('Add new Date', 'Dates'),
-		'add_new_item' => __('Add new Date'),
-		'edit_item' => __('Edit Date'),
-		'new_item' => __('New Date'),
-		'view_item' => __('View Date'),
-		'search_items' => __('Search in Dates'),
-		'not_found' =>  __('No Dates found'),
-		'not_found_in_trash' => __('No Dates found in trash'),
+		'name' => _x('Date Ideas', 'post type general name'),
+		'singular_name' => _x('Date Idea', 'post type singular name'),
+		'all_items' => __('All Date Ideas'),
+		'add_new' => _x('Add new Date Idea', 'Date Ideas'),
+		'add_new_item' => __('Add new Date Idea'),
+		'edit_item' => __('Edit Date Idea'),
+		'new_item' => __('New Date Idea'),
+		'view_item' => __('View Date Idea'),
+		'search_items' => __('Search in Date Ideas'),
+		'not_found' =>  __('No Date Ideas found'),
+		'not_found_in_trash' => __('No Date Ideas found in trash'),
 		'parent_item_colon' => ''
 	);
 	$args = array(
@@ -30,9 +30,9 @@ function dates_init()
 		'hierarchical' => false,
 		'menu_position' => 5,
 		'supports' => array('title','editor','author','thumbnail','excerpt','comments','custom-fields'),
-		'has_archive' => 'dates'
+		'has_archive' => 'date-ideas'
 	);
-	register_post_type('dates',$args);
+	register_post_type('date-ideas',$args);
 }
 
 ?>
@@ -75,7 +75,7 @@ function type_create_taxonomies()
 		'new_item_name' => __( 'New date type' ),
 		'menu_name' => __( 'Date Type' ),
 	);
-		register_taxonomy('date-type',array('dates'),array(
+		register_taxonomy('date-type',array('date-ideas'),array(
 		'hierarchical' => true,
 		'labels' => $type_labels,
 		'show_ui' => true,
@@ -103,7 +103,7 @@ function location_create_taxonomies()
 		'new_item_name' => __( 'New Location' ),
 		'menu_name' => __( 'Location' ),
 	);
-		register_taxonomy('location',array('dates'),array(
+		register_taxonomy('location',array('date-ideas'),array(
 		'hierarchical' => true,
 		'labels' => $location_labels,
 		'show_ui' => true,
@@ -131,7 +131,7 @@ function city_create_taxonomies()
 		'new_item_name' => __( 'New City' ),
 		'menu_name' => __( 'City' ),
 	);
-		register_taxonomy('city',array('dates'),array(
+		register_taxonomy('city',array('date-ideas'),array(
 		'hierarchical' => true,
 		'labels' => $city_labels,
 		'show_ui' => true,
@@ -159,7 +159,7 @@ function time_create_taxonomies()
 		'new_item_name' => __( 'New Time' ),
 		'menu_name' => __( 'Time' ),
 	);
-		register_taxonomy('time',array('dates'),array(
+		register_taxonomy('time',array('date-ideas'),array(
 		'hierarchical' => true,
 		'labels' => $time_labels,
 		'show_ui' => true,
@@ -187,7 +187,7 @@ function price_create_taxonomies()
 		'new_item_name' => __( 'New Price Range' ),
 		'menu_name' => __( 'Price Range' ),
 	);
-		register_taxonomy('price',array('dates'),array(
+		register_taxonomy('price',array('date-ideas'),array(
 		'hierarchical' => true,
 		'labels' => $price_labels,
 		'show_ui' => true,
@@ -218,7 +218,7 @@ function price_create_taxonomies()
 	$counter = 1;
   foreach ($city_list as $city) {
 		$args = array('post_status' => 'draft',
-							'post_type' => 'dates',
+							'post_type' => 'date-ideas',
 							'posts_per_page' => 50,
 							'tax_query' => array(
 								array(
